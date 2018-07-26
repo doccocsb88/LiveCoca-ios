@@ -8,6 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		02A9527CEAF89D8F28A4D2A1 /* libPods-facebook-live-ios-sample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C6B77655B3338929356F4ACE /* libPods-facebook-live-ios-sample.a */; };
+		189C0EED210A12C500ADF7FF /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189C0EEC210A12C500ADF7FF /* ProfileViewController.swift */; };
+		189C0EF4210A133A00ADF7FF /* StreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189C0EF3210A133A00ADF7FF /* StreamViewController.swift */; };
+		189C0EF6210A134B00ADF7FF /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189C0EF5210A134B00ADF7FF /* HistoryViewController.swift */; };
+		189C0EF8210A136400ADF7FF /* SetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189C0EF7210A136400ADF7FF /* SetupViewController.swift */; };
+		189C0EFA210A16CF00ADF7FF /* BaseTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189C0EF9210A16CE00ADF7FF /* BaseTabbarController.swift */; };
+		189C0EFF210A22B800ADF7FF /* StreamHistoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189C0EFD210A22B800ADF7FF /* StreamHistoryViewCell.swift */; };
+		189C0F00210A22B800ADF7FF /* StreamHistoryViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 189C0EFE210A22B800ADF7FF /* StreamHistoryViewCell.xib */; };
 		DB40E2301E71567E009E7C74 /* FBSDKLiveVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB40E22F1E71567E009E7C74 /* FBSDKLiveVideo.swift */; };
 		DB9C406E1E70527D00CCBD83 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9C406D1E70527D00CCBD83 /* AppDelegate.swift */; };
 		DB9C40701E70527D00CCBD83 /* HKLiveVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9C406F1E70527D00CCBD83 /* HKLiveVideoViewController.swift */; };
@@ -18,6 +25,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		189C0EEC210A12C500ADF7FF /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProfileViewController.swift; path = ../ProfileViewController.swift; sourceTree = "<group>"; };
+		189C0EF3210A133A00ADF7FF /* StreamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamViewController.swift; sourceTree = "<group>"; };
+		189C0EF5210A134B00ADF7FF /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		189C0EF7210A136400ADF7FF /* SetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupViewController.swift; sourceTree = "<group>"; };
+		189C0EF9210A16CE00ADF7FF /* BaseTabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabbarController.swift; sourceTree = "<group>"; };
+		189C0EFD210A22B800ADF7FF /* StreamHistoryViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamHistoryViewCell.swift; sourceTree = "<group>"; };
+		189C0EFE210A22B800ADF7FF /* StreamHistoryViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StreamHistoryViewCell.xib; sourceTree = "<group>"; };
 		2B02021FA580E4FBC446761A /* Pods-facebook-live-ios-sample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-facebook-live-ios-sample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-facebook-live-ios-sample/Pods-facebook-live-ios-sample.debug.xcconfig"; sourceTree = "<group>"; };
 		BF45F806C5E2FD408C4D0C85 /* Pods-facebook-live-ios-sample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-facebook-live-ios-sample.release.xcconfig"; path = "Pods/Target Support Files/Pods-facebook-live-ios-sample/Pods-facebook-live-ios-sample.release.xcconfig"; sourceTree = "<group>"; };
 		C6B77655B3338929356F4ACE /* libPods-facebook-live-ios-sample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-facebook-live-ios-sample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -48,6 +62,67 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		189C0EEE210A12D000ADF7FF /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				189C0EF2210A131100ADF7FF /* Stream */,
+				189C0EF1210A130500ADF7FF /* Setup */,
+				189C0EF0210A12FB00ADF7FF /* History */,
+				189C0EEF210A12E500ADF7FF /* Profile */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		189C0EEF210A12E500ADF7FF /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				189C0EEC210A12C500ADF7FF /* ProfileViewController.swift */,
+			);
+			name = Profile;
+			sourceTree = "<group>";
+		};
+		189C0EF0210A12FB00ADF7FF /* History */ = {
+			isa = PBXGroup;
+			children = (
+				189C0EFC210A228C00ADF7FF /* Model */,
+				189C0EFB210A228300ADF7FF /* View */,
+				189C0EF5210A134B00ADF7FF /* HistoryViewController.swift */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
+		189C0EF1210A130500ADF7FF /* Setup */ = {
+			isa = PBXGroup;
+			children = (
+				189C0EF7210A136400ADF7FF /* SetupViewController.swift */,
+			);
+			name = Setup;
+			sourceTree = "<group>";
+		};
+		189C0EF2210A131100ADF7FF /* Stream */ = {
+			isa = PBXGroup;
+			children = (
+				189C0EF3210A133A00ADF7FF /* StreamViewController.swift */,
+			);
+			path = Stream;
+			sourceTree = "<group>";
+		};
+		189C0EFB210A228300ADF7FF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				189C0EFD210A22B800ADF7FF /* StreamHistoryViewCell.swift */,
+				189C0EFE210A22B800ADF7FF /* StreamHistoryViewCell.xib */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		189C0EFC210A228C00ADF7FF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		8C8D5D6C4F7A4A5BE8BB6845 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -86,6 +161,7 @@
 		DB9C406C1E70527D00CCBD83 /* facebook-live-ios-sample */ = {
 			isa = PBXGroup;
 			children = (
+				189C0EEE210A12D000ADF7FF /* Screens */,
 				ECE9438F210878E3003EB965 /* Utils */,
 				DB9C40811E7055BE00CCBD83 /* Classes */,
 				DB9C40801E7055AC00CCBD83 /* Resources */,
@@ -112,6 +188,7 @@
 				DBF6E1BF1E8BC1B800875443 /* FBSDKLiveVideo */,
 				DB9C406D1E70527D00CCBD83 /* AppDelegate.swift */,
 				DB9C406F1E70527D00CCBD83 /* HKLiveVideoViewController.swift */,
+				189C0EF9210A16CE00ADF7FF /* BaseTabbarController.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -144,6 +221,7 @@
 				DB9C40671E70527D00CCBD83 /* Frameworks */,
 				DB9C40681E70527D00CCBD83 /* Resources */,
 				34741E159FD04094EC28E4D2 /* [CP] Copy Pods Resources */,
+				069DD6882EF2026AD8154965 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -203,12 +281,28 @@
 				DB9C40781E70527D00CCBD83 /* LaunchScreen.storyboard in Resources */,
 				DB9C40751E70527D00CCBD83 /* Assets.xcassets in Resources */,
 				DB9C40731E70527D00CCBD83 /* Main.storyboard in Resources */,
+				189C0F00210A22B800ADF7FF /* StreamHistoryViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		069DD6882EF2026AD8154965 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-facebook-live-ios-sample/Pods-facebook-live-ios-sample-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		34741E159FD04094EC28E4D2 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -254,7 +348,13 @@
 			files = (
 				DB9C40701E70527D00CCBD83 /* HKLiveVideoViewController.swift in Sources */,
 				DB40E2301E71567E009E7C74 /* FBSDKLiveVideo.swift in Sources */,
+				189C0EF4210A133A00ADF7FF /* StreamViewController.swift in Sources */,
+				189C0EED210A12C500ADF7FF /* ProfileViewController.swift in Sources */,
+				189C0EF8210A136400ADF7FF /* SetupViewController.swift in Sources */,
+				189C0EFF210A22B800ADF7FF /* StreamHistoryViewCell.swift in Sources */,
+				189C0EFA210A16CF00ADF7FF /* BaseTabbarController.swift in Sources */,
 				DB9C406E1E70527D00CCBD83 /* AppDelegate.swift in Sources */,
+				189C0EF6210A134B00ADF7FF /* HistoryViewController.swift in Sources */,
 				ECE9439121087901003EB965 /* ImageUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
