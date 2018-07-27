@@ -52,8 +52,19 @@ class StreamViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // Pass the selected object to the new view controller.
     }
     */
+  
     func dismissKeyboard (_ sender: UITapGestureRecognizer) {
         self.view.endEditing(true)
+    }
+    
+    @IBAction func addUrlStreamTapped(_ sender: Any) {
+    }
+    
+    @IBAction func nextTapped(_ sender: Any) {
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "LiveVideoViewController")
+        self.present(controller, animated: true, completion: nil)
     }
 }
 extension StreamViewController{

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		02A9527CEAF89D8F28A4D2A1 /* libPods-facebook-live-ios-sample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C6B77655B3338929356F4ACE /* libPods-facebook-live-ios-sample.a */; };
+		187A1686210B8A3E00F418CF /* MenuViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187A1685210B8A3E00F418CF /* MenuViewCell.swift */; };
 		189C0EED210A12C500ADF7FF /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189C0EEC210A12C500ADF7FF /* ProfileViewController.swift */; };
 		189C0EF4210A133A00ADF7FF /* StreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189C0EF3210A133A00ADF7FF /* StreamViewController.swift */; };
 		189C0EF6210A134B00ADF7FF /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189C0EF5210A134B00ADF7FF /* HistoryViewController.swift */; };
@@ -37,6 +38,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		187A1685210B8A3E00F418CF /* MenuViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewCell.swift; sourceTree = "<group>"; };
 		189C0EEC210A12C500ADF7FF /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProfileViewController.swift; path = ../ProfileViewController.swift; sourceTree = "<group>"; };
 		189C0EF3210A133A00ADF7FF /* StreamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamViewController.swift; sourceTree = "<group>"; };
 		189C0EF5210A134B00ADF7FF /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
@@ -131,6 +133,8 @@
 				EC53B2C8210B29C1000A3866 /* Controller */,
 				EC53B2BF210B0372000A3866 /* View */,
 				189C0EF3210A133A00ADF7FF /* StreamViewController.swift */,
+				DB9C406F1E70527D00CCBD83 /* HKLiveVideoViewController.swift */,
+				187A1685210B8A3E00F418CF /* MenuViewCell.swift */,
 			);
 			path = Stream;
 			sourceTree = "<group>";
@@ -215,7 +219,6 @@
 			children = (
 				DBF6E1BF1E8BC1B800875443 /* FBSDKLiveVideo */,
 				DB9C406D1E70527D00CCBD83 /* AppDelegate.swift */,
-				DB9C406F1E70527D00CCBD83 /* HKLiveVideoViewController.swift */,
 				189C0EF9210A16CE00ADF7FF /* BaseTabbarController.swift */,
 			);
 			name = Classes;
@@ -434,6 +437,7 @@
 				EC53B2B8210AD07A000A3866 /* StreamAccountViewCell.swift in Sources */,
 				189C0EFF210A22B800ADF7FF /* StreamHistoryViewCell.swift in Sources */,
 				189C0EFA210A16CF00ADF7FF /* BaseTabbarController.swift in Sources */,
+				187A1686210B8A3E00F418CF /* MenuViewCell.swift in Sources */,
 				DB9C406E1E70527D00CCBD83 /* AppDelegate.swift in Sources */,
 				189C0EF6210A134B00ADF7FF /* HistoryViewController.swift in Sources */,
 				ECE9439121087901003EB965 /* ImageUtils.swift in Sources */,
