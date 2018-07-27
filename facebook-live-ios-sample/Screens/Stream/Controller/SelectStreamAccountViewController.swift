@@ -1,15 +1,15 @@
 //
-//  HistoryViewController.swift
+//  SelectStreamAccountViewController.swift
 //  facebook-live-ios-sample
 //
-//  Created by Apple on 7/26/18.
+//  Created by Hai Vu on 7/27/18.
 //  Copyright © 2018 Hans Knoechel. All rights reserved.
 //
 
 import UIKit
 
-class HistoryViewController: UIViewController , UITableViewDataSource, UITableViewDelegate {
-   
+class SelectStreamAccountViewController: UIViewController , UITableViewDelegate, UITableViewDataSource {
+  
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -19,37 +19,31 @@ class HistoryViewController: UIViewController , UITableViewDataSource, UITableVi
         setup()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     func setup(){
-        tableView.register(UINib(nibName: "StreamHistoryViewCell", bundle: nil), forCellReuseIdentifier: "historyCell")
+        tableView.register(UINib(nibName: "SelectStreamAccountViewCell", bundle: nil), forCellReuseIdentifier: "accountCell")
     }
     /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
+        // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
     }
     */
 
 }
-extension HistoryViewController{
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80.0
-    }
+extension SelectStreamAccountViewController{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10;
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "historyCell", for: indexPath)
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "accountCell", for: indexPath)
         return cell
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.dismiss(animated: true, completion: nil)
     }
     
 }

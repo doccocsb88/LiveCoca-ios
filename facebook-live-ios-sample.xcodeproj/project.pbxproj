@@ -21,6 +21,18 @@
 		DB9C40731E70527D00CCBD83 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB9C40711E70527D00CCBD83 /* Main.storyboard */; };
 		DB9C40751E70527D00CCBD83 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB9C40741E70527D00CCBD83 /* Assets.xcassets */; };
 		DB9C40781E70527D00CCBD83 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB9C40761E70527D00CCBD83 /* LaunchScreen.storyboard */; };
+		EC53B2B8210AD07A000A3866 /* StreamAccountViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC53B2B6210AD07A000A3866 /* StreamAccountViewCell.swift */; };
+		EC53B2B9210AD07A000A3866 /* StreamAccountViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC53B2B7210AD07A000A3866 /* StreamAccountViewCell.xib */; };
+		EC53B2BD210AED22000A3866 /* FrameViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC53B2BB210AED22000A3866 /* FrameViewCell.swift */; };
+		EC53B2BE210AED22000A3866 /* FrameViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC53B2BC210AED22000A3866 /* FrameViewCell.xib */; };
+		EC53B2C2210B03B9000A3866 /* StreamOptionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC53B2C0210B03B9000A3866 /* StreamOptionViewCell.swift */; };
+		EC53B2C3210B03B9000A3866 /* StreamOptionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC53B2C1210B03B9000A3866 /* StreamOptionViewCell.xib */; };
+		EC53B2C6210B09E2000A3866 /* UrlStreamViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC53B2C4210B09E2000A3866 /* UrlStreamViewCell.swift */; };
+		EC53B2C7210B09E2000A3866 /* UrlStreamViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC53B2C5210B09E2000A3866 /* UrlStreamViewCell.xib */; };
+		EC53B2CB210B2A14000A3866 /* SelectStreamAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC53B2C9210B2A14000A3866 /* SelectStreamAccountViewController.swift */; };
+		EC53B2CC210B2A14000A3866 /* SelectStreamAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC53B2CA210B2A14000A3866 /* SelectStreamAccountViewController.xib */; };
+		EC53B2CF210B2EA6000A3866 /* SelectStreamAccountViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC53B2CD210B2EA6000A3866 /* SelectStreamAccountViewCell.swift */; };
+		EC53B2D0210B2EA6000A3866 /* SelectStreamAccountViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC53B2CE210B2EA6000A3866 /* SelectStreamAccountViewCell.xib */; };
 		ECE9439121087901003EB965 /* ImageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE9439021087901003EB965 /* ImageUtils.swift */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +59,18 @@
 		DBA01A2D1E71CAD80005A439 /* facebook-live-ios-sample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "facebook-live-ios-sample-Bridging-Header.h"; sourceTree = "<group>"; };
 		DBBBFCFB1E7166E100CD90AC /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
 		DBBBFCFC1E7166E100CD90AC /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		EC53B2B6210AD07A000A3866 /* StreamAccountViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamAccountViewCell.swift; sourceTree = "<group>"; };
+		EC53B2B7210AD07A000A3866 /* StreamAccountViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StreamAccountViewCell.xib; sourceTree = "<group>"; };
+		EC53B2BB210AED22000A3866 /* FrameViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameViewCell.swift; sourceTree = "<group>"; };
+		EC53B2BC210AED22000A3866 /* FrameViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FrameViewCell.xib; sourceTree = "<group>"; };
+		EC53B2C0210B03B9000A3866 /* StreamOptionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamOptionViewCell.swift; sourceTree = "<group>"; };
+		EC53B2C1210B03B9000A3866 /* StreamOptionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StreamOptionViewCell.xib; sourceTree = "<group>"; };
+		EC53B2C4210B09E2000A3866 /* UrlStreamViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlStreamViewCell.swift; sourceTree = "<group>"; };
+		EC53B2C5210B09E2000A3866 /* UrlStreamViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UrlStreamViewCell.xib; sourceTree = "<group>"; };
+		EC53B2C9210B2A14000A3866 /* SelectStreamAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectStreamAccountViewController.swift; sourceTree = "<group>"; };
+		EC53B2CA210B2A14000A3866 /* SelectStreamAccountViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectStreamAccountViewController.xib; sourceTree = "<group>"; };
+		EC53B2CD210B2EA6000A3866 /* SelectStreamAccountViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectStreamAccountViewCell.swift; sourceTree = "<group>"; };
+		EC53B2CE210B2EA6000A3866 /* SelectStreamAccountViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectStreamAccountViewCell.xib; sourceTree = "<group>"; };
 		ECE9439021087901003EB965 /* ImageUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -76,6 +100,7 @@
 		189C0EEF210A12E500ADF7FF /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				EC53B2B5210ACF81000A3866 /* View */,
 				189C0EEC210A12C500ADF7FF /* ProfileViewController.swift */,
 			);
 			name = Profile;
@@ -94,6 +119,7 @@
 		189C0EF1210A130500ADF7FF /* Setup */ = {
 			isa = PBXGroup;
 			children = (
+				EC53B2BA210AECE1000A3866 /* View */,
 				189C0EF7210A136400ADF7FF /* SetupViewController.swift */,
 			);
 			name = Setup;
@@ -102,6 +128,8 @@
 		189C0EF2210A131100ADF7FF /* Stream */ = {
 			isa = PBXGroup;
 			children = (
+				EC53B2C8210B29C1000A3866 /* Controller */,
+				EC53B2BF210B0372000A3866 /* View */,
 				189C0EF3210A133A00ADF7FF /* StreamViewController.swift */,
 			);
 			path = Stream;
@@ -110,7 +138,6 @@
 		189C0EFB210A228300ADF7FF /* View */ = {
 			isa = PBXGroup;
 			children = (
-				189C0EFD210A22B800ADF7FF /* StreamHistoryViewCell.swift */,
 				189C0EFE210A22B800ADF7FF /* StreamHistoryViewCell.xib */,
 			);
 			name = View;
@@ -119,6 +146,7 @@
 		189C0EFC210A228C00ADF7FF /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				189C0EFD210A22B800ADF7FF /* StreamHistoryViewCell.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -201,6 +229,47 @@
 			name = FBSDKLiveVideo;
 			sourceTree = "<group>";
 		};
+		EC53B2B5210ACF81000A3866 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				EC53B2B6210AD07A000A3866 /* StreamAccountViewCell.swift */,
+				EC53B2B7210AD07A000A3866 /* StreamAccountViewCell.xib */,
+			);
+			name = View;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		EC53B2BA210AECE1000A3866 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				EC53B2BB210AED22000A3866 /* FrameViewCell.swift */,
+				EC53B2BC210AED22000A3866 /* FrameViewCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		EC53B2BF210B0372000A3866 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				EC53B2C0210B03B9000A3866 /* StreamOptionViewCell.swift */,
+				EC53B2C1210B03B9000A3866 /* StreamOptionViewCell.xib */,
+				EC53B2C4210B09E2000A3866 /* UrlStreamViewCell.swift */,
+				EC53B2C5210B09E2000A3866 /* UrlStreamViewCell.xib */,
+				EC53B2CD210B2EA6000A3866 /* SelectStreamAccountViewCell.swift */,
+				EC53B2CE210B2EA6000A3866 /* SelectStreamAccountViewCell.xib */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		EC53B2C8210B29C1000A3866 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				EC53B2C9210B2A14000A3866 /* SelectStreamAccountViewController.swift */,
+				EC53B2CA210B2A14000A3866 /* SelectStreamAccountViewController.xib */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		ECE9438F210878E3003EB965 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -278,10 +347,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC53B2CC210B2A14000A3866 /* SelectStreamAccountViewController.xib in Resources */,
+				EC53B2C7210B09E2000A3866 /* UrlStreamViewCell.xib in Resources */,
 				DB9C40781E70527D00CCBD83 /* LaunchScreen.storyboard in Resources */,
 				DB9C40751E70527D00CCBD83 /* Assets.xcassets in Resources */,
+				EC53B2D0210B2EA6000A3866 /* SelectStreamAccountViewCell.xib in Resources */,
 				DB9C40731E70527D00CCBD83 /* Main.storyboard in Resources */,
 				189C0F00210A22B800ADF7FF /* StreamHistoryViewCell.xib in Resources */,
+				EC53B2BE210AED22000A3866 /* FrameViewCell.xib in Resources */,
+				EC53B2B9210AD07A000A3866 /* StreamAccountViewCell.xib in Resources */,
+				EC53B2C3210B03B9000A3866 /* StreamOptionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -346,11 +421,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC53B2CF210B2EA6000A3866 /* SelectStreamAccountViewCell.swift in Sources */,
+				EC53B2BD210AED22000A3866 /* FrameViewCell.swift in Sources */,
 				DB9C40701E70527D00CCBD83 /* HKLiveVideoViewController.swift in Sources */,
 				DB40E2301E71567E009E7C74 /* FBSDKLiveVideo.swift in Sources */,
 				189C0EF4210A133A00ADF7FF /* StreamViewController.swift in Sources */,
 				189C0EED210A12C500ADF7FF /* ProfileViewController.swift in Sources */,
 				189C0EF8210A136400ADF7FF /* SetupViewController.swift in Sources */,
+				EC53B2C6210B09E2000A3866 /* UrlStreamViewCell.swift in Sources */,
+				EC53B2CB210B2A14000A3866 /* SelectStreamAccountViewController.swift in Sources */,
+				EC53B2C2210B03B9000A3866 /* StreamOptionViewCell.swift in Sources */,
+				EC53B2B8210AD07A000A3866 /* StreamAccountViewCell.swift in Sources */,
 				189C0EFF210A22B800ADF7FF /* StreamHistoryViewCell.swift in Sources */,
 				189C0EFA210A16CF00ADF7FF /* BaseTabbarController.swift in Sources */,
 				DB9C406E1E70527D00CCBD83 /* AppDelegate.swift in Sources */,

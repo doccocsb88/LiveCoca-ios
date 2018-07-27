@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14306.4" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14278.2"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="520" id="KGk-i7-Jjw" customClass="StreamOptionViewCell" customModule="facebook_live_ios_sample" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="410"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="409.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chọn tài khoản" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Me6-U4-CZj">
+                        <rect key="frame" x="20" y="20" width="95" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="17" id="u3D-lB-U8e"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                        <color key="textColor" red="0.59215686274509804" green="0.59215686274509804" blue="0.59215686274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleAspectFit" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DqO-0s-oDL">
+                        <rect key="frame" x="20" y="42" width="280" height="35"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="35" id="Yct-eb-3jj"/>
+                        </constraints>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="8" maxX="0.0" maxY="8"/>
+                        <state key="normal" image="ic_sort">
+                            <color key="titleColor" red="0.59215686270000001" green="0.59215686270000001" blue="0.59215686270000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="selectAccountTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="DtB-y6-vPA"/>
+                        </connections>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oSu-m7-mWx">
+                        <rect key="frame" x="20" y="42" width="280" height="35"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hd9-2s-y7o">
+                        <rect key="frame" x="130" y="85" width="170" height="30"/>
+                        <color key="backgroundColor" red="0.81568627449999997" green="0.0078431372550000003" blue="0.1058823529" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="Cap-lE-b4r"/>
+                            <constraint firstAttribute="width" constant="170" id="XmI-j7-1fC"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
+                        <state key="normal" title="Thêm tài khoản facebook" backgroundImage="bg_add_url"/>
+                        <connections>
+                            <action selector="addAccountTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="9QO-up-uaj"/>
+                        </connections>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chọn nơi đăng" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VMF-u4-JM7">
+                        <rect key="frame" x="20" y="135" width="93.5" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="17" id="skd-SP-m3s"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                        <color key="textColor" red="0.59215686270000001" green="0.59215686270000001" blue="0.59215686270000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleAspectFit" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dua-mO-uYS">
+                        <rect key="frame" x="20" y="160" width="280" height="35"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="35" id="DUm-Rs-MSe"/>
+                        </constraints>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="8" maxX="0.0" maxY="8"/>
+                        <state key="normal" image="ic_sort">
+                            <color key="titleColor" red="0.59215686270000001" green="0.59215686270000001" blue="0.59215686270000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="selectPageTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="wzY-wL-Som"/>
+                        </connections>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3uj-Da-ODm">
+                        <rect key="frame" x="20" y="169" width="280" height="17.5"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nội dung" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jFm-I9-bmC">
+                        <rect key="frame" x="20" y="215" width="57" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="17" id="cKQ-Bx-RB5"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                        <color key="textColor" red="0.59215686270000001" green="0.59215686270000001" blue="0.59215686270000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kkY-mc-wb4">
+                        <rect key="frame" x="20" y="240" width="280" height="100"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" priority="750" constant="100" id="XF0-pk-r8g"/>
+                        </constraints>
+                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </string>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    </textView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Đếm ngược" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qe3-sy-OXo">
+                        <rect key="frame" x="20" y="360" width="76.5" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="17" id="yy3-cg-CGb"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                        <color key="textColor" red="0.59215686270000001" green="0.59215686270000001" blue="0.59215686270000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YR4-m5-T6u">
+                        <rect key="frame" x="146.5" y="356" width="100" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="J4Q-Ld-xol"/>
+                            <constraint firstAttribute="width" constant="100" id="KfK-dq-LO4"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                        <inset key="titleEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <state key="normal" title="Kích hoạt" image="ic_checkbox_normal">
+                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                        <connections>
+                            <action selector="countDownTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="aRC-JV-oVL"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="hd9-2s-y7o" firstAttribute="top" secondItem="DqO-0s-oDL" secondAttribute="bottom" constant="8" id="0lo-qE-aN9"/>
+                    <constraint firstItem="jFm-I9-bmC" firstAttribute="top" secondItem="Dua-mO-uYS" secondAttribute="bottom" constant="20" id="3BP-Yr-uDf"/>
+                    <constraint firstItem="oSu-m7-mWx" firstAttribute="top" secondItem="DqO-0s-oDL" secondAttribute="top" id="4A3-qu-XoH"/>
+                    <constraint firstItem="kkY-mc-wb4" firstAttribute="top" secondItem="jFm-I9-bmC" secondAttribute="bottom" constant="8" id="4EU-57-bMB"/>
+                    <constraint firstItem="kkY-mc-wb4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="FdN-0E-mxX"/>
+                    <constraint firstItem="Dua-mO-uYS" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="Ig8-j6-zOd"/>
+                    <constraint firstItem="YR4-m5-T6u" firstAttribute="leading" secondItem="Qe3-sy-OXo" secondAttribute="trailing" constant="50" id="KFb-OQ-ukg"/>
+                    <constraint firstItem="YR4-m5-T6u" firstAttribute="centerY" secondItem="Qe3-sy-OXo" secondAttribute="centerY" id="KfA-hu-v0x"/>
+                    <constraint firstItem="Dua-mO-uYS" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="NQU-QF-nsE"/>
+                    <constraint firstItem="Qe3-sy-OXo" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="W5a-BM-BOi"/>
+                    <constraint firstItem="DqO-0s-oDL" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="WMK-gx-8zf"/>
+                    <constraint firstItem="oSu-m7-mWx" firstAttribute="leading" secondItem="DqO-0s-oDL" secondAttribute="leading" id="XBh-KM-5zt"/>
+                    <constraint firstItem="Qe3-sy-OXo" firstAttribute="top" secondItem="kkY-mc-wb4" secondAttribute="bottom" constant="20" id="YQX-8O-CZB"/>
+                    <constraint firstItem="3uj-Da-ODm" firstAttribute="leading" secondItem="Dua-mO-uYS" secondAttribute="leading" id="amd-dI-eMi"/>
+                    <constraint firstItem="DqO-0s-oDL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="cZV-kh-jpi"/>
+                    <constraint firstItem="jFm-I9-bmC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="eam-hR-MCF"/>
+                    <constraint firstItem="oSu-m7-mWx" firstAttribute="centerY" secondItem="DqO-0s-oDL" secondAttribute="centerY" id="f4U-vU-4ow"/>
+                    <constraint firstItem="Me6-U4-CZj" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="hzi-Iy-xmL"/>
+                    <constraint firstItem="3uj-Da-ODm" firstAttribute="centerY" secondItem="Dua-mO-uYS" secondAttribute="centerY" id="nNs-6T-lYn"/>
+                    <constraint firstItem="DqO-0s-oDL" firstAttribute="top" secondItem="Me6-U4-CZj" secondAttribute="bottom" constant="5" id="nhc-JD-MzR"/>
+                    <constraint firstItem="Me6-U4-CZj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="oza-lR-xHX"/>
+                    <constraint firstItem="hd9-2s-y7o" firstAttribute="trailing" secondItem="oSu-m7-mWx" secondAttribute="trailing" id="pXb-0H-bOm"/>
+                    <constraint firstItem="VMF-u4-JM7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="pyz-rT-o9x"/>
+                    <constraint firstItem="kkY-mc-wb4" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="qyd-28-kQ8"/>
+                    <constraint firstItem="VMF-u4-JM7" firstAttribute="top" secondItem="hd9-2s-y7o" secondAttribute="bottom" constant="20" id="rEk-5O-lgd"/>
+                    <constraint firstItem="oSu-m7-mWx" firstAttribute="centerX" secondItem="DqO-0s-oDL" secondAttribute="centerX" id="u2l-eL-Ysb"/>
+                    <constraint firstItem="Dua-mO-uYS" firstAttribute="top" secondItem="VMF-u4-JM7" secondAttribute="bottom" constant="8" id="xnZ-UF-2mY"/>
+                    <constraint firstItem="3uj-Da-ODm" firstAttribute="centerX" secondItem="Dua-mO-uYS" secondAttribute="centerX" id="yqz-kg-7Ft"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="addStreamAccountButton" destination="hd9-2s-y7o" id="UnA-h2-7w5"/>
+                <outlet property="countDownButton" destination="YR4-m5-T6u" id="DKx-SK-SHg"/>
+                <outlet property="selectStreamAccountButton" destination="DqO-0s-oDL" id="ATG-AP-oHM"/>
+                <outlet property="selectStreamPageButton" destination="Dua-mO-uYS" id="0hO-UQ-iaB"/>
+                <outlet property="streamDescriptionTextView" destination="kkY-mc-wb4" id="F9W-U7-ElT"/>
+            </connections>
+            <point key="canvasLocation" x="41.5" y="292"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="bg_add_url" width="280" height="70"/>
+        <image name="ic_checkbox_normal" width="16" height="16"/>
+        <image name="ic_sort" width="24" height="32"/>
+    </resources>
+</document>

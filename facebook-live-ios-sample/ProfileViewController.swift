@@ -11,6 +11,7 @@ import UIKit
 class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
   
 
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var avatarImageView: UIImageView!
     
     @IBOutlet weak var usernameLabel: UILabel!
@@ -30,6 +31,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        setup()
     }
 
     override func didReceiveMemoryWarning() {
@@ -47,17 +49,34 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         // Pass the selected object to the new view controller.
     }
     */
-
+    func setup(){
+        tableView.register(UINib(nibName: "StreamAccountViewCell", bundle: nil), forCellReuseIdentifier: "streamAccountCell")
+    }
 }
 
 extension ProfileViewController{
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return UIView()
+    }
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return UIView()
+    }
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0.0
+    }
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0.0
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60.0
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5;
+        return 3;
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "streamAccountCell", for: indexPath)
+        cell.selectionStyle = .none
         return cell
     }
     
