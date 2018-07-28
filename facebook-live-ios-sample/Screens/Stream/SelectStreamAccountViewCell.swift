@@ -10,6 +10,7 @@ import UIKit
 
 class SelectStreamAccountViewCell: UITableViewCell {
 
+    @IBOutlet weak var titleLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -20,5 +21,8 @@ class SelectStreamAccountViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+    func configView(account:FacebookInfo){
+        titleLabel.text = account.displayName ?? "ccc"
+    }
+
 }

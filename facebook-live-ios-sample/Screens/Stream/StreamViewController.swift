@@ -22,6 +22,16 @@ class StreamViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // Do any additional setup after loading the view.
         setup()
         setupUI()
+        FacebookServices.shared().fetchData {
+            let pages = FacebookServices.shared().listPages;
+            print("pages : \(pages.count)")
+        }
+//        FacebookServices.shared().getFbId(accessToken: FacebookServices.shared().accessTokens[0], onSuccess: { (fbid) in
+//            print("pages : \(fbid)")
+//
+//        }) {
+//            
+//        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -53,7 +63,7 @@ class StreamViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     */
   
-    func dismissKeyboard (_ sender: UITapGestureRecognizer) {
+     @objc func dismissKeyboard (_ sender: UITapGestureRecognizer) {
         self.view.endEditing(true)
     }
     
@@ -94,21 +104,15 @@ extension StreamViewController{
             cell.selectionStyle = .none
             cell.completionHandler = { a in
                 print("click \(a)")
-//                var view = UIView(new CGRect(View.Frame.Left, View.Frame.Height - 200, View.Frame.Right, 0));
-//                view.BackgroundColor = UIColor.Clear;
-//                let popupView = UIView(frame: CGRect(x: 0, y: self.view.frame.size.height , width: self.view.frame.size.width, height: 300))
-//                popupView.backgroundColor = UIColor.white
-//                if let app = UIApplication.shared.delegate as? AppDelegate, let window = app.window {
-//                    window.addSubview(popupView)
-//                }
-//                UIView.animate(withDuration: 1, animations: {
-//                    popupView.frame = CGRect(x: 0, y: self.view.frame.size.height - 300, width: self.view.frame.size.width, height: 300)
-//                })
-                let myViewController = SelectStreamAccountViewController(nibName: "SelectStreamAccountViewController", bundle: nil)
+
+                let myViewController = SelectStreamAccountViewController()
                 myViewController.modalPresentationStyle = .overFullScreen
-
-                self.present(myViewController, animated: true, completion: nil)
-
+                myViewController.account = FacebookServices.shared().listPages[0]
+                
+                self.present(myViewController, animated: true, completion: {
+                    myViewController.refreshData(info: FacebookServices.shared().listPages[0])
+                })
+                
             }
             return cell;
         }

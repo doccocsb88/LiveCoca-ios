@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 public extension UIImage {
     public convenience init?(color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) {
         let rect = CGRect(origin: .zero, size: size)
@@ -27,8 +28,8 @@ public extension UIImage {
         UIGraphicsBeginImageContextWithOptions(self.size, false, scale)
         
         let attrs = [
-            NSFontAttributeName: textFont,
-            NSForegroundColorAttributeName: textColor,
+            NSAttributedStringKey.font: textFont,
+            NSAttributedStringKey.foregroundColor: textColor,
             ]
         self.draw(in: CGRect(origin: CGPoint.zero, size: self.size))
         

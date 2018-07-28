@@ -10,17 +10,29 @@ import UIKit
 
 class SelectStreamAccountViewController: UIViewController , UITableViewDelegate, UITableViewDataSource {
   
-    @IBOutlet weak var tableView: UITableView!
+     var tableView: UITableView?
     
+    var account:FacebookInfo?
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         setup()
     }
-
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        DispatchQueue.main.async{ [unowned self] in
+            self.tableView?.reloadData()
+        }
+    }
     func setup(){
-        tableView.register(UINib(nibName: "SelectStreamAccountViewCell", bundle: nil), forCellReuseIdentifier: "accountCell")
+        tableView = UITableView(frame: CGRect(x: 0, y: self.view.frame.size.height / 2, width: self.view.frame.size.width, height: self.view.frame.size.height / 2))
+        tableView?.register(UINib(nibName: "SelectStreamAccountViewCell", bundle: nil), forCellReuseIdentifier: "accountCell")
+        tableView?.delegate = self;
+        tableView?.dataSource = self;
+        tableView?.backgroundColor = UIColor.white
+        self.view.addSubview(tableView!)
+        self.view.backgroundColor = UIColor.black.withAlphaComponent(0.3)
     }
     /*
     // MARK: - Navigation
@@ -31,16 +43,38 @@ class SelectStreamAccountViewController: UIViewController , UITableViewDelegate,
         // Pass the selected object to the new view controller.
     }
     */
-
+    func refreshData(info:FacebookInfo){
+        self.account = info
+        DispatchQueue.main.async{ [unowned self] in
+            self.tableView?.reloadData()
+        }
+        
+    }
 }
 extension SelectStreamAccountViewController{
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if let a = account{
+            return a.pages.count  + 1
+        }
+        return 1;
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "accountCell", for: indexPath)
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "accountCell", for: indexPath) as? SelectStreamAccountViewCell{
+        if indexPath.row == 0{
+            cell.configView(account: account!)
+        }else{
+            let index = indexPath.row - 1
+            if let page = account?.pages[index]{
+                cell.configView(account: page)
+            }
+        }
         return cell
+        }
+        return UITableViewCell()
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.dismiss(animated: true, completion: nil)
