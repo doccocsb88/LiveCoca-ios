@@ -57,22 +57,20 @@ extension SelectStreamAccountViewController{
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let a = account{
-            return a.pages.count  + 1
+            return a.pages.count
         }
         return 1;
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "accountCell", for: indexPath) as? SelectStreamAccountViewCell{
-        if indexPath.row == 0{
-            cell.configView(account: account!)
-        }else{
-            let index = indexPath.row - 1
+            
+            let index = indexPath.row
             if let page = account?.pages[index]{
                 cell.configView(account: page)
             }
-        }
-        return cell
+            
+            return cell
         }
         return UITableViewCell()
     }

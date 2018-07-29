@@ -59,6 +59,18 @@ public extension UIImage {
         
         return newImage!
     }
+    func mergeImage(image:UIImage,_ sourcePosition:CGRect, at position:CGRect) -> UIImage{
+//        var bottomImage:UIImage = UIImage(named: "imageName")!
+//        var topImage:UIImage = UIImage(named:"background")!
+        // Change here the new image size if you want
+//        let newSize = CGSize(width: image.size.width, height: image.size.height)
+        UIGraphicsBeginImageContextWithOptions(self.size, false, self.scale)
+        image.draw(in:position)
+        self.draw(in: sourcePosition, blendMode:CGBlendMode.normal, alpha:1.0)
+        let newImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return newImage
+    }
 }
 extension UIColor {
     convenience init(hexString: String) {
@@ -77,5 +89,13 @@ extension UIColor {
             (a, r, g, b) = (255, 0, 0, 0)
         }
         self.init(red: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: CGFloat(a) / 255)
+    }
+}
+extension UIView{
+    func addBorder(cornerRadius: CGFloat, color:UIColor){
+        self.layer.borderWidth = 0.5
+        self.layer.borderColor = color.cgColor
+        self.layer.cornerRadius = cornerRadius
+        self.layer.masksToBounds = true
     }
 }

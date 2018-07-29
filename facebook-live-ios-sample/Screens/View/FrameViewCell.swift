@@ -8,7 +8,8 @@
 
 import UIKit
 
-class FrameViewCell: UICollectionViewCell {
+class FrameViewCell:
+UICollectionViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()

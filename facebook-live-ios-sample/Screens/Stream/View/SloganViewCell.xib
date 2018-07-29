@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14306.4" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14278.2"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="315" id="KGk-i7-Jjw" customClass="SloganViewCell" customModule="facebook_live_ios_sample" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="315"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="314.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xPv-wl-BIp">
+                        <rect key="frame" x="10" y="10" width="300" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="VLL-wk-vfw"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                        <inset key="contentEdgeInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="5" maxX="0.0" maxY="5"/>
+                        <state key="normal" title="Ẩn" image="ic_circle">
+                            <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                        <state key="selected" image="ic_circle_dot"/>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hMM-sA-Sja">
+                        <rect key="frame" x="10" y="45" width="300" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="EPc-Oo-QrU"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                        <inset key="contentEdgeInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="5" maxX="0.0" maxY="5"/>
+                        <state key="normal" title="Power by CocaLive" image="ic_circle">
+                            <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                        <state key="selected" image="ic_circle_dot"/>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IHj-R5-iTA">
+                        <rect key="frame" x="10" y="80" width="300" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="SvU-FI-MxD"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                        <inset key="contentEdgeInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="5" maxX="0.0" maxY="5"/>
+                        <state key="normal" title="Khác" image="ic_circle">
+                            <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                        <state key="selected" image="ic_circle_dot"/>
+                    </button>
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jgr-an-2JA">
+                        <rect key="frame" x="10" y="115" width="300" height="30"/>
+                        <nil key="textColor"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                    </textField>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Màu sắc" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n5E-wi-UAD">
+                        <rect key="frame" x="10" y="155" width="46.5" height="14"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="77K-oF-mj3">
+                        <rect key="frame" x="10" y="174" width="300" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="ER5-5i-AFM"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
+                        <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <state key="normal" title="Button">
+                            <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Căn chỉnh" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a9N-0s-DEf">
+                        <rect key="frame" x="10" y="214" width="55" height="14"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                        <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p4I-QH-drd">
+                        <rect key="frame" x="10" y="233" width="300" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="zbg-Ga-zW6"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
+                        <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <state key="normal" title="Button">
+                            <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Pe-hI-vOe">
+                        <rect key="frame" x="120" y="274.5" width="80" height="30"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="80" id="IOS-pi-JRD"/>
+                            <constraint firstAttribute="height" constant="30" id="OFU-Gq-OBw"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
+                        <state key="normal" title="CẬP NHẬT"/>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="n5E-wi-UAD" firstAttribute="top" secondItem="jgr-an-2JA" secondAttribute="bottom" constant="10" id="00m-3r-2w2"/>
+                    <constraint firstItem="xPv-wl-BIp" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="0z6-70-Uaa"/>
+                    <constraint firstItem="IHj-R5-iTA" firstAttribute="top" secondItem="hMM-sA-Sja" secondAttribute="bottom" constant="5" id="6Rd-Qn-yfq"/>
+                    <constraint firstItem="IHj-R5-iTA" firstAttribute="width" secondItem="hMM-sA-Sja" secondAttribute="width" id="CAg-LY-reh"/>
+                    <constraint firstItem="n5E-wi-UAD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="Gzt-5z-0EU"/>
+                    <constraint firstItem="p4I-QH-drd" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="H4Q-zt-g68"/>
+                    <constraint firstItem="77K-oF-mj3" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="IZ9-0o-eTW"/>
+                    <constraint firstAttribute="bottom" secondItem="4Pe-hI-vOe" secondAttribute="bottom" constant="10" id="Mkn-0K-VDE"/>
+                    <constraint firstItem="a9N-0s-DEf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="OF2-rG-eD2"/>
+                    <constraint firstItem="jgr-an-2JA" firstAttribute="width" secondItem="IHj-R5-iTA" secondAttribute="width" id="R20-TX-alk"/>
+                    <constraint firstItem="a9N-0s-DEf" firstAttribute="top" secondItem="77K-oF-mj3" secondAttribute="bottom" constant="10" id="UQP-KG-Jeu"/>
+                    <constraint firstItem="hMM-sA-Sja" firstAttribute="top" secondItem="xPv-wl-BIp" secondAttribute="bottom" constant="5" id="UUI-VM-qYJ"/>
+                    <constraint firstItem="xPv-wl-BIp" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="acY-XM-qKK"/>
+                    <constraint firstItem="hMM-sA-Sja" firstAttribute="centerX" secondItem="xPv-wl-BIp" secondAttribute="centerX" id="bnL-Hk-BRF"/>
+                    <constraint firstItem="p4I-QH-drd" firstAttribute="top" secondItem="a9N-0s-DEf" secondAttribute="bottom" constant="5" id="exz-4n-mty"/>
+                    <constraint firstItem="jgr-an-2JA" firstAttribute="centerX" secondItem="IHj-R5-iTA" secondAttribute="centerX" id="fCf-YD-gdn"/>
+                    <constraint firstItem="77K-oF-mj3" firstAttribute="top" secondItem="n5E-wi-UAD" secondAttribute="bottom" constant="5" id="g34-fE-6zS"/>
+                    <constraint firstItem="IHj-R5-iTA" firstAttribute="centerX" secondItem="hMM-sA-Sja" secondAttribute="centerX" id="iPk-O6-fpZ"/>
+                    <constraint firstAttribute="trailing" secondItem="77K-oF-mj3" secondAttribute="trailing" constant="10" id="lEb-TC-VTF"/>
+                    <constraint firstItem="4Pe-hI-vOe" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="oCb-rp-YSa"/>
+                    <constraint firstAttribute="trailing" secondItem="xPv-wl-BIp" secondAttribute="trailing" constant="10" id="plK-TY-myN"/>
+                    <constraint firstAttribute="trailing" secondItem="p4I-QH-drd" secondAttribute="trailing" constant="10" id="rwy-Ra-fzO"/>
+                    <constraint firstItem="hMM-sA-Sja" firstAttribute="width" secondItem="xPv-wl-BIp" secondAttribute="width" id="vIv-NN-pK5"/>
+                    <constraint firstItem="jgr-an-2JA" firstAttribute="top" secondItem="IHj-R5-iTA" secondAttribute="bottom" constant="5" id="wlO-hN-ba3"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="alignButton" destination="p4I-QH-drd" id="pbN-vl-GEz"/>
+                <outlet property="colorButton" destination="77K-oF-mj3" id="zex-ej-uh2"/>
+                <outlet property="hideButton" destination="xPv-wl-BIp" id="Y8Q-11-bDi"/>
+                <outlet property="otherButton" destination="IHj-R5-iTA" id="Kjl-n1-Zpj"/>
+                <outlet property="powerButton" destination="hMM-sA-Sja" id="d2b-i0-0Qo"/>
+                <outlet property="sloganTextField" destination="jgr-an-2JA" id="I2v-60-rcn"/>
+                <outlet property="updateButton" destination="4Pe-hI-vOe" id="QAh-LS-jiD"/>
+            </connections>
+            <point key="canvasLocation" x="91" y="292.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="ic_circle" width="56" height="56"/>
+        <image name="ic_circle_dot" width="56" height="56"/>
+    </resources>
+</document>

@@ -7,6 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18042BDC210D52C500F48229 /* WarterMarkServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18042BDB210D52C500F48229 /* WarterMarkServices.swift */; };
+		18042BDF210D8B5F00F48229 /* CountDownViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18042BDD210D8B5F00F48229 /* CountDownViewCell.swift */; };
+		18042BE0210D8B5F00F48229 /* CountDownViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18042BDE210D8B5F00F48229 /* CountDownViewCell.xib */; };
+		18042BE3210DA18900F48229 /* SloganViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18042BE1210DA18900F48229 /* SloganViewCell.swift */; };
+		18042BE4210DA18900F48229 /* SloganViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18042BE2210DA18900F48229 /* SloganViewCell.xib */; };
+		18042BEB210DB0E400F48229 /* FrameViewCellV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18042BE9210DB0E400F48229 /* FrameViewCellV2.swift */; };
+		18042BEC210DB0E400F48229 /* FrameViewCellV2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18042BEA210DB0E400F48229 /* FrameViewCellV2.xib */; };
+		18042BEF210DB23200F48229 /* PinCommentViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18042BED210DB23200F48229 /* PinCommentViewCell.swift */; };
+		18042BF0210DB23200F48229 /* PinCommentViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18042BEE210DB23200F48229 /* PinCommentViewCell.xib */; };
+		18042BF3210DB68200F48229 /* QuestionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18042BF1210DB68200F48229 /* QuestionViewCell.swift */; };
+		18042BF4210DB68200F48229 /* QuestionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18042BF2210DB68200F48229 /* QuestionViewCell.xib */; };
+		18042BF7210DBF1A00F48229 /* FilterCommentViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18042BF5210DBF1A00F48229 /* FilterCommentViewCell.swift */; };
+		18042BF8210DBF1A00F48229 /* FilterCommentViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18042BF6210DBF1A00F48229 /* FilterCommentViewCell.xib */; };
+		18042BFB210DF77F00F48229 /* CatchWordViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18042BF9210DF77F00F48229 /* CatchWordViewCell.swift */; };
+		18042BFC210DF77F00F48229 /* CatchWordViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18042BFA210DF77F00F48229 /* CatchWordViewCell.xib */; };
+		18042BFF210DFCF400F48229 /* RandomNumberViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18042BFD210DFCF400F48229 /* RandomNumberViewCell.swift */; };
+		18042C00210DFCF400F48229 /* RandomNumberViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18042BFE210DFCF400F48229 /* RandomNumberViewCell.xib */; };
+		1854DB2F210D4C9C009DF33D /* BaseInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1854DB2E210D4C9C009DF33D /* BaseInfo.swift */; };
 		187A1686210B8A3E00F418CF /* MenuViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187A1685210B8A3E00F418CF /* MenuViewCell.swift */; };
 		187A1688210C172D00F418CF /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 187A1687210C172D00F418CF /* libstdc++.tbd */; };
 		187A168A210C173500F418CF /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 187A1689210C173500F418CF /* libz.tbd */; };
@@ -46,6 +64,24 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		18042BDB210D52C500F48229 /* WarterMarkServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarterMarkServices.swift; sourceTree = "<group>"; };
+		18042BDD210D8B5F00F48229 /* CountDownViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CountDownViewCell.swift; path = View/CountDownViewCell.swift; sourceTree = "<group>"; };
+		18042BDE210D8B5F00F48229 /* CountDownViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CountDownViewCell.xib; path = View/CountDownViewCell.xib; sourceTree = "<group>"; };
+		18042BE1210DA18900F48229 /* SloganViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SloganViewCell.swift; path = View/SloganViewCell.swift; sourceTree = "<group>"; };
+		18042BE2210DA18900F48229 /* SloganViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SloganViewCell.xib; path = View/SloganViewCell.xib; sourceTree = "<group>"; };
+		18042BE9210DB0E400F48229 /* FrameViewCellV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FrameViewCellV2.swift; path = View/FrameViewCellV2.swift; sourceTree = "<group>"; };
+		18042BEA210DB0E400F48229 /* FrameViewCellV2.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = FrameViewCellV2.xib; path = View/FrameViewCellV2.xib; sourceTree = "<group>"; };
+		18042BED210DB23200F48229 /* PinCommentViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCommentViewCell.swift; sourceTree = "<group>"; };
+		18042BEE210DB23200F48229 /* PinCommentViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PinCommentViewCell.xib; sourceTree = "<group>"; };
+		18042BF1210DB68200F48229 /* QuestionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QuestionViewCell.swift; path = View/QuestionViewCell.swift; sourceTree = "<group>"; };
+		18042BF2210DB68200F48229 /* QuestionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = QuestionViewCell.xib; path = View/QuestionViewCell.xib; sourceTree = "<group>"; };
+		18042BF5210DBF1A00F48229 /* FilterCommentViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FilterCommentViewCell.swift; path = View/FilterCommentViewCell.swift; sourceTree = "<group>"; };
+		18042BF6210DBF1A00F48229 /* FilterCommentViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = FilterCommentViewCell.xib; path = View/FilterCommentViewCell.xib; sourceTree = "<group>"; };
+		18042BF9210DF77F00F48229 /* CatchWordViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CatchWordViewCell.swift; path = View/CatchWordViewCell.swift; sourceTree = "<group>"; };
+		18042BFA210DF77F00F48229 /* CatchWordViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CatchWordViewCell.xib; path = View/CatchWordViewCell.xib; sourceTree = "<group>"; };
+		18042BFD210DFCF400F48229 /* RandomNumberViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RandomNumberViewCell.swift; path = View/RandomNumberViewCell.swift; sourceTree = "<group>"; };
+		18042BFE210DFCF400F48229 /* RandomNumberViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = RandomNumberViewCell.xib; path = View/RandomNumberViewCell.xib; sourceTree = "<group>"; };
+		1854DB2E210D4C9C009DF33D /* BaseInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseInfo.swift; sourceTree = "<group>"; };
 		187A1685210B8A3E00F418CF /* MenuViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewCell.swift; sourceTree = "<group>"; };
 		187A1687210C172D00F418CF /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		187A1689210C173500F418CF /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
@@ -203,6 +239,7 @@
 			isa = PBXGroup;
 			children = (
 				18DB2AAB210CA3F9005864E1 /* FacebookServices.swift */,
+				18042BDB210D52C500F48229 /* WarterMarkServices.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -274,6 +311,7 @@
 			children = (
 				DB40E22F1E71567E009E7C74 /* FBSDKLiveVideo.swift */,
 				18DB2AB7210CC226005864E1 /* FacebookInfo.swift */,
+				1854DB2E210D4C9C009DF33D /* BaseInfo.swift */,
 			);
 			name = FBSDKLiveVideo;
 			sourceTree = "<group>";
@@ -306,6 +344,22 @@
 				EC53B2C5210B09E2000A3866 /* UrlStreamViewCell.xib */,
 				EC53B2CD210B2EA6000A3866 /* SelectStreamAccountViewCell.swift */,
 				EC53B2CE210B2EA6000A3866 /* SelectStreamAccountViewCell.xib */,
+				18042BDD210D8B5F00F48229 /* CountDownViewCell.swift */,
+				18042BDE210D8B5F00F48229 /* CountDownViewCell.xib */,
+				18042BE1210DA18900F48229 /* SloganViewCell.swift */,
+				18042BE2210DA18900F48229 /* SloganViewCell.xib */,
+				18042BE9210DB0E400F48229 /* FrameViewCellV2.swift */,
+				18042BEA210DB0E400F48229 /* FrameViewCellV2.xib */,
+				18042BED210DB23200F48229 /* PinCommentViewCell.swift */,
+				18042BEE210DB23200F48229 /* PinCommentViewCell.xib */,
+				18042BF1210DB68200F48229 /* QuestionViewCell.swift */,
+				18042BF2210DB68200F48229 /* QuestionViewCell.xib */,
+				18042BF5210DBF1A00F48229 /* FilterCommentViewCell.swift */,
+				18042BF6210DBF1A00F48229 /* FilterCommentViewCell.xib */,
+				18042BF9210DF77F00F48229 /* CatchWordViewCell.swift */,
+				18042BFA210DF77F00F48229 /* CatchWordViewCell.xib */,
+				18042BFD210DFCF400F48229 /* RandomNumberViewCell.swift */,
+				18042BFE210DFCF400F48229 /* RandomNumberViewCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -394,6 +448,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18042BFC210DF77F00F48229 /* CatchWordViewCell.xib in Resources */,
+				18042BF8210DBF1A00F48229 /* FilterCommentViewCell.xib in Resources */,
 				EC53B2C7210B09E2000A3866 /* UrlStreamViewCell.xib in Resources */,
 				DB9C40781E70527D00CCBD83 /* LaunchScreen.storyboard in Resources */,
 				DB9C40751E70527D00CCBD83 /* Assets.xcassets in Resources */,
@@ -402,7 +458,13 @@
 				189C0F00210A22B800ADF7FF /* StreamHistoryViewCell.xib in Resources */,
 				EC53B2BE210AED22000A3866 /* FrameViewCell.xib in Resources */,
 				EC53B2B9210AD07A000A3866 /* StreamAccountViewCell.xib in Resources */,
+				18042BE0210D8B5F00F48229 /* CountDownViewCell.xib in Resources */,
+				18042BE4210DA18900F48229 /* SloganViewCell.xib in Resources */,
+				18042BF4210DB68200F48229 /* QuestionViewCell.xib in Resources */,
+				18042BEC210DB0E400F48229 /* FrameViewCellV2.xib in Resources */,
 				EC53B2C3210B03B9000A3866 /* StreamOptionViewCell.xib in Resources */,
+				18042BF0210DB23200F48229 /* PinCommentViewCell.xib in Resources */,
+				18042C00210DFCF400F48229 /* RandomNumberViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -468,12 +530,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18042BDF210D8B5F00F48229 /* CountDownViewCell.swift in Sources */,
 				EC53B2CF210B2EA6000A3866 /* SelectStreamAccountViewCell.swift in Sources */,
 				EC53B2BD210AED22000A3866 /* FrameViewCell.swift in Sources */,
+				1854DB2F210D4C9C009DF33D /* BaseInfo.swift in Sources */,
+				18042BF7210DBF1A00F48229 /* FilterCommentViewCell.swift in Sources */,
 				DB9C40701E70527D00CCBD83 /* HKLiveVideoViewController.swift in Sources */,
 				DB40E2301E71567E009E7C74 /* FBSDKLiveVideo.swift in Sources */,
+				18042BEF210DB23200F48229 /* PinCommentViewCell.swift in Sources */,
+				18042BE3210DA18900F48229 /* SloganViewCell.swift in Sources */,
+				18042BFF210DFCF400F48229 /* RandomNumberViewCell.swift in Sources */,
 				189C0EF4210A133A00ADF7FF /* StreamViewController.swift in Sources */,
 				189C0EED210A12C500ADF7FF /* ProfileViewController.swift in Sources */,
+				18042BF3210DB68200F48229 /* QuestionViewCell.swift in Sources */,
 				189C0EF8210A136400ADF7FF /* SetupViewController.swift in Sources */,
 				EC53B2C6210B09E2000A3866 /* UrlStreamViewCell.swift in Sources */,
 				EC53B2CB210B2A14000A3866 /* SelectStreamAccountViewController.swift in Sources */,
@@ -482,10 +551,13 @@
 				189C0EFF210A22B800ADF7FF /* StreamHistoryViewCell.swift in Sources */,
 				189C0EFA210A16CF00ADF7FF /* BaseTabbarController.swift in Sources */,
 				187A1686210B8A3E00F418CF /* MenuViewCell.swift in Sources */,
+				18042BFB210DF77F00F48229 /* CatchWordViewCell.swift in Sources */,
 				DB9C406E1E70527D00CCBD83 /* AppDelegate.swift in Sources */,
 				18DB2AAC210CA3F9005864E1 /* FacebookServices.swift in Sources */,
 				18DB2AB8210CC226005864E1 /* FacebookInfo.swift in Sources */,
 				189C0EF6210A134B00ADF7FF /* HistoryViewController.swift in Sources */,
+				18042BDC210D52C500F48229 /* WarterMarkServices.swift in Sources */,
+				18042BEB210DB0E400F48229 /* FrameViewCellV2.swift in Sources */,
 				ECE9439121087901003EB965 /* ImageUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -7,12 +7,10 @@
 //
 
 import Foundation
-class FacebookInfo {
-    var tokenString: String?
-    var userId: String?
-    var displayName: String?
+class FacebookInfo: BaseInfo{
+ 
     var email: String?
-    var pages:[FacebookInfo] = [];
+    var pages:[BaseInfo] = [];
     static let sharedInstance : FacebookInfo = {
         let instance = FacebookInfo()
         return instance
@@ -23,7 +21,7 @@ class FacebookInfo {
     
     //MARK: Init
     
-    init() {
+    override init() {
     }
     class func shared() -> FacebookInfo {
         return sharedInstance

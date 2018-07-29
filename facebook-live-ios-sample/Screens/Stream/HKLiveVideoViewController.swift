@@ -11,7 +11,15 @@ import UIKit
 //import FBSDKLoginKit
 import LFLiveKit
 class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-            
+    fileprivate let reuseCountDown = "CountDownViewCell"
+    fileprivate let reuseSlogan = "SloganViewCell"
+    fileprivate let reuseFrame = "FrameViewCellV2"
+    fileprivate let reusePin = "PinCommentViewCell"
+    fileprivate let reuseQuestion = "QuestionViewCell"
+    fileprivate let reuseFilterComment  = "FilterCommentViewCell"
+    fileprivate let reuseCatchWord  = "CatchWordViewCell"
+    fileprivate let reuseRandomNumber  = "RandomNumberViewCell"
+    fileprivate let menuTitles:[String] = ["ĐẾM NGƯỢC","SLOGAN","KHUNG","PIN COMMENT","TẠO CÂU HỎI","LỌC BÌNH LUẬN","ĐUỔI HÌNH BẮT CHỮ","SỐ NGẪU NHIÊN"]
     var blurOverlay: UIVisualEffectView!
 
     var sessionURL: NSURL!
@@ -58,13 +66,7 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
         return session!
     }()
     
-    // 视图
-    var containerView: UIView = {
-        let containerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
-        containerView.backgroundColor = UIColor.clear
-        containerView.autoresizingMask = [UIViewAutoresizing.flexibleHeight, UIViewAutoresizing.flexibleHeight]
-        return containerView
-    }()
+   
     
 
     
@@ -87,7 +89,7 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
  
     
     // 开始直播按钮
-
+    var curMenuIndex:Int = -1;
     override func viewDidLoad() {
         super.viewDidLoad()
 //          1920x1080
@@ -116,13 +118,27 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
         self.requestAccessForVideo()
         self.requestAccessForAudio()
         self.view.backgroundColor = UIColor.clear
-        self.view.addSubview(containerView)
-        containerView.addSubview(closeButton)
-        containerView.addSubview(cameraButton)
+        self.view.addSubview(closeButton)
+        self.view.addSubview(cameraButton)
 
         cameraButton.addTarget(self, action: #selector(didTappedCameraButton(_:)), for:.touchUpInside)
-
+        closeButton.addTarget(self, action: #selector(didTappedWarterMarkButton(_:)), for:.touchUpInside)
         toggleMenuView()
+        WarterMarkServices.shared().setFrame(frame: self.view.bounds)
+        
+        
+        ///
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 300
+        tableView.register(UINib(nibName: reuseCountDown, bundle: nil), forCellReuseIdentifier: reuseCountDown)
+        tableView.register(UINib(nibName: reuseSlogan, bundle: nil), forCellReuseIdentifier: reuseSlogan)
+        tableView.register(UINib(nibName: reuseFrame, bundle: nil), forCellReuseIdentifier: reuseFrame)
+        tableView.register(UINib(nibName: reusePin, bundle: nil), forCellReuseIdentifier: reusePin)
+        tableView.register(UINib(nibName: reuseQuestion, bundle: nil), forCellReuseIdentifier: reuseQuestion)
+        tableView.register(UINib(nibName: reuseFilterComment, bundle: nil), forCellReuseIdentifier: reuseFilterComment)
+        tableView.register(UINib(nibName: reuseCatchWord, bundle: nil), forCellReuseIdentifier: reuseCatchWord)
+        tableView.register(UINib(nibName: reuseRandomNumber, bundle: nil), forCellReuseIdentifier: reuseRandomNumber)
+
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -212,93 +228,122 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
     }
 }
 
-//extension HKLiveVideoViewController : FBSDKLiveVideoDelegate {
-//
-//    func liveVideo(_ liveVideo: FBSDKLiveVideo, didStartWith session: FBSDKLiveVideoSession) {
-//        self.loader.stopAnimating()
-//        self.loader.removeFromSuperview()
-//        self.recordButton.isEnabled = true
-//
-//        self.recordButton.imageView?.image = UIImage(named: "stop-button")
-//        toggleFunctionalButtonView()
-//    }
-//
-//    func liveVideo(_ liveVideo: FBSDKLiveVideo, didChange sessionState: FBSDKLiveVideoSessionState) {
-//        print("Session state changed to: \(sessionState)")
-//    }
-//
-//    func liveVideo(_ liveVideo: FBSDKLiveVideo, didStopWith session: FBSDKLiveVideoSession) {
-//        self.recordButton.imageView?.image = UIImage(named: "record-button")
-//        toggleFunctionalButtonView()
-//
-//    }
-//
-//    func liveVideo(_ liveVideo: FBSDKLiveVideo, didErrorWith error: Error) {
-//        self.recordButton.imageView?.image = UIImage(named: "record-button")
-//        print("didErrorWith: \(error.localizedDescription)")
-//        self.loader.removeFromSuperview()
-//        self.recordButton.isEnabled = true;
-//    }
-    
-//    func toggleFunctionalButtonView(){
-//              footerButton.isHidden = !self.liveVideo.isStreaming
-//            hozirontalTextButton.isHidden = !self.liveVideo.isStreaming
-       
-//    }
-//}
 
-//extension HKLiveVideoViewController : FBSDKLoginButtonDelegate {
-//
-//    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
-//        self.recordButton.isHidden = true
-//        self.view.insertSubview(self.blurOverlay, at: 1)
-//    }
-//
-//    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
-//        if error != nil {
-//            print("Error logging in: \(error.localizedDescription)")
-//            return
-//        }
-//
-//        self.recordButton.isHidden = false
-//        self.blurOverlay.removeFromSuperview()
-//    }
-//}
 
 extension HKLiveVideoViewController{
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
     }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch indexPath.section {
+        case 0:
+            //countdown
+            return 190
+            
+        case 1:
+            //slogan
+            return 315
+        case 2:
+            //list frame
+            return 80
+        case 3:
+            //prin comment
+            return 110
+        case 4:
+            //add question
+            return 410
+        case 5:
+            //filter comment
+            return 280
+        case 6:
+            //catch word
+            return 320
+        case 7:
+            //random number
+            return 150
+        default:
+            return 0
+            
+        }
+        return 0
+    }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let width  = self.view.frame.size.width - 100
         let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width - 100, height: 50))
         let titleLabel = UILabel(frame: CGRect(x: 10, y: 0, width: width - 50, height: 50))
-        titleLabel.text = "abc"
+        titleLabel.text = menuTitles[section]
         titleLabel.textAlignment = .left
         titleLabel.textColor = .white
         view.addSubview(titleLabel)
         
         let expandButton = UIButton(frame: CGRect(x: width - 40, y: 10, width: 30, height: 30))
-        let origImage = UIImage(named: "ic_angle_down")
+        let origImage = section == curMenuIndex ? UIImage(named: "ic_angle_down") : UIImage(named: "ic_angle_up")
         let tintedImage = origImage?.withRenderingMode(.alwaysTemplate)
+        expandButton.tag = section
         expandButton.setImage(tintedImage, for: .normal)
         expandButton.tintColor = .white
         expandButton.imageView?.contentMode = .scaleAspectFit
-        
+        expandButton.addTarget(self, action: #selector(didExpandTableCell(_:)), for: .touchUpInside)
         view.addSubview(expandButton)
-        
+        view.backgroundColor = UIColor.darkGray
         return view
     }
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 10
+        return menuTitles.count
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == curMenuIndex{
+            if section == 2{
+                return 10
+            }
+            return 1
+        }
         return 0
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "menuCell", for: indexPath)
-        
-        return cell
+        switch indexPath.section {
+        case 0:
+            //countdown
+            let cell = tableView.dequeueReusableCell(withIdentifier:reuseCountDown, for: indexPath)
+            return cell
+        case 1:
+            //slogan
+            let cell = tableView.dequeueReusableCell(withIdentifier:reuseSlogan, for: indexPath)
+            return cell
+        case 2:
+            //list frame
+            let cell = tableView.dequeueReusableCell(withIdentifier:reuseFrame, for: indexPath)
+            return cell
+        case 3:
+            //pin comment
+            let cell = tableView.dequeueReusableCell(withIdentifier:reusePin, for: indexPath)
+            return cell
+        case 4:
+            //add question
+            let cell = tableView.dequeueReusableCell(withIdentifier:reuseQuestion, for: indexPath)
+            return cell
+        case 5:
+            //filter comment
+            let cell = tableView.dequeueReusableCell(withIdentifier:reuseFilterComment, for: indexPath)
+            return cell
+        case 6:
+            //filter comment
+            let cell = tableView.dequeueReusableCell(withIdentifier:reuseCatchWord, for: indexPath)
+            return cell
+        case 7:
+            //filter comment
+            let cell = tableView.dequeueReusableCell(withIdentifier:reuseRandomNumber, for: indexPath)
+            return cell
+        default:
+            let cell = UITableViewCell()
+            
+            return cell
+        }
+    }
+    @objc func didExpandTableCell(_ button: UIButton){
+        curMenuIndex = button.tag
+        tableView.scrollsToTop = true
+        tableView.reloadData()
     }
 }
 extension HKLiveVideoViewController : LFLiveSessionDelegate {
@@ -392,9 +437,8 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
     @objc func didTappedWarterMarkButton(_ button: UIButton) -> Void {
         let wartermarkView = UIImageView()
         wartermarkView.backgroundColor = UIColor.clear
-        wartermarkView.image = UIImage(named:"ic_frame_default")
-        wartermarkView.contentMode = UIViewContentMode.scaleAspectFit
-        wartermarkView.frame = containerView.bounds
+        wartermarkView.image = WarterMarkServices.shared().generateWarterMark()
+        wartermarkView.frame = self.view.bounds
         session.warterMarkView = wartermarkView
     }
     // 美颜

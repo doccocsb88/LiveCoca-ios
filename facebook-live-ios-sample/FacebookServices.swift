@@ -59,13 +59,16 @@ class FacebookServices {
                         let photoUrl = photoData!["url"] as? String
                         print(firstNameFB ?? "", lastNameFB ?? "", socialIdFB ?? "", genderFB ?? "", photoUrl)
                         print("success : \(socialIdFB ?? "")")
-                        let info = FacebookInfo()
+                        let info = BaseInfo()
                         info.tokenString = accessToken
                         info.userId = socialIdFB
                         info.displayName = "\(firstNameFB ?? "") \(lastNameFB ?? "")"
-                        info.email = ""
                         
-                        self.listPages.append(info)
+                        for account in self.listPages{
+                            if account.userId ?? "" == accessToken{
+                                account.pages.append(info)
+                            }
+                        }
                         success(socialIdFB ?? "")
                     }
                 }
@@ -98,7 +101,7 @@ class FacebookServices {
                             let token = data["access_token"] as? String
                             let pageId = data["id"] as? String
                             let pageName = data["name"] as? String
-                            let info = FacebookInfo()
+                            let info = BaseInfo()
                             info.tokenString = token
                             info.userId = pageId
                             info.displayName = pageName
