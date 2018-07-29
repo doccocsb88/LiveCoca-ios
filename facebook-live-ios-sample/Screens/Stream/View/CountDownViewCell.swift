@@ -16,7 +16,7 @@ class CountDownViewCell: UITableViewCell {
     
     @IBOutlet weak var selectImageButton: UIButton!
     
-    @IBOutlet weak var uploadImageView: UIImageView!
+    @IBOutlet weak var uploadButton: UIButton!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -47,8 +47,8 @@ class CountDownViewCell: UITableViewCell {
         
         let origImage = UIImage(named: "ic_upload")
         let tintedImage = origImage?.withRenderingMode(.alwaysTemplate)
-        uploadImageView.image = tintedImage
-        uploadImageView.tintColor = UIColor.lightGray
+        uploadButton.setImage(tintedImage, for: .normal)
+        uploadButton.tintColor = UIColor.lightGray
 
     }
 }

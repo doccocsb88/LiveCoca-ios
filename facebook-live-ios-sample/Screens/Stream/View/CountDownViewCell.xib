@@ -40,43 +40,46 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="op8-kz-dU2">
+                        <rect key="frame" x="272" y="83" width="40" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="40" id="dat-Jg-2UP"/>
+                            <constraint firstAttribute="height" constant="30" id="fgz-iq-nCw"/>
+                        </constraints>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="5" maxX="0.0" maxY="5"/>
+                        <state key="normal" image="ic_upload"/>
+                    </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yDL-BS-6n1">
                         <rect key="frame" x="10" y="83" width="302" height="30"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="30" id="e02-Kh-2mW"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
+                        <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <state key="normal" title="Button">
                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         </state>
                     </button>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_upload" translatesAutoresizingMaskIntoConstraints="NO" id="pKs-vE-z1Q">
-                        <rect key="frame" x="272" y="83" width="40" height="30"/>
-                        <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="40" id="DyE-VX-8pp"/>
-                        </constraints>
-                    </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dpe-0X-AHV">
                         <rect key="frame" x="10" y="133" width="302" height="30"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G80-Sd-zpV">
                                 <rect key="frame" x="105.5" y="0.0" width="91" height="30"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
-                                <state key="normal" title="Tắt tiếng"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                                <state key="normal" title="TẮT TIẾNG" backgroundImage="bg_add_url"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SVa-R3-3ut">
                                 <rect key="frame" x="206.5" y="0.0" width="90.5" height="30"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
-                                <state key="normal" title="Camera"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                                <state key="normal" title="CAMERA" backgroundImage="bg_add_url"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P9a-r9-MMX">
                                 <rect key="frame" x="5" y="0.0" width="90.5" height="30"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
-                                <state key="normal" title="Hiển thị"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                                <state key="normal" title="HIỂN THỊ" backgroundImage="bg_add_url"/>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -112,15 +115,14 @@
                     <constraint firstItem="5fs-ZS-TOE" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="Db1-3P-3lf"/>
                     <constraint firstItem="5fs-ZS-TOE" firstAttribute="top" secondItem="cNq-OJ-yAa" secondAttribute="bottom" constant="10" id="Gm8-Ig-qlT"/>
                     <constraint firstItem="H92-uS-fBd" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="Nrd-VA-Y8v"/>
-                    <constraint firstItem="pKs-vE-z1Q" firstAttribute="centerY" secondItem="yDL-BS-6n1" secondAttribute="centerY" id="c4M-Xb-7dz"/>
+                    <constraint firstItem="op8-kz-dU2" firstAttribute="centerY" secondItem="yDL-BS-6n1" secondAttribute="centerY" id="QFI-sg-xgd"/>
                     <constraint firstAttribute="trailing" secondItem="cNq-OJ-yAa" secondAttribute="trailing" constant="10" id="hrf-6J-bel"/>
                     <constraint firstItem="yDL-BS-6n1" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="jai-eK-mYy"/>
                     <constraint firstItem="cNq-OJ-yAa" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="lBA-o1-pqZ"/>
-                    <constraint firstItem="pKs-vE-z1Q" firstAttribute="height" secondItem="yDL-BS-6n1" secondAttribute="height" id="pQw-Id-O56"/>
+                    <constraint firstItem="op8-kz-dU2" firstAttribute="trailing" secondItem="yDL-BS-6n1" secondAttribute="trailing" id="oaL-3L-d1A"/>
                     <constraint firstAttribute="trailing" secondItem="dpe-0X-AHV" secondAttribute="trailing" constant="10" id="pwC-JC-oAt"/>
                     <constraint firstItem="cNq-OJ-yAa" firstAttribute="top" secondItem="H92-uS-fBd" secondAttribute="bottom" constant="5" id="saR-3p-Use"/>
                     <constraint firstItem="H92-uS-fBd" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="xIC-aC-9Ic"/>
-                    <constraint firstItem="pKs-vE-z1Q" firstAttribute="trailing" secondItem="yDL-BS-6n1" secondAttribute="trailing" id="z3R-Us-BEw"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
@@ -129,12 +131,13 @@
                 <outlet property="muteButton" destination="G80-Sd-zpV" id="FkD-e5-YrG"/>
                 <outlet property="selectImageButton" destination="yDL-BS-6n1" id="Xfp-G1-EV4"/>
                 <outlet property="showButton" destination="P9a-r9-MMX" id="TI3-0b-ZgU"/>
-                <outlet property="uploadImageView" destination="pKs-vE-z1Q" id="tYA-z7-HSb"/>
+                <outlet property="uploadButton" destination="op8-kz-dU2" id="jnt-PX-Zqk"/>
             </connections>
             <point key="canvasLocation" x="32" y="178"/>
         </tableViewCell>
     </objects>
     <resources>
+        <image name="bg_add_url" width="280" height="70"/>
         <image name="ic_upload" width="60" height="58"/>
     </resources>
 </document>
