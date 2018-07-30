@@ -60,6 +60,8 @@
 		EC53B2CB210B2A14000A3866 /* SelectStreamAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC53B2C9210B2A14000A3866 /* SelectStreamAccountViewController.swift */; };
 		EC53B2CF210B2EA6000A3866 /* SelectStreamAccountViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC53B2CD210B2EA6000A3866 /* SelectStreamAccountViewCell.swift */; };
 		EC53B2D0210B2EA6000A3866 /* SelectStreamAccountViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC53B2CE210B2EA6000A3866 /* SelectStreamAccountViewCell.xib */; };
+		EC752C21210F1944004A69C4 /* AddStreamAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC752C1F210F1944004A69C4 /* AddStreamAccountViewController.swift */; };
+		EC752C22210F1944004A69C4 /* AddStreamAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC752C20210F1944004A69C4 /* AddStreamAccountViewController.xib */; };
 		ECE9439121087901003EB965 /* ImageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE9439021087901003EB965 /* ImageUtils.swift */; };
 /* End PBXBuildFile section */
 
@@ -128,6 +130,8 @@
 		EC53B2C9210B2A14000A3866 /* SelectStreamAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectStreamAccountViewController.swift; sourceTree = "<group>"; };
 		EC53B2CD210B2EA6000A3866 /* SelectStreamAccountViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectStreamAccountViewCell.swift; sourceTree = "<group>"; };
 		EC53B2CE210B2EA6000A3866 /* SelectStreamAccountViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectStreamAccountViewCell.xib; sourceTree = "<group>"; };
+		EC752C1F210F1944004A69C4 /* AddStreamAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddStreamAccountViewController.swift; path = Profile/AddStreamAccountViewController.swift; sourceTree = "<group>"; };
+		EC752C20210F1944004A69C4 /* AddStreamAccountViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = AddStreamAccountViewController.xib; path = Profile/AddStreamAccountViewController.xib; sourceTree = "<group>"; };
 		ECE9439021087901003EB965 /* ImageUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -184,6 +188,8 @@
 			children = (
 				EC53B2B5210ACF81000A3866 /* View */,
 				189C0EEC210A12C500ADF7FF /* ProfileViewController.swift */,
+				EC752C1F210F1944004A69C4 /* AddStreamAccountViewController.swift */,
+				EC752C20210F1944004A69C4 /* AddStreamAccountViewController.xib */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -452,6 +458,7 @@
 				18042BF8210DBF1A00F48229 /* FilterCommentViewCell.xib in Resources */,
 				EC53B2C7210B09E2000A3866 /* UrlStreamViewCell.xib in Resources */,
 				DB9C40781E70527D00CCBD83 /* LaunchScreen.storyboard in Resources */,
+				EC752C22210F1944004A69C4 /* AddStreamAccountViewController.xib in Resources */,
 				DB9C40751E70527D00CCBD83 /* Assets.xcassets in Resources */,
 				EC53B2D0210B2EA6000A3866 /* SelectStreamAccountViewCell.xib in Resources */,
 				DB9C40731E70527D00CCBD83 /* Main.storyboard in Resources */,
@@ -558,6 +565,7 @@
 				189C0EF6210A134B00ADF7FF /* HistoryViewController.swift in Sources */,
 				18042BDC210D52C500F48229 /* WarterMarkServices.swift in Sources */,
 				18042BEB210DB0E400F48229 /* FrameViewCellV2.swift in Sources */,
+				EC752C21210F1944004A69C4 /* AddStreamAccountViewController.swift in Sources */,
 				ECE9439121087901003EB965 /* ImageUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

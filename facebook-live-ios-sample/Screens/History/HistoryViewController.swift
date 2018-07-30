@@ -10,8 +10,10 @@ import UIKit
 
 class HistoryViewController: UIViewController , UITableViewDataSource, UITableViewDelegate {
    
+    @IBOutlet weak var statusButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var searchTextField: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -25,6 +27,7 @@ class HistoryViewController: UIViewController , UITableViewDataSource, UITableVi
     }
     
     func setup(){
+        self.navigationController?.navigationBar.topItem?.title = "PHÒNG LIVESTREAM"
         tableView.register(UINib(nibName: "StreamHistoryViewCell", bundle: nil), forCellReuseIdentifier: "historyCell")
     }
     /*
@@ -36,7 +39,27 @@ class HistoryViewController: UIViewController , UITableViewDataSource, UITableVi
         // Pass the selected object to the new view controller.
     }
     */
-
+    @IBAction func tappedStatusButton(_ sender: Any) {
+      let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let cancelActionButton = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+            print("Cancel")
+        }
+        alert.addAction(cancelActionButton)
+        
+        let saveActionButton = UIAlertAction(title: "Save", style: .default)
+        { _ in
+            print("Save")
+        }
+        alert.addAction(saveActionButton)
+        
+        let deleteActionButton = UIAlertAction(title: "Delete", style: .default)
+        { _ in
+            print("Delete")
+        }
+        alert.addAction(deleteActionButton)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
 }
 extension HistoryViewController{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

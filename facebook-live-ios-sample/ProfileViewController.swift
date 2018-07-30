@@ -50,7 +50,18 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     */
     func setup(){
+        //
+        self.navigationController?.navigationBar.topItem?.title = "THÔNG TIN CÁ NHÂN"
+
+        //
         tableView.register(UINib(nibName: "StreamAccountViewCell", bundle: nil), forCellReuseIdentifier: "streamAccountCell")
+    }
+    
+    @IBAction func tappedAddStreamAccountButton(_ sender: Any) {
+        let vc = AddStreamAccountViewController(nibName: "AddStreamAccountViewController", bundle: nil)
+        vc.modalPresentationStyle = .overFullScreen
+        
+        self.present(vc, animated: true, completion: nil)
     }
 }
 

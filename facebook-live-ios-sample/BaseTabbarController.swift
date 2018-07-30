@@ -22,8 +22,8 @@ class BaseTabbarController: UITabBarController {
         // Dispose of any resources that can be recreated.
     }
     func setup(){
-        
-        let icons : [String] = ["ic_tab_home","ic_tab_camera","ic_tab_setup","ic_tab_profile"]
+        self.view.backgroundColor = UIColor.white
+        let icons : [String] = ["ic_tab_home","ic_tab_setup","ic_tab_camera","ic_tab_profile"]
 
         if let items = tabBar.items {
             for i in 0 ..< items.count {
@@ -37,8 +37,10 @@ class BaseTabbarController: UITabBarController {
     
     func setupItem(item: UITabBarItem, imageName: String){
         let itemImage = UIImage(named: imageName)
+        
+
         item.image = itemImage
-        item.selectedImage = itemImage?.imageWithColor(color1: UIColor(hexString: "#FC6076"))
+        item.selectedImage = itemImage?.imageWithColor(color1: UIColor.red)//imageWithColor(color1: UIColor(hexString: "#FC6076"))
         item.title = nil
         item.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0);
 

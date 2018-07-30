@@ -26,14 +26,19 @@ class StreamViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let pages = FacebookServices.shared().listPages;
             print("pages : \(pages.count)")
         }
-//        FacebookServices.shared().getFbId(accessToken: FacebookServices.shared().accessTokens[0], onSuccess: { (fbid) in
-//            print("pages : \(fbid)")
-//
-//        }) {
-//            
-//        }
-    }
 
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        UIApplication.shared.statusBarStyle = .lightContent
+
+    }
+    override var prefersStatusBarHidden: Bool{
+        return false
+    }
+    override var preferredStatusBarStyle: UIStatusBarStyle{
+        return .lightContent
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

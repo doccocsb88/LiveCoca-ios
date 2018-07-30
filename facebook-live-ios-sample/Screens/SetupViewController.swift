@@ -14,6 +14,7 @@ class SetupViewController: UIViewController, UICollectionViewDelegate, UICollect
     fileprivate let reuseIdentifier = "frameCell"
     fileprivate let giftViewHeight : CGFloat = 400;
     fileprivate let frameViewHeight : CGFloat = 360;
+    fileprivate let uploadViewHeight : CGFloat = 250;
 
     
     @IBOutlet weak var toggleGiftButton: UIButton!
@@ -46,6 +47,8 @@ class SetupViewController: UIViewController, UICollectionViewDelegate, UICollect
     }
     
     func setup(){
+        self.navigationController?.navigationBar.topItem?.title = "CẤU HÌNH"
+
         frameCollectionView.register(UINib(nibName: "FrameViewCell", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier)
         giftCollectionView.register(UINib(nibName: "FrameViewCell", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier)
         
@@ -82,7 +85,7 @@ class SetupViewController: UIViewController, UICollectionViewDelegate, UICollect
         case 3:
             giftViewHeightConstraint.constant = 0;
             frameViewHeightConstraint.constant = 0.0;
-            uploadViewHeightConstraint.constant = 200;
+            uploadViewHeightConstraint.constant = uploadViewHeight;
             break
         default:
             giftViewHeightConstraint.constant = 0;
