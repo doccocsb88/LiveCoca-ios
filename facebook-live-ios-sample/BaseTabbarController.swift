@@ -36,11 +36,12 @@ class BaseTabbarController: UITabBarController {
     }
     
     func setupItem(item: UITabBarItem, imageName: String){
-        let itemImage = UIImage(named: imageName)
+        let originImage  = UIImage(named: imageName)
+        let itemImage = originImage?.imageWithColor(color1: UIColor.lightGray).withRenderingMode(UIImageRenderingMode.alwaysOriginal)
         
-
+        let tintedImage  = originImage?.imageWithColor(color1: UIColor(hexString: "#FC6076")).withRenderingMode(UIImageRenderingMode.alwaysOriginal)
         item.image = itemImage
-        item.selectedImage = itemImage?.imageWithColor(color1: UIColor.red)//imageWithColor(color1: UIColor(hexString: "#FC6076"))
+        item.selectedImage = tintedImage//imageWithColor(color1: UIColor(hexString: "#FC6076"))
         item.title = nil
         item.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0);
 
