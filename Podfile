@@ -14,6 +14,7 @@ def import_pods
 #    pod 'HaishinKit', '~> 0.9'
     pod 'LFLiveKit', '~> 2.6'
 #    pod 'FacebookCore', '~> 0.3'
+    pod 'Alamofire', '~> 4.7'
 
 end
 target 'facebook-live-ios-sample'  do
