@@ -16,7 +16,7 @@ class FacebookServices {
         let instance = FacebookServices()
         return instance
     }()
-    let accessTokens:[String] = ["EAAHA0tZANRYgBAKdiacqTa4TEWPZBkCrEdfv8JOw9MQRBZAJ411AK3Sv2uZBbj62hjxezYwCpJ5fmZBg3EdItZARpiWi9kQ6Wo4kKGwPFX801U7Ev4wAdLNaE9Ftg5kpO3eDsuhePRIzfYLwi5sZAO64HsZBYAnwOwa0VSbNjcCFRXwqOKBUA9Oe8Gb3vnbHZCeBf6wtunhqzkAZDZD"]
+    let accessTokens:[String] = ["EAAHA0tZANRYgBAK6kLdSxgajtdDnoY2fNRoOuAfJK3SFvk2TBk80whqAnp4DjYowVlFZCJZBiXd9R53PZCTfpV9AzZC6hYmZCZAeHrTpEf2KpNHAzqtZAR0kZBCgxl5040gSun59Y33OwyIYxuHNQVGSZCLGuTrF142yZBbf26WzbkEle5xCrv5TikGkmTYL8kK9gzj6fwIVy8ZC6QZDZD"]
     var accountList:[FacebookInfo] = []
     init(){
         
@@ -57,7 +57,7 @@ class FacebookServices {
                         let pictureUrlFB = responseDictionary["picture"] as? [String:Any]
                         let photoData = pictureUrlFB!["data"] as? [String:Any]
                         let photoUrl = photoData!["url"] as? String
-                        print(firstNameFB ?? "", lastNameFB ?? "", socialIdFB ?? "", genderFB ?? "", photoUrl)
+                        print(firstNameFB ?? "", lastNameFB ?? "", socialIdFB ?? "", genderFB ?? "", photoUrl ?? "")
                         print("success : \(socialIdFB ?? "")")
                         let info = BaseInfo()
                         info.tokenString = accessToken
@@ -85,7 +85,7 @@ class FacebookServices {
 //        }
     }
     func getListPages(tokenId :String, onSuccess success: @escaping () -> Void){
-        let req = GraphRequest(graphPath: "me/accounts", parameters: ["fields": ""], accessToken: AccessToken.current, httpMethod: GraphRequestHTTPMethod(rawValue: "GET")!)
+        let req = GraphRequest(graphPath: "me/accounts", parameters: ["fields": "access_token,name,id"], accessToken: AccessToken.current, httpMethod: GraphRequestHTTPMethod(rawValue: "GET")!)
         req.start({[unowned self] (connection, result) in
             switch result {
             case .failed(let error):
@@ -150,8 +150,13 @@ class FacebookServices {
             }
         })
     }
-    func getFacebookLiveStreamURL(pageId:String, onSuccess success: @escaping (_ streamurl:String) -> Void){
-        let req = GraphRequest(graphPath: "\(pageId)/live_videos", parameters: ["fields": "stream_url,id,secure_stream_url,dash_ingest_url"], accessToken: AccessToken.current, httpMethod: GraphRequestHTTPMethod(rawValue: "POST")!)
+    func getFacebookLiveStreamURL(pageInfo:BaseInfo, onSuccess success: @escaping (_ streamurl:String) -> Void){
+        let _  = AccessToken(authenticationToken: pageInfo.tokenString ?? "")
+        AccessToken.refreshCurrentToken()
+        let path = "\(pageInfo.userId ?? "")/live_videos"
+        let accessToken  = AccessToken.current
+        print("authenToken \(accessToken?.userId ?? "")")
+        let req = GraphRequest(graphPath: path, parameters: ["fields": "stream_url,id,secure_stream_url,dash_ingest_url"], accessToken: AccessToken.current, httpMethod: GraphRequestHTTPMethod(rawValue: "POST")!)
         req.start({ (connection, result) in
             switch result {
             case .failed(let error):

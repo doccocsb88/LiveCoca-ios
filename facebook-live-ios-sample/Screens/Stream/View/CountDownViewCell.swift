@@ -17,6 +17,7 @@ class CountDownViewCell: UITableViewCell {
     @IBOutlet weak var selectImageButton: UIButton!
     
     @IBOutlet weak var uploadButton: UIButton!
+    var completeHandle:(Bool) ->() =  {(isOn) in }
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -49,6 +50,16 @@ class CountDownViewCell: UITableViewCell {
         let tintedImage = origImage?.withRenderingMode(.alwaysTemplate)
         uploadButton.setImage(tintedImage, for: .normal)
         uploadButton.tintColor = UIColor.lightGray
+        uploadButton.imageView?.contentMode = UIViewContentMode.scaleAspectFit
 
+    }
+    @IBAction func tappedShowButton(_ sender: Any) {
+        WarterMarkServices.shared().showCountdownView()
+        completeHandle(true)
+    }
+    @IBAction func tappedMuteButton(_ sender: Any) {
+    }
+    
+    @IBAction func tappedCameraButton(_ sender: Any) {
     }
 }

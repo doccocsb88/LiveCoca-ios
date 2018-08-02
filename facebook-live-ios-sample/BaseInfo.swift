@@ -8,7 +8,11 @@
 
 import Foundation
 class BaseInfo{
-    var tokenString: String?
-    var userId: String?
+    var tokenString: String!
+    var userId: String!
     var displayName: String?
+    init() {
+        tokenString = ""
+        userId = ""
+    }
 }

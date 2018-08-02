@@ -74,12 +74,19 @@
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                                 <state key="normal" title="CAMERA" backgroundImage="bg_add_url"/>
+                                <connections>
+                                    <action selector="tappedCameraButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="tt2-1r-mrK"/>
+                                    <action selector="tappedMuteButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="ill-AR-PKF"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P9a-r9-MMX">
                                 <rect key="frame" x="5" y="0.0" width="90.5" height="30"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                                 <state key="normal" title="HIỂN THỊ" backgroundImage="bg_add_url"/>
+                                <connections>
+                                    <action selector="tappedShowButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Au7-oV-zf2"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

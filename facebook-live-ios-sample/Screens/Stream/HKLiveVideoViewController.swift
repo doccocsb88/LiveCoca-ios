@@ -61,7 +61,8 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
     
     var session: LFLiveSession = {
         let audioConfiguration = LFLiveAudioConfiguration.defaultConfiguration(for: LFLiveAudioQuality.high)
-        let videoConfiguration = LFLiveVideoConfiguration.defaultConfiguration(for: LFLiveVideoQuality.low3)
+        let videoConfiguration = LFLiveVideoConfiguration.defaultConfiguration(for: LFLiveVideoQuality.high3)
+        videoConfiguration?.videoSize = CGSize(width: 720, height: 1280)
         let session = LFLiveSession(audioConfiguration: audioConfiguration, videoConfiguration: videoConfiguration)
         return session!
     }()
@@ -125,7 +126,7 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
         cameraButton.addTarget(self, action: #selector(didTappedCameraButton(_:)), for:.touchUpInside)
         closeButton.addTarget(self, action: #selector(didTappedWarterMarkButton(_:)), for:.touchUpInside)
         toggleMenuView()
-        WarterMarkServices.shared().setFrame(frame: self.view.bounds)
+        WarterMarkServices.shared().setFrame(frame: CGRect(x: 0, y: 0, width: 720, height: 1280))
         
         
         ///
@@ -305,7 +306,10 @@ extension HKLiveVideoViewController{
         switch indexPath.section {
         case 0:
             //countdown
-            let cell = tableView.dequeueReusableCell(withIdentifier:reuseCountDown, for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier:reuseCountDown, for: indexPath) as! CountDownViewCell
+            cell.completeHandle = {[unowned self] isShow in
+                self.didTappedWarterMarkButton(nil)
+            }
             return cell
         case 1:
             //slogan
@@ -438,11 +442,14 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
     
     // 开始直播
    
-    @objc func didTappedWarterMarkButton(_ button: UIButton) -> Void {
+    @objc func didTappedWarterMarkButton(_ button: UIButton?) -> Void {
         let wartermarkView = UIImageView()
-        wartermarkView.backgroundColor = UIColor.clear
+        let wartermarkFrame  = CGRect(x: 0, y: 0, width: 720, height: 1280)
+        WarterMarkServices.shared().setFrame(frame: wartermarkFrame)
+        wartermarkView.backgroundColor = UIColor.blue.withAlphaComponent(0.5)
         wartermarkView.image = WarterMarkServices.shared().generateWarterMark()
-        wartermarkView.frame = self.view.bounds
+        wartermarkView.frame = wartermarkFrame
+        wartermarkView.contentMode = UIViewContentMode.scaleAspectFill
         session.warterMarkView = wartermarkView
     }
     // 美颜

@@ -15,6 +15,7 @@ def import_pods
     pod 'LFLiveKit', '~> 2.6'
 #    pod 'FacebookCore', '~> 0.3'
     pod 'Alamofire', '~> 4.7'
+    pod 'Kingfisher', '~> 4.8'
 
 end
 target 'facebook-live-ios-sample'  do

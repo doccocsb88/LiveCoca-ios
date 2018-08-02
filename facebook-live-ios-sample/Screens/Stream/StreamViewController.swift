@@ -101,10 +101,10 @@ class StreamViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     @IBAction func addUrlStreamTapped(_ sender: Any) {
-        if let page = selectedPages , let pageId = page.userId{
+        if let page = selectedPages , let _ = page.userId{
             boatAnimation?.isHidden = false
             boatAnimation?.play()
-            FacebookServices.shared().getFacebookLiveStreamURL(pageId: pageId) {[unowned self] (streamUrl) in
+            FacebookServices.shared().getFacebookLiveStreamURL(pageInfo: page) {[unowned self] (streamUrl) in
                 self.streamUrls.append(streamUrl)
                 self.tableView.reloadData()
                 self.boatAnimation?.stop()

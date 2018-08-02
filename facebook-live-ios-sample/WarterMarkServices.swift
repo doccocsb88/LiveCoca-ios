@@ -8,18 +8,23 @@
 
 import Foundation
 import UIKit
+import Kingfisher
 class WarterMarkServices{
     static let sharedInstance : WarterMarkServices = {
         let instance = WarterMarkServices()
         return instance
     }()
-    var frame:CGRect = CGRect(x: 0, y: 0, width: 0, height: 0 )
+    var params:[String:Bool] = [:];
+    var frame:CGRect = CGRect(x: 0, y: 0, width: 720, height: 1280 )
     var powerText:String?
     var hasPowerText:Bool = false
     var hasFrame:Bool = false
-    
+    var countDownImage:UIImage?
+    var backgroundImage:UIImage!
     init(){
-        
+        backgroundImage = UIImage(color: UIColor.clear, size: self.frame.size)
+        countDownImage = UIImage(named: "bg_countdown")
+
     }
     class func shared() -> WarterMarkServices {
         return sharedInstance
@@ -28,16 +33,35 @@ class WarterMarkServices{
         self.frame = frame
     }
     func generateWarterMark() -> UIImage?{
-        var background = UIImage(color: UIColor.clear, size: self.frame.size)
     
-        background = addFrame(sourceImage: background!)
-        return background
+        backgroundImage = UIImage(color: UIColor.red.withAlphaComponent(0.5), size: self.frame.size)
+        backgroundImage = backgroundImage.resizeImage(self.frame.size)
+        if let frame = params["frame"] , frame == true{
+           backgroundImage =  addFrame(sourceImage: backgroundImage)
+
+        }
+        if let countdown = params["countdown"], countdown == true{
+            addCountDown();
+        }
+        return backgroundImage.resizeImage(self.frame.size)
+    }
+    func addCountDown(){
+        if var countdownImage = countDownImage{
+            countdownImage = countdownImage.resizeImage(self.frame.size)
+            backgroundImage = backgroundImage.mergeImage(image: countdownImage, self.frame, at: self.frame)
+        }
     }
     func addFrame(sourceImage:UIImage) -> UIImage?{
-        let frame = UIImage(named: "ic_frame_default")
+        let frameImage = UIImage(named: "ic_frame_default")
         
-        return sourceImage.mergeImage(image: frame!,self.frame, at: self.frame)
+        return sourceImage.mergeImage(image: frameImage!,self.frame, at: self.frame)
         
     }
-    
+    /**/
+    func hideCountDownView(){
+        params["countdown"] = false;
+    }
+    func showCountdownView(){
+        params["countdown"] = true
+    }
 }
