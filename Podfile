@@ -9,7 +9,7 @@ def import_pods
 #    pod 'FBSDKShareKit', :git => 'https://github.com/facebook/facebook-sdk-swift', :branch => 'master'
 #    pod 'FBSDKLoginKit', :git => 'https://github.com/facebook/facebook-sdk-swift', :branch => 'master'
 #    pod 'VideoCore', '~>0.3'
-#    pod 'lottie-ios'
+    pod 'lottie-ios'
     pod 'Spring', '~> 1.0'
 #    pod 'HaishinKit', '~> 0.9'
     pod 'LFLiveKit', '~> 2.6'

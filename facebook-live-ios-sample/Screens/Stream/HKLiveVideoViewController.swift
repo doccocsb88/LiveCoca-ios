@@ -90,6 +90,7 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
     
     // 开始直播按钮
     var curMenuIndex:Int = -1;
+    var streamUrls:[String] = []
     override func viewDidLoad() {
         super.viewDidLoad()
 //          1920x1080
@@ -392,10 +393,13 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
         }
     }
     func startLive(){
-      let stream = LFLiveStreamInfo()
-            stream.url = "rtmp://live-api-s.facebook.com:80/rtmp/1877886212257888?ds=1&s_vt=api-s&a=ATgcF4aipBBcRBTO"
+        if streamUrls.count > 0 {
+            let stream = LFLiveStreamInfo()
+            stream.url = streamUrls[0]
             session.startLive(stream)
-      
+        }
+       
+        
     }
     func stopLive(){
         session.stopLive()

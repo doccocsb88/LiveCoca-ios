@@ -24,5 +24,7 @@ class SelectStreamAccountViewCell: UITableViewCell {
     func configView(account:BaseInfo){
         titleLabel.text = account.displayName ?? "ccc"
     }
-
+    func configView(account:FacebookInfo){
+        titleLabel.text = account.displayName ?? "ccc"
+    }
 }

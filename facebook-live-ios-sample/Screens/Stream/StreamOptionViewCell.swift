@@ -10,8 +10,10 @@ import UIKit
 
 class StreamOptionViewCell: UITableViewCell {
 
+    @IBOutlet weak var accountNameLabel: UILabel!
     @IBOutlet weak var selectStreamPageButton: UIButton!
     
+    @IBOutlet weak var pageNameLabel: UILabel!
     @IBOutlet weak var selectStreamAccountButton: UIButton!
    
     @IBOutlet weak var addStreamAccountButton: UIButton!
@@ -19,7 +21,7 @@ class StreamOptionViewCell: UITableViewCell {
     @IBOutlet weak var streamDescriptionTextView: UITextView!
     
     @IBOutlet weak var countDownButton: UIButton!
-    var completionHandler:(Float)->() = {_ in }
+    var completionHandler:(Int)->() = {_ in }
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -60,15 +62,22 @@ class StreamOptionViewCell: UITableViewCell {
     @IBAction func addAccountTapped(_ sender: Any) {
     }
     @IBAction func selectAccountTapped(_ sender: Any) {
-        completionHandler(1)
+        completionHandler(0)
     }
     
     @IBAction func selectPageTapped(_ sender: Any) {
-        completionHandler(2)
+        completionHandler(1)
 
     }
     
     @IBAction func countDownTapped(_ sender: Any) {
     }
-    
+    func updateAccountInfo(account:FacebookInfo){
+       
+        accountNameLabel.text = account.displayName
+    }
+    func updatePageInfo(page:BaseInfo){
+        pageNameLabel.text = page.displayName
+
+    }
 }

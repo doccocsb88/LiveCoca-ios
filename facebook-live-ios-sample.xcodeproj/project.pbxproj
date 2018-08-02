@@ -50,6 +50,7 @@
 		DB9C40731E70527D00CCBD83 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB9C40711E70527D00CCBD83 /* Main.storyboard */; };
 		DB9C40751E70527D00CCBD83 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB9C40741E70527D00CCBD83 /* Assets.xcassets */; };
 		DB9C40781E70527D00CCBD83 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB9C40761E70527D00CCBD83 /* LaunchScreen.storyboard */; };
+		EC5136E42112CA3900391C60 /* material_loader.json in Resources */ = {isa = PBXBuildFile; fileRef = EC5136E32112CA3900391C60 /* material_loader.json */; };
 		EC53B2B8210AD07A000A3866 /* StreamAccountViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC53B2B6210AD07A000A3866 /* StreamAccountViewCell.swift */; };
 		EC53B2B9210AD07A000A3866 /* StreamAccountViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC53B2B7210AD07A000A3866 /* StreamAccountViewCell.xib */; };
 		EC53B2BD210AED22000A3866 /* FrameViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC53B2BB210AED22000A3866 /* FrameViewCell.swift */; };
@@ -121,6 +122,7 @@
 		DBA01A2D1E71CAD80005A439 /* facebook-live-ios-sample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "facebook-live-ios-sample-Bridging-Header.h"; sourceTree = "<group>"; };
 		DBBBFCFB1E7166E100CD90AC /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
 		DBBBFCFC1E7166E100CD90AC /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		EC5136E32112CA3900391C60 /* material_loader.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = material_loader.json; sourceTree = "<group>"; };
 		EC53B2B6210AD07A000A3866 /* StreamAccountViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamAccountViewCell.swift; sourceTree = "<group>"; };
 		EC53B2B7210AD07A000A3866 /* StreamAccountViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StreamAccountViewCell.xib; sourceTree = "<group>"; };
 		EC53B2BB210AED22000A3866 /* FrameViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameViewCell.swift; sourceTree = "<group>"; };
@@ -295,6 +297,7 @@
 		DB9C40801E7055AC00CCBD83 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				EC5136E32112CA3900391C60 /* material_loader.json */,
 				DB9C40711E70527D00CCBD83 /* Main.storyboard */,
 				DB9C40761E70527D00CCBD83 /* LaunchScreen.storyboard */,
 				DB9C40791E70527D00CCBD83 /* Info.plist */,
@@ -466,6 +469,7 @@
 				EC53B2D0210B2EA6000A3866 /* SelectStreamAccountViewCell.xib in Resources */,
 				DB9C40731E70527D00CCBD83 /* Main.storyboard in Resources */,
 				189C0F00210A22B800ADF7FF /* StreamHistoryViewCell.xib in Resources */,
+				EC5136E42112CA3900391C60 /* material_loader.json in Resources */,
 				EC53B2BE210AED22000A3866 /* FrameViewCell.xib in Resources */,
 				EC53B2B9210AD07A000A3866 /* StreamAccountViewCell.xib in Resources */,
 				18042BE0210D8B5F00F48229 /* CountDownViewCell.xib in Resources */,
@@ -516,6 +520,7 @@
 				"${BUILT_PRODUCTS_DIR}/FacebookShare/FacebookShare.framework",
 				"${BUILT_PRODUCTS_DIR}/LFLiveKit/LFLiveKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Spring/Spring.framework",
+				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -529,6 +534,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookShare.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LFLiveKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Spring.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Lottie
 
 class StreamViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     fileprivate let reuseOptionCell = "streamOptionCell"
@@ -16,6 +17,14 @@ class StreamViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var addUrlStreamButton: UIButton!
+    
+    private var boatAnimation: LOTAnimationView?
+
+    let selectStreamInfoVC = SelectStreamAccountViewController()
+
+    var selectedAccount: FacebookInfo?
+    var selectedPages:BaseInfo?
+    var streamUrls:[String] = []
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -23,7 +32,7 @@ class StreamViewController: UIViewController, UITableViewDelegate, UITableViewDa
         setup()
         setupUI()
         FacebookServices.shared().fetchData {
-            let pages = FacebookServices.shared().listPages;
+            let pages = FacebookServices.shared().accountList;
             print("pages : \(pages.count)")
         }
 
@@ -49,6 +58,25 @@ class StreamViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tableView.register(UINib(nibName: "UrlStreamViewCell", bundle: nil), forCellReuseIdentifier:reuseUrlCell)
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
         self.view.addGestureRecognizer(tapGesture)
+        
+        //
+        selectStreamInfoVC.modalPresentationStyle = .overFullScreen
+        selectStreamInfoVC.completionHandler = {(account,page) in
+            self.selectedAccount = account
+            self.selectedPages = page
+            self.tableView.reloadData()
+        }
+        //
+        // Create Boat Animation
+        boatAnimation = LOTAnimationView(name: "material_loader")
+        // Set view to full screen, aspectFill
+        boatAnimation!.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        boatAnimation!.contentMode = .scaleAspectFill
+        boatAnimation!.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+        boatAnimation!.center = self.view.center
+        boatAnimation!.isHidden = true
+        // Add the Animation
+        view.addSubview(boatAnimation!)
     }
     func setupUI(){
         let buttonSize = nextButton.frame.size;
@@ -73,13 +101,25 @@ class StreamViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     @IBAction func addUrlStreamTapped(_ sender: Any) {
+        if let page = selectedPages , let pageId = page.userId{
+            boatAnimation?.isHidden = false
+            boatAnimation?.play()
+            FacebookServices.shared().getFacebookLiveStreamURL(pageId: pageId) {[unowned self] (streamUrl) in
+                self.streamUrls.append(streamUrl)
+                self.tableView.reloadData()
+                self.boatAnimation?.stop()
+                self.boatAnimation?.isHidden = true
+            }
+        }
     }
     
     @IBAction func nextTapped(_ sender: Any) {
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "LiveVideoViewController")
-        self.present(controller, animated: true, completion: nil)
+        if let controller = storyboard.instantiateViewController(withIdentifier: "LiveVideoViewController") as? HKLiveVideoViewController{
+            controller.streamUrls = self.streamUrls
+            self.present(controller, animated: true, completion: nil)
+        }
     }
 }
 extension StreamViewController{
@@ -94,29 +134,52 @@ extension StreamViewController{
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0{
-            return 1
+            return streamUrls.count + 1
         }
         return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0{
-            let cell = tableView.dequeueReusableCell(withIdentifier: reuseUrlCell, for: indexPath)
-            
+            let cell = tableView.dequeueReusableCell(withIdentifier: reuseUrlCell, for: indexPath) as! UrlStreamViewCell
+            if indexPath.row < streamUrls.count{
+                cell.updateUrlStreamLabel(urlStream: streamUrls[indexPath.row])
+            }else{
+                
+            }
+            cell.removeButton.tag = indexPath.row
+            cell.completionHandler = {[unowned self](index) in
+                if index  < self.streamUrls.count{
+                    self.streamUrls.remove(at: index)
+                    self.tableView.reloadData()
+                }
+            }
             return cell
         }else{
            let cell = tableView.dequeueReusableCell(withIdentifier: reuseOptionCell, for: indexPath) as! StreamOptionViewCell
             cell.selectionStyle = .none
-            cell.completionHandler = { a in
+            if let account = selectedAccount{
+                cell.updateAccountInfo(account: account)
+            }
+            if let page = selectedPages{
+                cell.updatePageInfo(page: page)
+            }
+            cell.completionHandler = {[weak self] a in
                 print("click \(a)")
+                if let strongSelf = self{
+                    //select account
+                if a == 0{
+                    strongSelf.selectStreamInfoVC.accountList = FacebookServices.shared().accountList
+                    strongSelf.selectStreamInfoVC.pageList = []
+                }else{
+                    strongSelf.selectStreamInfoVC.accountList = []
+                    strongSelf.selectStreamInfoVC.pageList = FacebookServices.shared().accountList[0].pages
+                }
+                strongSelf.selectStreamInfoVC.refreshData()
 
-                let myViewController = SelectStreamAccountViewController()
-                myViewController.modalPresentationStyle = .overFullScreen
-                myViewController.account = FacebookServices.shared().listPages[0]
-                
-                self.present(myViewController, animated: true, completion: {
-                    myViewController.refreshData(info: FacebookServices.shared().listPages[0])
-                })
+                strongSelf.present(strongSelf.selectStreamInfoVC, animated: true, completion: nil)
+
+                }
                 
             }
             return cell;

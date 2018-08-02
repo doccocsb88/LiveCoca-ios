@@ -12,6 +12,8 @@ class UrlStreamViewCell: UITableViewCell {
 
     @IBOutlet weak var removeButton: UIButton!
     @IBOutlet weak var urlLabel: UILabel!
+    var completionHandler:(Int)->() = {_ in }
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -32,5 +34,12 @@ class UrlStreamViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    func updateUrlStreamLabel(urlStream:String){
+        urlLabel.text = urlStream
+    }
     
+    @IBAction func tappedRemoveButton(_ sender: Any) {
+        let index = removeButton.tag
+        completionHandler(index)
+    }
 }

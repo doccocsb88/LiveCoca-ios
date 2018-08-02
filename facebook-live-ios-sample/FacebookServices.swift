@@ -16,8 +16,8 @@ class FacebookServices {
         let instance = FacebookServices()
         return instance
     }()
-    let accessTokens:[String] = ["EAAHA0tZANRYgBAJ7ty1sANFEQ3ALVR3tGDUR274mAaLjmsFRFx1Mzt6xZCCQAUKjiSwZB278qKauP8ZBVBVTCSGOQf0DCvatIr26K5WpfIvxRNZAq5fZCHr3cuJ5FxIgfcPI9lPYYniw2ETavIZCfW55whs3TJSAmDLtXUrVuMI4banSjK630086MY2rLPIgdq8buleT6rDoQZDZD"]
-    var listPages:[FacebookInfo] = []
+    let accessTokens:[String] = ["EAAHA0tZANRYgBAKdiacqTa4TEWPZBkCrEdfv8JOw9MQRBZAJ411AK3Sv2uZBbj62hjxezYwCpJ5fmZBg3EdItZARpiWi9kQ6Wo4kKGwPFX801U7Ev4wAdLNaE9Ftg5kpO3eDsuhePRIzfYLwi5sZAO64HsZBYAnwOwa0VSbNjcCFRXwqOKBUA9Oe8Gb3vnbHZCeBf6wtunhqzkAZDZD"]
+    var accountList:[FacebookInfo] = []
     init(){
         
     }
@@ -63,9 +63,15 @@ class FacebookServices {
                         info.tokenString = accessToken
                         info.userId = socialIdFB
                         info.displayName = "\(firstNameFB ?? "") \(lastNameFB ?? "")"
-                        
-                        for account in self.listPages{
-                            if account.userId ?? "" == accessToken{
+                        //
+                        let account = FacebookInfo()
+                        account.tokenString = accessToken
+                        account.userId = socialIdFB
+                        account.displayName = "\(firstNameFB ?? "") \(lastNameFB ?? "")"
+                        self.accountList.append(account)
+                        //
+                        for account in self.accountList{
+                            if account.tokenString ?? "" == accessToken{
                                 account.pages.append(info)
                             }
                         }
@@ -105,7 +111,7 @@ class FacebookServices {
                             info.tokenString = token
                             info.userId = pageId
                             info.displayName = pageName
-                            for account in self.listPages{
+                            for account in self.accountList{
                                 if account.userId ?? "" == tokenId{
                                     account.pages.append(info)
                                 }
@@ -144,8 +150,8 @@ class FacebookServices {
             }
         })
     }
-    func getFacebookLiveStreamURL(userId:String){
-        let req = GraphRequest(graphPath: "\(userId)/live_videos", parameters: ["fields": "stream_url,id,secure_stream_url,dash_ingest_url"], accessToken: AccessToken.current, httpMethod: GraphRequestHTTPMethod(rawValue: "GET")!)
+    func getFacebookLiveStreamURL(pageId:String, onSuccess success: @escaping (_ streamurl:String) -> Void){
+        let req = GraphRequest(graphPath: "\(pageId)/live_videos", parameters: ["fields": "stream_url,id,secure_stream_url,dash_ingest_url"], accessToken: AccessToken.current, httpMethod: GraphRequestHTTPMethod(rawValue: "POST")!)
         req.start({ (connection, result) in
             switch result {
             case .failed(let error):
@@ -159,7 +165,7 @@ class FacebookServices {
                     let streamUrl = responseDictionary["stream_url"] as? String
                     let secureStreamUrl = responseDictionary["secure_stream_url"] as? String
                     let dashIngestUrl = responseDictionary["dash_ingest_url"] as? String
-                    
+                    success(streamUrl ?? "")
                 }
             }
         })
