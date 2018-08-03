@@ -151,12 +151,13 @@ class FacebookServices {
         })
     }
     func getFacebookLiveStreamURL(pageInfo:BaseInfo, onSuccess success: @escaping (_ streamurl:String) -> Void){
-        let _  = AccessToken(authenticationToken: pageInfo.tokenString ?? "")
         AccessToken.refreshCurrentToken()
+
+        let accessToken  = AccessToken(authenticationToken: pageInfo.tokenString ?? "")
         let path = "\(pageInfo.userId ?? "")/live_videos"
-        let accessToken  = AccessToken.current
-        print("authenToken \(accessToken?.userId ?? "")")
-        let req = GraphRequest(graphPath: path, parameters: ["fields": "stream_url,id,secure_stream_url,dash_ingest_url"], accessToken: AccessToken.current, httpMethod: GraphRequestHTTPMethod(rawValue: "POST")!)
+       
+        print("authenToken \(accessToken.userId ?? "")")
+        let req = GraphRequest(graphPath: path, parameters: ["fields": "stream_url,id,secure_stream_url,dash_ingest_url"], accessToken: accessToken, httpMethod: GraphRequestHTTPMethod(rawValue: "POST")!)
         req.start({ (connection, result) in
             switch result {
             case .failed(let error):

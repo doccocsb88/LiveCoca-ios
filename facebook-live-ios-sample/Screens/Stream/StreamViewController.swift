@@ -8,7 +8,7 @@
 
 import UIKit
 import Lottie
-
+//import CommonCrypto
 class StreamViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     fileprivate let reuseOptionCell = "streamOptionCell"
     fileprivate let reuseUrlCell = "streamUrlCell"
@@ -29,6 +29,8 @@ class StreamViewController: UIViewController, UITableViewDelegate, UITableViewDa
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        let pw = "123456IrbrMHoO8zjaqy3h"
+        print("aaaa : \("".MD5(pw))")
         setup()
         setupUI()
         FacebookServices.shared().fetchData {

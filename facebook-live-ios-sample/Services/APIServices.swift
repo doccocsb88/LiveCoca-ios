@@ -9,6 +9,10 @@
 import Foundation
 import Alamofire
 class APIServices {
+    enum Constants {
+        static let loginURLPath = "http://api.cocalive.com/users"
+        static let authenticationToken = "Basic xxx"
+    }
     static let sharedInstance : APIServices = {
         let instance = APIServices()
         return instance
@@ -19,97 +23,31 @@ class APIServices {
     class func shared() -> APIServices {
         return sharedInstance
     }
-    var request: Alamofire.Request? {
-        didSet {
-            oldValue?.cancel()
-            
-            title = request?.description
-            headers.removeAll()
-            body = nil
-            elapsedTime = nil
-        }
-    }
-    var headers: [String: String] = [:]
-    var body: String?
-    var elapsedTime: TimeInterval?
-    var segueIdentifier: String?
-    var title: String?
-    
-    static let numberFormatter: NumberFormatter = {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        return formatter
-    }()
-
-    
-     func refresh() {
-        guard let request = request else {
+    func login(username:String, password:String,completion: @escaping ([User]?) -> Void) {
+        guard let url = URL(string: Constants.loginURLPath) else {
+            completion(nil)
             return
         }
-        
-        
-        let start = CACurrentMediaTime()
-        
-        let requestComplete: (HTTPURLResponse?, Result<String>) -> Void = { response, result in
-            let end = CACurrentMediaTime()
-            self.elapsedTime = end - start
-            
-            if let response = response {
-                for (field, value) in response.allHeaderFields {
-                    self.headers["\(field)"] = "\(value)"
+        Alamofire.request(url,
+                          method: .get,
+                          parameters: ["username": username,"password":password])
+            .validate()
+            .responseJSON { response in
+                guard response.result.isSuccess else {
+                    print("Error while fetching remote rooms: \(String(describing: response.result.error))")
+                        completion(nil)
+                    return
                 }
-            }
-            
-            if let segueIdentifier = self.segueIdentifier {
-                switch segueIdentifier {
-                case "GET", "POST", "PUT", "DELETE":
-                    self.body = result.value
-                case "DOWNLOAD":
-                    self.body = self.downloadedBodyString()
-                default:
-                    break
-                }
-            }
-            
-//            self.tableView.reloadData()
-//            self.refreshControl?.endRefreshing()
-        }
-        
-        if let request = request as? DataRequest {
-            request.responseString { response in
-                requestComplete(response.response, response.result)
-            }
-        } else if let request = request as? DownloadRequest {
-            request.responseString { response in
-                requestComplete(response.response, response.result)
-            }
-        }
-    }
-    
-    private func downloadedBodyString() -> String {
-        let fileManager = FileManager.default
-        let cachesDirectory = fileManager.urls(for: .cachesDirectory, in: .userDomainMask)[0]
-        
-        do {
-            let contents = try fileManager.contentsOfDirectory(
-                at: cachesDirectory,
-                includingPropertiesForKeys: nil,
-                options: .skipsHiddenFiles
-            )
-            
-            if let fileURL = contents.first, let data = try? Data(contentsOf: fileURL) {
-                let json = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions())
-                let prettyData = try JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
                 
-                if let prettyString = String(data: prettyData, encoding: String.Encoding.utf8) {
-                    try fileManager.removeItem(at: fileURL)
-                    return prettyString
+                guard let value = response.result.value as? [String: Any],
+                    let rows = value["rows"] as? [[String: Any]] else {
+                        print("Malformed data received from fetchAllRooms service")
+                        completion(nil)
+                        return
                 }
-            }
-        } catch {
-            // No-op
+                
+                let rooms = rows.compactMap { roomDict in return User(jsonData: roomDict) }
+                completion(rooms)
         }
-        
-        return ""
     }
 }
