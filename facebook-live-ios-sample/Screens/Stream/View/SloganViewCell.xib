@@ -67,8 +67,11 @@
                             <action selector="tappedOtherButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="LKE-jQ-KDI"/>
                         </connections>
                     </button>
-                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jgr-an-2JA">
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jgr-an-2JA">
                         <rect key="frame" x="10" y="115" width="300" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="npN-Re-G7X"/>
+                        </constraints>
                         <nil key="textColor"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits"/>

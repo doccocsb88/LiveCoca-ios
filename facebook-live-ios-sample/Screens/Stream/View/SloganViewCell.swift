@@ -49,11 +49,11 @@ class SloganViewCell: UITableViewCell , UITableViewDelegate, UITableViewDataSour
     }
     func setup(){
         config =  ["value":0,"text":"" , "color":color,"align":align]
-        colorButton.addBorder(cornerRadius: 4, color: UIColor.lightGray)
-        //
-        alignButton.addBorder(cornerRadius: 4, color: UIColor.lightGray)
-        //
         
+        //
+        sloganTextField.addBorder(cornerRadius: 4, color: UIColor.lightGray)
+        colorButton.addBorder(cornerRadius: 4, color: UIColor.lightGray)
+        alignButton.addBorder(cornerRadius: 4, color: UIColor.lightGray)
         updateButton.addBorder(cornerRadius: 15, color: UIColor.clear)
         
         //
@@ -77,21 +77,25 @@ class SloganViewCell: UITableViewCell , UITableViewDelegate, UITableViewDataSour
         otherButton.isSelected = otherButton.tag == value
         //
         sloganTextField.isEnabled = value == otherButton.tag
-
     }
     @IBAction func tappedHideButton(_ sender: Any) {
         config["value"] = 0
+        sloganTextField.resignFirstResponder()
+
         updateView()
     }
     
     @IBAction func tappedDefaultButton(_ sender: Any) {
         config["value"] = 1
+        sloganTextField.resignFirstResponder()
+
         updateView()
 
     }
     
     @IBAction func tappedOtherButton(_ sender: Any) {
         config["value"] = 2
+        sloganTextField.becomeFirstResponder()
         updateView()
     }
     

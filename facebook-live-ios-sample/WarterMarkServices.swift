@@ -79,7 +79,7 @@ class WarterMarkServices{
         let sloganLabel = UILabel(frame: sloganView.bounds)
         sloganLabel.textAlignment = .center
         sloganLabel.textColor = UIColor.white
-        sloganLabel.font = UIFont.systemFont(ofSize: 15, weight: .bold)
+        sloganLabel.font = UIFont.systemFont(ofSize: 25, weight: .bold)
         sloganLabel.backgroundColor = .purple
         sloganView.addSubview(sloganLabel)
         if value == 0{
