@@ -114,11 +114,12 @@ class StreamViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     @IBAction func nextTapped(_ sender: Any) {
-        
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let controller = storyboard.instantiateViewController(withIdentifier: "LiveVideoViewController") as? HKLiveVideoViewController{
-            controller.streamUrls = self.streamUrls
-            self.present(controller, animated: true, completion: nil)
+        if self.streamUrls.count > 0{
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            if let controller = storyboard.instantiateViewController(withIdentifier: "LiveVideoViewController") as? HKLiveVideoViewController{
+                controller.streamUrls = self.streamUrls
+                self.present(controller, animated: true, completion: nil)
+            }
         }
     }
 }

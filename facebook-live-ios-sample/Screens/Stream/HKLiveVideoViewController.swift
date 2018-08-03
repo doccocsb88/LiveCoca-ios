@@ -313,7 +313,10 @@ extension HKLiveVideoViewController{
             return cell
         case 1:
             //slogan
-            let cell = tableView.dequeueReusableCell(withIdentifier:reuseSlogan, for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier:reuseSlogan, for: indexPath) as! SloganViewCell
+            cell.completeHandle = {[unowned self]update in
+                self.didTappedWarterMarkButton(nil)
+            }
             return cell
         case 2:
             //list frame
@@ -355,7 +358,6 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
     func requestAccessForVideo() -> Void {
         let status = AVCaptureDevice.authorizationStatus(for: AVMediaType.video);
         switch status  {
-        // 许可对话没有出现，发起授权许可
         case AVAuthorizationStatus.notDetermined:
             AVCaptureDevice.requestAccess(for: AVMediaType.video, completionHandler: { (granted) in
                 if(granted){
@@ -365,11 +367,9 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
                 }
             })
             break;
-        // 已经开启授权，可继续
         case AVAuthorizationStatus.authorized:
             session.running = true;
             break;
-        // 用户明确地拒绝授权，或者相机设备无法访问
         case AVAuthorizationStatus.denied: break
         case AVAuthorizationStatus.restricted:break;
         default:
@@ -380,16 +380,13 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
     func requestAccessForAudio() -> Void {
         let status = AVCaptureDevice.authorizationStatus(for:AVMediaType.audio)
         switch status  {
-        // 许可对话没有出现，发起授权许可
         case AVAuthorizationStatus.notDetermined:
             AVCaptureDevice.requestAccess(for: AVMediaType.audio, completionHandler: { (granted) in
                 
             })
             break;
-        // 已经开启授权，可继续
         case AVAuthorizationStatus.authorized:
             break;
-        // 用户明确地拒绝授权，或者相机设备无法访问
         case AVAuthorizationStatus.denied: break
         case AVAuthorizationStatus.restricted:break;
         default:
@@ -411,7 +408,6 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
     }
     //MARK: - Callbacks
     
-    // 回调
     func liveSession(_ session: LFLiveSession?, debugInfo: LFLiveDebug?) {
         print("debugInfo: \(String(describing: debugInfo?.currentBandwidth))")
     }
@@ -440,24 +436,17 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
     
     //MARK: - Events
     
-    // 开始直播
    
     @objc func didTappedWarterMarkButton(_ button: UIButton?) -> Void {
-        let wartermarkView = UIImageView()
         let wartermarkFrame  = CGRect(x: 0, y: 0, width: 720, height: 1280)
         WarterMarkServices.shared().setFrame(frame: wartermarkFrame)
-        wartermarkView.backgroundColor = UIColor.blue.withAlphaComponent(0.5)
-        wartermarkView.image = WarterMarkServices.shared().generateWarterMark()
-        wartermarkView.frame = wartermarkFrame
-        wartermarkView.contentMode = UIViewContentMode.scaleAspectFill
-        session.warterMarkView = wartermarkView
+
+        session.warterMarkView = WarterMarkServices.shared().generateWarterMark()
     }
-    // 美颜
     @objc func didTappedBeautyButton(_ button: UIButton) -> Void {
         session.beautyFace = !session.beautyFace;
     }
     
-    // 摄像头
     @objc func didTappedCameraButton(_ button: UIButton) -> Void {
         let devicePositon = session.captureDevicePosition;
         session.captureDevicePosition = (devicePositon == AVCaptureDevice.Position.back) ? AVCaptureDevice.Position.front : AVCaptureDevice.Position.back;
@@ -470,6 +459,5 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
     
     //MARK: - Getters and Setters
     
-    //  默认分辨率368 ＊ 640  音频：44.1 iphone6以上48  双声道  方向竖屏
 
 }

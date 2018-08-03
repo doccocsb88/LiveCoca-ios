@@ -31,6 +31,9 @@
                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </state>
                         <state key="selected" image="ic_circle_dot"/>
+                        <connections>
+                            <action selector="tappedHideButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="A5S-Aa-PWk"/>
+                        </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hMM-sA-Sja">
                         <rect key="frame" x="10" y="45" width="300" height="30"/>
@@ -44,6 +47,9 @@
                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </state>
                         <state key="selected" image="ic_circle_dot"/>
+                        <connections>
+                            <action selector="tappedDefaultButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="eiJ-Ez-JbU"/>
+                        </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IHj-R5-iTA">
                         <rect key="frame" x="10" y="80" width="300" height="30"/>
@@ -57,6 +63,9 @@
                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         </state>
                         <state key="selected" image="ic_circle_dot"/>
+                        <connections>
+                            <action selector="tappedOtherButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="LKE-jQ-KDI"/>
+                        </connections>
                     </button>
                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jgr-an-2JA">
                         <rect key="frame" x="10" y="115" width="300" height="30"/>
@@ -80,6 +89,9 @@
                         <state key="normal" title="Button">
                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         </state>
+                        <connections>
+                            <action selector="tappedColorButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="081-Wo-3yo"/>
+                        </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Căn chỉnh" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a9N-0s-DEf">
                         <rect key="frame" x="10" y="214" width="55" height="14"/>
@@ -97,6 +109,9 @@
                         <state key="normal" title="Button">
                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         </state>
+                        <connections>
+                            <action selector="tappedAlignButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="rUF-fa-rfc"/>
+                        </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Pe-hI-vOe">
                         <rect key="frame" x="115" y="274.5" width="90" height="30"/>
@@ -107,6 +122,9 @@
                         </constraints>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                         <state key="normal" title="CẬP NHẬT" backgroundImage="bg_add_url"/>
+                        <connections>
+                            <action selector="tappedUpdateButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="d1G-Ab-PrC"/>
+                        </connections>
                     </button>
                 </subviews>
                 <constraints>
