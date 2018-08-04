@@ -24,7 +24,7 @@ class StreamViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     var selectedAccount: FacebookInfo?
     var selectedPages:BaseInfo?
-    var streamUrls:[String] = []
+    var streamUrls:[StreamInfo] = []
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -106,8 +106,8 @@ class StreamViewController: UIViewController, UITableViewDelegate, UITableViewDa
         if let page = selectedPages , let _ = page.userId{
             boatAnimation?.isHidden = false
             boatAnimation?.play()
-            FacebookServices.shared().getFacebookLiveStreamURL(pageInfo: page) {[unowned self] (streamUrl) in
-                self.streamUrls.append(streamUrl)
+            FacebookServices.shared().getFacebookLiveStreamURL(pageInfo: page) {[unowned self] (info) in
+                self.streamUrls.append(info)
                 self.tableView.reloadData()
                 self.boatAnimation?.stop()
                 self.boatAnimation?.isHidden = true
@@ -146,7 +146,8 @@ extension StreamViewController{
         if indexPath.section == 0{
             let cell = tableView.dequeueReusableCell(withIdentifier: reuseUrlCell, for: indexPath) as! UrlStreamViewCell
             if indexPath.row < streamUrls.count{
-                cell.updateUrlStreamLabel(urlStream: streamUrls[indexPath.row])
+                let info = streamUrls[indexPath.row]
+                cell.updateUrlStreamLabel(urlStream: info.urlString)
             }else{
                 
             }

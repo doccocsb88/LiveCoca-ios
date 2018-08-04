@@ -30,6 +30,8 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
 //    var liveVideo: FBSDKLiveVideo!
     var timer = Timer()
     var startX : CGFloat = 0.0
+    var commentView:StreamCommentView?
+    let commentViewHeight:CGFloat = 300
     @IBOutlet weak var footerButton: UIButton!
     @IBOutlet weak var hozirontalTextButton: UIButton!
     @IBOutlet weak var recordButton: UIButton!
@@ -91,7 +93,7 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
     
     // 开始直播按钮
     var curMenuIndex:Int = -1;
-    var streamUrls:[String] = []
+    var streamUrls:[StreamInfo] = []
     
     //
     let imagePicker = UIImagePickerController()
@@ -126,7 +128,12 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
         self.view.backgroundColor = UIColor.clear
         self.view.addSubview(closeButton)
         self.view.addSubview(cameraButton)
-
+        //
+        commentView = StreamCommentView(frame: CGRect(x: 0, y: self.view.frame.size.height - commentViewHeight - 50, width: self.view.frame.size.width, height: commentViewHeight))
+        commentView?.backgroundColor = UIColor.black.withAlphaComponent(0.2)
+        self.view.addSubview(commentView!)
+        
+        //
         cameraButton.addTarget(self, action: #selector(didTappedCameraButton(_:)), for:.touchUpInside)
         closeButton.addTarget(self, action: #selector(didTappedWarterMarkButton(_:)), for:.touchUpInside)
         toggleMenuView()
@@ -206,6 +213,16 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     @IBAction func commentTapped(_ sender: Any) {
+        UIView.animate(withDuration: 0.25) { [unowned self] in
+            if let tag = self.commentView?.tag, tag == 1{
+                 self.commentView?.isHidden = true
+                 self.commentView?.tag = 0
+            }else{
+                 self.commentView?.isHidden = false
+                 self.commentView?.tag = 1
+            }
+        }
+        
     }
     @IBAction func chatTapped(_ sender: Any) {
     }
@@ -232,6 +249,7 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
         }) { (finished) in
         }
     }
+
 }
 
 
@@ -408,7 +426,7 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
     func startLive(){
         if streamUrls.count > 0 {
             let stream = LFLiveStreamInfo()
-            stream.url = streamUrls[0]
+            stream.url = streamUrls[0].urlString
             session.startLive(stream)
         }
        
@@ -432,10 +450,14 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
         print("liveStateDidChange: \(state.rawValue)")
         switch state {
         case LFLiveState.ready:
+            
+
             break;
+
         case LFLiveState.pending:
             break;
         case LFLiveState.start:
+            Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(fetchStreamComments), userInfo: nil, repeats: true)
             break;
         case LFLiveState.error:
             break;
@@ -468,7 +490,14 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
     func didTappedCloseButton(_ button: UIButton) -> Void  {
         
     }
-    
+     @objc func fetchStreamComments(){
+        print("fetchStreamComments")
+        FacebookServices.shared().getStreamComment(streamId: self.streamUrls[0].streamId) {[unowned self] (comments) in
+            if let view = self.commentView{
+                view.reloadData(data: comments)
+            }
+        }
+    }
     //MARK: - Getters and Setters
   
     func openPhotoLibrary() {

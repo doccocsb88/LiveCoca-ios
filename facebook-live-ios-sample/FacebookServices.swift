@@ -16,8 +16,9 @@ class FacebookServices {
         let instance = FacebookServices()
         return instance
     }()
-    let accessTokens:[String] = ["EAAHA0tZANRYgBAK6kLdSxgajtdDnoY2fNRoOuAfJK3SFvk2TBk80whqAnp4DjYowVlFZCJZBiXd9R53PZCTfpV9AzZC6hYmZCZAeHrTpEf2KpNHAzqtZAR0kZBCgxl5040gSun59Y33OwyIYxuHNQVGSZCLGuTrF142yZBbf26WzbkEle5xCrv5TikGkmTYL8kK9gzj6fwIVy8ZC6QZDZD"]
+    let accessTokens:[String] = ["EAAHA0tZANRYgBAEib2otrpZCniWza2GCENAhhpquypPiwVQ2E8CvwbAeuwrryqv13fKKjSQfqPLnOEaWuwYP8JJw4LuvuT0Ki80cVmgjZAhZB2uodkZArdUT0ae9m1ZCZAMDnOBhnYI3buHMSzPItJv4vS9XAwEH43A8dMcWFqkxB0XmCGJMbYgOO1qYe5eSbs1ZCkStZBL2ynQZDZD"]
     var accountList:[FacebookInfo] = []
+    var curPage:BaseInfo?
     init(){
         
     }
@@ -150,9 +151,9 @@ class FacebookServices {
             }
         })
     }
-    func getFacebookLiveStreamURL(pageInfo:BaseInfo, onSuccess success: @escaping (_ streamurl:String) -> Void){
-        AccessToken.refreshCurrentToken()
-
+    func getFacebookLiveStreamURL(pageInfo:BaseInfo, onSuccess
+        success: @escaping (_ info:StreamInfo) -> Void){
+        curPage = pageInfo
         let accessToken  = AccessToken(authenticationToken: pageInfo.tokenString ?? "")
         let path = "\(pageInfo.userId ?? "")/live_videos"
        
@@ -164,18 +165,63 @@ class FacebookServices {
                 print("failed \(error)")
                 
             case .success(let graphResponse):
-                print("success")
+                print("success :\(graphResponse)")
                 if let responseDictionary = graphResponse.dictionaryValue {
                     print(responseDictionary)
                     let streamId = responseDictionary["id"] as? String
                     let streamUrl = responseDictionary["stream_url"] as? String
                     let secureStreamUrl = responseDictionary["secure_stream_url"] as? String
                     let dashIngestUrl = responseDictionary["dash_ingest_url"] as? String
-                    success(streamUrl ?? "")
+                    let streamInfo = StreamInfo(jsonData: responseDictionary)
+                    
+                    success(streamInfo)
+                    
                 }
             }
         })
     }
+    
+    
+    func getStreamComment(streamId:String, onSuccess success: @escaping (_ info:[FacebookComment]) -> Void){
+        guard let page = curPage else {
+            return
+        }
+        let accessToken  = AccessToken(authenticationToken: page.tokenString ?? "")
+        let path = "\(streamId)/comments"
+        
+        print("authenToken \(accessToken.userId ?? "")")
+        let params = ["fields": ""]
+        let req = GraphRequest(graphPath: path, parameters: [:], accessToken: accessToken, httpMethod: GraphRequestHTTPMethod(rawValue: "GET")!)
+        req.start({ (connection, result) in
+            switch result {
+            case .failed(let error):
+                print("failed \(error)")
+                
+            case .success(let graphResponse):
+                print("success ")
+                if let responseDictionary = graphResponse.dictionaryValue {
+                    print(responseDictionary)
+
+                    guard let datas = responseDictionary["data"] as? [Any] else{
+                        return
+                    }
+                    var comments:[FacebookComment] = []
+                    for data  in datas{
+                        //print("failed cc : \(data)")
+                        if data is [String:Any]{
+                            let comment = FacebookComment(dataJson: data as! [String : Any])
+                            comments.append(comment)
+                        }
+                    }
+                    
+                    success(comments)
+                
+                    
+                }
+            }
+        })
+    }
+    
 }
 
 

@@ -26,6 +26,11 @@
 		18042C00210DFCF400F48229 /* RandomNumberViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18042BFE210DFCF400F48229 /* RandomNumberViewCell.xib */; };
 		1854DB2F210D4C9C009DF33D /* BaseInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1854DB2E210D4C9C009DF33D /* BaseInfo.swift */; };
 		186020382115B57700662714 /* QuestionMaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186020372115B57700662714 /* QuestionMaskView.swift */; };
+		1860203A2115C0B300662714 /* StreamInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186020392115C0B300662714 /* StreamInfo.swift */; };
+		1860203C2115CBFC00662714 /* FacebookComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1860203B2115CBFC00662714 /* FacebookComment.swift */; };
+		1860203E2115DE8C00662714 /* StreamCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1860203D2115DE8C00662714 /* StreamCommentView.swift */; };
+		186020412115E26A00662714 /* StreamCommentViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1860203F2115E26A00662714 /* StreamCommentViewCell.swift */; };
+		186020422115E26A00662714 /* StreamCommentViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 186020402115E26A00662714 /* StreamCommentViewCell.xib */; };
 		187A1686210B8A3E00F418CF /* MenuViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187A1685210B8A3E00F418CF /* MenuViewCell.swift */; };
 		187A1688210C172D00F418CF /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 187A1687210C172D00F418CF /* libstdc++.tbd */; };
 		187A168A210C173500F418CF /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 187A1689210C173500F418CF /* libz.tbd */; };
@@ -90,6 +95,11 @@
 		18042BFE210DFCF400F48229 /* RandomNumberViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = RandomNumberViewCell.xib; path = View/RandomNumberViewCell.xib; sourceTree = "<group>"; };
 		1854DB2E210D4C9C009DF33D /* BaseInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseInfo.swift; sourceTree = "<group>"; };
 		186020372115B57700662714 /* QuestionMaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionMaskView.swift; sourceTree = "<group>"; };
+		186020392115C0B300662714 /* StreamInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamInfo.swift; sourceTree = "<group>"; };
+		1860203B2115CBFC00662714 /* FacebookComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookComment.swift; sourceTree = "<group>"; };
+		1860203D2115DE8C00662714 /* StreamCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamCommentView.swift; sourceTree = "<group>"; };
+		1860203F2115E26A00662714 /* StreamCommentViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StreamCommentViewCell.swift; path = View/StreamCommentViewCell.swift; sourceTree = "<group>"; };
+		186020402115E26A00662714 /* StreamCommentViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = StreamCommentViewCell.xib; path = View/StreamCommentViewCell.xib; sourceTree = "<group>"; };
 		187A1685210B8A3E00F418CF /* MenuViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewCell.swift; sourceTree = "<group>"; };
 		187A1687210C172D00F418CF /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		187A1689210C173500F418CF /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
@@ -340,6 +350,8 @@
 				DB40E22F1E71567E009E7C74 /* FBSDKLiveVideo.swift */,
 				18DB2AB7210CC226005864E1 /* FacebookInfo.swift */,
 				1854DB2E210D4C9C009DF33D /* BaseInfo.swift */,
+				186020392115C0B300662714 /* StreamInfo.swift */,
+				1860203B2115CBFC00662714 /* FacebookComment.swift */,
 			);
 			name = FBSDKLiveVideo;
 			sourceTree = "<group>";
@@ -388,6 +400,8 @@
 				18042BFA210DF77F00F48229 /* CatchWordViewCell.xib */,
 				18042BFD210DFCF400F48229 /* RandomNumberViewCell.swift */,
 				18042BFE210DFCF400F48229 /* RandomNumberViewCell.xib */,
+				1860203F2115E26A00662714 /* StreamCommentViewCell.swift */,
+				186020402115E26A00662714 /* StreamCommentViewCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -396,6 +410,7 @@
 			isa = PBXGroup;
 			children = (
 				EC53B2C9210B2A14000A3866 /* SelectStreamAccountViewController.swift */,
+				1860203D2115DE8C00662714 /* StreamCommentView.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -477,6 +492,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				186020422115E26A00662714 /* StreamCommentViewCell.xib in Resources */,
 				18042BFC210DF77F00F48229 /* CatchWordViewCell.xib in Resources */,
 				18042BF8210DBF1A00F48229 /* FilterCommentViewCell.xib in Resources */,
 				EC53B2C7210B09E2000A3866 /* UrlStreamViewCell.xib in Resources */,
@@ -572,10 +588,12 @@
 				EC53B2BD210AED22000A3866 /* FrameViewCell.swift in Sources */,
 				1854DB2F210D4C9C009DF33D /* BaseInfo.swift in Sources */,
 				18DBC7EC2114ADEE00C34D3E /* User.swift in Sources */,
+				1860203A2115C0B300662714 /* StreamInfo.swift in Sources */,
 				18042BF7210DBF1A00F48229 /* FilterCommentViewCell.swift in Sources */,
 				DB9C40701E70527D00CCBD83 /* HKLiveVideoViewController.swift in Sources */,
 				DB40E2301E71567E009E7C74 /* FBSDKLiveVideo.swift in Sources */,
 				18042BEF210DB23200F48229 /* PinCommentViewCell.swift in Sources */,
+				186020412115E26A00662714 /* StreamCommentViewCell.swift in Sources */,
 				18042BE3210DA18900F48229 /* SloganViewCell.swift in Sources */,
 				18042BFF210DFCF400F48229 /* RandomNumberViewCell.swift in Sources */,
 				189C0EF4210A133A00ADF7FF /* StreamViewController.swift in Sources */,
@@ -591,9 +609,11 @@
 				189C0EFA210A16CF00ADF7FF /* BaseTabbarController.swift in Sources */,
 				187A1686210B8A3E00F418CF /* MenuViewCell.swift in Sources */,
 				18042BFB210DF77F00F48229 /* CatchWordViewCell.swift in Sources */,
+				1860203C2115CBFC00662714 /* FacebookComment.swift in Sources */,
 				DB9C406E1E70527D00CCBD83 /* AppDelegate.swift in Sources */,
 				18DB2AAC210CA3F9005864E1 /* FacebookServices.swift in Sources */,
 				18DB2AB8210CC226005864E1 /* FacebookInfo.swift in Sources */,
+				1860203E2115DE8C00662714 /* StreamCommentView.swift in Sources */,
 				189C0EF6210A134B00ADF7FF /* HistoryViewController.swift in Sources */,
 				18DBC7EA211204A500C34D3E /* APIServices.swift in Sources */,
 				18042BDC210D52C500F48229 /* WarterMarkServices.swift in Sources */,
