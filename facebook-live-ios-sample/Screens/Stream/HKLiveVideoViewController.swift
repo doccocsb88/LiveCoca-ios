@@ -92,6 +92,10 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
     // 开始直播按钮
     var curMenuIndex:Int = -1;
     var streamUrls:[String] = []
+    
+    //
+    let imagePicker = UIImagePickerController()
+    var selectedImage:UIImage?
     override func viewDidLoad() {
         super.viewDidLoad()
 //          1920x1080
@@ -253,7 +257,7 @@ extension HKLiveVideoViewController{
             return 110
         case 4:
             //add question
-            return 410
+            return 510
         case 5:
             //filter comment
             return 280
@@ -328,7 +332,15 @@ extension HKLiveVideoViewController{
             return cell
         case 4:
             //add question
-            let cell = tableView.dequeueReusableCell(withIdentifier:reuseQuestion, for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier:reuseQuestion, for: indexPath) as! QuestionViewCell
+            cell.questionImage = selectedImage
+            cell.didTapSelectImage = {[unowned self] in
+                self.openPhotoLibrary()
+            }
+            cell.didUpdateQuestionConfig = {[unowned self] in
+                self.didTappedWarterMarkButton(nil)
+            }
+            cell.selectionStyle = .none
             return cell
         case 5:
             //filter comment
@@ -458,6 +470,42 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
     }
     
     //MARK: - Getters and Setters
+  
+    func openPhotoLibrary() {
+        guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else {
+            print("can't open photo library")
+            return
+        }
+        
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.delegate = self
+        
+        present(imagePicker, animated: true)
+    }
+}
+extension HKLiveVideoViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        defer {
+            picker.dismiss(animated: true)
+        }
+        
+        print(info)
+        // get the image
+        guard let image = info[UIImagePickerControllerOriginalImage] as? UIImage else {
+            return
+        }
+        
+        // do something with it
+//        imageView.image = image//÷
+        self.selectedImage = image
+        self.tableView.reloadData()
+    }
     
-
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        defer {
+            picker.dismiss(animated: true)
+        }
+        
+        print("did cancel")
+    }
 }

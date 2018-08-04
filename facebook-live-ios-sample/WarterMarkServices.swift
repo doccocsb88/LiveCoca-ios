@@ -48,10 +48,14 @@ class WarterMarkServices{
                 watermarkView.addSubview(sloganView)
             }
         }
-        
-        let wartermarkImageView = UIImageView(frame: watermarkView.bounds)
-        wartermarkImageView.image = backgroundImage.resizeImage(self.frame.size)
-        watermarkView.addSubview(wartermarkImageView)
+        if let question = params["question"] as? [String:Any], question.keys.count > 0{
+            let questionView = QuestionMaskView(frame: CGRect(x: 0, y: self.frame.size.height - 230, width: self.frame.size.width, height: 220))
+            questionView.bindData(config: question)
+            watermarkView.addSubview(questionView)
+        }
+//        let wartermarkImageView = UIImageView(frame: watermarkView.bounds)
+//        wartermarkImageView.image = backgroundImage.resizeImage(self.frame.size)
+//        watermarkView.addSubview(wartermarkImageView)
         return watermarkView
     }
     func addCountDown(){
@@ -97,6 +101,9 @@ class WarterMarkServices{
     }
     func configSlogan(config:[String:Any]){
         params["slogan"] = config
+    }
+    func configQuestion(config:[String:Any]){
+        params["question"] = config
     }
     /**/
     func hideCountDownView(){
