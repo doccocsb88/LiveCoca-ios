@@ -34,6 +34,9 @@ class WarterMarkServices{
     }
     func generateWarterMark() -> UIView{
         let watermarkView = UIView(frame: self.frame)
+        let scale = self.frame.size.height /  UIScreen.main.bounds.height
+        let bottomMargin = 50 * scale
+
         backgroundImage = UIImage(color: UIColor.red.withAlphaComponent(0.5), size: self.frame.size)
         backgroundImage = backgroundImage.resizeImage(self.frame.size)
         if let frame = params["frame"] as? Bool , frame == true{
@@ -49,9 +52,24 @@ class WarterMarkServices{
             }
         }
         if let question = params["question"] as? [String:Any], question.keys.count > 0{
-            let questionView = QuestionMaskView(frame: CGRect(x: 0, y: self.frame.size.height - 230, width: self.frame.size.width, height: 220))
+            let height = 230 * scale
+            let questionView = QuestionMaskView(frame: CGRect(x: 0, y: self.frame.size.height - height - 10, width: self.frame.size.width, height: height))
             questionView.bindData(config: question)
             watermarkView.addSubview(questionView)
+        }
+        if let catchword = params["catchword"] as? [String: Any], catchword.keys.count > 0{
+            let height = 250 * scale
+            let catchwordView = CatchWordMaskView(frame: CGRect(x: 0, y: self.frame.size.height - height - bottomMargin, width: self.frame.size.width, height: height))
+            watermarkView.addSubview(catchwordView)
+        }
+        
+        if let video = params["video"] as? [String:Any], video.keys.count > 0, let url = video["url"] as? String{
+            let height:CGFloat = 300 * scale
+            let width:CGFloat = height / (720 / 1280)
+            let videoView = VideoMaskView(frame: CGRect(x: self.frame.size.width - width, y: self.frame.size.height - height - bottomMargin , width: width, height: height))
+            videoView.playVideo(from: url)
+            watermarkView.addSubview(videoView)
+            
         }
 //        let wartermarkImageView = UIImageView(frame: watermarkView.bounds)
 //        wartermarkImageView.image = backgroundImage.resizeImage(self.frame.size)
@@ -104,6 +122,16 @@ class WarterMarkServices{
     }
     func configQuestion(config:[String:Any]){
         params["question"] = config
+    }
+    func configPin(config:FacebookComment){
+        params["pin"] = config
+
+    }
+    func configCatchWord(config:[String:Any]){
+        params["catchword"] = config
+    }
+    func configVideo(config:[String:Any]){
+        params["video"] = config
     }
     /**/
     func hideCountDownView(){

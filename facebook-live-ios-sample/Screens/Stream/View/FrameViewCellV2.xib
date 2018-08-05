@@ -15,44 +15,41 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="89" id="KGk-i7-Jjw" customClass="FrameViewCellV2" customModule="facebook_live_ios_sample" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="89"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="88.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_frame_default" translatesAutoresizingMaskIntoConstraints="NO" id="fkI-sE-RNj">
-                        <rect key="frame" x="10" y="5" width="50" height="78.5"/>
+                        <rect key="frame" x="10" y="5.5" width="50" height="80"/>
                         <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstAttribute="width" secondItem="fkI-sE-RNj" secondAttribute="height" multiplier="5:8" id="0gS-JJ-V6F"/>
+                            <constraint firstAttribute="height" constant="80" id="4Zv-y7-otC"/>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="4xN-rR-yVY"/>
                             <constraint firstAttribute="width" constant="50" id="8VH-0F-3Na"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="4xN-rR-yVY"/>
+                                <exclude reference="8VH-0F-3Na"/>
                             </mask>
                         </variation>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6vw-Jc-fPX">
-                        <rect key="frame" x="70" y="36.5" width="224" height="15.5"/>
+                        <rect key="frame" x="70" y="37.5" width="240" height="16"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="6vw-Jc-fPX" firstAttribute="leading" secondItem="fkI-sE-RNj" secondAttribute="trailing" constant="10" id="3Ph-bl-zWb"/>
-                    <constraint firstItem="6vw-Jc-fPX" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="55t-e8-PtG"/>
-                    <constraint firstItem="6vw-Jc-fPX" firstAttribute="leading" secondItem="fkI-sE-RNj" secondAttribute="trailing" constant="5" id="Fat-jh-AtH"/>
+                    <constraint firstItem="6vw-Jc-fPX" firstAttribute="leading" secondItem="fkI-sE-RNj" secondAttribute="trailing" constant="10" id="32F-gr-Gj3"/>
                     <constraint firstItem="fkI-sE-RNj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="J0A-zq-yLr"/>
                     <constraint firstItem="fkI-sE-RNj" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="KoT-Cx-a8l"/>
+                    <constraint firstAttribute="trailing" secondItem="6vw-Jc-fPX" secondAttribute="trailing" constant="10" id="Vxr-sA-4oz"/>
                     <constraint firstItem="fkI-sE-RNj" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="cEE-Pr-ZwV"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="6vw-Jc-fPX" secondAttribute="trailing" constant="10" id="tFW-vh-LB5"/>
+                    <constraint firstItem="6vw-Jc-fPX" firstAttribute="centerY" secondItem="fkI-sE-RNj" secondAttribute="centerY" id="mmO-mz-k2f"/>
                 </constraints>
-                <variation key="default">
-                    <mask key="constraints">
-                        <exclude reference="Fat-jh-AtH"/>
-                    </mask>
-                </variation>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <point key="canvasLocation" x="91" y="163.5"/>

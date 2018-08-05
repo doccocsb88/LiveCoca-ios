@@ -17,9 +17,11 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
     fileprivate let reusePin = "PinCommentViewCell"
     fileprivate let reuseQuestion = "QuestionViewCell"
     fileprivate let reuseFilterComment  = "FilterCommentViewCell"
+    fileprivate let reuseVideo  = "VideoViewCell"
+
     fileprivate let reuseCatchWord  = "CatchWordViewCell"
     fileprivate let reuseRandomNumber  = "RandomNumberViewCell"
-    fileprivate let menuTitles:[String] = ["ĐẾM NGƯỢC","SLOGAN","KHUNG","PIN COMMENT","TẠO CÂU HỎI","LỌC BÌNH LUẬN","ĐUỔI HÌNH BẮT CHỮ","SỐ NGẪU NHIÊN"]
+    fileprivate let menuTitles:[String] = ["ĐẾM NGƯỢC","SLOGAN","KHUNG","PIN COMMENT","TẠO CÂU HỎI","LỌC BÌNH LUẬN","HIỂN THỊ VIDEO","ĐUỔI HÌNH BẮT CHỮ","SỐ NGẪU NHIÊN"]
     var blurOverlay: UIVisualEffectView!
 
     var sessionURL: NSURL!
@@ -44,6 +46,7 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var chatButton: UIButton!
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var sideMenuView: UIView!
     
     
     @IBOutlet weak var menuLeadingConstraint: NSLayoutConstraint!
@@ -97,7 +100,8 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
     
     //
     let imagePicker = UIImagePickerController()
-    var selectedImage:UIImage?
+    var selectedImage:[String:UIImage] = [:]
+    var selectPhotoKey:String = ""
     override func viewDidLoad() {
         super.viewDidLoad()
 //          1920x1080
@@ -149,6 +153,8 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
         tableView.register(UINib(nibName: reusePin, bundle: nil), forCellReuseIdentifier: reusePin)
         tableView.register(UINib(nibName: reuseQuestion, bundle: nil), forCellReuseIdentifier: reuseQuestion)
         tableView.register(UINib(nibName: reuseFilterComment, bundle: nil), forCellReuseIdentifier: reuseFilterComment)
+        tableView.register(UINib(nibName: reuseVideo, bundle: nil), forCellReuseIdentifier: reuseVideo)
+
         tableView.register(UINib(nibName: reuseCatchWord, bundle: nil), forCellReuseIdentifier: reuseCatchWord)
         tableView.register(UINib(nibName: reuseRandomNumber, bundle: nil), forCellReuseIdentifier: reuseRandomNumber)
 
@@ -156,6 +162,14 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         startLive()
+        
+//        let height:CGFloat = 300
+//        let width:CGFloat = height / (720 / 1280)
+//        let x = UIScreen.main.bounds.width - width
+//        let frame =  CGRect(x: self.view.frame.width - width, y: self.view.frame.height - height - 50 , width: width, height: height)
+//        let videoView = VideoMaskView(frame:frame)
+//        videoView.playVideo(from: "http://techslides.com/demos/sample-videos/small.mp4")
+//        self.view.addSubview(videoView)
     }
     
     func initializeUserInterface() {
@@ -247,6 +261,7 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
             self.view.updateFocusIfNeeded()
             
         }) { (finished) in
+            self.view.bringSubview(toFront: self.sideMenuView)
         }
     }
 
@@ -257,39 +272,6 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
 extension HKLiveVideoViewController{
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
-    }
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch indexPath.section {
-        case 0:
-            //countdown
-            return 190
-            
-        case 1:
-            //slogan
-            return 315
-        case 2:
-            //list frame
-            return 80
-        case 3:
-            //prin comment
-            return 110
-        case 4:
-            //add question
-            return 510
-        case 5:
-            //filter comment
-            return 280
-        case 6:
-            //catch word
-            return 320
-        case 7:
-            //random number
-            return 150
-        default:
-            return 0
-            
-        }
-        return 0
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let width  = self.view.frame.size.width - 100
@@ -351,8 +333,9 @@ extension HKLiveVideoViewController{
         case 4:
             //add question
             let cell = tableView.dequeueReusableCell(withIdentifier:reuseQuestion, for: indexPath) as! QuestionViewCell
-            cell.questionImage = selectedImage
+            cell.questionImage = selectedImage["questionImage"]
             cell.didTapSelectImage = {[unowned self] in
+                self.selectPhotoKey = "questionImage"
                 self.openPhotoLibrary()
             }
             cell.didUpdateQuestionConfig = {[unowned self] in
@@ -365,10 +348,38 @@ extension HKLiveVideoViewController{
             let cell = tableView.dequeueReusableCell(withIdentifier:reuseFilterComment, for: indexPath)
             return cell
         case 6:
-            //filter comment
-            let cell = tableView.dequeueReusableCell(withIdentifier:reuseCatchWord, for: indexPath)
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: reuseVideo, for: indexPath) as! VideoViewCell
+            cell.completeHandle = {[unowned self] in
+                self.didTappedWarterMarkButton(nil)
+            }
+            cell.selectionStyle = .none
             return cell
+        
         case 7:
+            //catch word
+            let cell = tableView.dequeueReusableCell(withIdentifier:reuseCatchWord, for: indexPath) as! CatchWordViewCell
+            cell.frameImage = selectedImage["frameImage"]
+            cell.questionImage = selectedImage["questionImage"]
+            cell.completeHandle = {[unowned self]type in
+                //0 start
+                //1 add frame
+                //2 add image
+                if type == 1{
+                    self.selectPhotoKey = "frameImage"
+                    self.openPhotoLibrary()
+                }else if (type == 2){
+                    self.selectPhotoKey = "questionImage"
+
+                    self.openPhotoLibrary()
+                }else{
+                    self.didTappedWarterMarkButton(nil)
+                }
+            }
+            cell.selectionStyle = .none
+            
+            return cell
+        case 8:
             //filter comment
             let cell = tableView.dequeueReusableCell(withIdentifier:reuseRandomNumber, for: indexPath)
             return cell
@@ -378,6 +389,7 @@ extension HKLiveVideoViewController{
             return cell
         }
     }
+    
     @objc func didExpandTableCell(_ button: UIButton){
         curMenuIndex = button.tag
         tableView.scrollsToTop = true
@@ -508,7 +520,6 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
         
         imagePicker.sourceType = .photoLibrary
         imagePicker.delegate = self
-        
         present(imagePicker, animated: true)
     }
 }
@@ -526,7 +537,8 @@ extension HKLiveVideoViewController: UIImagePickerControllerDelegate, UINavigati
         
         // do something with it
 //        imageView.image = image//÷
-        self.selectedImage = image
+        print("selectPhotoKey \(self.selectPhotoKey)")
+        self.selectedImage[self.selectPhotoKey] = image
         self.tableView.reloadData()
     }
     

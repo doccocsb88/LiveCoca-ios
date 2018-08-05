@@ -13,10 +13,10 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="101" id="KGk-i7-Jjw" customClass="PinCommentViewCell" customModule="facebook_live_ios_sample" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="110"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="109.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="119.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kích thước chữ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eBC-Jo-b5Q">
@@ -29,7 +29,7 @@
                         <rect key="frame" x="8" y="29" width="304" height="31"/>
                     </slider>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P4A-Aa-gks">
-                        <rect key="frame" x="70.5" y="69.5" width="80" height="30"/>
+                        <rect key="frame" x="70.5" y="79.5" width="80" height="30"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="30" id="3Hx-uD-b8P"/>
                             <constraint firstAttribute="width" constant="80" id="LDh-YQ-cor"/>
@@ -38,14 +38,14 @@
                         <state key="normal" title="CẬP NHẬT" backgroundImage="bg_add_url"/>
                     </button>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WIP-6M-JFB">
-                        <rect key="frame" x="159.5" y="99.5" width="1" height="10"/>
+                        <rect key="frame" x="159.5" y="109.5" width="1" height="10"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="10" id="PHg-qA-z8O"/>
                             <constraint firstAttribute="width" constant="1" id="SJb-xV-tIb"/>
                         </constraints>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NsZ-wI-RPQ">
-                        <rect key="frame" x="170.5" y="69.5" width="46" height="30"/>
+                        <rect key="frame" x="170.5" y="79.5" width="46" height="30"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="46" id="Z0h-0G-fmr"/>
                             <constraint firstAttribute="height" constant="30" id="xjM-mw-Kjy"/>
@@ -63,6 +63,7 @@
                     <constraint firstAttribute="trailing" secondItem="eBC-Jo-b5Q" secondAttribute="trailing" constant="10" id="X4J-Ga-yfB"/>
                     <constraint firstItem="WIP-6M-JFB" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="Zc6-oC-cNB"/>
                     <constraint firstItem="NsZ-wI-RPQ" firstAttribute="leading" secondItem="P4A-Aa-gks" secondAttribute="trailing" constant="20" id="dFT-mb-3Rs"/>
+                    <constraint firstItem="P4A-Aa-gks" firstAttribute="top" secondItem="5Ns-oU-KPn" secondAttribute="bottom" constant="20.5" id="ec2-ZD-6Wf"/>
                     <constraint firstAttribute="trailing" secondItem="5Ns-oU-KPn" secondAttribute="trailing" constant="10" id="fYb-xM-vh9"/>
                     <constraint firstItem="eBC-Jo-b5Q" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="iIT-Ai-8YY"/>
                     <constraint firstItem="eBC-Jo-b5Q" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="nsy-x8-edG"/>

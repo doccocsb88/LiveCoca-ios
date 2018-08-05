@@ -225,6 +225,7 @@
                         <outlet property="menuLeadingConstraint" destination="0kU-x0-pqp" id="0e0-sW-zbc"/>
                         <outlet property="menuWidthConstraint" destination="eM6-eQ-epJ" id="4hX-vO-XX1"/>
                         <outlet property="recordButton" destination="4r5-56-TQp" id="NwF-bJ-4Jr"/>
+                        <outlet property="sideMenuView" destination="XPI-Ij-wd2" id="D6h-YO-0Lb"/>
                         <outlet property="stopStreamButton" destination="P4K-7r-eYV" id="7lr-Q1-QaY"/>
                         <outlet property="switchCameraButton" destination="bXm-tp-ZuW" id="069-fe-dcb"/>
                         <outlet property="tableView" destination="Ch4-c3-p7T" id="1dS-KK-1Zk"/>
