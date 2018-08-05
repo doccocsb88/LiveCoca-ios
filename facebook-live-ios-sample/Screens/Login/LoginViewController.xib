@@ -111,7 +111,7 @@
                                         <constraint firstAttribute="height" constant="20" id="htm-KT-Onc"/>
                                     </constraints>
                                 </imageView>
-                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="******" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oy7-ZX-hQE">
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="******" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oy7-ZX-hQE">
                                     <rect key="frame" x="50" y="5" width="245" height="30"/>
                                     <nil key="textColor"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
@@ -149,6 +149,7 @@
                             <state key="normal" title="Lưu mật khẩu" image="ic_uncheck">
                                 <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
+                            <state key="selected" image="ic_check"/>
                             <state key="highlighted" image="ic_check"/>
                             <connections>
                                 <action selector="tappedSavePasswordButton:" destination="-1" eventType="touchUpInside" id="CMn-Pt-csQ"/>

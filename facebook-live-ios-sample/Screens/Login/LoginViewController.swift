@@ -33,6 +33,12 @@ class LoginViewController: UIViewController {
         loginButton.addBorder(cornerRadius: loginButton.frame.height / 2, color: .clear)
         container.addBorder(cornerRadius: 5, color: .clear)
         container.dropShadow(color: .black, opacity: 0.5, offSet: CGSize(width: 5, height: 5), radius: 5, scale: true)
+        
+        //
+        
+        let gesture = UITapGestureRecognizer(target: self, action:  #selector (self.tapAction (_:)))
+       container.addGestureRecognizer(gesture)
+
     }
 
     /*
@@ -44,10 +50,17 @@ class LoginViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    @objc func tapAction(_ sender:UITapGestureRecognizer){
+        // do other task
+        self.view.endEditing(true)
+        self.usernameTextfield.resignFirstResponder()
+        self.passwordTextfield.resignFirstResponder()
+    }
     @IBAction func tappedSavePasswordButton(_ sender: Any) {
         savePasswordButton.isSelected = !savePasswordButton.isSelected
     }
     
     @IBAction func tappedLoginButton(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
     }
 }
