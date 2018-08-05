@@ -53,7 +53,7 @@ class WarterMarkServices{
         }
         if let question = params["question"] as? [String:Any], question.keys.count > 0{
             let height = 230 * scale
-            let questionView = QuestionMaskView(frame: CGRect(x: 0, y: self.frame.size.height - height - 10, width: self.frame.size.width, height: height))
+            let questionView = QuestionMaskView(frame: CGRect(x: 0, y: self.frame.size.height - height - 10, width: self.frame.size.width, height: height), scale:scale)
             questionView.bindData(config: question)
             watermarkView.addSubview(questionView)
         }

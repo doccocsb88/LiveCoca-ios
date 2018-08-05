@@ -42,6 +42,8 @@ class StreamViewController: UIViewController, UITableViewDelegate, UITableViewDa
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         UIApplication.shared.statusBarStyle = .lightContent
+        let loginViewController = LoginViewController(nibName: "LoginViewController", bundle: nil)
+        self.present(loginViewController, animated: true, completion: nil)
 
     }
     override var prefersStatusBarHidden: Bool{
@@ -149,7 +151,8 @@ extension StreamViewController{
                 let info = streamUrls[indexPath.row]
                 cell.updateUrlStreamLabel(urlStream: info.urlString)
             }else{
-                
+                cell.updateUrlStreamLabel(urlStream:"")
+
             }
             cell.removeButton.tag = indexPath.row
             cell.completionHandler = {[unowned self](index) in

@@ -24,6 +24,8 @@
 		18042BFC210DF77F00F48229 /* CatchWordViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18042BFA210DF77F00F48229 /* CatchWordViewCell.xib */; };
 		18042BFF210DFCF400F48229 /* RandomNumberViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18042BFD210DFCF400F48229 /* RandomNumberViewCell.swift */; };
 		18042C00210DFCF400F48229 /* RandomNumberViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18042BFE210DFCF400F48229 /* RandomNumberViewCell.xib */; };
+		182C799E21173F55008D65CB /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182C799C21173F55008D65CB /* LoginViewController.swift */; };
+		182C799F21173F55008D65CB /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 182C799D21173F55008D65CB /* LoginViewController.xib */; };
 		1854DB2F210D4C9C009DF33D /* BaseInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1854DB2E210D4C9C009DF33D /* BaseInfo.swift */; };
 		186020382115B57700662714 /* QuestionMaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186020372115B57700662714 /* QuestionMaskView.swift */; };
 		1860203A2115C0B300662714 /* StreamInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186020392115C0B300662714 /* StreamInfo.swift */; };
@@ -97,6 +99,8 @@
 		18042BFA210DF77F00F48229 /* CatchWordViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CatchWordViewCell.xib; path = View/CatchWordViewCell.xib; sourceTree = "<group>"; };
 		18042BFD210DFCF400F48229 /* RandomNumberViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RandomNumberViewCell.swift; path = View/RandomNumberViewCell.swift; sourceTree = "<group>"; };
 		18042BFE210DFCF400F48229 /* RandomNumberViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = RandomNumberViewCell.xib; path = View/RandomNumberViewCell.xib; sourceTree = "<group>"; };
+		182C799C21173F55008D65CB /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = Login/LoginViewController.swift; sourceTree = "<group>"; };
+		182C799D21173F55008D65CB /* LoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = LoginViewController.xib; path = Login/LoginViewController.xib; sourceTree = "<group>"; };
 		1854DB2E210D4C9C009DF33D /* BaseInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseInfo.swift; sourceTree = "<group>"; };
 		186020372115B57700662714 /* QuestionMaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionMaskView.swift; sourceTree = "<group>"; };
 		186020392115C0B300662714 /* StreamInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamInfo.swift; sourceTree = "<group>"; };
@@ -200,6 +204,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		182C799B21173F19008D65CB /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				182C799C21173F55008D65CB /* LoginViewController.swift */,
+				182C799D21173F55008D65CB /* LoginViewController.xib */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
 		186020362115B4FB00662714 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -213,6 +226,7 @@
 		189C0EEE210A12D000ADF7FF /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				182C799B21173F19008D65CB /* Login */,
 				189C0EF2210A131100ADF7FF /* Stream */,
 				189C0EF1210A130500ADF7FF /* Setup */,
 				189C0EF0210A12FB00ADF7FF /* History */,
@@ -506,6 +520,7 @@
 			files = (
 				186020422115E26A00662714 /* StreamCommentViewCell.xib in Resources */,
 				18042BFC210DF77F00F48229 /* CatchWordViewCell.xib in Resources */,
+				182C799F21173F55008D65CB /* LoginViewController.xib in Resources */,
 				18042BF8210DBF1A00F48229 /* FilterCommentViewCell.xib in Resources */,
 				EC53B2C7210B09E2000A3866 /* UrlStreamViewCell.xib in Resources */,
 				DB9C40781E70527D00CCBD83 /* LaunchScreen.storyboard in Resources */,
@@ -596,6 +611,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				182C799E21173F55008D65CB /* LoginViewController.swift in Sources */,
 				18042BDF210D8B5F00F48229 /* CountDownViewCell.swift in Sources */,
 				EC53B2CF210B2EA6000A3866 /* SelectStreamAccountViewCell.swift in Sources */,
 				EC53B2BD210AED22000A3866 /* FrameViewCell.swift in Sources */,

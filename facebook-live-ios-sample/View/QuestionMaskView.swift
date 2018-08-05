@@ -23,7 +23,12 @@ class QuestionMaskView: UIView {
     var answer2Textfield:UITextField?
     var answer3Textfield:UITextField?
     var answer4Textfield:UITextField?
-
+    var scale:CGFloat = 1
+    init(frame:CGRect, scale:CGFloat){
+        super.init(frame: frame)
+        self.scale = scale
+        initView()
+    }
     override init(frame:CGRect){
         super.init(frame: frame)
         initView()
@@ -35,33 +40,35 @@ class QuestionMaskView: UIView {
     private func initView(){
         let size = self.frame.size
         let textfieldWidth = size.width - 10
-        let textfieldHeight:CGFloat = 30
+        let textfieldHeight:CGFloat = 30 * scale
         let margin = (size.width - textfieldWidth ) / 2
-        var topmargin = self.frame.size.height - 35
+        let delta:CGFloat = 35 * scale
+        let radius = textfieldHeight / 2
+        var topmargin = self.frame.size.height - delta
         answer4Textfield = UITextField(frame: CGRect(x: margin, y: topmargin, width: textfieldWidth, height: textfieldHeight))
-        answer4Textfield?.addBorder(cornerRadius: 15, color: UIColor.clear)
+        answer4Textfield?.addBorder(cornerRadius: radius, color: UIColor.clear)
         answer4Textfield?.backgroundColor = UIColor.red
         
-        topmargin = topmargin - 35
+        topmargin = topmargin - delta
         answer3Textfield = UITextField(frame: CGRect(x: margin, y: topmargin, width: textfieldWidth, height: textfieldHeight))
-        answer3Textfield?.addBorder(cornerRadius: 15, color: UIColor.clear)
+        answer3Textfield?.addBorder(cornerRadius: radius, color: UIColor.clear)
         answer3Textfield?.backgroundColor = UIColor.red
         
         //
-        topmargin = topmargin - 35
+        topmargin = topmargin - delta
         answer2Textfield = UITextField(frame: CGRect(x: margin, y: topmargin, width: textfieldWidth, height: textfieldHeight))
-        answer2Textfield?.addBorder(cornerRadius: 15, color: UIColor.clear)
+        answer2Textfield?.addBorder(cornerRadius: radius, color: UIColor.clear)
         answer2Textfield?.backgroundColor = UIColor.red
         //
-        topmargin = topmargin - 35
+        topmargin = topmargin - delta
         answer1Textfield = UITextField(frame: CGRect(x: margin, y: topmargin, width: textfieldWidth, height: textfieldHeight))
-        answer1Textfield?.addBorder(cornerRadius: 15, color: UIColor.clear)
+        answer1Textfield?.addBorder(cornerRadius: radius, color: UIColor.clear)
         answer1Textfield?.backgroundColor = UIColor.red
         //
-        topmargin = topmargin - 55
+        topmargin = topmargin - 55 * scale
         
-        questionTextfield = UITextField(frame: CGRect(x: margin, y: topmargin, width: textfieldWidth, height: 50))
-        questionTextfield?.addBorder(cornerRadius: 25, color: UIColor.clear)
+        questionTextfield = UITextField(frame: CGRect(x: margin, y: topmargin, width: textfieldWidth, height: 50 * scale))
+        questionTextfield?.addBorder(cornerRadius: 25 * scale, color: UIColor.clear)
         questionTextfield?.backgroundColor = UIColor.red
         
         
