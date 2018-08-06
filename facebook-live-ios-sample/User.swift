@@ -7,7 +7,7 @@
 //
 
 import Foundation
-class User {
+class User : Codable {
     init (jsonData: [String:Any]){
         
     }

@@ -64,6 +64,8 @@
 		DB9C40731E70527D00CCBD83 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB9C40711E70527D00CCBD83 /* Main.storyboard */; };
 		DB9C40751E70527D00CCBD83 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB9C40741E70527D00CCBD83 /* Assets.xcassets */; };
 		DB9C40781E70527D00CCBD83 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB9C40761E70527D00CCBD83 /* LaunchScreen.storyboard */; };
+		EC295AAD21185A0F005AC814 /* APIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC295AAC21185A0F005AC814 /* APIRouter.swift */; };
+		EC295AAF21185D03005AC814 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC295AAE21185D03005AC814 /* Constant.swift */; };
 		EC5136E42112CA3900391C60 /* material_loader.json in Resources */ = {isa = PBXBuildFile; fileRef = EC5136E32112CA3900391C60 /* material_loader.json */; };
 		EC53B2B8210AD07A000A3866 /* StreamAccountViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC53B2B6210AD07A000A3866 /* StreamAccountViewCell.swift */; };
 		EC53B2B9210AD07A000A3866 /* StreamAccountViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC53B2B7210AD07A000A3866 /* StreamAccountViewCell.xib */; };
@@ -150,6 +152,8 @@
 		DBA01A2D1E71CAD80005A439 /* facebook-live-ios-sample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "facebook-live-ios-sample-Bridging-Header.h"; sourceTree = "<group>"; };
 		DBBBFCFB1E7166E100CD90AC /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
 		DBBBFCFC1E7166E100CD90AC /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		EC295AAC21185A0F005AC814 /* APIRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = APIRouter.swift; path = Services/Route/APIRouter.swift; sourceTree = "<group>"; };
+		EC295AAE21185D03005AC814 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		EC5136E32112CA3900391C60 /* material_loader.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = material_loader.json; sourceTree = "<group>"; };
 		EC53B2B6210AD07A000A3866 /* StreamAccountViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamAccountViewCell.swift; sourceTree = "<group>"; };
 		EC53B2B7210AD07A000A3866 /* StreamAccountViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StreamAccountViewCell.xib; sourceTree = "<group>"; };
@@ -296,6 +300,7 @@
 		18DB2AAA210CA3D0005864E1 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				EC295AA921185551005AC814 /* Model */,
 				186020362115B4FB00662714 /* View */,
 				18DB2AAB210CA3F9005864E1 /* FacebookServices.swift */,
 				18042BDB210D52C500F48229 /* WarterMarkServices.swift */,
@@ -360,6 +365,7 @@
 		DB9C40811E7055BE00CCBD83 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				EC295AB02118610D005AC814 /* Model */,
 				DBF6E1BF1E8BC1B800875443 /* FBSDKLiveVideo */,
 				DB9C406D1E70527D00CCBD83 /* AppDelegate.swift */,
 				189C0EF9210A16CE00ADF7FF /* BaseTabbarController.swift */,
@@ -378,6 +384,21 @@
 				1860203B2115CBFC00662714 /* FacebookComment.swift */,
 			);
 			name = FBSDKLiveVideo;
+			sourceTree = "<group>";
+		};
+		EC295AA921185551005AC814 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				EC295AAC21185A0F005AC814 /* APIRouter.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		EC295AB02118610D005AC814 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		EC53B2B5210ACF81000A3866 /* View */ = {
@@ -446,6 +467,7 @@
 			children = (
 				ECE9439021087901003EB965 /* ImageUtils.swift */,
 				18DBC7ED2114B33100C34D3E /* StringUtils.swift */,
+				EC295AAE21185D03005AC814 /* Constant.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -613,6 +635,7 @@
 			files = (
 				182C799E21173F55008D65CB /* LoginViewController.swift in Sources */,
 				18042BDF210D8B5F00F48229 /* CountDownViewCell.swift in Sources */,
+				EC295AAF21185D03005AC814 /* Constant.swift in Sources */,
 				EC53B2CF210B2EA6000A3866 /* SelectStreamAccountViewCell.swift in Sources */,
 				EC53B2BD210AED22000A3866 /* FrameViewCell.swift in Sources */,
 				1854DB2F210D4C9C009DF33D /* BaseInfo.swift in Sources */,
@@ -633,6 +656,7 @@
 				18042BF3210DB68200F48229 /* QuestionViewCell.swift in Sources */,
 				189C0EF8210A136400ADF7FF /* SetupViewController.swift in Sources */,
 				EC53B2C6210B09E2000A3866 /* UrlStreamViewCell.swift in Sources */,
+				EC295AAD21185A0F005AC814 /* APIRouter.swift in Sources */,
 				EC53B2CB210B2A14000A3866 /* SelectStreamAccountViewController.swift in Sources */,
 				EC53B2C2210B03B9000A3866 /* StreamOptionViewCell.swift in Sources */,
 				EC53B2B8210AD07A000A3866 /* StreamAccountViewCell.swift in Sources */,
