@@ -25,6 +25,7 @@ class StreamViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var selectedAccount: FacebookInfo?
     var selectedPages:BaseInfo?
     var streamUrls:[StreamInfo] = []
+    var openLogin:Bool = false
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -42,8 +43,10 @@ class StreamViewController: UIViewController, UITableViewDelegate, UITableViewDa
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         UIApplication.shared.statusBarStyle = .lightContent
-        let loginViewController = LoginViewController(nibName: "LoginViewController", bundle: nil)
-        self.present(loginViewController, animated: true, completion: nil)
+        if !openLogin {
+            openLogin = true
+            openLoginScreen()
+        }
 
     }
     override var prefersStatusBarHidden: Bool{
@@ -90,15 +93,17 @@ class StreamViewController: UIViewController, UITableViewDelegate, UITableViewDa
         addUrlStreamButton.layer.cornerRadius = buttonSize.height /  2
         addUrlStreamButton.layer.masksToBounds = true
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    func openLoginScreen(){
+        let loginViewController = LoginViewController(nibName: "LoginViewController", bundle: nil)
+        self.present(loginViewController, animated: true, completion: nil)
     }
-    */
+    func openAddCountView(){
+        let vc = AddStreamAccountViewController(nibName: "AddStreamAccountViewController", bundle: nil)
+        vc.modalPresentationStyle = .overFullScreen
+        
+        self.present(vc, animated: true, completion: nil)
+    }
   
      @objc func dismissKeyboard (_ sender: UITapGestureRecognizer) {
         self.view.endEditing(true)
@@ -188,6 +193,9 @@ extension StreamViewController{
 
                 }
                 
+            }
+            cell.didTapAddAccount = { [unowned self] in
+                self.openAddCountView()
             }
             return cell;
         }

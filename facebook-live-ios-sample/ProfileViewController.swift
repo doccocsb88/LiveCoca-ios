@@ -63,6 +63,9 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         self.present(vc, animated: true, completion: nil)
     }
+    @IBAction func tappedEditAvatarButton(_ sender: Any) {
+        
+    }
 }
 
 extension ProfileViewController{

@@ -811,7 +811,7 @@
 				DEVELOPMENT_TEAM = F59XSVKP6X;
 				INFOPLIST_FILE = "facebook-live-ios-sample/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.csb.facebooklive;
+				PRODUCT_BUNDLE_IDENTIFIER = com.coca.live;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "facebook-live-ios-sample/facebook-live-ios-sample-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -830,7 +830,7 @@
 				DEVELOPMENT_TEAM = F59XSVKP6X;
 				INFOPLIST_FILE = "facebook-live-ios-sample/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.csb.facebooklive;
+				PRODUCT_BUNDLE_IDENTIFIER = com.coca.live;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "facebook-live-ios-sample/facebook-live-ios-sample-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;

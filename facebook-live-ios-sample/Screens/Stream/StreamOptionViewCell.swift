@@ -22,6 +22,7 @@ class StreamOptionViewCell: UITableViewCell {
     
     @IBOutlet weak var countDownButton: UIButton!
     var completionHandler:(Int)->() = {_ in }
+    var didTapAddAccount:()->() = {}
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -60,6 +61,7 @@ class StreamOptionViewCell: UITableViewCell {
     }
   
     @IBAction func addAccountTapped(_ sender: Any) {
+        didTapAddAccount()
     }
     @IBAction func selectAccountTapped(_ sender: Any) {
         completionHandler(0)
