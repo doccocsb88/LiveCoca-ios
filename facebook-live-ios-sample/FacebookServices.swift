@@ -16,7 +16,7 @@ class FacebookServices {
         let instance = FacebookServices()
         return instance
     }()
-    let accessTokens:[String] = ["EAAHA0tZANRYgBAEib2otrpZCniWza2GCENAhhpquypPiwVQ2E8CvwbAeuwrryqv13fKKjSQfqPLnOEaWuwYP8JJw4LuvuT0Ki80cVmgjZAhZB2uodkZArdUT0ae9m1ZCZAMDnOBhnYI3buHMSzPItJv4vS9XAwEH43A8dMcWFqkxB0XmCGJMbYgOO1qYe5eSbs1ZCkStZBL2ynQZDZD"]
+    let accessTokens:[String] = ["EAAHA0tZANRYgBAJUljcLJcZCPYGFWZCKeHpAZCZBsri2RpM4LDsg2gEtK4a0cmAFSiZCoA6FPZBbCeiucmk7VLtnuYyZCryOPXm46lX5Q4bZCIZC2PIUOj7sxLMEgmdgTVFZADTvKlLrhUzejYP1wfa1LbiqY8QcLZCo3cxjkXHQIvwh9gAfkqikUZAQ8LXZAA9dDx6AuBYZAsZAl1rfRAZDZD"]
     var accountList:[FacebookInfo] = []
     var curPage:BaseInfo?
     init(){
@@ -39,7 +39,7 @@ class FacebookServices {
         
     }
     func getFbId(accessToken: String, onSuccess success: @escaping (_ userid:String) -> Void, onFailure failure: @escaping () -> Void){
-        let _  = AccessToken(authenticationToken: accessToken)
+        let curAccesstoken  = AccessToken(authenticationToken: accessToken)
      
         print("FacebookServices : \(accessToken)")
             let req = GraphRequest(graphPath: "me", parameters: ["fields": "email,first_name,last_name,gender,picture"], accessToken: AccessToken.current, httpMethod: GraphRequestHTTPMethod(rawValue: "GET")!)
