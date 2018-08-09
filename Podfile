@@ -16,7 +16,7 @@ def import_pods
 #    pod 'FacebookCore', '~> 0.3'
     pod 'Alamofire', '~> 4.7'
     pod 'Kingfisher', '~> 4.8'
-#    pod 'CryptoSwift'
+    pod 'GPUImage', '~> 0.1'
 
 end
 target 'facebook-live-ios-sample'  do

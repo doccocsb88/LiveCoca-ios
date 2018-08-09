@@ -9,6 +9,4 @@
 import Foundation
 import Alamofire
 class APIServices {
-
-
 }

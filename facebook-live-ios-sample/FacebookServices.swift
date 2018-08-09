@@ -16,7 +16,7 @@ class FacebookServices {
         let instance = FacebookServices()
         return instance
     }()
-    let accessTokens:[String] = ["EAAHA0tZANRYgBAJUljcLJcZCPYGFWZCKeHpAZCZBsri2RpM4LDsg2gEtK4a0cmAFSiZCoA6FPZBbCeiucmk7VLtnuYyZCryOPXm46lX5Q4bZCIZC2PIUOj7sxLMEgmdgTVFZADTvKlLrhUzejYP1wfa1LbiqY8QcLZCo3cxjkXHQIvwh9gAfkqikUZAQ8LXZAA9dDx6AuBYZAsZAl1rfRAZDZD"]
+    let accessTokens:[String] = ["EAAHA0tZANRYgBAGykhlvIEPOWkLNuLPY4MGg939nuQaz9ADhW8wRmBVPQLVdhiCw4SWa9ZBpx5pszjhd8pDAxzPORUPmRHgQIjuwZCasYACBrsBxF3KubtFWWaB0LCFFsbCkPk0jMRbtywkbpgTArFdrygm6a6a6WfusaXDoeQZB8JBoPRqqLREdQK3b24GzfyV3UuLZCQgZDZD"]
     var accountList:[FacebookInfo] = []
     var curPage:BaseInfo?
     init(){
@@ -29,7 +29,7 @@ class FacebookServices {
         for i in 0 ..< accessTokens.count{
             let accessToken = accessTokens[i];
             getFbId(accessToken: accessToken, onSuccess: { [unowned self] (fbuserId) in
-                self.getListPages(tokenId: fbuserId,onSuccess: {
+                self.getListPages(tokenString: accessToken, userId: fbuserId,onSuccess: {
                     complete()
                 })
             }) {
@@ -42,7 +42,7 @@ class FacebookServices {
         let curAccesstoken  = AccessToken(authenticationToken: accessToken)
      
         print("FacebookServices : \(accessToken)")
-            let req = GraphRequest(graphPath: "me", parameters: ["fields": "email,first_name,last_name,gender,picture"], accessToken: AccessToken.current, httpMethod: GraphRequestHTTPMethod(rawValue: "GET")!)
+            let req = GraphRequest(graphPath: "me", parameters: ["fields": "email,first_name,last_name,gender,picture"], accessToken: curAccesstoken, httpMethod: GraphRequestHTTPMethod(rawValue: "GET")!)
             req.start({ (connection, result) in
                 switch result {
                 case .failed(let error):
@@ -85,8 +85,9 @@ class FacebookServices {
 //
 //        }
     }
-    func getListPages(tokenId :String, onSuccess success: @escaping () -> Void){
-        let req = GraphRequest(graphPath: "me/accounts", parameters: ["fields": "access_token,name,id"], accessToken: AccessToken.current, httpMethod: GraphRequestHTTPMethod(rawValue: "GET")!)
+    func getListPages(tokenString:String, userId :String, onSuccess success: @escaping () -> Void){
+        let accessToken = AccessToken(authenticationToken: tokenString)
+        let req = GraphRequest(graphPath: "me/accounts", parameters: ["fields": "access_token,name,id"], accessToken: accessToken, httpMethod: GraphRequestHTTPMethod(rawValue: "GET")!)
         req.start({[unowned self] (connection, result) in
             switch result {
             case .failed(let error):
@@ -113,7 +114,7 @@ class FacebookServices {
                             info.userId = pageId
                             info.displayName = pageName
                             for account in self.accountList{
-                                if account.userId ?? "" == tokenId{
+                                if account.userId ?? "" == userId{
                                     account.pages.append(info)
                                 }
                             }
