@@ -17,7 +17,7 @@ class QuestionMaskView: UIView {
         // Drawing code
     }
     */
-    
+    var questionImage:UIImageView?
     var questionTextfield:UITextField?
     var answer1Textfield:UITextField?
     var answer2Textfield:UITextField?
@@ -39,7 +39,7 @@ class QuestionMaskView: UIView {
     
     private func initView(){
         let size = self.frame.size
-        let textfieldWidth = size.width - 10
+        let textfieldWidth = size.width - 20 * scale
         let textfieldHeight:CGFloat = 30 * scale
         let margin = (size.width - textfieldWidth ) / 2
         let delta:CGFloat = 35 * scale
@@ -66,11 +66,17 @@ class QuestionMaskView: UIView {
         answer1Textfield?.backgroundColor = UIColor.red
         //
         topmargin = topmargin - 55 * scale
+        let questionTextHeight = 50 * scale;
         
-        questionTextfield = UITextField(frame: CGRect(x: margin, y: topmargin, width: textfieldWidth, height: 50 * scale))
+        questionTextfield = UITextField(frame: CGRect(x: margin, y: topmargin, width: textfieldWidth, height: questionTextHeight))
         questionTextfield?.addBorder(cornerRadius: 25 * scale, color: UIColor.clear)
         questionTextfield?.backgroundColor = UIColor.red
-        
+        //
+        let imageHeight = 200 * scale;
+        topmargin = topmargin - (200 + 5) * scale;
+        questionImage = UIImageView(frame: CGRect(x: margin, y: topmargin, width: textfieldWidth, height: imageHeight))
+        questionImage?.contentMode = .scaleAspectFit
+        self.addSubview(questionImage!)
         
         self.addSubview(questionTextfield!)
         self.addSubview(answer1Textfield!)
@@ -87,6 +93,11 @@ class QuestionMaskView: UIView {
         answer2Textfield?.text =  config["answer2"] as? String
         answer3Textfield?.text =  config["answer3"] as? String
         answer4Textfield?.text =  config["answer4"] as? String
+        if let image = config["image"] as? UIImage{
+            questionImage?.image = image
+        }else{
+            questionImage?.removeFromSuperview()
+        }
 
     }
 }

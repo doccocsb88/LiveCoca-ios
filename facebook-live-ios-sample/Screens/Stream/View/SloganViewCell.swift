@@ -36,7 +36,7 @@ class SloganViewCell: UITableViewCell , UITableViewDelegate, UITableViewDataSour
         tableView = UITableView(frame: CGRect(origin: CGPoint.zero, size: CGSize.zero))
         tableView?.delegate = self;
         tableView?.dataSource = self;
-        tableView?.backgroundColor = .red
+        tableView?.backgroundColor = .white
         
         setup()
         updateView()

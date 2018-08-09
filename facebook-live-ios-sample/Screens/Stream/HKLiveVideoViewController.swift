@@ -10,7 +10,7 @@ import UIKit
 //import FBSDKCoreKit
 //import FBSDKLoginKit
 import LFLiveKit
-import GPUImage
+//import GPUImage
 class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     fileprivate let reuseCountDown = "CountDownViewCell"
     fileprivate let reuseSlogan = "SloganViewCell"
@@ -33,6 +33,8 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
 //    var liveVideo: FBSDKLiveVideo!
     var timer = Timer()
     var startX : CGFloat = 0.0
+    
+    @IBOutlet weak var commentContainerView: UIView!
     var commentView:StreamCommentView?
     let commentViewHeight:CGFloat = 300
     @IBOutlet weak var footerButton: UIButton!
@@ -54,6 +56,7 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
     
     @IBOutlet weak var menuWidthConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var commentBoxMarginBottomConstraint: NSLayoutConstraint!
     @IBAction func recordButtonTapped() {
     }
     
@@ -103,7 +106,7 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
     let imagePicker = UIImagePickerController()
     var selectedImage:[String:UIImage] = [:]
     var selectPhotoKey:String = ""
-    var backgroundMovie:GPUImageMovie?
+//    var backgroundMovie:GPUImageMovie?
     override func viewDidLoad() {
         super.viewDidLoad()
 //          1920x1080
@@ -135,9 +138,9 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
         self.view.addSubview(closeButton)
         self.view.addSubview(cameraButton)
         //
-        commentView = StreamCommentView(frame: CGRect(x: 0, y: self.view.frame.size.height - commentViewHeight - 50, width: self.view.frame.size.width, height: commentViewHeight))
+        commentView = StreamCommentView(frame: CGRect(x: 0, y:0, width: self.view.frame.size.width, height: commentViewHeight))
         commentView?.backgroundColor = UIColor.black.withAlphaComponent(0.2)
-        self.view.addSubview(commentView!)
+       commentContainerView.addSubview(commentView!)
         
         //
         cameraButton.addTarget(self, action: #selector(didTappedCameraButton(_:)), for:.touchUpInside)
@@ -226,16 +229,17 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     @IBAction func switchCameraTapped(_ sender: Any) {
+        switchCamera()
     }
     
     @IBAction func commentTapped(_ sender: Any) {
         UIView.animate(withDuration: 0.25) { [unowned self] in
-            if let tag = self.commentView?.tag, tag == 1{
-                 self.commentView?.isHidden = true
-                 self.commentView?.tag = 0
+            if let tag = self.commentContainerView?.tag, tag == 1{
+                 self.commentContainerView?.isHidden = true
+                 self.commentContainerView?.tag = 0
             }else{
-                 self.commentView?.isHidden = false
-                 self.commentView?.tag = 1
+                 self.commentContainerView?.isHidden = false
+                 self.commentContainerView?.tag = 1
             }
         }
         
@@ -335,7 +339,6 @@ extension HKLiveVideoViewController{
         case 4:
             //add question
             let cell = tableView.dequeueReusableCell(withIdentifier:reuseQuestion, for: indexPath) as! QuestionViewCell
-            cell.questionImage = selectedImage["questionImage"]
             cell.didTapSelectImage = {[unowned self] in
                 self.selectPhotoKey = "questionImage"
                 self.openPhotoLibrary()
@@ -343,6 +346,7 @@ extension HKLiveVideoViewController{
             cell.didUpdateQuestionConfig = {[unowned self] in
                 self.didTappedWarterMarkButton(nil)
             }
+            cell.updateQuestionImage(selectedImage["questionImage"])
             cell.selectionStyle = .none
             return cell
         case 5:
@@ -361,8 +365,7 @@ extension HKLiveVideoViewController{
         case 7:
             //catch word
             let cell = tableView.dequeueReusableCell(withIdentifier:reuseCatchWord, for: indexPath) as! CatchWordViewCell
-            cell.frameImage = selectedImage["frameImage"]
-            cell.questionImage = selectedImage["questionImage"]
+       
             cell.completeHandle = {[unowned self]type in
                 //0 start
                 //1 add frame
@@ -378,6 +381,7 @@ extension HKLiveVideoViewController{
                     self.didTappedWarterMarkButton(nil)
                 }
             }
+        cell.updateImages(frame:selectedImage["frameImage"],questionImage:selectedImage["questionImage"])
             cell.selectionStyle = .none
             
             return cell
@@ -489,21 +493,21 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
         let wartermarkFrame  = CGRect(x: 0, y: 0, width: 720, height: 1280)
         WarterMarkServices.shared().setFrame(frame: wartermarkFrame)
         let waterMarkView = WarterMarkServices.shared().generateWarterMark()
-        if let path = Bundle.main.path(forResource: "galaxy", ofType: "mp4") {
-            let subWidth = self.view.frame.width / 2;
-            let subHeight = self.view.frame.height / 2;
-            let subView = GPUImageView(frame: CGRect(x: subWidth, y: subHeight, width: subWidth, height: subHeight))
-            
-            self.view.addSubview(subView)
-            let url = URL(fileURLWithPath: path)
-            backgroundMovie = GPUImageMovie(url: url)
-            let cropFilter = GPUImageCropFilter(cropRegion: CGRect(x: 0.0, y: 0.125, width: 1.0, height: 0.75))
-            backgroundMovie?.addTarget(cropFilter)
-            backgroundMovie?.playAtActualSpeed = true
-            backgroundMovie?.shouldRepeat = true
-            backgroundMovie?.startProcessing()
-            cropFilter?.addTarget(subView)
-        }
+//        if let path = Bundle.main.path(forResource: "galaxy", ofType: "mp4") {
+//            let subWidth = self.view.frame.width / 2;
+//            let subHeight = self.view.frame.height / 2;
+//            let subView = GPUImageView(frame: CGRect(x: subWidth, y: subHeight, width: subWidth, height: subHeight))
+//
+//            self.view.addSubview(subView)
+//            let url = URL(fileURLWithPath: path)
+//            backgroundMovie = GPUImageMovie(url: url)
+//            let cropFilter = GPUImageCropFilter(cropRegion: CGRect(x: 0.0, y: 0.125, width: 1.0, height: 0.75))
+//            backgroundMovie?.addTarget(cropFilter)
+//            backgroundMovie?.playAtActualSpeed = true
+//            backgroundMovie?.shouldRepeat = true
+//            backgroundMovie?.startProcessing()
+//            cropFilter?.addTarget(subView)
+//        }
         session.warterMarkView = waterMarkView
     }
     @objc func didTappedBeautyButton(_ button: UIButton) -> Void {
@@ -511,13 +515,16 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
     }
     
     @objc func didTappedCameraButton(_ button: UIButton) -> Void {
-        let devicePositon = session.captureDevicePosition;
-        session.captureDevicePosition = (devicePositon == AVCaptureDevice.Position.back) ? AVCaptureDevice.Position.front : AVCaptureDevice.Position.back;
+       switchCamera()
     }
     
     // 关闭
     func didTappedCloseButton(_ button: UIButton) -> Void  {
         
+    }
+    func switchCamera(){
+        let devicePositon = session.captureDevicePosition;
+        session.captureDevicePosition = (devicePositon == AVCaptureDevice.Position.back) ? AVCaptureDevice.Position.front : AVCaptureDevice.Position.back;
     }
      @objc func fetchStreamComments(){
         print("fetchStreamComments")

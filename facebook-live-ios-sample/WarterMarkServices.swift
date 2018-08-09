@@ -37,7 +37,7 @@ class WarterMarkServices{
         let scale = self.frame.size.height /  UIScreen.main.bounds.height
         let bottomMargin = 50 * scale
 
-        backgroundImage = UIImage(color: UIColor.red.withAlphaComponent(0.5), size: self.frame.size)
+        backgroundImage = UIImage(color: UIColor.clear, size: self.frame.size)
         backgroundImage = backgroundImage.resizeImage(self.frame.size)
         if let frame = params["frame"] as? Bool , frame == true{
            backgroundImage =  addFrame(sourceImage: backgroundImage)

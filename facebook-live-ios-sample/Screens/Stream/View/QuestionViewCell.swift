@@ -59,12 +59,15 @@ class QuestionViewCell: UITableViewCell {
          addButton.addBorder(cornerRadius: 15, color: UIColor.clear)
          cancelButton.addBorder(cornerRadius: 15, color: UIColor.clear)
         uploadButton.imageView?.contentMode = .scaleAspectFit
+       
+    }
+    func updateQuestionImage(_ image:UIImage?){
+        self.questionImage = image;
         if let image = questionImage{
             previewImageView.image = image
             config["image"] = image
         }
     }
-    
     @IBAction func tappedUploadButton(_ sender: Any) {
         didTapSelectImage()
     }

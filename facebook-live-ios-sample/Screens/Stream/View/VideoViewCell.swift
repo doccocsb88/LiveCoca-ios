@@ -41,7 +41,7 @@ class VideoViewCell: UITableViewCell, UITableViewDelegate, UITableViewDataSource
         tableView = UITableView(frame: CGRect(origin: CGPoint.zero, size: CGSize.zero))
         tableView?.delegate = self;
         tableView?.dataSource = self;
-        tableView?.backgroundColor = .red
+        tableView?.backgroundColor = .white
     }
     @IBAction func tappedPositionButton(_ sender: Any) {
         if positionButton.isSelected == false{

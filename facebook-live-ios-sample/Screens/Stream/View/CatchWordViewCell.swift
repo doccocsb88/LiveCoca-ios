@@ -41,6 +41,18 @@ class CatchWordViewCell: UITableViewCell {
         questionTextField.addBorder(cornerRadius: 4, color: UIColor.lightGray)
         answerTextField.addBorder(cornerRadius: 4, color: UIColor.lightGray)
         //
+       
+    }
+    func updateImages(frame:UIImage?, questionImage:UIImage?){
+        self.frameImage = frame
+        self.questionImage = questionImage
+        if let frame = frameImage{
+            config["frame"] = frame
+        }
+        if let questionImage = self.questionImage{
+            config["questionImage"] = questionImage
+
+        }
         frameImageView.image = frameImage
         questionImageView.image = questionImage
     }
