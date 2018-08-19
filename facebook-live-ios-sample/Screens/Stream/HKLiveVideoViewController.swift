@@ -37,9 +37,6 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var commentContainerView: UIView!
     var commentView:StreamCommentView?
     let commentViewHeight:CGFloat = 300
-    @IBOutlet weak var footerButton: UIButton!
-    @IBOutlet weak var hozirontalTextButton: UIButton!
-    @IBOutlet weak var recordButton: UIButton!
     
     @IBOutlet weak var stopStreamButton: UIButton!
     
@@ -56,6 +53,7 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
     
     @IBOutlet weak var menuWidthConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var chatTextView: UITextView!
     @IBOutlet weak var commentBoxMarginBottomConstraint: NSLayoutConstraint!
     @IBAction func recordButtonTapped() {
     }
@@ -176,7 +174,16 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
 //        videoView.playVideo(from: "http://techslides.com/demos/sample-videos/small.mp4")
 //        self.view.addSubview(videoView)
     }
+    override func viewWillAppear(_ animated: Bool) {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear(_:)), name: Notification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear(_:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
+    }
     
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self)
+    }
+
     func initializeUserInterface() {
         self.loader = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
         self.loader.frame = CGRect(x: 15, y: 15, width: 40, height: 40)
@@ -204,8 +211,6 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
 //        self.liveVideo.start()
 
         self.loader.startAnimating()
-        self.recordButton.addSubview(self.loader)
-        self.recordButton.isEnabled = false
     }
     
     func stopStreaming() {
@@ -245,6 +250,7 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
         
     }
     @IBAction func chatTapped(_ sender: Any) {
+        chatTextView.text = ""
     }
     
     @IBAction func stopStreamTapped(_ sender: Any) {
@@ -269,6 +275,23 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
         }) { (finished) in
             self.view.bringSubview(toFront: self.sideMenuView)
         }
+    }
+    @objc func keyboardWillAppear(_ notification: Notification) {
+        //Do something here
+        adjustKeyboardShow(true, notification: notification)
+
+    }
+    
+    @objc func keyboardWillDisappear(_ notification: Notification) {
+        //Do something here
+        adjustKeyboardShow(false, notification: notification)
+    }
+    func adjustKeyboardShow(_ open: Bool, notification: Notification) {
+        let userInfo = notification.userInfo ?? [:]
+        let keyboardFrame = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
+        let height = (keyboardFrame.height) * (open ? 1 : 0)
+        self.commentBoxMarginBottomConstraint.constant = height;
+        
     }
 
 }

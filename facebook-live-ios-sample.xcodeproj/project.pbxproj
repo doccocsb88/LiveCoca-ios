@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0EBDF21421290B0500A1A4C9 /* ErrorCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBDF21321290B0500A1A4C9 /* ErrorCode.swift */; };
 		18042BDC210D52C500F48229 /* WarterMarkServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18042BDB210D52C500F48229 /* WarterMarkServices.swift */; };
 		18042BDF210D8B5F00F48229 /* CountDownViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18042BDD210D8B5F00F48229 /* CountDownViewCell.swift */; };
 		18042BE0210D8B5F00F48229 /* CountDownViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18042BDE210D8B5F00F48229 /* CountDownViewCell.xib */; };
@@ -86,6 +87,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0EBDF21321290B0500A1A4C9 /* ErrorCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorCode.swift; sourceTree = "<group>"; };
 		18042BDB210D52C500F48229 /* WarterMarkServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarterMarkServices.swift; sourceTree = "<group>"; };
 		18042BDD210D8B5F00F48229 /* CountDownViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CountDownViewCell.swift; path = View/CountDownViewCell.swift; sourceTree = "<group>"; };
 		18042BDE210D8B5F00F48229 /* CountDownViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CountDownViewCell.xib; path = View/CountDownViewCell.xib; sourceTree = "<group>"; };
@@ -474,6 +476,7 @@
 				ECE9439021087901003EB965 /* ImageUtils.swift */,
 				18DBC7ED2114B33100C34D3E /* StringUtils.swift */,
 				EC295AAE21185D03005AC814 /* Constant.swift */,
+				0EBDF21321290B0500A1A4C9 /* ErrorCode.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -663,6 +666,7 @@
 				18042BF3210DB68200F48229 /* QuestionViewCell.swift in Sources */,
 				189C0EF8210A136400ADF7FF /* SetupViewController.swift in Sources */,
 				EC53B2C6210B09E2000A3866 /* UrlStreamViewCell.swift in Sources */,
+				0EBDF21421290B0500A1A4C9 /* ErrorCode.swift in Sources */,
 				EC295AAD21185A0F005AC814 /* APIRouter.swift in Sources */,
 				EC53B2CB210B2A14000A3866 /* SelectStreamAccountViewController.swift in Sources */,
 				EC53B2C2210B03B9000A3866 /* StreamOptionViewCell.swift in Sources */,

@@ -16,7 +16,7 @@ class FacebookServices {
         let instance = FacebookServices()
         return instance
     }()
-    let accessTokens:[String] = ["EAAHA0tZANRYgBAPhvm43BXrVqpeDuXXybnCmaZCbHFXkXMvss5DXgn2ZCe6WnIwZBAvd744CXOr5e5AfCP6Lq3ZCWQ5sJQEahkvLjosclC9zwYunutsMaMt4wc4Uq1d3gbwZB0ZAliEOpjQ0y7Y0blBkbjUcXNYfTZAnZAb4DzBdG4khBRAuaf9PCNscLQ8lYV8kZD"]
+    let accessTokens:[String] = ["EAAHA0tZANRYgBAPmQgYlYoexwAizioBQ5MoRrBKuzFrlidrprvjHKNSSLkcClf4bulYZBC7ZAv1BmGmZC65LJGXrt8AfSlAkTZBbZAWK2RhQqgoqJu1KsRQJ0Id6gf4r2flWmNZCHdTUoaSLZCstc6BZBFpZCw7lGrCBKNnKJssBUQZACeAaKsdR7zeiKEcxT7fZC74ZD"]
     var accountList:[FacebookInfo] = []
     var curPage:BaseInfo?
     init(){
