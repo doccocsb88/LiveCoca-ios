@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0EBDF21421290B0500A1A4C9 /* ErrorCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBDF21321290B0500A1A4C9 /* ErrorCode.swift */; };
+		0EC3FC63212DBC8600278E61 /* CommentMaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC3FC62212DBC8600278E61 /* CommentMaskView.swift */; };
 		18042BDC210D52C500F48229 /* WarterMarkServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18042BDB210D52C500F48229 /* WarterMarkServices.swift */; };
 		18042BDF210D8B5F00F48229 /* CountDownViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18042BDD210D8B5F00F48229 /* CountDownViewCell.swift */; };
 		18042BE0210D8B5F00F48229 /* CountDownViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18042BDE210D8B5F00F48229 /* CountDownViewCell.xib */; };
@@ -88,6 +89,7 @@
 
 /* Begin PBXFileReference section */
 		0EBDF21321290B0500A1A4C9 /* ErrorCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorCode.swift; sourceTree = "<group>"; };
+		0EC3FC62212DBC8600278E61 /* CommentMaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentMaskView.swift; sourceTree = "<group>"; };
 		18042BDB210D52C500F48229 /* WarterMarkServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarterMarkServices.swift; sourceTree = "<group>"; };
 		18042BDD210D8B5F00F48229 /* CountDownViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CountDownViewCell.swift; path = View/CountDownViewCell.swift; sourceTree = "<group>"; };
 		18042BDE210D8B5F00F48229 /* CountDownViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CountDownViewCell.xib; path = View/CountDownViewCell.xib; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 				186020372115B57700662714 /* QuestionMaskView.swift */,
 				186020432116BE8E00662714 /* CatchWordMaskView.swift */,
 				186020452116D33200662714 /* VideoMaskView.swift */,
+				0EC3FC62212DBC8600278E61 /* CommentMaskView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -648,6 +651,7 @@
 				EC295AAF21185D03005AC814 /* Constant.swift in Sources */,
 				EC53B2CF210B2EA6000A3866 /* SelectStreamAccountViewCell.swift in Sources */,
 				EC53B2BD210AED22000A3866 /* FrameViewCell.swift in Sources */,
+				0EC3FC63212DBC8600278E61 /* CommentMaskView.swift in Sources */,
 				1854DB2F210D4C9C009DF33D /* BaseInfo.swift in Sources */,
 				186020462116D33200662714 /* VideoMaskView.swift in Sources */,
 				18DBC7EC2114ADEE00C34D3E /* User.swift in Sources */,

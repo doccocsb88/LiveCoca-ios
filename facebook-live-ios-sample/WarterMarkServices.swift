@@ -71,6 +71,16 @@ class WarterMarkServices{
             watermarkView.addSubview(videoView)
             
         }
+        if let pinComment = params["pin"] as? [String:Any],pinComment.keys.count >= 2,let font =  pinComment["font"] as? Int{
+            if font > 0{
+                let height:CGFloat = 200 * scale
+                let width = self.frame.size.width
+                let pinView = CommentMaskView(frame: CGRect(x: 0, y: self.frame.size.height / 2 , width: width, height: height),scale: scale)
+                watermarkView.addSubview(pinView)
+
+            }
+            
+        }
 //        let wartermarkImageView = UIImageView(frame: watermarkView.bounds)
 //        wartermarkImageView.image = backgroundImage.resizeImage(self.frame.size)
 //        watermarkView.addSubview(wartermarkImageView)
@@ -123,8 +133,16 @@ class WarterMarkServices{
     func configQuestion(config:[String:Any]){
         params["question"] = config
     }
-    func configPin(config:FacebookComment){
-        params["pin"] = config
+    func configPin(comment:FacebookComment){
+        if var config = params["pin"] as? [String:Any]{
+            config["comment"] = comment
+            params["pin"] = config
+        }else{
+            let config = ["comment":comment]
+            params["pin"] = config
+
+        }
+        
 
     }
     func configCatchWord(config:[String:Any]){
@@ -132,6 +150,16 @@ class WarterMarkServices{
     }
     func configVideo(config:[String:Any]){
         params["video"] = config
+    }
+    func configPinComment(font:Int){
+        if var config = params["pin"] as? [String:Any]{
+            config["font"] = font
+            params["pin"] = config
+        }else{
+            let config = ["font":font]
+            params["pin"] = config
+            
+        }
     }
     /**/
     func hideCountDownView(){

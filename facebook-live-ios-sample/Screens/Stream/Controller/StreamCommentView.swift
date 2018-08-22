@@ -70,6 +70,8 @@ extension StreamCommentView{
                                         }
         })
         cell.backgroundColor = UIColor.clear
+        cell.selectionStyle = .none
+        
         return cell
     }
     

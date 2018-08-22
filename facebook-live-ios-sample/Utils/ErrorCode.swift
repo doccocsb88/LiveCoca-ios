@@ -9,4 +9,5 @@
 import Foundation
 enum ErrorCode: Int {
     case error_fb_session_invalid = 467
+    case error_fb_session_expired = 190
 }

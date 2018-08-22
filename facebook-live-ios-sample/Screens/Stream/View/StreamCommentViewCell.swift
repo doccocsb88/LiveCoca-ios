@@ -17,6 +17,7 @@ class StreamCommentViewCell: UITableViewCell {
     @IBOutlet weak var createDateLabel: UILabel!
     
     @IBOutlet weak var messageLabel: UILabel!
+    var comment:FacebookComment?
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -33,7 +34,7 @@ class StreamCommentViewCell: UITableViewCell {
     }
     
     func bindData(comment:FacebookComment){
-       
+        self.comment = comment;
         displayNameLabel.text = comment.fromName
         let times = comment.createdTime.components(separatedBy: "T")
         var timeText = times[1];
@@ -43,5 +44,8 @@ class StreamCommentViewCell: UITableViewCell {
     }
     
     @IBAction func tappedPinButton(_ sender: Any) {
+        if let comment = self.comment{
+            WarterMarkServices.shared().configPin(comment: comment)
+        }
     }
 }

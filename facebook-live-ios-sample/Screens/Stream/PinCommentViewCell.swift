@@ -13,6 +13,9 @@ class PinCommentViewCell: UITableViewCell {
     @IBOutlet weak var fontSlider: UISlider!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var updateButton: UIButton!
+    var config:[String:Any] = [:]
+    var completeHandle:() ->() = {}
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -27,5 +30,18 @@ class PinCommentViewCell: UITableViewCell {
     func setup(){
         updateButton.addBorder(cornerRadius: 15, color: UIColor.clear)
         cancelButton.addBorder(cornerRadius: 15, color: UIColor.clear)
+    }
+    @IBAction func tappedUpdate(_ sender: Any) {
+        WarterMarkServices.shared().configPinComment(font: 20)
+            completeHandle()
+        
+
+    }
+    
+    @IBAction func tappedCancel(_ sender: Any) {
+        config = [:]
+        WarterMarkServices.shared().configPinComment(font: 0)
+            completeHandle()
+        
     }
 }

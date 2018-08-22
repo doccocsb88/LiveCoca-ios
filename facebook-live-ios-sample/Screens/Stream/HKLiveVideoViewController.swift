@@ -79,20 +79,20 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
 
     
     // 关闭按钮
-    var closeButton: UIButton = {
-        let closeButton = UIButton(frame: CGRect(x: UIScreen.main.bounds.width - 10 - 44, y: 20, width: 44, height: 44))
-        closeButton.setImage(UIImage(named: "close_preview"), for: UIControlState())
-        closeButton.backgroundColor = UIColor.green
-        return closeButton
-    }()
-    
-    // 摄像头
-    var cameraButton: UIButton = {
-        let cameraButton = UIButton(frame: CGRect(x: UIScreen.main.bounds.width - 54 * 2, y: 20, width: 44, height: 44))
-        cameraButton.setImage(UIImage(named: "camra_preview"), for: UIControlState())
-        cameraButton.backgroundColor = UIColor.blue
-        return cameraButton
-    }()
+//    var closeButton: UIButton = {
+//        let closeButton = UIButton(frame: CGRect(x: UIScreen.main.bounds.width - 10 - 44, y: 20, width: 44, height: 44))
+//        closeButton.setImage(UIImage(named: "close_preview"), for: UIControlState())
+//        closeButton.backgroundColor = UIColor.green
+//        return closeButton
+//    }()
+//
+//    // 摄像头
+//    var cameraButton: UIButton = {
+//        let cameraButton = UIButton(frame: CGRect(x: UIScreen.main.bounds.width - 54 * 2, y: 20, width: 44, height: 44))
+//        cameraButton.setImage(UIImage(named: "camra_preview"), for: UIControlState())
+//        cameraButton.backgroundColor = UIColor.blue
+//        return cameraButton
+//    }()
     
  
     
@@ -133,16 +133,16 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
         self.requestAccessForVideo()
         self.requestAccessForAudio()
         self.view.backgroundColor = UIColor.clear
-        self.view.addSubview(closeButton)
-        self.view.addSubview(cameraButton)
+//        self.view.addSubview(closeButton)
+//        self.view.addSubview(cameraButton)
         //
         commentView = StreamCommentView(frame: CGRect(x: 0, y:0, width: self.view.frame.size.width, height: commentViewHeight))
         commentView?.backgroundColor = UIColor.black.withAlphaComponent(0.2)
        commentContainerView.addSubview(commentView!)
         
         //
-        cameraButton.addTarget(self, action: #selector(didTappedCameraButton(_:)), for:.touchUpInside)
-        closeButton.addTarget(self, action: #selector(didTappedWarterMarkButton(_:)), for:.touchUpInside)
+//        cameraButton.addTarget(self, action: #selector(didTappedCameraButton(_:)), for:.touchUpInside)
+//        closeButton.addTarget(self, action: #selector(didTappedWarterMarkButton(_:)), for:.touchUpInside)
         toggleMenuView()
         WarterMarkServices.shared().setFrame(frame: CGRect(x: 0, y: 0, width: 720, height: 1280))
         
@@ -251,6 +251,7 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
     }
     @IBAction func chatTapped(_ sender: Any) {
         chatTextView.text = ""
+        self.view.endEditing(true)
     }
     
     @IBAction func stopStreamTapped(_ sender: Any) {
@@ -357,7 +358,11 @@ extension HKLiveVideoViewController{
             return cell
         case 3:
             //pin comment
-            let cell = tableView.dequeueReusableCell(withIdentifier:reusePin, for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier:reusePin, for: indexPath) as! PinCommentViewCell
+            cell.selectionStyle = .none
+            cell.completeHandle = {[unowned self] in
+                self.didTappedWarterMarkButton(nil)
+            }
             return cell
         case 4:
             //add question
