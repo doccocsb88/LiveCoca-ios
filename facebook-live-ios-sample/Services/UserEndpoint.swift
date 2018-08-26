@@ -1,5 +1,5 @@
 //
-//  APIRouter.swift
+//  UserEndpoint.swift
 //  facebook-live-ios-sample
 //
 //  Created by Macintosh HD on 8/25/18.
@@ -8,40 +8,37 @@
 
 import UIKit
 import Alamofire
-enum APIRouter: URLRequestConvertible {
+enum UserEndpoint: APIConfiguration {
     
     case login(email:String, password:String)
-    case posts
-    case post(id: Int)
+    case profile(id: Int)
     
     // MARK: - HTTPMethod
-    private var method: HTTPMethod {
+    var method: HTTPMethod {
         switch self {
         case .login:
             return .post
-        case .posts, .post:
+        case .profile:
             return .get
         }
     }
     
     // MARK: - Path
-    private var path: String {
+    var path: String {
         switch self {
         case .login:
             return "/login"
-        case .posts:
-            return "/posts"
-        case .post(let id):
-            return "/posts/\(id)"
+        case .profile(let id):
+            return "/profile/\(id)"
         }
     }
     
     // MARK: - Parameters
-    private var parameters: Parameters? {
+    var parameters: Parameters? {
         switch self {
         case .login(let email, let password):
             return [K.APIParameterKey.email: email, K.APIParameterKey.password: password]
-        case .posts, .post:
+        case .profile:
             return nil
         }
     }

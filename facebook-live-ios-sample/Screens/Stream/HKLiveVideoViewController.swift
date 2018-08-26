@@ -128,7 +128,7 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
         
         
         session.delegate = self
-        session.preView = self.view
+        session.preView = self.view;
         
         self.requestAccessForVideo()
         self.requestAccessForAudio()
@@ -521,21 +521,6 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
         let wartermarkFrame  = CGRect(x: 0, y: 0, width: 720, height: 1280)
         WarterMarkServices.shared().setFrame(frame: wartermarkFrame)
         let waterMarkView = WarterMarkServices.shared().generateWarterMark()
-//        if let path = Bundle.main.path(forResource: "galaxy", ofType: "mp4") {
-//            let subWidth = self.view.frame.width / 2;
-//            let subHeight = self.view.frame.height / 2;
-//            let subView = GPUImageView(frame: CGRect(x: subWidth, y: subHeight, width: subWidth, height: subHeight))
-//
-//            self.view.addSubview(subView)
-//            let url = URL(fileURLWithPath: path)
-//            backgroundMovie = GPUImageMovie(url: url)
-//            let cropFilter = GPUImageCropFilter(cropRegion: CGRect(x: 0.0, y: 0.125, width: 1.0, height: 0.75))
-//            backgroundMovie?.addTarget(cropFilter)
-//            backgroundMovie?.playAtActualSpeed = true
-//            backgroundMovie?.shouldRepeat = true
-//            backgroundMovie?.startProcessing()
-//            cropFilter?.addTarget(subView)
-//        }
         session.warterMarkView = waterMarkView
     }
     @objc func didTappedBeautyButton(_ button: UIButton) -> Void {

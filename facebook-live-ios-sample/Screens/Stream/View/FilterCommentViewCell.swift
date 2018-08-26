@@ -42,4 +42,15 @@ class FilterCommentViewCell: UITableViewCell {
 
     }
     
+    @IBAction func tappedRandomButton(_ sender: Any) {
+    }
+    @IBAction func tappedFilterButton(_ sender: Any) {
+        WarterMarkServices.shared().configFilterComment(["filterComment":true])
+
+    }
+    @IBAction func tappedCancelButton(_ sender: Any) {
+        WarterMarkServices.shared().configFilterComment([:])
+    }
+    
+    
 }

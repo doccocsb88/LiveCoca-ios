@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14306.4" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14278.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -72,6 +72,9 @@
                         </constraints>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                         <state key="normal" title="QUAY SỐ" backgroundImage="bg_add_url"/>
+                        <connections>
+                            <action selector="tappedRandomButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="c09-FL-i5s"/>
+                        </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pqh-ci-7Rd">
                         <rect key="frame" x="65" y="197.5" width="50" height="30"/>
@@ -81,6 +84,9 @@
                         </constraints>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                         <state key="normal" title="LỌC" backgroundImage="bg_add_url"/>
+                        <connections>
+                            <action selector="tappedFilterButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="g8w-1w-9M7"/>
+                        </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Fu-4p-tLh">
                         <rect key="frame" x="205" y="197.5" width="50" height="30"/>
@@ -90,6 +96,9 @@
                         </constraints>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                         <state key="normal" title="HUỶ" backgroundImage="bg_add_url"/>
+                        <connections>
+                            <action selector="tappedCancelButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="COn-HC-rug"/>
+                        </connections>
                     </button>
                 </subviews>
                 <constraints>

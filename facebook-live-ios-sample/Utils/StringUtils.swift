@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import CommonCrypto
+import UIKit
 extension String{
 
     
@@ -265,6 +265,14 @@ extension String{
     func zeroFillRightShift(_ num: Int32, _ count: Int32) -> Int32 {
         let value = UInt32(bitPattern: num) >> UInt32(bitPattern: count)
         return Int32(bitPattern: value)
+    }
+}
+
+extension String {
+    func heightWithConstrainedWidth(width: CGFloat, font: UIFont) -> CGFloat {
+        let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
+        let boundingBox = self.boundingRect(with: constraintRect, options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: [NSAttributedStringKey.font: font], context: nil)
+        return boundingBox.height
     }
 }
 

@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 import Kingfisher
 class WarterMarkServices{
+    public let KEY_FILTERCOMMENT: String = "filterComment"
+    
     static let sharedInstance : WarterMarkServices = {
         let instance = WarterMarkServices()
         return instance
@@ -51,10 +53,11 @@ class WarterMarkServices{
                 watermarkView.addSubview(sloganView)
             }
         }
-        if let question = params["question"] as? [String:Any], question.keys.count > 0{
-            let height = 230 * scale
-            let questionView = QuestionMaskView(frame: CGRect(x: 0, y: self.frame.size.height - height - 10, width: self.frame.size.width, height: height), scale:scale)
-            questionView.bindData(config: question)
+        if let questionConfig = params["question"] as? [String:Any], questionConfig.keys.count > 0{
+            let questionView: QuestionMaskView = QuestionMaskView()
+            
+            questionView.frame = self.frame
+            questionView.bindData(config: questionConfig)
             watermarkView.addSubview(questionView)
         }
         if let catchword = params["catchword"] as? [String: Any], catchword.keys.count > 0{
@@ -71,15 +74,23 @@ class WarterMarkServices{
             watermarkView.addSubview(videoView)
             
         }
-        if let pinComment = params["pin"] as? [String:Any],pinComment.keys.count >= 2,let font =  pinComment["font"] as? Int{
-            if font > 0{
-                let height:CGFloat = 200 * scale
+        if let pinComment = params["pin"] as? [String:Any],pinComment.keys.count > 0,let comment =  pinComment["comment"] as? FacebookComment{
+            
+                let font = pinComment["font"] as? CGFloat
+            let labelHeight = comment.message .heightWithConstrainedWidth(width: self.frame.size.width - 60, font: UIFont.systemFont(ofSize: font ?? 20))
+                
+            let height:CGFloat = (30 + labelHeight ) * scale
                 let width = self.frame.size.width
                 let pinView = CommentMaskView(frame: CGRect(x: 0, y: self.frame.size.height / 2 , width: width, height: height),scale: scale)
                 watermarkView.addSubview(pinView)
 
-            }
             
+            
+        }
+        if let filterComment = params[KEY_FILTERCOMMENT] as? [String:Any], filterComment.keys.count > 0{
+            let height = 30 * 6 * scale;
+            let filterCommentView = FilterCommentMaskView(frame: CGRect(x: 0, y: self.frame.size.height / 10, width: self.frame.size.width, height: height), scale: scale)
+            watermarkView.addSubview(filterCommentView)
         }
 //        let wartermarkImageView = UIImageView(frame: watermarkView.bounds)
 //        wartermarkImageView.image = backgroundImage.resizeImage(self.frame.size)
@@ -151,7 +162,7 @@ class WarterMarkServices{
     func configVideo(config:[String:Any]){
         params["video"] = config
     }
-    func configPinComment(font:Int){
+    func configPinComment(font:CGFloat){
         if var config = params["pin"] as? [String:Any]{
             config["font"] = font
             params["pin"] = config
@@ -160,6 +171,13 @@ class WarterMarkServices{
             params["pin"] = config
             
         }
+    }
+    func removePinComment(){
+        params["pin"] = [:]
+    }
+    
+    func configFilterComment(_ config:[String:Any]){
+        params[KEY_FILTERCOMMENT] = config
     }
     /**/
     func hideCountDownView(){
