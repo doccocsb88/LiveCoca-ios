@@ -11,7 +11,7 @@ import UIKit
 import Kingfisher
 class WarterMarkServices{
     public let KEY_FILTERCOMMENT: String = "filterComment"
-    
+    var randomView:RandomMaskView?
     static let sharedInstance : WarterMarkServices = {
         let instance = WarterMarkServices()
         return instance
@@ -23,6 +23,7 @@ class WarterMarkServices{
     var hasFrame:Bool = false
     var countDownImage:UIImage?
     var backgroundImage:UIImage!
+    var scale:CGFloat = 1
     init(){
         backgroundImage = UIImage.imageWithColor(color: UIColor.clear, size: self.frame.size)
         countDownImage = UIImage(named: "bg_countdown")
@@ -36,7 +37,7 @@ class WarterMarkServices{
     }
     func generateWarterMark() -> UIView{
         let watermarkView = UIView(frame: self.frame)
-        let scale = self.frame.size.height /  UIScreen.main.bounds.height
+        scale = self.frame.size.width /  UIScreen.main.bounds.width
         let bottomMargin = 50 * scale
 
         backgroundImage = UIImage(color: UIColor.clear, size: self.frame.size)
@@ -91,6 +92,12 @@ class WarterMarkServices{
             let height = 30 * 6 * scale;
             let filterCommentView = FilterCommentMaskView(frame: CGRect(x: 0, y: self.frame.size.height / 10, width: self.frame.size.width, height: height), scale: scale)
             watermarkView.addSubview(filterCommentView)
+        }
+        if let random = params[ConfigKey.random.rawValue] as? [String:Any], random.keys.count >= 2{
+            
+            randomView = RandomMaskView(frame:self.frame, scale: 1)
+            randomView?.backgroundColor = .clear
+            watermarkView.addSubview(randomView!)
         }
 //        let wartermarkImageView = UIImageView(frame: watermarkView.bounds)
 //        wartermarkImageView.image = backgroundImage.resizeImage(self.frame.size)
@@ -178,6 +185,21 @@ class WarterMarkServices{
     
     func configFilterComment(_ config:[String:Any]){
         params[KEY_FILTERCOMMENT] = config
+    }
+    func configRandom(_ config:[String:Any]){
+        params[ConfigKey.random.rawValue] = config
+        
+    }
+    
+    func startRandomNumber(){
+        if let view = randomView{
+            view.startRandom()
+        }
+    }
+    func stopRandomNumber(){
+        if let view = randomView{
+            view.stopRandom()
+        }
     }
     /**/
     func hideCountDownView(){

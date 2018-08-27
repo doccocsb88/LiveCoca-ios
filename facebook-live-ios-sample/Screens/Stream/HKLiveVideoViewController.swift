@@ -105,6 +105,8 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
     var selectedImage:[String:UIImage] = [:]
     var selectPhotoKey:String = ""
 //    var backgroundMovie:GPUImageMovie?
+    
+    var randomView:RandomMaskView?
     override func viewDidLoad() {
         super.viewDidLoad()
 //          1920x1080
@@ -414,8 +416,11 @@ extension HKLiveVideoViewController{
             
             return cell
         case 8:
-            //filter comment
-            let cell = tableView.dequeueReusableCell(withIdentifier:reuseRandomNumber, for: indexPath)
+            //random comment
+            let cell = tableView.dequeueReusableCell(withIdentifier:reuseRandomNumber, for: indexPath) as! RandomNumberViewCell
+            cell.completeHandle = {[unowned self ] in
+                self.didTappedWarterMarkButton(nil)
+            }
             return cell
         default:
             let cell = UITableViewCell()
@@ -522,6 +527,31 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
         WarterMarkServices.shared().setFrame(frame: wartermarkFrame)
         let waterMarkView = WarterMarkServices.shared().generateWarterMark()
         session.warterMarkView = waterMarkView
+        
+        if let random = WarterMarkServices.shared().params[ConfigKey.random.rawValue]as? [String:Any], random.keys.count >= 2{
+            
+            guard let _ = randomView else{
+                randomView = RandomMaskView(frame:self.view.bounds, scale: 1)
+                randomView?.backgroundColor = .clear
+                randomView?.completeHandle = {start in
+                    if start{
+                        WarterMarkServices.shared().startRandomNumber()
+                    }else{
+                        WarterMarkServices.shared().stopRandomNumber()
+                        
+                    }
+                    
+                }
+                self.view.addSubview(randomView!)
+
+                return
+            }
+
+        }else{
+            if let view = randomView{
+                view.removeFromSuperview()
+            }
+        }
     }
     @objc func didTappedBeautyButton(_ button: UIButton) -> Void {
         session.beautyFace = !session.beautyFace;

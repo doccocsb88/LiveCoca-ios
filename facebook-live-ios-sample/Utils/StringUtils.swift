@@ -275,4 +275,13 @@ extension String {
         return boundingBox.height
     }
 }
+extension Int
+{
+    static func randomNumber(range: ClosedRange<Int> = 0...9) -> Int {
+        let min = range.lowerBound
+        let max = range.upperBound
+        return Int(arc4random_uniform(UInt32(1 + max - min))) + min
+    }
+}
+
 

@@ -14,6 +14,7 @@
 		0E4B6979213293C00052A0C7 /* CommentMaskViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B6977213293C00052A0C7 /* CommentMaskViewCell.swift */; };
 		0E4B697A213293C00052A0C7 /* CommentMaskViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E4B6978213293C00052A0C7 /* CommentMaskViewCell.xib */; };
 		0E4B697C2132A1830052A0C7 /* QuestionMaskView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E4B697B2132A1830052A0C7 /* QuestionMaskView.xib */; };
+		0E4B69802134218C0052A0C7 /* RandomMaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B697F2134218C0052A0C7 /* RandomMaskView.swift */; };
 		0EBDF21421290B0500A1A4C9 /* ErrorCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBDF21321290B0500A1A4C9 /* ErrorCode.swift */; };
 		0EC3FC63212DBC8600278E61 /* CommentMaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC3FC62212DBC8600278E61 /* CommentMaskView.swift */; };
 		18042BDC210D52C500F48229 /* WarterMarkServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18042BDB210D52C500F48229 /* WarterMarkServices.swift */; };
@@ -101,6 +102,7 @@
 		0E4B6977213293C00052A0C7 /* CommentMaskViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentMaskViewCell.swift; sourceTree = "<group>"; };
 		0E4B6978213293C00052A0C7 /* CommentMaskViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentMaskViewCell.xib; sourceTree = "<group>"; };
 		0E4B697B2132A1830052A0C7 /* QuestionMaskView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QuestionMaskView.xib; sourceTree = "<group>"; };
+		0E4B697F2134218C0052A0C7 /* RandomMaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomMaskView.swift; sourceTree = "<group>"; };
 		0EBDF21321290B0500A1A4C9 /* ErrorCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorCode.swift; sourceTree = "<group>"; };
 		0EC3FC62212DBC8600278E61 /* CommentMaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentMaskView.swift; sourceTree = "<group>"; };
 		18042BDB210D52C500F48229 /* WarterMarkServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarterMarkServices.swift; sourceTree = "<group>"; };
@@ -249,6 +251,7 @@
 				0E4B6975213271220052A0C7 /* FilterCommentMaskView.swift */,
 				0E4B6977213293C00052A0C7 /* CommentMaskViewCell.swift */,
 				0E4B6978213293C00052A0C7 /* CommentMaskViewCell.xib */,
+				0E4B697F2134218C0052A0C7 /* RandomMaskView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -711,6 +714,7 @@
 				1860203E2115DE8C00662714 /* StreamCommentView.swift in Sources */,
 				189C0EF6210A134B00ADF7FF /* HistoryViewController.swift in Sources */,
 				0E4B6979213293C00052A0C7 /* CommentMaskViewCell.swift in Sources */,
+				0E4B69802134218C0052A0C7 /* RandomMaskView.swift in Sources */,
 				18DBC7EA211204A500C34D3E /* APIServices.swift in Sources */,
 				18042BDC210D52C500F48229 /* WarterMarkServices.swift in Sources */,
 				0E4B69742131B08D0052A0C7 /* UserEndpoint.swift in Sources */,

@@ -28,3 +28,6 @@ enum HTTPHeaderField: String {
 enum ContentType: String {
     case json = "application/json"
 }
+enum ConfigKey:String{
+    case random = "config_random"
+}

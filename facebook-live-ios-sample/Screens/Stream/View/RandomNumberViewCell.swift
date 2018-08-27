@@ -16,6 +16,9 @@ class RandomNumberViewCell: UITableViewCell {
     
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var randomButton: UIButton!
+    var config:[String:Any] = [:]
+    var completeHandle:() ->() = { }
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -33,4 +36,24 @@ class RandomNumberViewCell: UITableViewCell {
         randomButton.addBorder(cornerRadius: 15, color: UIColor.clear)
         cancelButton.addBorder(cornerRadius: 15, color: UIColor.clear)
     }
+    @IBAction func tappedRandomButton(_ sender: Any) {
+        guard let from = fromTextField.text else{
+            return
+        }
+        guard let to = toTextField.text else {
+            return
+        }
+        config["from"] = Int(from)
+        config["to"] = Int(to)
+        
+        WarterMarkServices.shared().configRandom(config)
+        completeHandle()
+    }
+    
+    @IBAction func tappedCancelButton(_ sender: Any) {
+        config = [:]
+        WarterMarkServices.shared().configRandom(config)
+        completeHandle()
+    }
+    
 }
