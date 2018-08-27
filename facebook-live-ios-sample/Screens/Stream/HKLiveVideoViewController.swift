@@ -523,19 +523,18 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
     
    
     @objc func didTappedWarterMarkButton(_ button: UIButton?) -> Void {
-        let wartermarkFrame  = CGRect(x: 0, y: 0, width: 720, height: 1280)
-        WarterMarkServices.shared().setFrame(frame: wartermarkFrame)
-        let waterMarkView = WarterMarkServices.shared().generateWarterMark()
-        session.warterMarkView = waterMarkView
         
         if let random = WarterMarkServices.shared().params[ConfigKey.random.rawValue]as? [String:Any], random.keys.count >= 2{
             
-            guard let _ = randomView else{
+            if let _ = randomView {
+            
+            }else{
                 randomView = RandomMaskView(frame:self.view.bounds, scale: 1)
                 randomView?.backgroundColor = .clear
                 randomView?.completeHandle = {start in
                     if start{
                         WarterMarkServices.shared().startRandomNumber()
+                        
                     }else{
                         WarterMarkServices.shared().stopRandomNumber()
                         
@@ -543,15 +542,24 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
                     
                 }
                 self.view.addSubview(randomView!)
+                Timer.scheduledTimer(timeInterval: 0.02, target: self, selector: #selector(self.didTappedWarterMarkButton(_:)), userInfo: nil, repeats: true)
 
-                return
             }
-
         }else{
             if let view = randomView{
                 view.removeFromSuperview()
+                randomView = nil
             }
         }
+        let wartermarkFrame  = self.view.bounds
+        WarterMarkServices.shared().setFrame(frame: wartermarkFrame)
+        let view  = randomView?.copyView()  as? RandomMaskView
+        view?.transform = CGAffineTransform(scaleX: 2, y: 2)
+        WarterMarkServices.shared().randomView = view
+        view?.stopRandom()
+        let waterMarkView = WarterMarkServices.shared().generateWarterMark()
+        session.warterMarkView = waterMarkView
+
     }
     @objc func didTappedBeautyButton(_ button: UIButton) -> Void {
         session.beautyFace = !session.beautyFace;

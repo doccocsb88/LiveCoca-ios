@@ -17,7 +17,7 @@ class WarterMarkServices{
         return instance
     }()
     var params:[String:Any] = [:];
-    var frame:CGRect = CGRect(x: 0, y: 0, width: 720, height: 1280 )
+    var frame:CGRect = UIScreen.main.bounds;//CGRect(x: 0, y: 0, width: 720, height: 1280 )
     var powerText:String?
     var hasPowerText:Bool = false
     var hasFrame:Bool = false
@@ -94,10 +94,14 @@ class WarterMarkServices{
             watermarkView.addSubview(filterCommentView)
         }
         if let random = params[ConfigKey.random.rawValue] as? [String:Any], random.keys.count >= 2{
-            
-            randomView = RandomMaskView(frame:self.frame, scale: 1)
-            randomView?.backgroundColor = .clear
+            if  let view = randomView{
+                print("randomView : \(view.number1Label?.text ?? "ahahaha")")
+                view.removeFromSuperview()
+                
+            }
             watermarkView.addSubview(randomView!)
+
+            
         }
 //        let wartermarkImageView = UIImageView(frame: watermarkView.bounds)
 //        wartermarkImageView.image = backgroundImage.resizeImage(self.frame.size)
@@ -193,11 +197,14 @@ class WarterMarkServices{
     
     func startRandomNumber(){
         if let view = randomView{
+            print("randomView start")
+
             view.startRandom()
         }
     }
     func stopRandomNumber(){
         if let view = randomView{
+            print("randomView stop")
             view.stopRandom()
         }
     }
