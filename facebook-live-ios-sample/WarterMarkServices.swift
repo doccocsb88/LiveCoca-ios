@@ -17,7 +17,7 @@ class WarterMarkServices{
         return instance
     }()
     var params:[String:Any] = [:];
-    var frame:CGRect = UIScreen.main.bounds;//CGRect(x: 0, y: 0, width: 720, height: 1280 )
+    var frame:CGRect = CGRect(x: 0, y: 0, width: 720, height: 1280 )
     var powerText:String?
     var hasPowerText:Bool = false
     var hasFrame:Bool = false
@@ -99,6 +99,7 @@ class WarterMarkServices{
                 view.removeFromSuperview()
                 
             }
+            randomView?.frame = self.frame
             watermarkView.addSubview(randomView!)
 
             

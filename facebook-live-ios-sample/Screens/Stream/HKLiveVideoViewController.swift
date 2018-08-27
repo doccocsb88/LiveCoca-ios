@@ -107,6 +107,7 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
 //    var backgroundMovie:GPUImageMovie?
     
     var randomView:RandomMaskView?
+    var updateTimer:Timer?
     override func viewDidLoad() {
         super.viewDidLoad()
 //          1920x1080
@@ -531,18 +532,30 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
             }else{
                 randomView = RandomMaskView(frame:self.view.bounds, scale: 1)
                 randomView?.backgroundColor = .clear
-                randomView?.completeHandle = {start in
+                randomView?.completeHandle = {[weak self]start in
+                    guard let strongSelf = self else{
+                        return
+                    }
                     if start{
                         WarterMarkServices.shared().startRandomNumber()
-                        
+                        if let _  = strongSelf.updateTimer{
+                            strongSelf.updateTimer?.invalidate()
+                            strongSelf.updateTimer = nil
+                        }
+                        strongSelf.updateTimer = Timer.scheduledTimer(timeInterval: 0.02, target: strongSelf, selector: #selector(strongSelf.didTappedWarterMarkButton(_:)), userInfo: nil, repeats: true)
+
                     }else{
                         WarterMarkServices.shared().stopRandomNumber()
-                        
+                        if let _  = strongSelf.updateTimer{
+                            strongSelf.updateTimer?.invalidate()
+                            strongSelf.updateTimer = nil
+                        }
+
                     }
                     
                 }
                 self.view.addSubview(randomView!)
-                Timer.scheduledTimer(timeInterval: 0.02, target: self, selector: #selector(self.didTappedWarterMarkButton(_:)), userInfo: nil, repeats: true)
+                self.updateTimer = Timer.scheduledTimer(timeInterval: 0.02, target: self, selector: #selector(self.didTappedWarterMarkButton(_:)), userInfo: nil, repeats: true)
 
             }
         }else{
@@ -554,7 +567,8 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
         let wartermarkFrame  = self.view.bounds
         WarterMarkServices.shared().setFrame(frame: wartermarkFrame)
         let view  = randomView?.copyView()  as? RandomMaskView
-        view?.transform = CGAffineTransform(scaleX: 2, y: 2)
+        let scale = 720 / UIScreen.main.bounds.width
+        view?.transform = CGAffineTransform(scaleX: scale, y: scale)
         WarterMarkServices.shared().randomView = view
         view?.stopRandom()
         let waterMarkView = WarterMarkServices.shared().generateWarterMark()

@@ -150,39 +150,54 @@ class RandomMaskView: UIView {
         self.isReady = false;
         completeHandle(false)
         randomButton?.setTitle("START", for: .normal)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {[unowned self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {[weak self] in
+            guard let strongSelf = self else{
+                return
+            }
             // your code here
-            if let timer = self.timer1 {
+            if let timer = strongSelf.timer1 {
                 timer.invalidate()
             }
-            self.number1Label?.text = "\(self.randomNumber /  1000 )"
+            strongSelf.number1Label?.text = "\(strongSelf.randomNumber /  1000 )"
 
 
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {[unowned self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {[weak self] in
             // your code here
-            if let timer = self.timer2 {
+            guard let strongSelf = self else{
+                return
+            }
+
+            if let timer = strongSelf.timer2 {
                 timer.invalidate()
             }
-            self.number2Label?.text = "\((self.randomNumber /  100) % 10 )"
+            strongSelf.number2Label?.text = "\((strongSelf.randomNumber /  100) % 10 )"
 
 
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {[unowned self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {[weak self] in
             // your code here
-            if let timer = self.timer3 {
+            guard let strongSelf = self else{
+                return
+            }
+
+            if let timer = strongSelf.timer3 {
                 timer.invalidate()
             }
-            self.number3Label?.text = "\((self.randomNumber /  10) % 10 )"
+            strongSelf.number3Label?.text = "\((strongSelf.randomNumber /  10) % 10 )"
 
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {[unowned self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {[weak self] in
             // your code here
-            if let timer = self.timer4 {
+            guard let strongSelf = self else{
+                return
+            }
+
+            if let timer = strongSelf.timer4 {
                 timer.invalidate()
             }
-            self.isReady = true
-            self.number4Label?.text = "\((self.randomNumber /  1) % 10 )"
+            strongSelf.isReady = true
+            strongSelf.number4Label?.text = "\((strongSelf.randomNumber /  1) % 10 )"
 
         }
 
