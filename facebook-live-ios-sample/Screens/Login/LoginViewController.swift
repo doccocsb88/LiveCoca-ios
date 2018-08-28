@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Alamofire
 class LoginViewController: UIViewController {
 
     
@@ -60,7 +60,15 @@ class LoginViewController: UIViewController {
         savePasswordButton.isSelected = !savePasswordButton.isSelected
     }
     
-    @IBAction func tappedLoginButton(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+    @IBAction func tappedLoginButton(_ sender: Any){
+        let parameters: [String: String] = ["username": "bck00",
+                                              "password": "123456"]
+
+        let url = "http://live.cocalive.com:4000/users/login?app=ios&checksum=62cf0a55654e2c294ed1e3fe7718e45e"
+
+        Alamofire.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
+            .responseJSON { response in
+                print(response)
+        }
     }
 }

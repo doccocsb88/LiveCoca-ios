@@ -18,6 +18,7 @@
 		0E4B6987213576270052A0C7 /* CountCommentViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B6985213576270052A0C7 /* CountCommentViewCell.swift */; };
 		0E4B6988213576270052A0C7 /* CountCommentViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E4B6986213576270052A0C7 /* CountCommentViewCell.xib */; };
 		0E4B698A21357F090052A0C7 /* CountCommentMaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B698921357F090052A0C7 /* CountCommentMaskView.swift */; };
+		0E4B698C2135A2A80052A0C7 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B698B2135A2A80052A0C7 /* APIClient.swift */; };
 		0EBDF21421290B0500A1A4C9 /* ErrorCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBDF21321290B0500A1A4C9 /* ErrorCode.swift */; };
 		0EC3FC63212DBC8600278E61 /* CommentMaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC3FC62212DBC8600278E61 /* CommentMaskView.swift */; };
 		18042BDC210D52C500F48229 /* WarterMarkServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18042BDB210D52C500F48229 /* WarterMarkServices.swift */; };
@@ -109,6 +110,7 @@
 		0E4B6985213576270052A0C7 /* CountCommentViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CountCommentViewCell.swift; path = View/CountCommentViewCell.swift; sourceTree = "<group>"; };
 		0E4B6986213576270052A0C7 /* CountCommentViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CountCommentViewCell.xib; path = View/CountCommentViewCell.xib; sourceTree = "<group>"; };
 		0E4B698921357F090052A0C7 /* CountCommentMaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountCommentMaskView.swift; sourceTree = "<group>"; };
+		0E4B698B2135A2A80052A0C7 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = APIClient.swift; path = Services/APIClient.swift; sourceTree = "<group>"; };
 		0EBDF21321290B0500A1A4C9 /* ErrorCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorCode.swift; sourceTree = "<group>"; };
 		0EC3FC62212DBC8600278E61 /* CommentMaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentMaskView.swift; sourceTree = "<group>"; };
 		18042BDB210D52C500F48229 /* WarterMarkServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarterMarkServices.swift; sourceTree = "<group>"; };
@@ -345,6 +347,7 @@
 				0E4B696F2131B00E0052A0C7 /* APIRouter.swift */,
 				0E4B69712131B0620052A0C7 /* APIConfiguration.swift */,
 				0E4B69732131B08C0052A0C7 /* UserEndpoint.swift */,
+				0E4B698B2135A2A80052A0C7 /* APIClient.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -642,6 +645,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-facebook-live-ios-sample/Pods-facebook-live-ios-sample-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AlamofireObjectMapper/AlamofireObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
@@ -651,12 +655,15 @@
 				"${BUILT_PRODUCTS_DIR}/FacebookShare/FacebookShare.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/LFLiveKit/LFLiveKit.framework",
+				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/Spring/Spring.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
@@ -666,7 +673,9 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookShare.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LFLiveKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Spring.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -719,6 +728,7 @@
 				0E4B6976213271220052A0C7 /* FilterCommentMaskView.swift in Sources */,
 				1860203C2115CBFC00662714 /* FacebookComment.swift in Sources */,
 				18AF752F211B4E510087FDB3 /* Videos.swift in Sources */,
+				0E4B698C2135A2A80052A0C7 /* APIClient.swift in Sources */,
 				DB9C406E1E70527D00CCBD83 /* AppDelegate.swift in Sources */,
 				18DB2AAC210CA3F9005864E1 /* FacebookServices.swift in Sources */,
 				18DB2AB8210CC226005864E1 /* FacebookInfo.swift in Sources */,

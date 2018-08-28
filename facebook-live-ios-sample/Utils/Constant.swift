@@ -9,12 +9,13 @@
 import Foundation
 struct K {
     struct ProductionServer {
-        static let baseURL = "https://api.medium.com/v1"
+        static let baseURL = "http://live.cocalive.com:4000"
     }
     
     struct APIParameterKey {
         static let password = "password"
         static let email = "email"
+        static let username = "username"
     }
 }
 

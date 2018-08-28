@@ -17,6 +17,10 @@ def import_pods
     pod 'Alamofire', '~> 4.7'
     pod 'Kingfisher', '~> 4.8'
 #    pod 'GPUImage', '~> 0.1'
+    pod 'AlamofireObjectMapper', '~> 5.1'
+#    pod 'CodableAlamofire', '~> 1.1'
+    pod 'SwiftyJSON'
+
 
 end
 target 'facebook-live-ios-sample'  do

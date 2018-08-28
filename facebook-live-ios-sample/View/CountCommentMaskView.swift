@@ -47,17 +47,19 @@ class CountCommentMaskView: UIView {
             let key = Array(config.keys)[i]
             top = top - height - margin
             let view = UIView(frame: CGRect(x: margin, y: top, width: width, height: height))
-            let thumb = UIImageView(frame: CGRect(x:(height - thumbHeight) / 2, y: (height - thumbHeight) / 2, width: thumbHeight, height: thumbHeight))
-            thumb.addBorder(cornerRadius: thumbHeight / 2, color: .clear)
-            thumb.backgroundColor = .white
-            thumb.contentMode = .scaleAspectFit
-            thumb.image = UIImage(named: "ic_count_comment")
-            view.addSubview(thumb)
+            let countLabel = UILabel(frame: CGRect(x:(height - thumbHeight) / 2, y: (height - thumbHeight) / 2, width: thumbHeight, height: thumbHeight))
+            countLabel.addBorder(cornerRadius: thumbHeight / 2, color: .clear)
+            countLabel.backgroundColor = .white
+            countLabel.contentMode = .scaleAspectFit
+            countLabel.text = "9"
+            countLabel.font = UIFont.systemFont(ofSize: 20 * scale)
+            view.addSubview(countLabel)
             
             //
-            let titleLabel = UILabel(frame: CGRect(x: height + 5, y: 5 * scale, width: width - height - 10, height: 15 * scale))
+            let titleLabel = UILabel(frame: CGRect(x: height + 5, y: 5 * scale, width: width - height - 10, height: 30 * scale))
             titleLabel.text = config[key] as? String
             titleLabel.textColor = .white
+            titleLabel.font = UIFont.systemFont(ofSize: 15 * scale)
             view.addSubview(titleLabel)
     
             ///
