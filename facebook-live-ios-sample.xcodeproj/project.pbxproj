@@ -15,6 +15,9 @@
 		0E4B697A213293C00052A0C7 /* CommentMaskViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E4B6978213293C00052A0C7 /* CommentMaskViewCell.xib */; };
 		0E4B697C2132A1830052A0C7 /* QuestionMaskView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E4B697B2132A1830052A0C7 /* QuestionMaskView.xib */; };
 		0E4B69802134218C0052A0C7 /* RandomMaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B697F2134218C0052A0C7 /* RandomMaskView.swift */; };
+		0E4B6987213576270052A0C7 /* CountCommentViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B6985213576270052A0C7 /* CountCommentViewCell.swift */; };
+		0E4B6988213576270052A0C7 /* CountCommentViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E4B6986213576270052A0C7 /* CountCommentViewCell.xib */; };
+		0E4B698A21357F090052A0C7 /* CountCommentMaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B698921357F090052A0C7 /* CountCommentMaskView.swift */; };
 		0EBDF21421290B0500A1A4C9 /* ErrorCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBDF21321290B0500A1A4C9 /* ErrorCode.swift */; };
 		0EC3FC63212DBC8600278E61 /* CommentMaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC3FC62212DBC8600278E61 /* CommentMaskView.swift */; };
 		18042BDC210D52C500F48229 /* WarterMarkServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18042BDB210D52C500F48229 /* WarterMarkServices.swift */; };
@@ -103,6 +106,9 @@
 		0E4B6978213293C00052A0C7 /* CommentMaskViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentMaskViewCell.xib; sourceTree = "<group>"; };
 		0E4B697B2132A1830052A0C7 /* QuestionMaskView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QuestionMaskView.xib; sourceTree = "<group>"; };
 		0E4B697F2134218C0052A0C7 /* RandomMaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomMaskView.swift; sourceTree = "<group>"; };
+		0E4B6985213576270052A0C7 /* CountCommentViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CountCommentViewCell.swift; path = View/CountCommentViewCell.swift; sourceTree = "<group>"; };
+		0E4B6986213576270052A0C7 /* CountCommentViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CountCommentViewCell.xib; path = View/CountCommentViewCell.xib; sourceTree = "<group>"; };
+		0E4B698921357F090052A0C7 /* CountCommentMaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountCommentMaskView.swift; sourceTree = "<group>"; };
 		0EBDF21321290B0500A1A4C9 /* ErrorCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorCode.swift; sourceTree = "<group>"; };
 		0EC3FC62212DBC8600278E61 /* CommentMaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentMaskView.swift; sourceTree = "<group>"; };
 		18042BDB210D52C500F48229 /* WarterMarkServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarterMarkServices.swift; sourceTree = "<group>"; };
@@ -252,6 +258,7 @@
 				0E4B6977213293C00052A0C7 /* CommentMaskViewCell.swift */,
 				0E4B6978213293C00052A0C7 /* CommentMaskViewCell.xib */,
 				0E4B697F2134218C0052A0C7 /* RandomMaskView.swift */,
+				0E4B698921357F090052A0C7 /* CountCommentMaskView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -483,6 +490,8 @@
 				186020402115E26A00662714 /* StreamCommentViewCell.xib */,
 				186020472116D5FD00662714 /* VideoViewCell.swift */,
 				186020482116D5FD00662714 /* VideoViewCell.xib */,
+				0E4B6985213576270052A0C7 /* CountCommentViewCell.swift */,
+				0E4B6986213576270052A0C7 /* CountCommentViewCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -591,6 +600,7 @@
 				EC5136E42112CA3900391C60 /* material_loader.json in Resources */,
 				EC53B2BE210AED22000A3866 /* FrameViewCell.xib in Resources */,
 				EC53B2B9210AD07A000A3866 /* StreamAccountViewCell.xib in Resources */,
+				0E4B6988213576270052A0C7 /* CountCommentViewCell.xib in Resources */,
 				1860204A2116D5FD00662714 /* VideoViewCell.xib in Resources */,
 				18042BE0210D8B5F00F48229 /* CountDownViewCell.xib in Resources */,
 				18042BE4210DA18900F48229 /* SloganViewCell.xib in Resources */,
@@ -673,6 +683,7 @@
 			files = (
 				182C799E21173F55008D65CB /* LoginViewController.swift in Sources */,
 				18042BDF210D8B5F00F48229 /* CountDownViewCell.swift in Sources */,
+				0E4B698A21357F090052A0C7 /* CountCommentMaskView.swift in Sources */,
 				EC295AAF21185D03005AC814 /* Constant.swift in Sources */,
 				EC53B2CF210B2EA6000A3866 /* SelectStreamAccountViewCell.swift in Sources */,
 				EC53B2BD210AED22000A3866 /* FrameViewCell.swift in Sources */,
@@ -723,6 +734,7 @@
 				EC752C21210F1944004A69C4 /* AddStreamAccountViewController.swift in Sources */,
 				ECE9439121087901003EB965 /* ImageUtils.swift in Sources */,
 				0E4B69702131B00E0052A0C7 /* APIRouter.swift in Sources */,
+				0E4B6987213576270052A0C7 /* CountCommentViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

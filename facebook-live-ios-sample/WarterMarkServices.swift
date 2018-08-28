@@ -12,6 +12,7 @@ import Kingfisher
 class WarterMarkServices{
     public let KEY_FILTERCOMMENT: String = "filterComment"
     var randomView:RandomMaskView?
+    var countCommentView:CountCommentMaskView?
     static let sharedInstance : WarterMarkServices = {
         let instance = WarterMarkServices()
         return instance
@@ -104,6 +105,20 @@ class WarterMarkServices{
 
             
         }
+        
+        if let countComment = params[ConfigKey.countComment.rawValue] as? [String:Any], countComment.keys.count > 0{
+            let frame = CGRect(x: 0, y: self.frame.height / 2 - 50 * scale, width: self.frame.width, height: self.frame.height / 2)
+            countCommentView =  CountCommentMaskView(frame: frame, scale: self.scale)
+            countCommentView?.backgroundColor = .clear
+            //                countCommentView?.transform = CGAffineTransform(scaleX: scale, y: scale)
+            watermarkView.addSubview(countCommentView!)
+
+        }else{
+            if let _ = countCommentView{
+                countCommentView?.removeFromSuperview()
+            }
+            countCommentView = nil
+        }
 //        let wartermarkImageView = UIImageView(frame: watermarkView.bounds)
 //        wartermarkImageView.image = backgroundImage.resizeImage(self.frame.size)
 //        watermarkView.addSubview(wartermarkImageView)
@@ -195,7 +210,10 @@ class WarterMarkServices{
         params[ConfigKey.random.rawValue] = config
         
     }
-    
+    func configCountComment(_ config:[String:Any]){
+        params[ConfigKey.countComment.rawValue] = config
+
+    }
     func startRandomNumber(){
         if let view = randomView{
             print("randomView start")

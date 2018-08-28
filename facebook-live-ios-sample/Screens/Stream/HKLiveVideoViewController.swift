@@ -22,7 +22,9 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
 
     fileprivate let reuseCatchWord  = "CatchWordViewCell"
     fileprivate let reuseRandomNumber  = "RandomNumberViewCell"
-    fileprivate let menuTitles:[String] = ["ĐẾM NGƯỢC","SLOGAN","KHUNG","PIN COMMENT","TẠO CÂU HỎI","LỌC BÌNH LUẬN","HIỂN THỊ VIDEO","ĐUỔI HÌNH BẮT CHỮ","SỐ NGẪU NHIÊN"]
+    fileprivate let reuseCountComment  = "CountCommentViewCell"
+
+    fileprivate let menuTitles:[String] = ["ĐẾM NGƯỢC","SLOGAN","KHUNG","PIN COMMENT","TẠO CÂU HỎI","LỌC BÌNH LUẬN","HIỂN THỊ VIDEO","ĐUỔI HÌNH BẮT CHỮ","SỐ NGẪU NHIÊN","THỐNG KÊ COMMENT"]
     var blurOverlay: UIVisualEffectView!
 
     var sessionURL: NSURL!
@@ -163,6 +165,8 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
 
         tableView.register(UINib(nibName: reuseCatchWord, bundle: nil), forCellReuseIdentifier: reuseCatchWord)
         tableView.register(UINib(nibName: reuseRandomNumber, bundle: nil), forCellReuseIdentifier: reuseRandomNumber)
+        tableView.register(UINib(nibName: reuseCountComment, bundle: nil), forCellReuseIdentifier: reuseCountComment)
+
 
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -347,6 +351,7 @@ extension HKLiveVideoViewController{
             cell.completeHandle = {[unowned self] isShow in
                 self.didTappedWarterMarkButton(nil)
             }
+            cell.selectionStyle = .none
             return cell
         case 1:
             //slogan
@@ -354,10 +359,12 @@ extension HKLiveVideoViewController{
             cell.completeHandle = {[unowned self]update in
                 self.didTappedWarterMarkButton(nil)
             }
+            cell.selectionStyle = .none
             return cell
         case 2:
             //list frame
             let cell = tableView.dequeueReusableCell(withIdentifier:reuseFrame, for: indexPath)
+            cell.selectionStyle = .none
             return cell
         case 3:
             //pin comment
@@ -383,6 +390,7 @@ extension HKLiveVideoViewController{
         case 5:
             //filter comment
             let cell = tableView.dequeueReusableCell(withIdentifier:reuseFilterComment, for: indexPath)
+            cell.selectionStyle = .none
             return cell
         case 6:
             
@@ -422,7 +430,24 @@ extension HKLiveVideoViewController{
             cell.completeHandle = {[unowned self ] in
                 self.didTappedWarterMarkButton(nil)
             }
+            cell.selectionStyle = .none
             return cell
+        case 9:
+            let cell = tableView.dequeueReusableCell(withIdentifier:reuseCountComment, for: indexPath) as! CountCommentViewCell
+            cell.completeHandle = {[unowned self ] in
+                self.didTappedWarterMarkButton(nil)
+            }
+            cell.didTapSelectImage = {[unowned self] key in
+                self.selectPhotoKey = key
+                self.openPhotoLibrary()
+
+            }
+            if let image = self.selectedImage[ConfigKey.countComment.rawValue]{
+                cell.updateCountCommentImage(image)
+            }
+            cell.selectionStyle = .none
+            return cell
+
         default:
             let cell = UITableViewCell()
             
@@ -564,7 +589,7 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
                 randomView = nil
             }
         }
-        let wartermarkFrame  = self.view.bounds
+        let wartermarkFrame  = CGRect(x: 0, y: 0, width: 720, height: 1280 )
         WarterMarkServices.shared().setFrame(frame: wartermarkFrame)
         let view  = randomView?.copyView()  as? RandomMaskView
         let scale = 720 / UIScreen.main.bounds.width

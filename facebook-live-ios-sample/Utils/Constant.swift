@@ -30,4 +30,5 @@ enum ContentType: String {
 }
 enum ConfigKey:String{
     case random = "config_random"
+    case countComment = "config_count_comment"
 }
