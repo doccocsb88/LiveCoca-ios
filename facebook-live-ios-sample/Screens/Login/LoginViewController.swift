@@ -61,14 +61,17 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func tappedLoginButton(_ sender: Any){
-        let parameters: [String: String] = ["username": "bck00",
-                                              "password": "123456"]
-
-        let url = "http://live.cocalive.com:4000/users/login?app=ios&checksum=62cf0a55654e2c294ed1e3fe7718e45e"
-
-        Alamofire.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
-            .responseJSON { response in
-                print(response)
+//        let parameters: [String: String] = ["username": "bck00",
+//                                              "password": "123456"]
+//
+//        let url = "http://live.cocalive.com:4000/users/login?app=ios&checksum=62cf0a55654e2c294ed1e3fe7718e45e"
+//
+//        Alamofire.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
+//            .responseJSON { response in
+//                print(response)
+//        }
+        APIClient.login(username: "bck00", password: "123456") { (response) in
+            
         }
     }
 }

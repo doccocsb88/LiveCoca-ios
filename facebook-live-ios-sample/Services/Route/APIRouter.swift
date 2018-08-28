@@ -79,17 +79,17 @@ enum APIRouter: URLRequestConvertible {
     
     // MARK: - URLRequestConvertible
     func asURLRequest() throws -> URLRequest {
-        let url = try K.ProductionServer.baseURL.asURL()
-        let fullPath = String(format: "%@?app=ios&checksum=6c3de2526c041b3d0a129172564fca08", path)
-        
-        var urlRequest = URLRequest(url: url.appendingPathComponent(fullPath))
+        let fullURL = String(format: "%@%@?app=ios&checksum=6c3de2526c041b3d0a129172564fca08", K.ProductionServer.baseURL,path)
+        let url = try fullURL.asURL()
+
+        var urlRequest = URLRequest(url: url)
         
         // HTTP Method
         urlRequest.httpMethod = method.rawValue
         
         // Common Headers
-//        urlRequest.setValue(ContentType.json.rawValue, forHTTPHeaderField: HTTPHeaderField.acceptType.rawValue)
-//        urlRequest.setValue(ContentType.json.rawValue, forHTTPHeaderField: HTTPHeaderField.contentType.rawValue)
+        urlRequest.setValue(ContentType.json.rawValue, forHTTPHeaderField: HTTPHeaderField.acceptType.rawValue)
+        urlRequest.setValue(ContentType.json.rawValue, forHTTPHeaderField: HTTPHeaderField.contentType.rawValue)
         
         // Parameters
         if let parameters = parameters {
