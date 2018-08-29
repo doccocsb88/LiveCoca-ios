@@ -8,7 +8,7 @@
 
 import UIKit
 import Alamofire
-enum UserEndpoint: APIConfiguration {
+enum UserEndpoint: URLRequestConvertible {
     
     case login(email:String, password:String)
     case profile(id: Int)

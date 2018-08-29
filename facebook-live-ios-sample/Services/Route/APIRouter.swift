@@ -79,7 +79,10 @@ enum APIRouter: URLRequestConvertible {
     
     // MARK: - URLRequestConvertible
     func asURLRequest() throws -> URLRequest {
-        let fullURL = String(format: "%@%@?app=ios&checksum=6c3de2526c041b3d0a129172564fca08", K.ProductionServer.baseURL,path)
+        var fullURL = String(format: "%@%@?app=ios&checksum=6c3de2526c041b3d0a129172564fca08", K.ProductionServer.baseURL,path)
+        if let token = APIClient.shared().token{
+            fullURL = String(format: "%@&token=%@", fullURL,token)
+        }
         let url = try fullURL.asURL()
 
         var urlRequest = URLRequest(url: url)
