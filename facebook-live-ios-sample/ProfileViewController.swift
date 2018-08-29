@@ -32,8 +32,12 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
 
         // Do any additional setup after loading the view.
         setup()
+        
     }
-
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        bindData()
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -55,6 +59,16 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
 
         //
         tableView.register(UINib(nibName: "StreamAccountViewCell", bundle: nil), forCellReuseIdentifier: "streamAccountCell")
+    }
+    func bindData(){
+        if let user = APIClient.shared().user{
+            usernameLabel.text = user.username
+            displayLabel.text = user.fullname
+            emailLabel.text = user.email
+            phoneLabel.text = user.phone
+            passwordLabel.text = "******"
+            
+        }
     }
     
     @IBAction func tappedAddStreamAccountButton(_ sender: Any) {

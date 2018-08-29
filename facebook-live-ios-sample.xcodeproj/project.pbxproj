@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		0E4B69702131B00E0052A0C7 /* APIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B696F2131B00E0052A0C7 /* APIRouter.swift */; };
 		0E4B69722131B0620052A0C7 /* APIConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B69712131B0620052A0C7 /* APIConfiguration.swift */; };
-		0E4B69742131B08D0052A0C7 /* UserEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B69732131B08C0052A0C7 /* UserEndpoint.swift */; };
+		0E4B69742131B08D0052A0C7 /* FacebookEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B69732131B08C0052A0C7 /* FacebookEndpoint.swift */; };
 		0E4B6976213271220052A0C7 /* FilterCommentMaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B6975213271220052A0C7 /* FilterCommentMaskView.swift */; };
 		0E4B6979213293C00052A0C7 /* CommentMaskViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B6977213293C00052A0C7 /* CommentMaskViewCell.swift */; };
 		0E4B697A213293C00052A0C7 /* CommentMaskViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E4B6978213293C00052A0C7 /* CommentMaskViewCell.xib */; };
@@ -19,6 +19,7 @@
 		0E4B6988213576270052A0C7 /* CountCommentViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E4B6986213576270052A0C7 /* CountCommentViewCell.xib */; };
 		0E4B698A21357F090052A0C7 /* CountCommentMaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B698921357F090052A0C7 /* CountCommentMaskView.swift */; };
 		0E4B698C2135A2A80052A0C7 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B698B2135A2A80052A0C7 /* APIClient.swift */; };
+		0E4B698E2136E64D0052A0C7 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B698D2136E64D0052A0C7 /* Preferences.swift */; };
 		0EBDF21421290B0500A1A4C9 /* ErrorCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBDF21321290B0500A1A4C9 /* ErrorCode.swift */; };
 		0EC3FC63212DBC8600278E61 /* CommentMaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC3FC62212DBC8600278E61 /* CommentMaskView.swift */; };
 		18042BDC210D52C500F48229 /* WarterMarkServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18042BDB210D52C500F48229 /* WarterMarkServices.swift */; };
@@ -101,7 +102,7 @@
 /* Begin PBXFileReference section */
 		0E4B696F2131B00E0052A0C7 /* APIRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = APIRouter.swift; path = Services/Route/APIRouter.swift; sourceTree = "<group>"; };
 		0E4B69712131B0620052A0C7 /* APIConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = APIConfiguration.swift; path = Services/APIConfiguration.swift; sourceTree = "<group>"; };
-		0E4B69732131B08C0052A0C7 /* UserEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserEndpoint.swift; path = Services/UserEndpoint.swift; sourceTree = "<group>"; };
+		0E4B69732131B08C0052A0C7 /* FacebookEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FacebookEndpoint.swift; path = Services/FacebookEndpoint.swift; sourceTree = "<group>"; };
 		0E4B6975213271220052A0C7 /* FilterCommentMaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCommentMaskView.swift; sourceTree = "<group>"; };
 		0E4B6977213293C00052A0C7 /* CommentMaskViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentMaskViewCell.swift; sourceTree = "<group>"; };
 		0E4B6978213293C00052A0C7 /* CommentMaskViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentMaskViewCell.xib; sourceTree = "<group>"; };
@@ -111,6 +112,7 @@
 		0E4B6986213576270052A0C7 /* CountCommentViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CountCommentViewCell.xib; path = View/CountCommentViewCell.xib; sourceTree = "<group>"; };
 		0E4B698921357F090052A0C7 /* CountCommentMaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountCommentMaskView.swift; sourceTree = "<group>"; };
 		0E4B698B2135A2A80052A0C7 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = APIClient.swift; path = Services/APIClient.swift; sourceTree = "<group>"; };
+		0E4B698D2136E64D0052A0C7 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		0EBDF21321290B0500A1A4C9 /* ErrorCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorCode.swift; sourceTree = "<group>"; };
 		0EC3FC62212DBC8600278E61 /* CommentMaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentMaskView.swift; sourceTree = "<group>"; };
 		18042BDB210D52C500F48229 /* WarterMarkServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarterMarkServices.swift; sourceTree = "<group>"; };
@@ -346,7 +348,7 @@
 				18DBC7E9211204A500C34D3E /* APIServices.swift */,
 				0E4B696F2131B00E0052A0C7 /* APIRouter.swift */,
 				0E4B69712131B0620052A0C7 /* APIConfiguration.swift */,
-				0E4B69732131B08C0052A0C7 /* UserEndpoint.swift */,
+				0E4B69732131B08C0052A0C7 /* FacebookEndpoint.swift */,
 				0E4B698B2135A2A80052A0C7 /* APIClient.swift */,
 			);
 			name = Services;
@@ -515,6 +517,7 @@
 				18DBC7ED2114B33100C34D3E /* StringUtils.swift */,
 				EC295AAE21185D03005AC814 /* Constant.swift */,
 				0EBDF21321290B0500A1A4C9 /* ErrorCode.swift */,
+				0E4B698D2136E64D0052A0C7 /* Preferences.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -712,6 +715,7 @@
 				189C0EF4210A133A00ADF7FF /* StreamViewController.swift in Sources */,
 				0E4B69722131B0620052A0C7 /* APIConfiguration.swift in Sources */,
 				189C0EED210A12C500ADF7FF /* ProfileViewController.swift in Sources */,
+				0E4B698E2136E64D0052A0C7 /* Preferences.swift in Sources */,
 				186020442116BE8E00662714 /* CatchWordMaskView.swift in Sources */,
 				18042BF3210DB68200F48229 /* QuestionViewCell.swift in Sources */,
 				189C0EF8210A136400ADF7FF /* SetupViewController.swift in Sources */,
@@ -738,7 +742,7 @@
 				0E4B69802134218C0052A0C7 /* RandomMaskView.swift in Sources */,
 				18DBC7EA211204A500C34D3E /* APIServices.swift in Sources */,
 				18042BDC210D52C500F48229 /* WarterMarkServices.swift in Sources */,
-				0E4B69742131B08D0052A0C7 /* UserEndpoint.swift in Sources */,
+				0E4B69742131B08D0052A0C7 /* FacebookEndpoint.swift in Sources */,
 				18042BEB210DB0E400F48229 /* FrameViewCellV2.swift in Sources */,
 				18DBC7EE2114B33100C34D3E /* StringUtils.swift in Sources */,
 				EC752C21210F1944004A69C4 /* AddStreamAccountViewController.swift in Sources */,

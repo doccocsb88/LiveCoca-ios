@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import SwiftyJSON
 class LoginViewController: UIViewController {
 
     
@@ -25,6 +26,12 @@ class LoginViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         setupView()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        usernameTextfield.text = Defaults.getUsername()
+        passwordTextfield.text = Defaults.getPassword()
+        savePasswordButton.isSelected = Defaults.isRemember()
     }
     func setupView(){
         usernameView.addBorder(cornerRadius: 20, color: .lightGray)
@@ -58,20 +65,25 @@ class LoginViewController: UIViewController {
     }
     @IBAction func tappedSavePasswordButton(_ sender: Any) {
         savePasswordButton.isSelected = !savePasswordButton.isSelected
+        Defaults.rememberPassword(savePasswordButton.isSelected)
     }
     
     @IBAction func tappedLoginButton(_ sender: Any){
-//        let parameters: [String: String] = ["username": "bck00",
-//                                              "password": "123456"]
-//
-//        let url = "http://live.cocalive.com:4000/users/login?app=ios&checksum=62cf0a55654e2c294ed1e3fe7718e45e"
-//
-//        Alamofire.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
-//            .responseJSON { response in
-//                print(response)
-//        }
-        APIClient.login(username: "bck00", password: "123456") { (response) in
-            
+        guard let username = usernameTextfield.text else{
+            return
+        }
+        guard let password = passwordTextfield.text else{
+            return
+        }
+        
+        APIClient.shared().login(username: username, password: password) { (result, message) in
+            if result{
+                Defaults.remember(username: username, password: password)
+                self.dismiss(animated: true, completion: nil)
+
+            }else{
+
+            }
         }
     }
 }

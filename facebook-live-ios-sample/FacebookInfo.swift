@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 class FacebookInfo: BaseInfo{
     var photoUrl:String?
     var email: String?
@@ -32,6 +33,9 @@ class FacebookInfo: BaseInfo{
                 photoUrl = photoData!["url"] as? String
             }
         }
+    }
+    init(jsonData:JSON){
+        
     }
     override init() {
     }
