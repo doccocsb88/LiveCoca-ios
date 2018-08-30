@@ -9,13 +9,18 @@
 import Foundation
 struct K {
     struct ProductionServer {
-        static let baseURL = "http://live.cocalive.com:4000"
+        static let baseAPIURL = "http://live.cocalive.com:4000"
+        static let baseURL = "https://live.cocalive.com"
     }
     
     struct APIParameterKey {
         static let password = "password"
         static let email = "email"
         static let username = "username"
+        static let phone = "phone"
+        static let fullname = "fullname"
+        static let description = "description"
+        static let token = "token"
     }
 }
 

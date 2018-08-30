@@ -13,6 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddStreamAccountViewController" customModule="facebook_live_ios_sample" customModuleProvider="target">
             <connections>
                 <outlet property="accessTokenTextView" destination="uhZ-1v-FDL" id="aOL-46-YL6"/>
+                <outlet property="containerBottomConstraint" destination="j1y-P5-YVg" id="cUu-AW-MJh"/>
                 <outlet property="containerView" destination="2Lr-0X-bLA" id="wJH-1u-sCc"/>
                 <outlet property="submitButton" destination="cOV-Ht-Nxt" id="RGR-B4-JUk"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -89,8 +90,8 @@
             <color key="backgroundColor" white="0.0" alpha="0.29909567636986301" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="2Lr-0X-bLA" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="34C-ks-iuM"/>
-                <constraint firstItem="2Lr-0X-bLA" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="160" id="84f-sm-Pcf"/>
                 <constraint firstItem="2Lr-0X-bLA" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="iQX-97-jAV"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="2Lr-0X-bLA" secondAttribute="bottom" constant="187" id="j1y-P5-YVg"/>
                 <constraint firstItem="2Lr-0X-bLA" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="v4t-yo-pXd"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>

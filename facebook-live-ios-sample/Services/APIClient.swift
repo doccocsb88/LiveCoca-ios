@@ -84,8 +84,9 @@ class APIClient {
             let jsonResponse = JSON(value)
             if let list = jsonResponse["list"].array{
                 for i in 0..<list.count{
-                    if let acount = list[i].dictionaryObject{
-                        print("\(acount["fullname"])")
+                    if let data = list[i].dictionaryObject{
+                        print("\(data["fullname"])")
+                        
                     }
                 }
                 

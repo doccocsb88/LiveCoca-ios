@@ -13,6 +13,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var avatarImageView: UIImageView!
+    @IBOutlet weak var changeAvatarButton: UIButton!
     
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var bioTextView: UITextView!
@@ -21,12 +22,20 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var phoneTitleLabel: UILabel!
     @IBOutlet weak var passwordTitleLabel: UILabel!
     
-    @IBOutlet weak var displayLabel: UILabel!
-    @IBOutlet weak var emailLabel: UILabel!
-    @IBOutlet weak var phoneLabel: UILabel!
-    @IBOutlet weak var passwordLabel: UILabel!
+    @IBOutlet weak var displayLabel: UITextField!
+    @IBOutlet weak var emailLabel: UITextField!
+    @IBOutlet weak var phoneLabel: UITextField!
+    @IBOutlet weak var passwordLabel: UITextField!
     
     @IBOutlet weak var addLiveStreamButton: UIButton!
+    /**/
+    var editButton1:UIButton?
+    var editButton2:UIButton?
+    var editButton3:UIButton?
+    var editButton4:UIButton?
+
+    let imagePicker = UIImagePickerController()
+    var curFieldIndex:Int =  NSNotFound
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -56,9 +65,53 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     func setup(){
         //
         self.navigationController?.navigationBar.topItem?.title = "THÔNG TIN CÁ NHÂN"
-
+        let gesture = UITapGestureRecognizer(target: self, action:  #selector(someAction(_:)))
+        self.view.addGestureRecognizer(gesture)
         //
         tableView.register(UINib(nibName: "StreamAccountViewCell", bundle: nil), forCellReuseIdentifier: "streamAccountCell")
+        
+        //
+        changeAvatarButton.addBorder(cornerRadius: 15.0, color: .clear)
+        
+        
+        editButton1 = UIButton(frame: CGRect(x: 0, y: 0, width: 25, height: 25))
+        editButton1?.setImage(UIImage(named: "ic_edit"), for: .normal)
+        editButton1?.imageView?.contentMode = .scaleAspectFit
+        editButton1?.contentEdgeInsets = UIEdgeInsetsMake(3, 3, 3, 3)
+        editButton1?.addTarget(self, action: #selector(tappedEditButton(_:)), for: .touchUpInside)
+        editButton1?.tag = 1
+        displayLabel.rightView = editButton1
+        displayLabel.rightViewMode = .always
+        
+        
+        editButton2 = UIButton(frame: CGRect(x: 0, y: 0, width: 25, height: 25))
+        editButton2?.setImage(UIImage(named: "ic_edit"), for: .normal)
+        editButton2?.imageView?.contentMode = .scaleAspectFit
+        editButton2?.contentEdgeInsets = UIEdgeInsetsMake(3, 3, 3, 3)
+        editButton2?.addTarget(self, action: #selector(tappedEditButton(_:)), for: .touchUpInside)
+        editButton2?.tag = 2
+        emailLabel.rightView = editButton2;
+        emailLabel.rightViewMode = .always
+        
+        //
+        editButton3 = UIButton(frame: CGRect(x: 0, y: 0, width: 25, height: 25))
+        editButton3?.setImage(UIImage(named: "ic_edit"), for: .normal)
+        editButton3?.imageView?.contentMode = .scaleAspectFit
+        editButton3?.contentEdgeInsets = UIEdgeInsetsMake(3, 3, 3, 3)
+        editButton3?.addTarget(self, action: #selector(tappedEditButton(_:)), for: .touchUpInside)
+        editButton3?.tag = 3
+        phoneLabel.rightView = editButton3
+        phoneLabel.rightViewMode = .always
+        //
+        editButton4 = UIButton(frame: CGRect(x: 0, y: 0, width: 25, height: 25))
+        editButton4?.setImage(UIImage(named: "ic_edit"), for: .normal)
+        editButton4?.imageView?.contentMode = .scaleAspectFit
+        editButton4?.contentEdgeInsets = UIEdgeInsetsMake(3, 3, 3, 3)
+        editButton4?.addTarget(self, action: #selector(tappedEditButton(_:)), for: .touchUpInside)
+        editButton4?.tag = 4
+
+        passwordLabel.rightView = editButton4
+        passwordLabel.rightViewMode = .always
     }
     func bindData(){
         if let user = APIClient.shared().user{
@@ -67,6 +120,14 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             emailLabel.text = user.email
             phoneLabel.text = user.phone
             passwordLabel.text = "******"
+            bioTextView.text = user.description
+            //
+            
+            if let avatar = user.avatar{
+                let path = String(format: "%@%@", K.ProductionServer.baseURL,avatar)
+                let url = URL(string: path)
+                avatarImageView.kf.setImage(with: url)
+            }
             
         }
     }
@@ -78,7 +139,61 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.present(vc, animated: true, completion: nil)
     }
     @IBAction func tappedEditAvatarButton(_ sender: Any) {
+        openSelectImage()
         
+    }
+    func openSelectImage(){
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
+        let cameraAction = UIAlertAction(title: "Camera", style: .default) {[unowned self] (action) in
+            self.openPhotoLibrary(sourceType: .camera)
+        }
+        let libraryAction = UIAlertAction(title: "Library", style: .default){[unowned self] (action) in
+            self.openPhotoLibrary(sourceType: .photoLibrary)
+        }
+        alert.addAction(cameraAction)
+        alert.addAction(libraryAction)
+        
+        alert.addAction(cancel)
+
+
+        present(alert, animated: true)
+
+    }
+    func openPhotoLibrary(sourceType:UIImagePickerControllerSourceType) {
+        guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else {
+            print("can't open photo library")
+            return
+        }
+//        .photoLibrary
+        imagePicker.sourceType = sourceType
+        imagePicker.delegate = self
+        present(imagePicker, animated: true)
+    }
+    
+    @objc func tappedEditButton(_ button:UIButton){
+      curFieldIndex = button.tag
+        switch curFieldIndex {
+        case 1:
+            passwordLabel.becomeFirstResponder()
+            break
+        case 2:
+            emailLabel.becomeFirstResponder()
+            break
+        case 3:
+            phoneLabel.becomeFirstResponder()
+            break
+        case 4:
+            passwordLabel.becomeFirstResponder()
+            break
+        default:
+            break
+        }
+    }
+    @objc func someAction(_ sender:UITapGestureRecognizer){
+        self.view.endEditing(true)
+        self.curFieldIndex = NSNotFound
     }
 }
 
@@ -108,4 +223,35 @@ extension ProfileViewController{
         return cell
     }
     
+}
+extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        defer {
+            picker.dismiss(animated: true)
+        }
+        
+        print(info)
+        // get the image
+        guard let image = info[UIImagePickerControllerOriginalImage] as? UIImage else {
+            return
+        }
+        
+        // do something with it
+        avatarImageView.image = image
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        defer {
+            picker.dismiss(animated: true)
+        }
+        
+        print("did cancel")
+    }
+}
+
+extension ProfileViewController: UITextFieldDelegate{
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        let tag = textField.tag
+        return tag == curFieldIndex
+    }
 }

@@ -2,17 +2,15 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "no-thumbnail-2.jpg",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "no-thumbnail.jpg",
+      "filename" : "ic_edit.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "no-thumbnail-1.jpg",
       "scale" : "3x"
     }
   ],

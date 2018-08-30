@@ -54,12 +54,14 @@ enum UserEndpoint: URLRequestConvertible {
             return [K.APIParameterKey.email: email, K.APIParameterKey.password: password]
         case .profile:
             return nil
+        default:
+            return nil
         }
     }
     
     // MARK: - URLRequestConvertible
     func asURLRequest() throws -> URLRequest {
-        let url = try K.ProductionServer.baseURL.asURL()
+        let url = try K.ProductionServer.baseAPIURL.asURL()
         
         var urlRequest = URLRequest(url: url.appendingPathComponent(path))
         

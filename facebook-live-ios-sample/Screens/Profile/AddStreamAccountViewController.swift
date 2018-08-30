@@ -11,10 +11,10 @@ import UIKit
 class AddStreamAccountViewController: UIViewController {
 
     @IBOutlet weak var containerView: UIView!
-    
     @IBOutlet weak var accessTokenTextView: UITextView!
     @IBOutlet weak var submitButton: UIButton!
     
+    @IBOutlet weak var containerBottomConstraint: NSLayoutConstraint!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -22,7 +22,17 @@ class AddStreamAccountViewController: UIViewController {
         setup()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear(_:)), name: Notification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear(_:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name.UIKeyboardWillShow, object: nil)
 
+    }
     /*
     // MARK: - Navigation
 
@@ -52,5 +62,24 @@ class AddStreamAccountViewController: UIViewController {
     @objc func checkAction(sender : UITapGestureRecognizer) {
         // Do what you want
         self.view.endEditing(true)
+    }
+    
+    @objc func keyboardWillAppear(_ notification: Notification) {
+        //Do something here
+        adjustKeyboardShow(true, notification: notification)
+        
+    }
+    
+    @objc func keyboardWillDisappear(_ notification: Notification) {
+        //Do something here
+        adjustKeyboardShow(false, notification: notification)
+    }
+    func adjustKeyboardShow(_ open: Bool, notification: Notification) {
+        let userInfo = notification.userInfo ?? [:]
+        let keyboardFrame = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
+
+        let height = (keyboardFrame.height) * (open ? 1 : 0) / 2
+//        self.commentBoxMarginBottomConstraint.constant = height;
+        containerBottomConstraint.constant += height
     }
 }
