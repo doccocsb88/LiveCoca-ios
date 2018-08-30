@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ProfileViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
   
 
     @IBOutlet weak var tableView: UITableView!
@@ -73,9 +73,14 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         //
         changeAvatarButton.addBorder(cornerRadius: 15.0, color: .clear)
         
-        
-        editButton1 = UIButton(frame: CGRect(x: 0, y: 0, width: 25, height: 25))
-        editButton1?.setImage(UIImage(named: "ic_edit"), for: .normal)
+        let width = 60
+        editButton1 = UIButton(frame: CGRect(x: 0, y: 0, width: 60, height: 25))
+        editButton1?.setTitle("Cập nhật", for: .normal)
+//        editButton1?.setImage(UIImage(named: "ic_edit"), for: .normal)
+//        editButton1?.setImage(nil, for: .selected)
+        editButton1?.setTitle("Lưu", for: .selected)
+        editButton1?.setTitleColor(.black, for: .normal)
+        editButton1?.titleLabel?.font = UIFont.systemFont(ofSize: 12)
         editButton1?.imageView?.contentMode = .scaleAspectFit
         editButton1?.contentEdgeInsets = UIEdgeInsetsMake(3, 3, 3, 3)
         editButton1?.addTarget(self, action: #selector(tappedEditButton(_:)), for: .touchUpInside)
@@ -84,8 +89,13 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         displayLabel.rightViewMode = .always
         
         
-        editButton2 = UIButton(frame: CGRect(x: 0, y: 0, width: 25, height: 25))
-        editButton2?.setImage(UIImage(named: "ic_edit"), for: .normal)
+        editButton2 = UIButton(frame: CGRect(x: 0, y: 0, width: width, height: 25))
+        editButton2?.setTitle("Cập nhật", for: .normal)
+//        editButton2?.setImage(UIImage(named: "ic_edit"), for: .normal)
+//        editButton2?.setImage(nil, for: .selected)
+        editButton2?.setTitle("Lưu", for: .selected)
+        editButton2?.setTitleColor(.black, for: .normal)
+        editButton2?.titleLabel?.font = UIFont.systemFont(ofSize: 12)
         editButton2?.imageView?.contentMode = .scaleAspectFit
         editButton2?.contentEdgeInsets = UIEdgeInsetsMake(3, 3, 3, 3)
         editButton2?.addTarget(self, action: #selector(tappedEditButton(_:)), for: .touchUpInside)
@@ -94,8 +104,13 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         emailLabel.rightViewMode = .always
         
         //
-        editButton3 = UIButton(frame: CGRect(x: 0, y: 0, width: 25, height: 25))
-        editButton3?.setImage(UIImage(named: "ic_edit"), for: .normal)
+        editButton3 = UIButton(frame: CGRect(x: 0, y: 0, width: width, height: 25))
+//        editButton3?.setImage(UIImage(named: "ic_edit"), for: .normal)
+//        editButton3?.setImage(nil, for: .selected)
+        editButton3?.setTitle("Cập nhật", for: .normal)
+        editButton3?.setTitle("Lưu", for: .selected)
+        editButton3?.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+
         editButton3?.imageView?.contentMode = .scaleAspectFit
         editButton3?.contentEdgeInsets = UIEdgeInsetsMake(3, 3, 3, 3)
         editButton3?.addTarget(self, action: #selector(tappedEditButton(_:)), for: .touchUpInside)
@@ -103,8 +118,13 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         phoneLabel.rightView = editButton3
         phoneLabel.rightViewMode = .always
         //
-        editButton4 = UIButton(frame: CGRect(x: 0, y: 0, width: 25, height: 25))
-        editButton4?.setImage(UIImage(named: "ic_edit"), for: .normal)
+        editButton4 = UIButton(frame: CGRect(x: 0, y: 0, width: width, height: 25))
+//        editButton4?.setImage(UIImage(named: "ic_edit"), for: .normal)
+//        editButton4?.setImage(nil, for: .selected)
+        editButton4?.setTitle("Cập nhật", for: .normal)
+        editButton4?.setTitle("Lưu", for: .selected)
+        editButton4?.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+
         editButton4?.imageView?.contentMode = .scaleAspectFit
         editButton4?.contentEdgeInsets = UIEdgeInsetsMake(3, 3, 3, 3)
         editButton4?.addTarget(self, action: #selector(tappedEditButton(_:)), for: .touchUpInside)
@@ -173,10 +193,11 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     @objc func tappedEditButton(_ button:UIButton){
-      curFieldIndex = button.tag
+        button.isSelected = !button.isSelected
+        curFieldIndex = button.tag
         switch curFieldIndex {
         case 1:
-            passwordLabel.becomeFirstResponder()
+            displayLabel.becomeFirstResponder()
             break
         case 2:
             emailLabel.becomeFirstResponder()
@@ -190,10 +211,32 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         default:
             break
         }
+        if button.isSelected{
+            updateUserInfo()
+        }
     }
     @objc func someAction(_ sender:UITapGestureRecognizer){
         self.view.endEditing(true)
         self.curFieldIndex = NSNotFound
+    }
+    func updateUserInfo(){
+        switch curFieldIndex {
+        case 1:
+            guard let fullname = displayLabel.text else{
+                return
+            }
+            APIClient.shared().updateAccount(username: nil, password: nil, fullname: fullname, phone: nil, email: nil, description: nil)
+            break
+        case 2:
+            break
+        case 3:
+            break
+        case 4:
+            break
+        default:
+            break
+        }
+
     }
 }
 
@@ -214,12 +257,14 @@ extension ProfileViewController{
         return 60.0
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3;
+        return APIClient.shared().accounts.count;
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "streamAccountCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "streamAccountCell", for: indexPath) as! StreamAccountViewCell
         cell.selectionStyle = .none
+        let account = APIClient.shared().accounts[indexPath.row]
+        cell.bindData(account)
         return cell
     }
     

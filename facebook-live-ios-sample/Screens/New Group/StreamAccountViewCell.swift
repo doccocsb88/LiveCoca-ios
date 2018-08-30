@@ -50,4 +50,7 @@ class StreamAccountViewCell: UITableViewCell {
         accountTypeImageView.clipsToBounds = true
         
     }
+    func bindData(_ account:BaseInfo){
+        pageNameLabel.text = account.displayName
+    }
 }

@@ -12,11 +12,11 @@ class SelectStreamAccountViewController: UIViewController , UITableViewDelegate,
   
     var tableView: UITableView?
     
-    var pageList:[BaseInfo] = []
-    var accountList:[FacebookInfo] = []
+    var targetList:[SocialTarget] = []
+    var accountList:[BaseInfo] = []
     var viewType:Int = 0;
-    var completionHandler:(FacebookInfo?,BaseInfo?)->() = { (account,page) in }
-
+    var didSelectAccount:(BaseInfo)->() = { (account) in }
+    var didSelectTarget:(SocialTarget) ->() = {target in}
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -52,8 +52,8 @@ class SelectStreamAccountViewController: UIViewController , UITableViewDelegate,
             self.tableView?.reloadData()
         }
     }
-    func refreshData(info:FacebookInfo){
-        self.pageList = info.pages
+    func refreshData(targets:[SocialTarget]){
+        self.targetList = targets
         DispatchQueue.main.async{ [unowned self] in
             self.tableView?.reloadData()
         }
@@ -67,7 +67,7 @@ extension SelectStreamAccountViewController{
         if section == 0 {
             return accountList.count
         }else{
-            return pageList.count
+            return targetList.count
             
         }
     }
@@ -84,8 +84,8 @@ extension SelectStreamAccountViewController{
             if let cell = tableView.dequeueReusableCell(withIdentifier: "accountCell", for: indexPath) as? SelectStreamAccountViewCell{
                 
                 let index = indexPath.row
-                let page = pageList[index]
-                cell.configView(account: page)
+                let target = targetList[index]
+                cell.configView(target: target)
                 return cell
             }
         }
@@ -94,11 +94,10 @@ extension SelectStreamAccountViewController{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             let account = accountList[indexPath.row]
-            completionHandler(account,nil)
+            didSelectAccount(account)
         }else{
-            let page = pageList[indexPath.row]
-            completionHandler(nil,page)
-            
+            let target = targetList[indexPath.row]
+            didSelectTarget(target)
         }
         self.dismiss(animated: true, completion: nil)
     }

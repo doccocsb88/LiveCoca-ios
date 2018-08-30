@@ -20,6 +20,8 @@
 		0E4B698A21357F090052A0C7 /* CountCommentMaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B698921357F090052A0C7 /* CountCommentMaskView.swift */; };
 		0E4B698C2135A2A80052A0C7 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B698B2135A2A80052A0C7 /* APIClient.swift */; };
 		0E4B698E2136E64D0052A0C7 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B698D2136E64D0052A0C7 /* Preferences.swift */; };
+		0E4B6990213836BA0052A0C7 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B698F213836BA0052A0C7 /* BaseViewController.swift */; };
+		0E4B699221383C8C0052A0C7 /* SocialTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B699121383C8C0052A0C7 /* SocialTarget.swift */; };
 		0EBDF21421290B0500A1A4C9 /* ErrorCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBDF21321290B0500A1A4C9 /* ErrorCode.swift */; };
 		0EC3FC63212DBC8600278E61 /* CommentMaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC3FC62212DBC8600278E61 /* CommentMaskView.swift */; };
 		18042BDC210D52C500F48229 /* WarterMarkServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18042BDB210D52C500F48229 /* WarterMarkServices.swift */; };
@@ -113,6 +115,8 @@
 		0E4B698921357F090052A0C7 /* CountCommentMaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountCommentMaskView.swift; sourceTree = "<group>"; };
 		0E4B698B2135A2A80052A0C7 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = APIClient.swift; path = Services/APIClient.swift; sourceTree = "<group>"; };
 		0E4B698D2136E64D0052A0C7 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
+		0E4B698F213836BA0052A0C7 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		0E4B699121383C8C0052A0C7 /* SocialTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialTarget.swift; sourceTree = "<group>"; };
 		0EBDF21321290B0500A1A4C9 /* ErrorCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorCode.swift; sourceTree = "<group>"; };
 		0EC3FC62212DBC8600278E61 /* CommentMaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentMaskView.swift; sourceTree = "<group>"; };
 		18042BDB210D52C500F48229 /* WarterMarkServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarterMarkServices.swift; sourceTree = "<group>"; };
@@ -416,6 +420,7 @@
 				DB9C406D1E70527D00CCBD83 /* AppDelegate.swift */,
 				189C0EF9210A16CE00ADF7FF /* BaseTabbarController.swift */,
 				18DBC7EB2114ADEE00C34D3E /* User.swift */,
+				0E4B698F213836BA0052A0C7 /* BaseViewController.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -428,6 +433,7 @@
 				1854DB2E210D4C9C009DF33D /* BaseInfo.swift */,
 				186020392115C0B300662714 /* StreamInfo.swift */,
 				1860203B2115CBFC00662714 /* FacebookComment.swift */,
+				0E4B699121383C8C0052A0C7 /* SocialTarget.swift */,
 			);
 			name = FBSDKLiveVideo;
 			sourceTree = "<group>";
@@ -716,6 +722,7 @@
 				0E4B69722131B0620052A0C7 /* APIConfiguration.swift in Sources */,
 				189C0EED210A12C500ADF7FF /* ProfileViewController.swift in Sources */,
 				0E4B698E2136E64D0052A0C7 /* Preferences.swift in Sources */,
+				0E4B6990213836BA0052A0C7 /* BaseViewController.swift in Sources */,
 				186020442116BE8E00662714 /* CatchWordMaskView.swift in Sources */,
 				18042BF3210DB68200F48229 /* QuestionViewCell.swift in Sources */,
 				189C0EF8210A136400ADF7FF /* SetupViewController.swift in Sources */,
@@ -743,6 +750,7 @@
 				18DBC7EA211204A500C34D3E /* APIUtils.swift in Sources */,
 				18042BDC210D52C500F48229 /* WarterMarkServices.swift in Sources */,
 				0E4B69742131B08D0052A0C7 /* FacebookEndpoint.swift in Sources */,
+				0E4B699221383C8C0052A0C7 /* SocialTarget.swift in Sources */,
 				18042BEB210DB0E400F48229 /* FrameViewCellV2.swift in Sources */,
 				18DBC7EE2114B33100C34D3E /* StringUtils.swift in Sources */,
 				EC752C21210F1944004A69C4 /* AddStreamAccountViewController.swift in Sources */,

@@ -8,9 +8,10 @@
 
 import UIKit
 import Alamofire
-enum UserEndpoint: URLRequestConvertible {
+import SwiftyJSON
+enum FacebookEndpoint: URLRequestConvertible {
     case get()
-    case target(token:String,id_social:String)
+    case target(id_social:String)
     case addFacebook(access_token:String)
     case createLive(id_social:String,id_target:String,caption:String)
     case liveStatus(id_stream:String)
@@ -22,7 +23,7 @@ enum UserEndpoint: URLRequestConvertible {
         switch self {
         case .login , .addFacebook, .createLive:
             return .post
-        case .profile, .liveStatus:
+        case .profile, .liveStatus , .target:
             return .get
         default:
             return .get
@@ -35,9 +36,19 @@ enum UserEndpoint: URLRequestConvertible {
         case .liveStatus(let id_stream):
             return "/facebook/live_status?app=ios&checksum=6c3de2526c041b3d0a129172564fca08&id_stream=\(id_stream)"
         case .createLive:
-            return "/facebook/create_live?app=ios&checksum=01ecded5183fdc7e7ae5e373f0080a26"
+            let url =  "/facebook/create_live?app=ios"
+            let checksum = APIUtils.checksum(request_url: url, raw_data: JSON(parameters ?? [:]).stringValue)
+            return String(format: "%@&checksum=%@", url,checksum)
+
         case .addFacebook:
-            return "/facebook/add?app=ios&checksum=01ecded5183fdc7e7ae5e373f0080a26"
+            let url =  "/facebook/add?app=ios"
+            let checksum = APIUtils.checksum(request_url: url, raw_data: JSON(parameters ?? [:]).stringValue)
+            return String(format: "%@&checksum=%@", url,checksum)
+        case .target(let id_social):
+            let url = "/facebook/targets?app=ios"
+            let checksum = APIUtils.checksum(request_url: url, raw_data: JSON(parameters ?? [:]).stringValue)
+            return String(format: "%@&checksum=%@&token=%@&id_social=%@", url,checksum,APIClient.shared().token ?? "",id_social)
+
         case .login:
             return "/login"
         case .profile(let id):
@@ -50,6 +61,18 @@ enum UserEndpoint: URLRequestConvertible {
     // MARK: - Parameters
     var parameters: Parameters? {
         switch self {
+        case .addFacebook(let access_token):
+            var params:[String:String] = [:]
+            params[K.APIParameterKey.token] = APIClient.shared().token ?? ""
+            params[K.APIParameterKey.access_token] = access_token
+            return params
+        case .createLive(let id_social, let id_target, let caption):
+            var params:[String:String] = [:]
+            params[K.APIParameterKey.id_social] = id_social
+            params[K.APIParameterKey.id_target] = id_target
+            params[K.APIParameterKey.caption] = caption
+            params[K.APIParameterKey.token] = APIClient.shared().token ?? ""
+            return params
         case .login(let email, let password):
             return [K.APIParameterKey.email: email, K.APIParameterKey.password: password]
         case .profile:
@@ -61,9 +84,11 @@ enum UserEndpoint: URLRequestConvertible {
     
     // MARK: - URLRequestConvertible
     func asURLRequest() throws -> URLRequest {
-        let url = try K.ProductionServer.baseAPIURL.asURL()
+        let fullURL = String(format: "%@%@", K.ProductionServer.baseAPIURL,path)
+
+        let url = try fullURL.asURL()
         
-        var urlRequest = URLRequest(url: url.appendingPathComponent(path))
+        var urlRequest = URLRequest(url: url)
         
         // HTTP Method
         urlRequest.httpMethod = method.rawValue

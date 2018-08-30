@@ -21,6 +21,12 @@ struct K {
         static let fullname = "fullname"
         static let description = "description"
         static let token = "token"
+        static let access_token = "access_token"
+        static let id_social = "id_social"
+        static let id_target = "id_target"
+        static let caption = "caption"
+
+
     }
 }
 

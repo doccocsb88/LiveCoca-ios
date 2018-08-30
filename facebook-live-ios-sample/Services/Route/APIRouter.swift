@@ -44,38 +44,14 @@ enum APIRouter: URLRequestConvertible {
             let url =  "/users/login?app=ios"
             let checksum = APIUtils.checksum(request_url: url, raw_data: "")
             return String(format: "%@&checksum=%@", url,checksum)
-        case .register(let fullname, let username, let password, let email):
+        case .register:
             let url =  "/users/register?app=ios"
-            let params:[String:String] = ["fullname":fullname,
-                                          "username":username,
-                                          "password":password,
-                                          "email":email]
-            let checksum = APIUtils.checksum(request_url: url, raw_data: JSON(params).stringValue)
+            let checksum = APIUtils.checksum(request_url: url, raw_data: JSON(parameters ?? [:]).stringValue)
             return String(format: "%@&checksum=%@", url,checksum)
 
-        case .update(let username, let password, let fullname, let email, let phone, let description):
+        case .update:
             let url =  "/users/update?app=ios"
-            var params:[String:String] = [:]
-            if let username = username{
-                params["username"] = username
-            }
-            if let password = password{
-                params["password"] = password
-            }
-            if let fullname = fullname{
-                params["fullname"] = fullname
-            }
-            if let email = email{
-                params["email"] = email
-            }
-            if let phone = phone{
-                params["phone"] = phone
-            }
-            if let description = description{
-                params["description"] = description
-            }
-            
-            let checksum = APIUtils.checksum(request_url: url, raw_data: JSON(params).stringValue)
+            let checksum = APIUtils.checksum(request_url: url, raw_data: JSON(parameters ?? [:]).stringValue)
             return String(format: "%@&checksum=%@", url,checksum)
         case .getUser:
             let url =  "/users/get?app=ios"
@@ -109,8 +85,30 @@ enum APIRouter: URLRequestConvertible {
         case .login(let username, let password):
             return [K.APIParameterKey.username: username, K.APIParameterKey.password: password]
         case .update(let username, let password, let fullname, let email, let phone, let description):
-            return [K.APIParameterKey.username: username, K.APIParameterKey.password: password, K.APIParameterKey.fullname:fullname, K.APIParameterKey.email: email, K.APIParameterKey.phone:phone, K.APIParameterKey.description:description]
-            
+            var params:[String:String] = [:]
+            if let _username = username{
+                params[K.APIParameterKey.username] = _username
+            }
+            if let _password = password{
+                params[K.APIParameterKey.password] = _password
+            }
+            if let _fullname = fullname{
+                params[K.APIParameterKey.fullname] = _fullname
+            }
+            if let _email = email{
+                params[K.APIParameterKey.email] = _email
+            }
+            if let _phone = phone{
+                params[K.APIParameterKey.phone] = _phone
+            }
+            if let _des = description{
+                params[K.APIParameterKey.description] = _des
+            }
+            if let token = APIClient.shared().token{
+                params[K.APIParameterKey.token] = token
+
+            }
+            return params
         default:
             return nil
             

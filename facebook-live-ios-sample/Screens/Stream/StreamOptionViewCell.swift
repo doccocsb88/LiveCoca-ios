@@ -74,12 +74,13 @@ class StreamOptionViewCell: UITableViewCell {
     
     @IBAction func countDownTapped(_ sender: Any) {
     }
-    func updateAccountInfo(account:FacebookInfo){
+    func updateAccountInfo(account:BaseInfo){
        
         accountNameLabel.text = account.displayName
     }
-    func updatePageInfo(page:BaseInfo){
-        pageNameLabel.text = page.displayName
-
+    func updatePageInfo(target:SocialTarget){
+        pageNameLabel.text = target.name
+        
     }
+
 }

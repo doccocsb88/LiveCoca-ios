@@ -22,8 +22,8 @@ class StreamViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     let selectStreamInfoVC = SelectStreamAccountViewController()
 
-    var selectedAccount: FacebookInfo?
-    var selectedPages:BaseInfo?
+    var selectedAccount: BaseInfo?
+    var selectedPages:SocialTarget?
     var streamUrls:[StreamInfo] = []
     var openLogin:Bool = false
     override func viewDidLoad() {
@@ -68,9 +68,24 @@ class StreamViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         //
         selectStreamInfoVC.modalPresentationStyle = .overFullScreen
-        selectStreamInfoVC.completionHandler = {(account,page) in
-            self.selectedAccount = account
-            self.selectedPages = page
+        selectStreamInfoVC.didSelectAccount = {[unowned self](account) in
+                self.selectedAccount = account
+                self.boatAnimation!.isHidden = false
+                self.boatAnimation?.play()
+                APIClient.shared().getFacebookTargets(id_social: account.userId, completion: {[unowned self] (success, message,targets) in
+                    self.boatAnimation?.isHidden = true
+                    self.boatAnimation?.stop()
+                    if success{
+                        self.selectStreamInfoVC.accountList = []
+                        self.selectStreamInfoVC.refreshData(targets: targets ?? [])
+                    }
+                })
+                self.tableView.reloadData()
+
+            
+        }
+        selectStreamInfoVC.didSelectTarget = { target in
+            self.selectedPages = target
             self.tableView.reloadData()
         }
         //
@@ -110,16 +125,38 @@ class StreamViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     @IBAction func addUrlStreamTapped(_ sender: Any) {
-        if let page = selectedPages , let _ = page.userId{
-            boatAnimation?.isHidden = false
-            boatAnimation?.play()
-            FacebookServices.shared().getFacebookLiveStreamURL(pageInfo: page) {[unowned self] (info) in
-                self.streamUrls.append(info)
-                self.tableView.reloadData()
-                self.boatAnimation?.stop()
-                self.boatAnimation?.isHidden = true
-            }
+        guard let target = selectedPages else{
+//            boatAnimation?.isHidden = false
+//            boatAnimation?.play()
+//            FacebookServices.shared().getFacebookLiveStreamURL(pageInfo: FacebookInfo()) {[unowned self] (info) in
+//                self.streamUrls.append(info)
+//                self.tableView.reloadData()
+//                self.boatAnimation?.stop()
+//                self.boatAnimation?.isHidden = true
+//            }
+            return
         }
+        guard let account = selectedAccount else{
+            return
+        }
+        boatAnimation?.isHidden = false
+        boatAnimation?.play()
+
+        APIClient.shared().createLive(id_social: account.userId, id_target: target.id, caption: "") {[unowned self]  (success, message, info) in
+            self.boatAnimation?.isHidden = true
+            self.boatAnimation?.stop()
+            if success{
+                if let _info = info{
+                    self.streamUrls.append(_info)
+                    self.tableView.reloadData()
+                }
+
+            }else{
+                
+            }
+
+        }
+
     }
     
     @IBAction func nextTapped(_ sender: Any) {
@@ -174,21 +211,19 @@ extension StreamViewController{
                 cell.updateAccountInfo(account: account)
             }
             if let page = selectedPages{
-                cell.updatePageInfo(page: page)
+                cell.updatePageInfo(target: page)
             }
             cell.completionHandler = {[weak self] a in
                 print("click \(a)")
                 if let strongSelf = self{
                     //select account
                 if a == 0{
-                    strongSelf.selectStreamInfoVC.accountList = FacebookServices.shared().accountList
-                    strongSelf.selectStreamInfoVC.pageList = []
+                    strongSelf.selectStreamInfoVC.accountList = APIClient.shared().accounts
+                    strongSelf.selectStreamInfoVC.targetList = []
                 }else{
                     strongSelf.selectStreamInfoVC.accountList = []
-                    strongSelf.selectStreamInfoVC.pageList = FacebookServices.shared().accountList[0].pages
                 }
                 strongSelf.selectStreamInfoVC.refreshData()
-
                 strongSelf.present(strongSelf.selectStreamInfoVC, animated: true, completion: nil)
 
                 }

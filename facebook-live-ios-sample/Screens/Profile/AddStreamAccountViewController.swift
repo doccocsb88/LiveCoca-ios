@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddStreamAccountViewController: UIViewController {
+class AddStreamAccountViewController: BaseViewController {
 
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var accessTokenTextView: UITextView!
@@ -26,6 +26,7 @@ class AddStreamAccountViewController: UIViewController {
         super.viewWillAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear(_:)), name: Notification.Name.UIKeyboardWillHide, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear(_:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
+        accessTokenTextView.text = "EAAHA0tZANRYgBAJcFp9NtWM907cDXJmotZCeYqHKcKNXpZBgf7z24e7UxBnpSbWEoiWFbTrNIXZBjcphs5XSRdcEiVVaboCVSzvmeHf18tRZCxBpPW0NFeyAOXiuv7FKRKwpBEFrC6I4p4WyJO13ua0qUNWMQn2ZAiygdFoCJTh16ny7aPpZBQURo61J83JmJN6KLa986K1dgZDZD"
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
@@ -57,7 +58,19 @@ class AddStreamAccountViewController: UIViewController {
     
     
     @IBAction func tappedSubmitButton(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        guard let access_token = accessTokenTextView.text, access_token.count > 0 else{
+            return
+        }
+        APIClient.shared().addFacebook(access_token: access_token){ [unowned self](success,message) in
+            
+            print("add access_token\(success) --- \(message ?? "")")
+            if success{
+                self.dismiss(animated: true, completion: nil)
+            }else{
+                self.showMessageDialog(nil,message ?? "")
+            }
+            
+        }
     }
     @objc func checkAction(sender : UITapGestureRecognizer) {
         // Do what you want
