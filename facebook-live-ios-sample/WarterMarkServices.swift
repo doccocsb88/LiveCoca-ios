@@ -13,6 +13,7 @@ class WarterMarkServices{
     public let KEY_FILTERCOMMENT: String = "filterComment"
     var randomView:RandomMaskView?
     var countCommentView:CountCommentMaskView?
+    var countdownView:CountdownMaskView?
     static let sharedInstance : WarterMarkServices = {
         let instance = WarterMarkServices()
         return instance
@@ -47,8 +48,18 @@ class WarterMarkServices{
            backgroundImage =  addFrame(sourceImage: backgroundImage)
 
         }
-        if let countdown = params["countdown"] as? Bool, countdown == true{
-            addCountDown();
+        if let countdown = params[ConfigKey.countdown.rawValue] as? [String:Any], let _ = countdown["countdown"] as? String{
+            if let _  = countdownView{
+                countdownView!.removeFromSuperview()
+                countdownView = nil
+            }
+            countdownView = CountdownMaskView(frame: self.frame, scale: scale)
+            watermarkView.addSubview(countdownView!)
+        }else{
+            if let _  = countdownView{
+                countdownView!.removeFromSuperview()
+                countdownView = nil
+            }
         }
         if let slogan = params["slogan"] as? [String:Any]{
             if let sloganView = handleSlogan(slogan: slogan){
@@ -233,5 +244,9 @@ class WarterMarkServices{
     }
     func showCountdownView(){
         params["countdown"] = true
+    }
+    
+    func configCountDown(config:[String:Any]){
+        params[ConfigKey.countdown.rawValue] = config
     }
 }

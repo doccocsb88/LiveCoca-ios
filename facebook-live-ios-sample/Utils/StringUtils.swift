@@ -274,6 +274,28 @@ extension String {
         let boundingBox = self.boundingRect(with: constraintRect, options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: [NSAttributedStringKey.font: font], context: nil)
         return boundingBox.height
     }
+    var isNumber: Bool {
+        let characters = CharacterSet.decimalDigits.inverted
+        return !self.isEmpty && rangeOfCharacter(from: characters) == nil
+    }
+    func isValidTimer() ->Bool{
+        if self.contains(":") {
+            let info = self.components(separatedBy: ":")
+            if info.count == 2{
+                let hourText = info[0]
+                let minsText = info[1]
+                if hourText.isNumber && minsText.isNumber{
+                    if  let hour = Int(hourText), let mins = Int(minsText){
+                        if hour < 24 && mins < 60{
+                            return true
+                        }
+                    }
+                }
+            }
+        }
+        
+        return false
+    }
 }
 extension Int
 {

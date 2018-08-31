@@ -251,6 +251,20 @@ extension Date {
         let strMonth = dateFormatter.string(from: self)
         return strMonth
     }
-    
+    func getHour() -> Int{
+        let components = Calendar.current.dateComponents([.hour], from: self)
+        let hour = components.hour ?? 0
+        return hour
+    }
+    func getMins() ->Int{
+        let components = Calendar.current.dateComponents([.minute], from: self)
+        let mins = components.minute ?? 0
+        return mins
+    }
+    func getSecs() ->Int{
+        let components = Calendar.current.dateComponents([.second], from: self)
+        let seconds = components.second ?? 0
+        return seconds
+    }
     
 }

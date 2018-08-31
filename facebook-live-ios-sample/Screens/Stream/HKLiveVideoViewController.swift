@@ -350,6 +350,11 @@ extension HKLiveVideoViewController{
             let cell = tableView.dequeueReusableCell(withIdentifier:reuseCountDown, for: indexPath) as! CountDownViewCell
             cell.completeHandle = {[unowned self] isShow in
                 self.didTappedWarterMarkButton(nil)
+                if let countdown = WarterMarkServices.shared().params[ConfigKey.countdown.rawValue] as? [String:Any]{
+                    if let mute = countdown["mute"] as? Bool{
+                        self.session.muted = mute
+                    }
+                }
             }
             cell.selectionStyle = .none
             return cell

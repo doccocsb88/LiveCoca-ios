@@ -20,9 +20,13 @@ class CountDownViewCell: UITableViewCell {
     @IBOutlet weak var uploadButton: UIButton!
     var pickerView:CountdownPickerView?
     var completeHandle:(Bool) ->() =  {(isOn) in }
+    var config:[String:Any] = [:]
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        if let _config = WarterMarkServices.shared().params[ConfigKey.countdown.rawValue] as? [String:Any]{
+            config = _config
+        }
         setup()
     }
 
@@ -56,15 +60,32 @@ class CountDownViewCell: UITableViewCell {
 //
         timerTextfield.delegate = self
         
+        if let mute = config["mute"] as? Bool{
+            muteButton.isSelected = mute
+        }
     }
     @IBAction func tappedShowButton(_ sender: Any) {
-        WarterMarkServices.shared().showCountdownView()
+        config["countdown"] = "12:00"
+        config["camera"] = nil
+
+        WarterMarkServices.shared().configCountDown(config:config)
         completeHandle(true)
     }
     @IBAction func tappedMuteButton(_ sender: Any) {
+        muteButton.isSelected = !muteButton.isSelected
+        config["mute"] = muteButton.isSelected
+        WarterMarkServices.shared().configCountDown(config:config)
+        completeHandle(true)
+
     }
     
     @IBAction func tappedCameraButton(_ sender: Any) {
+        config["camera"] = true
+        config["countdown"] = nil
+
+        WarterMarkServices.shared().configCountDown(config:config)
+        completeHandle(true)
+
     }
 }
 extension CountDownViewCell: UITextFieldDelegate{

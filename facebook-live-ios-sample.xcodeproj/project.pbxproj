@@ -23,6 +23,7 @@
 		0E4B6990213836BA0052A0C7 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B698F213836BA0052A0C7 /* BaseViewController.swift */; };
 		0E4B699221383C8C0052A0C7 /* SocialTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B699121383C8C0052A0C7 /* SocialTarget.swift */; };
 		0EBDF21421290B0500A1A4C9 /* ErrorCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBDF21321290B0500A1A4C9 /* ErrorCode.swift */; };
+		0EC009D521398EF30030BB29 /* CountdownMaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC009D421398EF30030BB29 /* CountdownMaskView.swift */; };
 		0EC3FC63212DBC8600278E61 /* CommentMaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC3FC62212DBC8600278E61 /* CommentMaskView.swift */; };
 		18042BDC210D52C500F48229 /* WarterMarkServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18042BDB210D52C500F48229 /* WarterMarkServices.swift */; };
 		18042BDF210D8B5F00F48229 /* CountDownViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18042BDD210D8B5F00F48229 /* CountDownViewCell.swift */; };
@@ -119,6 +120,7 @@
 		0E4B698F213836BA0052A0C7 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		0E4B699121383C8C0052A0C7 /* SocialTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialTarget.swift; sourceTree = "<group>"; };
 		0EBDF21321290B0500A1A4C9 /* ErrorCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorCode.swift; sourceTree = "<group>"; };
+		0EC009D421398EF30030BB29 /* CountdownMaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownMaskView.swift; sourceTree = "<group>"; };
 		0EC3FC62212DBC8600278E61 /* CommentMaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentMaskView.swift; sourceTree = "<group>"; };
 		18042BDB210D52C500F48229 /* WarterMarkServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarterMarkServices.swift; sourceTree = "<group>"; };
 		18042BDD210D8B5F00F48229 /* CountDownViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CountDownViewCell.swift; path = View/CountDownViewCell.swift; sourceTree = "<group>"; };
@@ -269,6 +271,7 @@
 				0E4B6978213293C00052A0C7 /* CommentMaskViewCell.xib */,
 				0E4B697F2134218C0052A0C7 /* RandomMaskView.swift */,
 				0E4B698921357F090052A0C7 /* CountCommentMaskView.swift */,
+				0EC009D421398EF30030BB29 /* CountdownMaskView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -716,6 +719,7 @@
 				1860203A2115C0B300662714 /* StreamInfo.swift in Sources */,
 				18042BF7210DBF1A00F48229 /* FilterCommentViewCell.swift in Sources */,
 				DB9C40701E70527D00CCBD83 /* HKLiveVideoViewController.swift in Sources */,
+				0EC009D521398EF30030BB29 /* CountdownMaskView.swift in Sources */,
 				186020492116D5FD00662714 /* VideoViewCell.swift in Sources */,
 				DB40E2301E71567E009E7C74 /* FBSDKLiveVideo.swift in Sources */,
 				18042BEF210DB23200F48229 /* PinCommentViewCell.swift in Sources */,

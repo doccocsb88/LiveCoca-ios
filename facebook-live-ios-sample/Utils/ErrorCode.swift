@@ -19,15 +19,19 @@ enum ErrorCode: Int {
 //}
 
 struct APIError {
-     static let Error_Generic:Int                = 0//, "Unknown")
-     static let Error_DB:Int                     = 909//, "Database")
-     static let Error_UserNotFound:Int           = 202//, )
+    static let Error_Generic:Int                = 0//, "Unknown")
+    static let Error_DB:Int                     = 909//, "Database")
+    static let Error_UserNotFound:Int           = 202//, )
+    static let Error_ExistStream                = 403
+
     static func message(code:Int, message:String) ->String{
         switch code {
         case Error_Generic:
             return "Unknown"
         case Error_UserNotFound:
             return "Tài khoản đăng nhập hoặc mật khẩu không đúng, vui lòng đăng nhập lại!"
+        case Error_ExistStream:
+            return "You are having streaming"
         default:
             return message
         }

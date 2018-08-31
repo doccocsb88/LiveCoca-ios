@@ -41,6 +41,7 @@ enum ContentType: String {
     case json = "application/json"
 }
 enum ConfigKey:String{
+    case countdown = "config_countdown"
     case random = "config_random"
     case countComment = "config_count_comment"
 }

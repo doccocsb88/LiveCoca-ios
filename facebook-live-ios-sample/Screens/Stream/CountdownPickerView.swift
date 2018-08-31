@@ -22,8 +22,16 @@ class CountdownPickerView: UIView {
     var titleLabel:UILabel?
     var collectionView:UICollectionView?
     var didSelectTimer:(String?) ->() = {timer in }
+    var timerData:[String] = []
     override init(frame: CGRect) {
         super.init(frame: frame)
+        for i in 0...23{
+            if i < 10{
+                timerData.append("0\(i):00")
+            }else{
+                timerData.append("\(i):00")
+            }
+        }
         initView()
     }
     required init?(coder aDecoder: NSCoder) {
@@ -33,19 +41,21 @@ class CountdownPickerView: UIView {
     func initView(){
         //
         let viewWidth = menuWidth - 2*10//margin = 10
-        prevButton = UIButton(frame: CGRect(x: 2, y: 5, width: 30, height: 30))
+        prevButton = UIButton(frame: CGRect(x: 5, y: 2, width: 30, height: 30))
         prevButton?.addBorder(cornerRadius: 2, color: .lightGray)
         prevButton?.imageView?.contentMode = .scaleAspectFit
         prevButton?.setImage(UIImage(named: "ic_prev"), for: .normal)
         prevButton?.contentEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         self.addSubview(prevButton!)
         //
-        nextButton = UIButton(frame: CGRect(x: 2, y: viewWidth - 35, width: 30, height: 30))
+        nextButton = UIButton(frame: CGRect(x: viewWidth - 35, y: 2, width: 30, height: 30))
         nextButton?.addBorder(cornerRadius: 2, color: .lightGray)
         nextButton?.imageView?.contentMode = .scaleAspectFit
         nextButton?.setImage(UIImage(named: "ic_next"), for: .normal)
         nextButton?.contentEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         self.addSubview(nextButton!)
+        prevButton?.isHidden = true
+        nextButton?.isHidden = true
         
         //
         titleLabel = UILabel(frame: CGRect(x: 35, y: 0, width: viewWidth - 70, height: 35))
@@ -70,19 +80,25 @@ class CountdownPickerView: UIView {
 }
 extension CountdownPickerView: UICollectionViewDelegate, UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 24
+        return timerData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TimerViewCell", for: indexPath)
+        let curHour = Date().getHour()
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TimerViewCell", for: indexPath) as! TimerViewCell
+        let hourText = timerData[indexPath.row].components(separatedBy: ":")[0]
+        let hour = Int(hourText) ?? 0
         
-        
+        cell.bindData(timer: timerData[indexPath.row], enable: hour > curHour)
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TimerViewCell", for: indexPath) as! TimerViewCell
-        didSelectTimer(cell.getTimerText())
-        self.removeFromSuperview()
+        let curHour = Date().getHour()
+        if curHour < indexPath.row{
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TimerViewCell", for: indexPath) as! TimerViewCell
+            didSelectTimer(cell.getTimerText())
+            self.removeFromSuperview()
+        }
     }
 }
 
@@ -106,6 +122,15 @@ private class TimerViewCell:UICollectionViewCell{
         timerLabel?.textAlignment = .center
         self.addSubview(timerLabel!)
         self.addBorder(cornerRadius: 2, color: .lightGray)
+    }
+    func bindData(timer:String,enable:Bool){
+        timerLabel?.text = timer
+        if enable {
+            timerLabel?.textColor = .black
+        }else{
+            timerLabel?.textColor = .lightGray
+
+        }
     }
     func getTimerText() ->String?{
         if let label = timerLabel{
