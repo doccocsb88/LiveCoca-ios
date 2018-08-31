@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 import Lottie
-class LoginViewController: UIViewController {
+class LoginViewController:BaseViewController{
 
     
     @IBOutlet weak var container: UIView!
@@ -97,7 +97,7 @@ class LoginViewController: UIViewController {
                 self.dismiss(animated: true, completion: nil)
 
             }else{
-
+                self.showMessageDialog(nil, message)
             }
         }
     }

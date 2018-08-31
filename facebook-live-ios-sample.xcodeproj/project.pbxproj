@@ -96,6 +96,7 @@
 		EC53B2CB210B2A14000A3866 /* SelectStreamAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC53B2C9210B2A14000A3866 /* SelectStreamAccountViewController.swift */; };
 		EC53B2CF210B2EA6000A3866 /* SelectStreamAccountViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC53B2CD210B2EA6000A3866 /* SelectStreamAccountViewCell.swift */; };
 		EC53B2D0210B2EA6000A3866 /* SelectStreamAccountViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC53B2CE210B2EA6000A3866 /* SelectStreamAccountViewCell.xib */; };
+		EC6149A52139342200A43FE7 /* CountdownPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6149A42139342100A43FE7 /* CountdownPickerView.swift */; };
 		EC752C21210F1944004A69C4 /* AddStreamAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC752C1F210F1944004A69C4 /* AddStreamAccountViewController.swift */; };
 		EC752C22210F1944004A69C4 /* AddStreamAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC752C20210F1944004A69C4 /* AddStreamAccountViewController.xib */; };
 		ECE9439121087901003EB965 /* ImageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE9439021087901003EB965 /* ImageUtils.swift */; };
@@ -203,6 +204,7 @@
 		EC53B2C9210B2A14000A3866 /* SelectStreamAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectStreamAccountViewController.swift; sourceTree = "<group>"; };
 		EC53B2CD210B2EA6000A3866 /* SelectStreamAccountViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectStreamAccountViewCell.swift; sourceTree = "<group>"; };
 		EC53B2CE210B2EA6000A3866 /* SelectStreamAccountViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectStreamAccountViewCell.xib; sourceTree = "<group>"; };
+		EC6149A42139342100A43FE7 /* CountdownPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownPickerView.swift; sourceTree = "<group>"; };
 		EC752C1F210F1944004A69C4 /* AddStreamAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddStreamAccountViewController.swift; path = Profile/AddStreamAccountViewController.swift; sourceTree = "<group>"; };
 		EC752C20210F1944004A69C4 /* AddStreamAccountViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = AddStreamAccountViewController.xib; path = Profile/AddStreamAccountViewController.xib; sourceTree = "<group>"; };
 		ECE9439021087901003EB965 /* ImageUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUtils.swift; sourceTree = "<group>"; };
@@ -503,6 +505,7 @@
 				186020482116D5FD00662714 /* VideoViewCell.xib */,
 				0E4B6985213576270052A0C7 /* CountCommentViewCell.swift */,
 				0E4B6986213576270052A0C7 /* CountCommentViewCell.xib */,
+				EC6149A42139342100A43FE7 /* CountdownPickerView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -699,6 +702,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC6149A52139342200A43FE7 /* CountdownPickerView.swift in Sources */,
 				182C799E21173F55008D65CB /* LoginViewController.swift in Sources */,
 				18042BDF210D8B5F00F48229 /* CountDownViewCell.swift in Sources */,
 				0E4B698A21357F090052A0C7 /* CountCommentMaskView.swift in Sources */,

@@ -10,6 +10,7 @@ import UIKit
 
 class CountDownViewCell: UITableViewCell {
 
+    @IBOutlet weak var timerTextfield: UITextField!
     @IBOutlet weak var muteButton: UIButton!
     @IBOutlet weak var cameraButton: UIButton!
     @IBOutlet weak var showButton: UIButton!
@@ -51,7 +52,9 @@ class CountDownViewCell: UITableViewCell {
         uploadButton.setImage(tintedImage, for: .normal)
         uploadButton.tintColor = UIColor.lightGray
         uploadButton.imageView?.contentMode = UIViewContentMode.scaleAspectFit
-
+//
+        timerTextfield.delegate = self
+        
     }
     @IBAction func tappedShowButton(_ sender: Any) {
         WarterMarkServices.shared().showCountdownView()
@@ -61,5 +64,16 @@ class CountDownViewCell: UITableViewCell {
     }
     
     @IBAction func tappedCameraButton(_ sender: Any) {
+    }
+}
+extension CountDownViewCell: UITextFieldDelegate{
+    func showPickerView(){
+        let pickerView = CountdownPickerView(frame: CGRect(x: 5, y: 50, width: self.bounds.width - 10, height: self.bounds.height - 55))
+        
+        self.addSubview(pickerView)
+    }
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        showPickerView()
+        return true
     }
 }

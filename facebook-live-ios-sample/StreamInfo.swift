@@ -16,11 +16,11 @@ class StreamInfo {
     let videoID:String
 //    {"status": 1, "stream_url": "rtmp://live-api-s.facebook.com:80/rtmp/1044499249043798?ds=1&s_sw=0&s_vt=api-s&a=ATitHxfUOPcyFHc5", "id_stream": "1044499249043798", "id_video": "1044499245710465"}
     init(jsonData: [String:Any]) {
-        status = 0
-        streamId = jsonData["id"] as! String
-        urlString = jsonData["stream_url"] as! String
+        status = jsonData["status"] as? Int ?? 0
+        streamId = jsonData["id_stream"] as? String ?? ""
+        urlString = jsonData["stream_url"] as? String ?? ""
         description = ""
-        videoID = ""
+        videoID = jsonData["id_video"] as? String ?? ""
     }
     init(jsonData:JSON) {
         status = jsonData["status"].intValue

@@ -33,6 +33,9 @@
                         <nil key="textColor"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits"/>
+                        <connections>
+                            <outlet property="delegate" destination="-1" id="dtP-nA-Ngf"/>
+                        </connections>
                     </textField>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ảnh" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5fs-ZS-TOE">
                         <rect key="frame" x="10" y="64" width="21.5" height="14"/>
@@ -147,6 +150,7 @@
                 <outlet property="muteButton" destination="G80-Sd-zpV" id="FkD-e5-YrG"/>
                 <outlet property="selectImageButton" destination="yDL-BS-6n1" id="Xfp-G1-EV4"/>
                 <outlet property="showButton" destination="P9a-r9-MMX" id="TI3-0b-ZgU"/>
+                <outlet property="timerTextfield" destination="cNq-OJ-yAa" id="H8I-xY-mlB"/>
                 <outlet property="uploadButton" destination="op8-kz-dU2" id="jnt-PX-Zqk"/>
             </connections>
             <point key="canvasLocation" x="32" y="178"/>

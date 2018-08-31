@@ -37,6 +37,10 @@ class SelectStreamAccountViewController: UIViewController , UITableViewDelegate,
         tableView?.backgroundColor = UIColor.white
         self.view.addSubview(tableView!)
         self.view.backgroundColor = UIColor.black.withAlphaComponent(0.3)
+        
+        //
+        let gesture = UITapGestureRecognizer(target: self, action:  #selector (self.tapAction (_:)))
+        self.view.addGestureRecognizer(gesture)
     }
     /*
     // MARK: - Navigation
@@ -57,6 +61,10 @@ class SelectStreamAccountViewController: UIViewController , UITableViewDelegate,
         DispatchQueue.main.async{ [unowned self] in
             self.tableView?.reloadData()
         }
+    }
+    @objc func tapAction(_ sender:UITapGestureRecognizer){
+        // do other task
+        self.dismiss(animated: true, completion: nil)
     }
 }
 extension SelectStreamAccountViewController{

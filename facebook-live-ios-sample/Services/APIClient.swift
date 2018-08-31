@@ -23,7 +23,7 @@ class APIClient {
     }
 
 
-    func login(username: String, password: String, completion:@escaping (_ result:Bool,_ message:String?)->Void) {
+    func login(username: String, password: String, completion:@escaping (_ result:Bool,_ message:String)->Void) {
         Alamofire.request(APIRouter.login(username: username, password: password)).responseJSON {[weak self] response in
             guard let strongSelf = self else{
                 return
@@ -31,7 +31,7 @@ class APIClient {
             guard response.result.isSuccess,
                 let value = response.result.value else {
                     print("Error while fetching tags: \(String(describing: response.result.error))")
-                    completion(false,"")
+                    completion(false,String(describing: response.result.error))
                     return
             }
             
@@ -40,9 +40,10 @@ class APIClient {
             print("\(tags)")
             if let error = tags["error"].dictionaryObject{
                 print("error \(error)")
-                let errorCode = error["code"]
+                let errorCode = error["code"] as? Int
                 let explain = error["explain"] as? String
-                completion(false,explain)
+                let errorMessage = APIError.message(code: errorCode ?? 0, message: explain ?? "")
+                completion(false,errorMessage)
             }else{
                 let id = tags["id"].stringValue
                 let token  = tags["token"].stringValue
@@ -52,7 +53,7 @@ class APIClient {
                     
                 })
                 strongSelf.getListAccount()
-                completion(true,nil)
+                completion(true,"")
 
             }
 
@@ -179,6 +180,21 @@ class APIClient {
 //
 //                    ]]
                 var targets:[SocialTarget] = []
+                if let timelines = jsonResponse["timelines"].array{
+                    for i in 0..<timelines.count{
+                        if let data = timelines[i].dictionaryObject{
+                            guard let id = data["id"] as? String else{
+                                return
+                            }
+                            guard let name = data["name"] as? String else{
+                                return
+                            }
+                            let target = SocialTarget(id:id,name:name)
+                            targets.append(target)
+                            
+                        }
+                    }
+                }
                 if let fanpages = jsonResponse["fanpages"].array{
                     for i in 0..<fanpages.count{
                         if let data = fanpages[i].dictionaryObject{
@@ -194,9 +210,9 @@ class APIClient {
                         
                     }
                 }
-                if let timelines = jsonResponse["timelines"].array{
-                    for i in 0..<timelines.count{
-                        if let data = timelines[i].dictionaryObject{
+                if let groups = jsonResponse["groups"].array{
+                    for i in 0..<groups.count{
+                        if let data = groups[i].dictionaryObject{
                             guard let id = data["id"] as? String else{
                                 return
                             }
@@ -205,10 +221,11 @@ class APIClient {
                             }
                             let target = SocialTarget(id:id,name:name)
                             targets.append(target)
-
                         }
+                        
                     }
                 }
+             
                 completion(true,nil,targets)
                 
             }

@@ -10,22 +10,31 @@ import UIKit
 import Lottie
 //import CommonCrypto
 class StreamViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    enum PickType:Int{
+        case account
+        case target
+    }
     fileprivate let reuseOptionCell = "streamOptionCell"
     fileprivate let reuseUrlCell = "streamUrlCell"
+    fileprivate let pickerHeight:CGFloat = 340
 
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var addUrlStreamButton: UIButton!
-    
-    private var boatAnimation: LOTAnimationView?
+    var picker:UIPickerView?
+    var pickerView:UIView?
+    private var loadingAnimation: LOTAnimationView?
 
     let selectStreamInfoVC = SelectStreamAccountViewController()
 
     var selectedAccount: BaseInfo?
     var selectedPages:SocialTarget?
+    var curTargets:[SocialTarget] = []
     var streamUrls:[StreamInfo] = []
     var openLogin:Bool = false
+    var pickerType:PickType = .account
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -70,11 +79,11 @@ class StreamViewController: UIViewController, UITableViewDelegate, UITableViewDa
         selectStreamInfoVC.modalPresentationStyle = .overFullScreen
         selectStreamInfoVC.didSelectAccount = {[unowned self](account) in
                 self.selectedAccount = account
-                self.boatAnimation!.isHidden = false
-                self.boatAnimation?.play()
+                self.loadingAnimation!.isHidden = false
+                self.loadingAnimation?.play()
                 APIClient.shared().getFacebookTargets(id_social: account.userId, completion: {[unowned self] (success, message,targets) in
-                    self.boatAnimation?.isHidden = true
-                    self.boatAnimation?.stop()
+                    self.loadingAnimation?.isHidden = true
+                    self.loadingAnimation?.stop()
                     if success{
                         self.selectStreamInfoVC.accountList = []
                         self.selectStreamInfoVC.refreshData(targets: targets ?? [])
@@ -88,17 +97,45 @@ class StreamViewController: UIViewController, UITableViewDelegate, UITableViewDa
             self.selectedPages = target
             self.tableView.reloadData()
         }
+        /*
+         init pickerView
+         */
+        let pickerPosY =  self.view.frame.size.height
+        let pickerWidth  = self.view.frame.size.width
+        let frame = CGRect(x: 0, y: pickerPosY, width: pickerWidth, height: pickerHeight)
+        //
+        pickerView = UIView(frame: frame)
+        pickerView?.addShadow(offset:CGSize(width: 0, height: -1),radius:2)
+        pickerView?.backgroundColor = .white
+        //
+        let updateButton = UIButton(frame: CGRect(x: pickerWidth - 65, y: 5, width: 60, height: 30))
+        updateButton.setTitle("Cập nhật", for: .normal)
+        updateButton.titleLabel?.font = UIFont.systemFont(ofSize: 13)
+        updateButton.setTitleColor(.black, for: .normal)
+        updateButton.addTarget(self, action: #selector(tappedUpdateAcountTarget(_:)), for: .touchUpInside)
+        updateButton.addBorder(cornerRadius: 4, color: UIColor(hexString: "#FC6076"))
+        pickerView?.addSubview(updateButton)
+        //
+        let marginTop:CGFloat = 40
+        picker = UIPickerView(frame: CGRect(x: 0, y: marginTop, width: pickerWidth, height: pickerHeight - marginTop))
+        picker?.backgroundColor = .white
+        picker?.dataSource = self
+        picker?.delegate = self
+        picker?.addShadow(offset:CGSize(width: 0, height: -0.2),radius:0.2)
+
+        pickerView?.addSubview(picker!)
+        self.view.addSubview(pickerView!)
         //
         // Create Boat Animation
-        boatAnimation = LOTAnimationView(name: "material_loader")
+        loadingAnimation = LOTAnimationView(name: "material_loader")
         // Set view to full screen, aspectFill
-        boatAnimation!.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-        boatAnimation!.contentMode = .scaleAspectFill
-        boatAnimation!.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
-        boatAnimation!.center = self.view.center
-        boatAnimation!.isHidden = true
+        loadingAnimation!.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        loadingAnimation!.contentMode = .scaleAspectFill
+        loadingAnimation!.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+        loadingAnimation!.center = self.view.center
+        loadingAnimation!.isHidden = true
         // Add the Animation
-        view.addSubview(boatAnimation!)
+        view.addSubview(loadingAnimation!)
     }
     func setupUI(){
         let buttonSize = nextButton.frame.size;
@@ -139,12 +176,12 @@ class StreamViewController: UIViewController, UITableViewDelegate, UITableViewDa
         guard let account = selectedAccount else{
             return
         }
-        boatAnimation?.isHidden = false
-        boatAnimation?.play()
+        loadingAnimation?.isHidden = false
+        loadingAnimation?.play()
 
         APIClient.shared().createLive(id_social: account.userId, id_target: target.id, caption: "") {[unowned self]  (success, message, info) in
-            self.boatAnimation?.isHidden = true
-            self.boatAnimation?.stop()
+            self.loadingAnimation?.isHidden = true
+            self.loadingAnimation?.stop()
             if success{
                 if let _info = info{
                     self.streamUrls.append(_info)
@@ -209,6 +246,7 @@ extension StreamViewController{
             cell.selectionStyle = .none
             if let account = selectedAccount{
                 cell.updateAccountInfo(account: account)
+                
             }
             if let page = selectedPages{
                 cell.updatePageInfo(target: page)
@@ -218,13 +256,15 @@ extension StreamViewController{
                 if let strongSelf = self{
                     //select account
                 if a == 0{
-                    strongSelf.selectStreamInfoVC.accountList = APIClient.shared().accounts
-                    strongSelf.selectStreamInfoVC.targetList = []
+//                    strongSelf.selectStreamInfoVC.accountList = APIClient.shared().accounts
+//                    strongSelf.selectStreamInfoVC.targetList = []
+                    strongSelf.showPickerView(type: .account)
                 }else{
-                    strongSelf.selectStreamInfoVC.accountList = []
+//                    strongSelf.selectStreamInfoVC.accountList = []
+                    strongSelf.showPickerView(type: .target)
                 }
-                strongSelf.selectStreamInfoVC.refreshData()
-                strongSelf.present(strongSelf.selectStreamInfoVC, animated: true, completion: nil)
+//                strongSelf.selectStreamInfoVC.refreshData()
+//                strongSelf.present(strongSelf.selectStreamInfoVC, animated: true, completion: nil)
 
                 }
                 
@@ -235,5 +275,87 @@ extension StreamViewController{
             return cell;
         }
     }
+    @objc func tappedUpdateAcountTarget(_ button:UIButton){
+        self.tableView.reloadData()
+        self.hidePickerView()
+    }
+    func showPickerView(type:PickType){
+        self.pickerType = type
+        self.picker?.reloadAllComponents()
+        UIView.animate(withDuration: 0.25, animations: {
+            self.pickerView?.frame = CGRect(x: 0, y: self.view.frame.size.height - self.pickerHeight, width: self.view.frame.size.width, height: self.pickerHeight)
+        }) { (finish) in
+            
+        }
+    }
+    func hidePickerView(){
+        UIView.animate(withDuration: 0.25, animations: {
+            self.pickerView?.frame = CGRect(x: 0, y: self.view.frame.size.height, width: self.view.frame.size.width, height: self.pickerHeight)
+        }) { (finish) in
+            if self.pickerType == .account{
+                if let _ = self.selectedAccount{
+                    self.getTarget()
+                }
+            }
+        }
+    }
+    func getTarget(){
+        self.loadingAnimation!.isHidden = false
+        self.loadingAnimation?.play()
+        APIClient.shared().getFacebookTargets(id_social:   self.selectedAccount!.userId, completion: {[unowned self] (success, message,targets) in
+            self.loadingAnimation?.isHidden = true
+            self.loadingAnimation?.stop()
+            if success{
+//                self.selectStreamInfoVC.accountList = []
+//                self.selectStreamInfoVC.refreshData(targets: targets ?? [])
+                if let _targets = targets{
+                    self.curTargets = _targets
+                    if _targets.count > 0{
+                         self.selectedPages = _targets[0]
+                    }
+                    self.tableView.reloadData()
+                }
+            }
+        })
+        self.tableView.reloadData()
+        
+    }
+}
+extension StreamViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
     
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if self.pickerType == .account {
+            return APIClient.shared().accounts.count
+
+        }else if self.pickerType == .target {
+            return self.curTargets.count
+
+        }else{
+            return 0
+        }
+
+    }
+
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if self.pickerType == .account {
+            let account = APIClient.shared().accounts[row]
+            return account.displayName ?? ""
+        }else if self.pickerType == .target {
+            let target = self.curTargets[row]
+            return target.name
+        }else{
+            return nil
+        }
+    }
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if self.pickerType == .account {
+            self.selectedAccount = APIClient.shared().accounts[row]
+        }else if self.pickerType == .target {
+            self.selectedPages = self.curTargets[row]
+
+        }
+    }
 }
