@@ -15,9 +15,10 @@ class CountDownViewCell: UITableViewCell {
     @IBOutlet weak var cameraButton: UIButton!
     @IBOutlet weak var showButton: UIButton!
     
-    @IBOutlet weak var selectImageButton: UIButton!
+    @IBOutlet weak var selectImageButton: UIImageView!
     
     @IBOutlet weak var uploadButton: UIButton!
+    var pickerView:CountdownPickerView?
     var completeHandle:(Bool) ->() =  {(isOn) in }
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -68,9 +69,21 @@ class CountDownViewCell: UITableViewCell {
 }
 extension CountDownViewCell: UITextFieldDelegate{
     func showPickerView(){
-        let pickerView = CountdownPickerView(frame: CGRect(x: 5, y: 50, width: self.bounds.width - 10, height: self.bounds.height - 55))
-        
-        self.addSubview(pickerView)
+        let margin:CGFloat = 10
+        if let _ = pickerView{
+            self.addSubview(pickerView!)
+            
+        }else{
+            pickerView = CountdownPickerView(frame: CGRect(x: margin, y: 60, width: self.bounds.width - 2*margin, height: self.bounds.height - (60 + margin)))
+            pickerView?.didSelectTimer = {[weak self] timer in
+                guard let strongSelf = self else{
+                    return
+                }
+                strongSelf.timerTextfield.text = timer
+                
+            }
+            self.addSubview(pickerView!)
+        }
     }
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         showPickerView()

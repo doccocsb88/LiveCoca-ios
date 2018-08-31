@@ -242,3 +242,15 @@ extension UIColor{
 
 }
 
+extension Date {
+    
+    func getMonthName() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMMM"
+        dateFormatter.locale = Locale(identifier: "vi_VN")
+        let strMonth = dateFormatter.string(from: self)
+        return strMonth
+    }
+    
+    
+}
