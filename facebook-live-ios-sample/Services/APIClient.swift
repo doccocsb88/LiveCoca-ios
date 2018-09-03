@@ -233,12 +233,12 @@ class APIClient {
         }
 
     }
-    func createLive(id_social:String,id_target:String,caption:String,completion:@escaping (_ success:Bool,_ message:String?,_ streamInfo:StreamInfo?)->Void){
+    func createLive(id_social:String,id_target:String,caption:String,completion:@escaping (_ success:Bool,_ code:Int?,_ message:String?,_ streamInfo:StreamInfo?)->Void){
         Alamofire.request(FacebookEndpoint.createLive(id_social:id_social,id_target: id_target, caption: caption)).responseJSON{response in
             guard response.result.isSuccess,
                 let value = response.result.value else {
                     print("Error while fetching tags: \(String(describing: response.result.error))")
-                    completion(false,String(describing: response.result.error),nil)
+                    completion(false,nil,String(describing: response.result.error),nil)
                     return
             }
             
@@ -247,19 +247,32 @@ class APIClient {
             print("createLive \(jsonResponse.dictionaryValue)")
             if let error = jsonResponse["error"].dictionaryObject{
                 print("error \(error)")
-                let errorCode = error["code"]
+                let errorCode = error["code"] as? Int
+                let code = errorCode ?? 0
                 let explain = error["explain"] as? String
-                completion(false,explain,nil)
+                completion(false,code,explain,nil)
             }else{
 //?                ["status": 1, "id_video": 1045144052312651, "id_stream": 1045144055645984, "stream_url": rtmp://live-api-s.facebook.com:80/rtmp/1045144055645984?ds=1&s_sw=0&s_vt=api-s&a=AThlQecF2A1OuhKc]
 
                 let streamInfo = StreamInfo(jsonData: jsonResponse.dictionaryObject ?? [:])
-                completion(true,nil,streamInfo)
+                completion(true,200,nil,streamInfo)
                 
             }
             
         }
         
+    }
+    func startLive(stremInfo:StreamInfo, width:Int, height:Int, id_category:String, time_countdown:Int,completion:@escaping (_ success:Bool,_ message:String?,_ targets:[SocialTarget]?)->Void){
+        Alamofire.request(StreamEmdpoint.createLive(rtmps: stremInfo, width: width, height: height, id_Category: "", time_countdown: 0)).responseJSON{response in
+            guard response.result.isSuccess,
+                let value = response.result.value else {
+                    print("Error while fetching tags: \(String(describing: response.result.error))")
+                    return
+            }
+            let jsonResponse = JSON(value)
+            print("startLive \(jsonResponse.dictionaryValue)")
+
+        }
     }
 
 }

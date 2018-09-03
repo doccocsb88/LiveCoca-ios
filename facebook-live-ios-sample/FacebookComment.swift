@@ -20,7 +20,13 @@ class FacebookComment {
     var createdTime:String
     var fromId:String
     var fromName:String
-    
+    init(message:String, commentId:String, createTime:String, fromId:String, fromName:String){
+        self.message = message
+        self.commentId = commentId
+        self.createdTime = createTime
+        self.fromId = fromId
+        self.fromName = fromName
+    }
     init(dataJson:[String:Any]){
         message = dataJson["message"] as! String
         createdTime = dataJson["created_time"] as! String
@@ -29,6 +35,13 @@ class FacebookComment {
         fromId = from["id"] as! String
         fromName = from["name"] as! String
 //        http://graph.facebook.com/fromid/picture?type=square
+    }
+    
+    func getTimerText() ->String{
+        let times = self.createdTime.components(separatedBy: "T")
+        var timeText = times[1];
+        timeText = timeText.components(separatedBy: "+")[0]
+        return timeText
     }
 //}
 }

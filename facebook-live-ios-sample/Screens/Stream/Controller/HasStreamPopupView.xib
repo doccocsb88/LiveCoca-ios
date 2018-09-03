@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HasStreamPopupView" customModule="facebook_live_ios_sample" customModuleProvider="target">
+            <connections>
+                <outlet property="cancelAndCreateLiveButton" destination="P1g-Ct-Fkv" id="7g4-hn-nnB"/>
+                <outlet property="closeButton" destination="G2d-mg-bWJ" id="VPE-ev-rz5"/>
+                <outlet property="containerView" destination="cq4-Zo-ED5" id="86l-jK-eqd"/>
+                <outlet property="gotoBackgroundView" destination="8nV-pj-oLp" id="pCB-mn-5M1"/>
+                <outlet property="gotoCurrentRoomButton" destination="fW1-qp-pAv" id="mMZ-VU-twO"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cq4-Zo-ED5">
+                    <rect key="frame" x="20" y="70" width="335" height="200"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ĐĂNG LIVESTREAM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vzu-cH-qoO">
+                            <rect key="frame" x="0.0" y="0.0" width="335" height="50"/>
+                            <color key="backgroundColor" red="0.92156862745098034" green="0.41960784313725491" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="50" id="d3i-z3-Zj0"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G2d-mg-bWJ">
+                            <rect key="frame" x="295" y="10" width="30" height="30"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="30" id="9eS-sn-6yN"/>
+                                <constraint firstAttribute="width" constant="30" id="aWV-CN-9oe"/>
+                            </constraints>
+                            <inset key="contentEdgeInsets" minX="8" minY="8" maxX="8" maxY="8"/>
+                            <state key="normal" image="ic_close"/>
+                            <connections>
+                                <action selector="tappedCloseButton:" destination="-1" eventType="touchUpInside" id="oeW-Jc-jRp"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bạn có một phòng đang livestream. Bạn muốn?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h3O-I1-Ogp">
+                            <rect key="frame" x="5" y="60" width="325" height="15.5"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P1g-Ct-Fkv">
+                            <rect key="frame" x="62.5" y="95.5" width="210" height="30"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="30" id="JCz-Er-Pg7"/>
+                                <constraint firstAttribute="width" constant="210" id="l41-Bd-W5D"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
+                            <state key="normal" title="HUỶ VÀ TẠO PHÒNG MỚI" backgroundImage="bg_add_url"/>
+                            <connections>
+                                <action selector="tappedCreateNewButton:" destination="-1" eventType="touchUpInside" id="Hdh-as-DlY"/>
+                            </connections>
+                        </button>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_add_url" translatesAutoresizingMaskIntoConstraints="NO" id="8nV-pj-oLp">
+                            <rect key="frame" x="62" y="145.5" width="210" height="30"/>
+                        </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fW1-qp-pAv">
+                            <rect key="frame" x="63" y="146.5" width="208" height="28"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
+                            <state key="normal" title="ĐI TỚI PHÒNG ĐANG PHÁT">
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="tappedGotoButton:" destination="-1" eventType="touchUpInside" id="ynz-1z-Nwy"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="G2d-mg-bWJ" secondAttribute="trailing" constant="10" id="5fz-ON-bcW"/>
+                        <constraint firstItem="fW1-qp-pAv" firstAttribute="leading" secondItem="8nV-pj-oLp" secondAttribute="leading" constant="1" id="Ado-RC-jPy"/>
+                        <constraint firstItem="8nV-pj-oLp" firstAttribute="width" secondItem="P1g-Ct-Fkv" secondAttribute="width" id="KkW-37-8kv"/>
+                        <constraint firstItem="fW1-qp-pAv" firstAttribute="centerX" secondItem="8nV-pj-oLp" secondAttribute="centerX" id="MvJ-tt-aY9"/>
+                        <constraint firstAttribute="height" constant="200" id="Nfx-Ty-YEg"/>
+                        <constraint firstItem="8nV-pj-oLp" firstAttribute="top" secondItem="P1g-Ct-Fkv" secondAttribute="bottom" constant="20" id="Vg3-Hz-yJ3"/>
+                        <constraint firstItem="h3O-I1-Ogp" firstAttribute="centerX" secondItem="cq4-Zo-ED5" secondAttribute="centerX" id="Vl3-8W-VEj"/>
+                        <constraint firstItem="Vzu-cH-qoO" firstAttribute="leading" secondItem="cq4-Zo-ED5" secondAttribute="leading" id="XzK-J6-iZz"/>
+                        <constraint firstItem="fW1-qp-pAv" firstAttribute="bottom" secondItem="8nV-pj-oLp" secondAttribute="bottom" constant="-1" id="cDb-xX-Au8"/>
+                        <constraint firstItem="Vzu-cH-qoO" firstAttribute="top" secondItem="cq4-Zo-ED5" secondAttribute="top" id="fr6-sR-aA4"/>
+                        <constraint firstItem="G2d-mg-bWJ" firstAttribute="top" secondItem="cq4-Zo-ED5" secondAttribute="top" constant="10" id="gLD-GW-Ctk"/>
+                        <constraint firstItem="8nV-pj-oLp" firstAttribute="top" secondItem="fW1-qp-pAv" secondAttribute="top" constant="-1" id="gYv-vf-owm"/>
+                        <constraint firstItem="P1g-Ct-Fkv" firstAttribute="centerX" secondItem="cq4-Zo-ED5" secondAttribute="centerX" id="jXk-qs-uFR"/>
+                        <constraint firstItem="h3O-I1-Ogp" firstAttribute="leading" secondItem="cq4-Zo-ED5" secondAttribute="leading" constant="5" id="jYg-BD-zRc"/>
+                        <constraint firstAttribute="trailing" secondItem="Vzu-cH-qoO" secondAttribute="trailing" id="kyD-IG-TCy"/>
+                        <constraint firstItem="fW1-qp-pAv" firstAttribute="centerY" secondItem="8nV-pj-oLp" secondAttribute="centerY" id="mDH-sF-WGy"/>
+                        <constraint firstItem="8nV-pj-oLp" firstAttribute="centerX" secondItem="P1g-Ct-Fkv" secondAttribute="centerX" id="oob-AQ-d6b"/>
+                        <constraint firstItem="P1g-Ct-Fkv" firstAttribute="top" secondItem="h3O-I1-Ogp" secondAttribute="bottom" constant="20" id="rdo-t9-9gx"/>
+                        <constraint firstItem="8nV-pj-oLp" firstAttribute="height" secondItem="P1g-Ct-Fkv" secondAttribute="height" id="t1c-rI-69P"/>
+                        <constraint firstItem="h3O-I1-Ogp" firstAttribute="top" secondItem="Vzu-cH-qoO" secondAttribute="bottom" constant="10" id="wPg-tc-eUH"/>
+                    </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="mDH-sF-WGy"/>
+                        </mask>
+                    </variation>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="cq4-Zo-ED5" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="50" id="04J-Dn-GGn"/>
+                <constraint firstItem="cq4-Zo-ED5" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="AH8-13-Ne7"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="cq4-Zo-ED5" secondAttribute="trailing" constant="20" id="wOt-4T-Ofa"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="33.5" y="121.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="bg_add_url" width="280" height="70"/>
+        <image name="ic_close" width="32" height="32"/>
+    </resources>
+</document>

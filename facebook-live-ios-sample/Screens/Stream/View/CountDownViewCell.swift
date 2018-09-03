@@ -20,6 +20,7 @@ class CountDownViewCell: UITableViewCell {
     @IBOutlet weak var uploadButton: UIButton!
     var pickerView:CountdownPickerView?
     var completeHandle:(Bool) ->() =  {(isOn) in }
+    var tappedUploadImage:() ->() = {}
     var config:[String:Any] = [:]
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -65,11 +66,15 @@ class CountDownViewCell: UITableViewCell {
         }
     }
     @IBAction func tappedShowButton(_ sender: Any) {
-        config["countdown"] = "12:00"
+        guard let timer = timerTextfield.text, timer.isValidTimer() else{
+            return
+        }
+        config["countdown"] = timer
         config["camera"] = nil
-
+        
         WarterMarkServices.shared().configCountDown(config:config)
         completeHandle(true)
+
     }
     @IBAction func tappedMuteButton(_ sender: Any) {
         muteButton.isSelected = !muteButton.isSelected
@@ -86,6 +91,9 @@ class CountDownViewCell: UITableViewCell {
         WarterMarkServices.shared().configCountDown(config:config)
         completeHandle(true)
 
+    }
+    @IBAction func tappedUploadButton(_ sender: Any) {
+        tappedUploadImage()
     }
 }
 extension CountDownViewCell: UITextFieldDelegate{

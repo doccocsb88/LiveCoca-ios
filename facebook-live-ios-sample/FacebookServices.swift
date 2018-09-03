@@ -223,6 +223,44 @@ class FacebookServices {
         })
     }
     
+    func postComment(message:String,streamId:String, tokenString:String){
+        let accessToken  = AccessToken(authenticationToken: tokenString)
+        let path = "\(streamId)/comments"
+        
+        print("authenToken \(accessToken.userId ?? "")")
+        let params = ["message": message]
+
+        let req = GraphRequest(graphPath: path, parameters: params, accessToken: accessToken, httpMethod: GraphRequestHTTPMethod(rawValue: "POST")!)
+        req.start({ (connection, result) in
+            switch result {
+            case .failed(let error):
+                print("failed \(error)")
+                
+            case .success(let graphResponse):
+                print("success ")
+                if let responseDictionary = graphResponse.dictionaryValue {
+                    print(responseDictionary)
+                    
+                    guard let datas = responseDictionary["data"] as? [Any] else{
+                        return
+                    }
+                    var comments:[FacebookComment] = []
+                    for data  in datas{
+                        //print("failed cc : \(data)")
+                        if data is [String:Any]{
+                            let comment = FacebookComment(dataJson: data as! [String : Any])
+                            comments.append(comment)
+                        }
+                    }
+                    
+                    //success(comments)
+                    
+                    
+                }
+            }
+        })
+
+    }
 }
 
 

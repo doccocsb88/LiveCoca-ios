@@ -44,6 +44,8 @@
 	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
+        <key>NSExceptionAllowsInsecureHTTPLoads</key>
+        <true/>
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
@@ -75,6 +77,6 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
+	<true/>
 </dict>
 </plist>

@@ -14,6 +14,7 @@ class WarterMarkServices{
     var randomView:RandomMaskView?
     var countCommentView:CountCommentMaskView?
     var countdownView:CountdownMaskView?
+    var pinCommentView:CommentMaskView?
     static let sharedInstance : WarterMarkServices = {
         let instance = WarterMarkServices()
         return instance
@@ -44,23 +45,27 @@ class WarterMarkServices{
 
         backgroundImage = UIImage(color: UIColor.clear, size: self.frame.size)
         backgroundImage = backgroundImage.resizeImage(self.frame.size)
-        if let frame = params["frame"] as? Bool , frame == true{
-           backgroundImage =  addFrame(sourceImage: backgroundImage)
-
-        }
         if let countdown = params[ConfigKey.countdown.rawValue] as? [String:Any], let _ = countdown["countdown"] as? String{
-            if let _  = countdownView{
-                countdownView!.removeFromSuperview()
-                countdownView = nil
+            if countdownView == nil{
+                countdownView = CountdownMaskView(frame: self.frame, scale: scale)
+            }else{
+                countdownView?.removeFromSuperview()
             }
-            countdownView = CountdownMaskView(frame: self.frame, scale: scale)
+            countdownView?.updateView()
             watermarkView.addSubview(countdownView!)
+
+            return watermarkView
         }else{
             if let _  = countdownView{
                 countdownView!.removeFromSuperview()
                 countdownView = nil
             }
         }
+        if let frame = params["frame"] as? Bool , frame == true{
+            backgroundImage =  addFrame(sourceImage: backgroundImage)
+            
+        }
+
         if let slogan = params["slogan"] as? [String:Any]{
             if let sloganView = handleSlogan(slogan: slogan){
                 watermarkView.addSubview(sloganView)
@@ -89,16 +94,20 @@ class WarterMarkServices{
         }
         if let pinComment = params["pin"] as? [String:Any],pinComment.keys.count > 0,let comment =  pinComment["comment"] as? FacebookComment{
             
-                let font = pinComment["font"] as? CGFloat
+            let font = pinComment["font"] as? CGFloat
             let labelHeight = comment.message .heightWithConstrainedWidth(width: self.frame.size.width - 60, font: UIFont.systemFont(ofSize: font ?? 20))
                 
             let height:CGFloat = (30 + labelHeight ) * scale
-                let width = self.frame.size.width
-                let pinView = CommentMaskView(frame: CGRect(x: 0, y: self.frame.size.height / 2 , width: width, height: height),scale: scale)
-                watermarkView.addSubview(pinView)
-
+            let width = self.frame.size.width
+            let top = self.frame.size.height - height - 50 * scale
             
-            
+            let frame =  CGRect(x: 0, y: top , width: width, height: height)
+            if pinCommentView == nil{
+                pinCommentView = CommentMaskView(frame:frame,scale: scale)
+            }
+            pinCommentView?.updateContent()
+            pinCommentView?.frame = frame
+            watermarkView.addSubview(pinCommentView!)
         }
         if let filterComment = params[KEY_FILTERCOMMENT] as? [String:Any], filterComment.keys.count > 0{
             let height = 30 * 6 * scale;
@@ -111,7 +120,12 @@ class WarterMarkServices{
                 view.removeFromSuperview()
                 
             }
-            randomView?.frame = self.frame
+            let width = self.frame.size.width / 2
+            let height =  (width / 1008 ) * (696 + 30 + 165)
+            let left = (self.frame.size.width - width) / 2
+            let top = (self.frame.size.height - height ) / 2
+            let frame = CGRect(x: left, y: top, width: width, height: height)
+            randomView?.frame = frame
             watermarkView.addSubview(randomView!)
 
             

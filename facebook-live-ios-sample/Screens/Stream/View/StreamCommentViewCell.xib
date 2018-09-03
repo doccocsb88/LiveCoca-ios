@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14306.4" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14278.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -57,6 +57,7 @@
                                     <constraint firstAttribute="height" constant="20" id="dJ3-bZ-8zd"/>
                                 </constraints>
                                 <state key="normal" image="ic_pin"/>
+                                <state key="selected" image="ic_pin_selected"/>
                                 <connections>
                                     <action selector="tappedPinButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="2dh-z1-DsO"/>
                                 </connections>
@@ -97,11 +98,13 @@
                 <outlet property="createDateLabel" destination="lgU-uf-QKn" id="VhA-0j-yEC"/>
                 <outlet property="displayNameLabel" destination="5YP-sz-qML" id="DzA-7g-1oQ"/>
                 <outlet property="messageLabel" destination="s76-qL-C9n" id="jn8-xG-zx8"/>
+                <outlet property="pinButton" destination="S0i-Pc-G1h" id="K6M-di-yCY"/>
             </connections>
             <point key="canvasLocation" x="86" y="174"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="ic_pin" width="54" height="55"/>
+        <image name="ic_pin_selected" width="54" height="55"/>
     </resources>
 </document>

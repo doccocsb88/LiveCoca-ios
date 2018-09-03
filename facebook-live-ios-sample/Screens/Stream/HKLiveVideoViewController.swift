@@ -55,8 +55,12 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
     
     @IBOutlet weak var menuWidthConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var chatContainerView: UIView!
     @IBOutlet weak var chatTextView: UITextView!
     @IBOutlet weak var commentBoxMarginBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var commentViewHeightConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var menuBottomConstraint: NSLayoutConstraint!
     @IBAction func recordButtonTapped() {
     }
     
@@ -76,27 +80,6 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
         return session!
     }()
     
-   
-    
-
-    
-    // 关闭按钮
-//    var closeButton: UIButton = {
-//        let closeButton = UIButton(frame: CGRect(x: UIScreen.main.bounds.width - 10 - 44, y: 20, width: 44, height: 44))
-//        closeButton.setImage(UIImage(named: "close_preview"), for: UIControlState())
-//        closeButton.backgroundColor = UIColor.green
-//        return closeButton
-//    }()
-//
-//    // 摄像头
-//    var cameraButton: UIButton = {
-//        let cameraButton = UIButton(frame: CGRect(x: UIScreen.main.bounds.width - 54 * 2, y: 20, width: 44, height: 44))
-//        cameraButton.setImage(UIImage(named: "camra_preview"), for: UIControlState())
-//        cameraButton.backgroundColor = UIColor.blue
-//        return cameraButton
-//    }()
-    
- 
     
     // 开始直播按钮
     var curMenuIndex:Int = -1;
@@ -143,8 +126,11 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
         //
         commentView = StreamCommentView(frame: CGRect(x: 0, y:0, width: self.view.frame.size.width, height: commentViewHeight))
         commentView?.backgroundColor = UIColor.black.withAlphaComponent(0.2)
-       commentContainerView.addSubview(commentView!)
-        
+        commentContainerView.addSubview(commentView!)
+        commentContainerView.bringSubview(toFront: self.chatContainerView)
+        commentView?.didPinComment = {[unowned self] in
+            self.didTappedWarterMarkButton(nil)
+        }
         //
 //        cameraButton.addTarget(self, action: #selector(didTappedCameraButton(_:)), for:.touchUpInside)
 //        closeButton.addTarget(self, action: #selector(didTappedWarterMarkButton(_:)), for:.touchUpInside)
@@ -167,10 +153,13 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
         tableView.register(UINib(nibName: reuseRandomNumber, bundle: nil), forCellReuseIdentifier: reuseRandomNumber)
         tableView.register(UINib(nibName: reuseCountComment, bundle: nil), forCellReuseIdentifier: reuseCountComment)
 
-
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+//        APIClient.shared().startLive(stremInfo: self.streamUrls[0], width: 720, height: 1280, id_category: "", time_countdown: 0) { (success, message, targets) in
+//            
+//        }
+
         startLive()
         
 //        let height:CGFloat = 300
@@ -247,17 +236,22 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
     @IBAction func commentTapped(_ sender: Any) {
         UIView.animate(withDuration: 0.25) { [unowned self] in
             if let tag = self.commentContainerView?.tag, tag == 1{
-                 self.commentContainerView?.isHidden = true
+//                 self.commentContainerView?.isHidden = true
+                self.commentViewHeightConstraint.constant = 50
+
                  self.commentContainerView?.tag = 0
+                self.commentView?.toggleTableView(isHidden:true)
             }else{
-                 self.commentContainerView?.isHidden = false
+                self.commentViewHeightConstraint.constant = 350
                  self.commentContainerView?.tag = 1
+                self.commentView?.toggleTableView(isHidden:false)
             }
         }
         
     }
     @IBAction func chatTapped(_ sender: Any) {
         chatTextView.text = ""
+        FacebookServices.shared().postComment(message: "", streamId: "", tokenString: "");
         self.view.endEditing(true)
     }
     
@@ -269,6 +263,10 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
         //              footerButton.isHidden = !self.liveVideo.isStreaming
         //            hozirontalTextButton.isHidden = !self.liveVideo.isStreaming
         
+    }
+    func hideMenuView(){
+        menuButton.isSelected = false;
+        toggleMenuView()
     }
     func toggleMenuView(){
         if self.menuButton.isSelected{
@@ -282,6 +280,7 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
             
         }) { (finished) in
             self.view.bringSubview(toFront: self.sideMenuView)
+            self.view.endEditing(true)
         }
     }
     @objc func keyboardWillAppear(_ notification: Notification) {
@@ -299,9 +298,13 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
         let keyboardFrame = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
         let height = (keyboardFrame.height) * (open ? 1 : 0)
         self.commentBoxMarginBottomConstraint.constant = height;
+        if  curMenuIndex >= 5 {
+            self.menuBottomConstraint.constant = height
+        }
+    }
+    func hideCommentView(){
         
     }
-
 }
 
 
@@ -349,12 +352,22 @@ extension HKLiveVideoViewController{
             //countdown
             let cell = tableView.dequeueReusableCell(withIdentifier:reuseCountDown, for: indexPath) as! CountDownViewCell
             cell.completeHandle = {[unowned self] isShow in
+
                 self.didTappedWarterMarkButton(nil)
+                if let countdown = WarterMarkServices.shared().params[ConfigKey.countdown.rawValue] as? [String:Any], let _ = countdown["countdown"] as? String{
+                    self.view.endEditing(true)
+                    self.hideMenuView()
+                }
                 if let countdown = WarterMarkServices.shared().params[ConfigKey.countdown.rawValue] as? [String:Any]{
                     if let mute = countdown["mute"] as? Bool{
                         self.session.muted = mute
                     }
                 }
+            }
+            cell.tappedUploadImage = {[unowned self] in
+                self.selectPhotoKey = "countdown"
+
+                self.openPhotoLibrary()
             }
             cell.selectionStyle = .none
             return cell
@@ -508,7 +521,9 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
     func startLive(){
         if streamUrls.count > 0 {
             let stream = LFLiveStreamInfo()
-            stream.url = streamUrls[0].urlString
+            stream.url = streamUrls[0].getLiveStreamUrl()
+            stream.streamId = streamUrls[0].streamId
+            print("stream : start \(stream.url!) + +\(stream.streamId!)")
             session.startLive(stream)
         }
        
@@ -521,15 +536,15 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
     //MARK: - Callbacks
     
     func liveSession(_ session: LFLiveSession?, debugInfo: LFLiveDebug?) {
-        print("debugInfo: \(String(describing: debugInfo?.currentBandwidth))")
+        print("stream : debugInfo: \(String(describing: debugInfo?.currentBandwidth))")
     }
     
     func liveSession(_ session: LFLiveSession?, errorCode: LFLiveSocketErrorCode) {
-        print("errorCode: \(errorCode.rawValue)")
+        print("stream : errorCode: \(errorCode.rawValue)")
     }
     
     func liveSession(_ session: LFLiveSession?, liveStateDidChange state: LFLiveState) {
-        print("liveStateDidChange: \(state.rawValue)")
+        print("stream : liveStateDidChange: \(state.rawValue)")
         switch state {
         case LFLiveState.ready:
             
@@ -554,13 +569,25 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
     
    
     @objc func didTappedWarterMarkButton(_ button: UIButton?) -> Void {
-        
-        if let random = WarterMarkServices.shared().params[ConfigKey.random.rawValue]as? [String:Any], random.keys.count >= 2{
+        if let countdown = WarterMarkServices.shared().params[ConfigKey.countdown.rawValue] as? [String:Any], let _ = countdown["countdown"] as? String{
+            self.updateTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.didTappedWarterMarkButton(_:)), userInfo: nil, repeats: false)
+            
+
+        }else{
+            if self.updateTimer != nil{
+                self.updateTimer?.invalidate()
+                self.updateTimer = nil
+            }
+            if let random = WarterMarkServices.shared().params[ConfigKey.random.rawValue]as? [String:Any], random.keys.count >= 2{
             
             if let _ = randomView {
             
             }else{
-                randomView = RandomMaskView(frame:self.view.bounds, scale: 1)
+                let width:CGFloat = 720 / 2
+                let height =  (width / 1008 ) * (696 + 30 + 165)
+                let left = (self.view.bounds.width  - width ) / 2
+                let top = (self.view.bounds.height - height ) / 2
+                randomView = RandomMaskView(frame:CGRect(x: left, y: top, width: width, height: height), scale: 1)
                 randomView?.backgroundColor = .clear
                 randomView?.completeHandle = {[weak self]start in
                     guard let strongSelf = self else{
@@ -593,6 +620,7 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
                 view.removeFromSuperview()
                 randomView = nil
             }
+        }
         }
         let wartermarkFrame  = CGRect(x: 0, y: 0, width: 720, height: 1280 )
         WarterMarkServices.shared().setFrame(frame: wartermarkFrame)

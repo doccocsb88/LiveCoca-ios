@@ -57,7 +57,7 @@ enum APIRouter: URLRequestConvertible {
             let url =  "/users/get?app=ios"
             let params:[String:String] = [:]
             let checksum = APIUtils.checksum(request_url: url, raw_data: JSON(params).stringValue)
-            return String(format: "%@&checksum=%@", url,checksum)
+            return String(format: "%@&checksum=%@&token=%@", url,checksum,APIClient.shared().token ?? "")
         case .logout:
             let url =  "/users/logout?app=ios"
             let params:[String:String] = [:]
@@ -67,7 +67,7 @@ enum APIRouter: URLRequestConvertible {
             let url = "/users/accounts?app=ios"
             let params:[String:String] = [:]
             let checksum = APIUtils.checksum(request_url: url, raw_data: JSON(params).stringValue)
-            return String(format: "%@&checksum=%@", url,checksum)
+            return String(format: "%@&checksum=%@&token=%@", url,checksum,APIClient.shared().token ?? "")
         case .deleteAccounts:
             return "/users/delete?app=ios"
 
@@ -118,9 +118,6 @@ enum APIRouter: URLRequestConvertible {
     // MARK: - URLRequestConvertible
     func asURLRequest() throws -> URLRequest {
         var fullURL = String(format: "%@%@", K.ProductionServer.baseAPIURL,path)
-        if let token = APIClient.shared().token{
-            fullURL = String(format: "%@&token=%@", fullURL,token)
-        }
         let url = try fullURL.asURL()
 
         var urlRequest = URLRequest(url: url)

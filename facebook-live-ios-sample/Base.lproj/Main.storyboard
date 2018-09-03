@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14306.4" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Jne-xT-kkV">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Jne-xT-kkV">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14278.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -82,10 +86,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XPI-Ij-wd2">
-                                <rect key="frame" x="0.0" y="50" width="275" height="617"/>
+                                <rect key="frame" x="0.0" y="50" width="275" height="616"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ch4-c3-p7T">
-                                        <rect key="frame" x="0.0" y="50" width="275" height="567"/>
+                                        <rect key="frame" x="0.0" y="50" width="275" height="566"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="menuCell" id="CV5-Qm-StT" customClass="MenuViewCell" customModule="facebook_live_ios_sample" customModuleProvider="target">
@@ -207,7 +211,7 @@
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="IJ2-ju-zD3" secondAttribute="bottom" id="Vnl-mL-MPh"/>
                             <constraint firstAttribute="trailing" secondItem="XPI-Ij-wd2" secondAttribute="trailing" constant="100" id="bAw-2H-nMd"/>
                             <constraint firstItem="RA2-jg-vsh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="fcd-bc-kXZ"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="XPI-Ij-wd2" secondAttribute="bottom" id="kGd-4m-ONX"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="XPI-Ij-wd2" secondAttribute="bottom" constant="1" id="kGd-4m-ONX"/>
                             <constraint firstAttribute="trailing" secondItem="RA2-jg-vsh" secondAttribute="trailing" id="qkB-xb-po5"/>
                         </constraints>
                         <variation key="default">
@@ -220,10 +224,13 @@
                     </view>
                     <connections>
                         <outlet property="chatButton" destination="4pp-pN-8Hx" id="EA6-Qq-90I"/>
+                        <outlet property="chatContainerView" destination="o8A-ch-psu" id="1iV-iY-HGx"/>
                         <outlet property="chatTextView" destination="zoT-w6-39Q" id="axS-zP-ytV"/>
                         <outlet property="commentBoxMarginBottomConstraint" destination="psP-Xs-3bv" id="Yc2-RT-QqV"/>
                         <outlet property="commentButton" destination="rey-sv-1Jg" id="HWz-7y-tQI"/>
                         <outlet property="commentContainerView" destination="RA2-jg-vsh" id="fhN-uq-Efd"/>
+                        <outlet property="commentViewHeightConstraint" destination="c5H-gr-9rL" id="3SR-LR-IPy"/>
+                        <outlet property="menuBottomConstraint" destination="kGd-4m-ONX" id="Exx-1y-weo"/>
                         <outlet property="menuButton" destination="0L3-EM-HbZ" id="4LY-Ym-e7j"/>
                         <outlet property="menuLeadingConstraint" destination="0kU-x0-pqp" id="0e0-sW-zbc"/>
                         <outlet property="menuWidthConstraint" destination="eM6-eQ-epJ" id="4hX-vO-XX1"/>

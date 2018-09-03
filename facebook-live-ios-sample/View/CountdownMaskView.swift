@@ -127,9 +127,30 @@ class CountdownMaskView: UIView {
         secsLabel?.textColor = .black
         secsLabel?.text = String(format: "%d", totalSecs % 60)
         secsView?.addSubview(secsLabel!)
+        
+    }
+    func updateView(){
+        if let config = WarterMarkServices.shared().params[ConfigKey.countdown.rawValue] as? [String:Any]{
+            if let countdown = config["countdown"] as? String{
+                let info = countdown.components(separatedBy: ":")
+                configHour = Int(info[0]) ?? 0
+                configMins = Int(info[1]) ?? 0
+            }
+        }
+        
+        let date = Date()
+        let components = Calendar.current.dateComponents([.hour,.minute,.second], from: date)
+        let hour = components.hour ?? 0
+        let mins = components.minute ?? 0
+        let seconds = components.second ?? 0
+        let delHour = configHour - hour
+        let delMins = configMins - mins
+        let delSecs = 0 - seconds
+        let totalSecs = delHour * 60 * 60 + delMins * 60 + delSecs
+        hourLabel?.text = String(format: "%d", totalSecs / (60 * 60))
+        minsLabel?.text = String(format: "%d", (totalSecs / 60) % 60)
+        secsLabel?.text = String(format: "%d", totalSecs % 60)
 
-        
-        
     }
 
 }

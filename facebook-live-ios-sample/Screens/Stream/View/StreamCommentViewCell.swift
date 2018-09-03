@@ -17,6 +17,9 @@ class StreamCommentViewCell: UITableViewCell {
     @IBOutlet weak var createDateLabel: UILabel!
     
     @IBOutlet weak var messageLabel: UILabel!
+
+    @IBOutlet weak var pinButton: UIButton!
+    var didPinComment:(Int)->() = {index in}
     var comment:FacebookComment?
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -33,7 +36,7 @@ class StreamCommentViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func bindData(comment:FacebookComment){
+    func bindData(comment:FacebookComment, index:Int, isPinted:Bool){
         self.comment = comment;
         displayNameLabel.text = comment.fromName
         let times = comment.createdTime.components(separatedBy: "T")
@@ -41,11 +44,16 @@ class StreamCommentViewCell: UITableViewCell {
         timeText = timeText.components(separatedBy: "+")[0]
         createDateLabel.text = timeText
         messageLabel.text = comment.message
+        self.tag = index + 1
+        pinButton.isSelected = isPinted
     }
     
     @IBAction func tappedPinButton(_ sender: Any) {
-        if let comment = self.comment{
-            WarterMarkServices.shared().configPin(comment: comment)
-        }
+        let index = self.tag - 1
+//        if let comment = self.comment{
+//            WarterMarkServices.shared().configPin(comment: comment)
+//        }
+        
+        didPinComment(index)
     }
 }

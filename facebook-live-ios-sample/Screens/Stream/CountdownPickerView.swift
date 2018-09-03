@@ -95,8 +95,14 @@ extension CountdownPickerView: UICollectionViewDelegate, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let curHour = Date().getHour()
         if curHour < indexPath.row{
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TimerViewCell", for: indexPath) as! TimerViewCell
-            didSelectTimer(cell.getTimerText())
+                if indexPath.row < 10{
+                    didSelectTimer("0\(indexPath.row):00")
+
+                }else{
+                    didSelectTimer("\(indexPath.row):00")
+
+                }
+            
             self.removeFromSuperview()
         }
     }
@@ -117,7 +123,6 @@ private class TimerViewCell:UICollectionViewCell{
     }
     func initView(){
         timerLabel = UILabel(frame:self.bounds)
-        timerLabel?.text = "00:00"
         timerLabel?.textColor = .black
         timerLabel?.textAlignment = .center
         self.addSubview(timerLabel!)

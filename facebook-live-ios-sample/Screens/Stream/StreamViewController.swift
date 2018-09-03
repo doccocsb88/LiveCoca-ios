@@ -156,7 +156,13 @@ class StreamViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         self.present(vc, animated: true, completion: nil)
     }
-  
+    func openHasStreamView(){
+        let vc = HasStreamPopupView(nibName: "HasStreamPopupView", bundle: nil)
+        vc.modalPresentationStyle = .overFullScreen
+        
+        self.present(vc, animated: true, completion: nil)
+    }
+
      @objc func dismissKeyboard (_ sender: UITapGestureRecognizer) {
         self.view.endEditing(true)
     }
@@ -179,17 +185,21 @@ class StreamViewController: UIViewController, UITableViewDelegate, UITableViewDa
         loadingAnimation?.isHidden = false
         loadingAnimation?.play()
 
-        APIClient.shared().createLive(id_social: account.userId, id_target: target.id, caption: "") {[unowned self]  (success, message, info) in
+        APIClient.shared().createLive(id_social: account.userId, id_target: target.id, caption: "") {[unowned self]  (success,code , message, info) in
             self.loadingAnimation?.isHidden = true
             self.loadingAnimation?.stop()
             if success{
                 if let _info = info{
+                    _info.id_social = account.userId
+                    _info.id_target = target.id
                     self.streamUrls.append(_info)
                     self.tableView.reloadData()
                 }
 
             }else{
-                
+                if let _code = code, _code == APIError.Error_ExistStream{
+                    self.openHasStreamView()
+                }
             }
 
         }

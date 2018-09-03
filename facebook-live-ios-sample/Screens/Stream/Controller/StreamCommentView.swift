@@ -13,12 +13,21 @@ class StreamCommentView: UIView, UITableViewDelegate, UITableViewDataSource {
   
     var tableView:UITableView?
     var data:[FacebookComment] = []
+    var pinIndex:Int = NSNotFound
+    var didPinComment:() ->() = {}
     override init(frame: CGRect) {
         super.init(frame: frame)
+        initData()
         initView()
     }
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+    }
+    private func initData(){
+        for i in 0..<10{
+            let comment = FacebookComment(message: "a", commentId: "\(i)", createTime: "2018-09-02T11:44:39+0000", fromId: "\(i)\(i)", fromName: "name\(i)")
+            data.append(comment)
+        }
     }
     private func initView(){
         tableView = UITableView(frame: self.bounds)
@@ -37,6 +46,16 @@ class StreamCommentView: UIView, UITableViewDelegate, UITableViewDataSource {
      
         tableView?.reloadData()
     }
+    
+    func hideTableView(){
+        tableView?.isHidden = true
+    }
+    func showTableView(){
+        tableView?.isHidden = false
+    }
+    func toggleTableView(isHidden:Bool){
+        tableView?.isHidden = isHidden
+    }
 }
 extension StreamCommentView{
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -52,7 +71,22 @@ extension StreamCommentView{
         let comment = data[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "StreamCommentViewCell", for: indexPath) as! StreamCommentViewCell
         cell.backgroundColor = .clear
-        cell.bindData(comment: comment)
+        cell.bindData(comment: comment, index:indexPath.row, isPinted:indexPath.row == pinIndex)
+        cell.didPinComment = {[unowned self]index in
+            if index != self.pinIndex {
+                if index >= 0, index < self.data.count{
+                    let pinComment = self.data[index]
+                    self.pinIndex = index
+                    WarterMarkServices.shared().configPin(comment: pinComment)
+                    self.didPinComment()
+                }
+            }else{
+                self.pinIndex = NSNotFound
+                WarterMarkServices.shared().removePinComment()
+            }
+            self.tableView?.reloadData()
+            
+        }
         let url = URL(string: "http://graph.facebook.com/\(comment.fromId)/picture?type=square&access_token=\(FacebookServices.shared().curPage?.tokenString ?? "")")
         
         cell.avatarImageView.kf.setImage(with: url,
