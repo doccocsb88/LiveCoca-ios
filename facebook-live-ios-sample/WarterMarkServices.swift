@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 import Kingfisher
 class WarterMarkServices{
-    public let KEY_FILTERCOMMENT: String = "filterComment"
     var randomView:RandomMaskView?
     var countCommentView:CountCommentMaskView?
     var countdownView:CountdownMaskView?
@@ -109,9 +108,10 @@ class WarterMarkServices{
             pinCommentView?.frame = frame
             watermarkView.addSubview(pinCommentView!)
         }
-        if let filterComment = params[KEY_FILTERCOMMENT] as? [String:Any], filterComment.keys.count > 0{
+        if let filterComment = params[ConfigKey.filterComment.rawValue] as? [String:Any], filterComment.keys.count > 0{
             let height = 30 * 6 * scale;
             let filterCommentView = FilterCommentMaskView(frame: CGRect(x: 0, y: self.frame.size.height / 10, width: self.frame.size.width, height: height), scale: scale)
+            filterCommentView.updateContent()
             watermarkView.addSubview(filterCommentView)
         }
         if let random = params[ConfigKey.random.rawValue] as? [String:Any], random.keys.count >= 2{
@@ -229,7 +229,7 @@ class WarterMarkServices{
     }
     
     func configFilterComment(_ config:[String:Any]){
-        params[KEY_FILTERCOMMENT] = config
+        params[ConfigKey.filterComment.rawValue] = config
     }
     func configRandom(_ config:[String:Any]){
         params[ConfigKey.random.rawValue] = config
@@ -262,5 +262,12 @@ class WarterMarkServices{
     
     func configCountDown(config:[String:Any]){
         params[ConfigKey.countdown.rawValue] = config
+    }
+    
+    func hasFilterCommentView() -> Bool{
+        if let filterComment = params[ConfigKey.filterComment.rawValue] as? [String:Any], filterComment.keys.count > 0{
+            return true
+        }
+        return false
     }
 }

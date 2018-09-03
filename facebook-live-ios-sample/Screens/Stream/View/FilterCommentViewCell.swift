@@ -18,6 +18,8 @@ class FilterCommentViewCell: UITableViewCell {
     
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var randomButton: UIButton!
+    var config:[String:Any] = [:]
+    var didUpdateFilterConfig:() ->() = {}
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -45,11 +47,27 @@ class FilterCommentViewCell: UITableViewCell {
     @IBAction func tappedRandomButton(_ sender: Any) {
     }
     @IBAction func tappedFilterButton(_ sender: Any) {
-        WarterMarkServices.shared().configFilterComment(["filterComment":true])
+        guard let message = commentButton.text else {
+            return
+        }
+        guard let start = timeStartTextField.text else{
+            return
+        }
+        guard let end = timeEndTextField.text else{
+            return
+        }
+        config["message"] = message
+        config["start"] = start
+        config["end"] = end
+        
+        WarterMarkServices.shared().configFilterComment(config)
+        didUpdateFilterConfig()
 
     }
     @IBAction func tappedCancelButton(_ sender: Any) {
-        WarterMarkServices.shared().configFilterComment([:])
+        config = [:]
+        WarterMarkServices.shared().configFilterComment(config)
+        didUpdateFilterConfig()
     }
     
     

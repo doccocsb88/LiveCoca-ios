@@ -129,7 +129,7 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
         commentContainerView.addSubview(commentView!)
         commentContainerView.bringSubview(toFront: self.chatContainerView)
         commentView?.didPinComment = {[unowned self] in
-            self.didTappedWarterMarkButton(nil)
+            self.updateWatermarkView(nil)
         }
         //
 //        cameraButton.addTarget(self, action: #selector(didTappedCameraButton(_:)), for:.touchUpInside)
@@ -353,7 +353,7 @@ extension HKLiveVideoViewController{
             let cell = tableView.dequeueReusableCell(withIdentifier:reuseCountDown, for: indexPath) as! CountDownViewCell
             cell.completeHandle = {[unowned self] isShow in
 
-                self.didTappedWarterMarkButton(nil)
+                self.updateWatermarkView(nil)
                 if let countdown = WarterMarkServices.shared().params[ConfigKey.countdown.rawValue] as? [String:Any], let _ = countdown["countdown"] as? String{
                     self.view.endEditing(true)
                     self.hideMenuView()
@@ -375,7 +375,7 @@ extension HKLiveVideoViewController{
             //slogan
             let cell = tableView.dequeueReusableCell(withIdentifier:reuseSlogan, for: indexPath) as! SloganViewCell
             cell.completeHandle = {[unowned self]update in
-                self.didTappedWarterMarkButton(nil)
+                self.updateWatermarkView(nil)
             }
             cell.selectionStyle = .none
             return cell
@@ -389,7 +389,7 @@ extension HKLiveVideoViewController{
             let cell = tableView.dequeueReusableCell(withIdentifier:reusePin, for: indexPath) as! PinCommentViewCell
             cell.selectionStyle = .none
             cell.completeHandle = {[unowned self] in
-                self.didTappedWarterMarkButton(nil)
+                self.updateWatermarkView(nil)
             }
             return cell
         case 4:
@@ -400,21 +400,24 @@ extension HKLiveVideoViewController{
                 self.openPhotoLibrary()
             }
             cell.didUpdateQuestionConfig = {[unowned self] in
-                self.didTappedWarterMarkButton(nil)
+                self.updateWatermarkView(nil)
             }
             cell.updateQuestionImage(selectedImage["questionImage"])
             cell.selectionStyle = .none
             return cell
         case 5:
             //filter comment
-            let cell = tableView.dequeueReusableCell(withIdentifier:reuseFilterComment, for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier:reuseFilterComment, for: indexPath) as! FilterCommentViewCell
+            cell.didUpdateFilterConfig = {[unowned self] in
+                self.updateWatermarkView(nil)
+            }
             cell.selectionStyle = .none
             return cell
         case 6:
             
             let cell = tableView.dequeueReusableCell(withIdentifier: reuseVideo, for: indexPath) as! VideoViewCell
             cell.completeHandle = {[unowned self] in
-                self.didTappedWarterMarkButton(nil)
+                self.updateWatermarkView(nil)
             }
             cell.selectionStyle = .none
             return cell
@@ -435,7 +438,7 @@ extension HKLiveVideoViewController{
 
                     self.openPhotoLibrary()
                 }else{
-                    self.didTappedWarterMarkButton(nil)
+                    self.updateWatermarkView(nil)
                 }
             }
         cell.updateImages(frame:selectedImage["frameImage"],questionImage:selectedImage["questionImage"])
@@ -446,14 +449,14 @@ extension HKLiveVideoViewController{
             //random comment
             let cell = tableView.dequeueReusableCell(withIdentifier:reuseRandomNumber, for: indexPath) as! RandomNumberViewCell
             cell.completeHandle = {[unowned self ] in
-                self.didTappedWarterMarkButton(nil)
+                self.updateWatermarkView(nil)
             }
             cell.selectionStyle = .none
             return cell
         case 9:
             let cell = tableView.dequeueReusableCell(withIdentifier:reuseCountComment, for: indexPath) as! CountCommentViewCell
             cell.completeHandle = {[unowned self ] in
-                self.didTappedWarterMarkButton(nil)
+                self.updateWatermarkView(nil)
             }
             cell.didTapSelectImage = {[unowned self] key in
                 self.selectPhotoKey = key
@@ -568,9 +571,9 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
     //MARK: - Events
     
    
-    @objc func didTappedWarterMarkButton(_ button: UIButton?) -> Void {
+    @objc func updateWatermarkView(_ button: UIButton?) -> Void {
         if let countdown = WarterMarkServices.shared().params[ConfigKey.countdown.rawValue] as? [String:Any], let _ = countdown["countdown"] as? String{
-            self.updateTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.didTappedWarterMarkButton(_:)), userInfo: nil, repeats: false)
+            self.updateTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateWatermarkView(_:)), userInfo: nil, repeats: false)
             
 
         }else{
@@ -599,7 +602,7 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
                             strongSelf.updateTimer?.invalidate()
                             strongSelf.updateTimer = nil
                         }
-                        strongSelf.updateTimer = Timer.scheduledTimer(timeInterval: 0.02, target: strongSelf, selector: #selector(strongSelf.didTappedWarterMarkButton(_:)), userInfo: nil, repeats: true)
+                        strongSelf.updateTimer = Timer.scheduledTimer(timeInterval: 0.02, target: strongSelf, selector: #selector(strongSelf.updateWatermarkView(_:)), userInfo: nil, repeats: true)
 
                     }else{
                         WarterMarkServices.shared().stopRandomNumber()
@@ -612,7 +615,7 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
                     
                 }
                 self.view.addSubview(randomView!)
-                self.updateTimer = Timer.scheduledTimer(timeInterval: 0.02, target: self, selector: #selector(self.didTappedWarterMarkButton(_:)), userInfo: nil, repeats: true)
+                self.updateTimer = Timer.scheduledTimer(timeInterval: 0.02, target: self, selector: #selector(self.updateWatermarkView(_:)), userInfo: nil, repeats: true)
 
             }
         }else{
@@ -653,7 +656,23 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
         print("fetchStreamComments")
         FacebookServices.shared().getStreamComment(streamId: self.streamUrls[0].streamId) {[unowned self] (comments) in
             if let view = self.commentView{
-                view.reloadData(data: comments)
+                if comments.count == 0{
+                    var dummyComments:[FacebookComment] = []
+                    for i in 0..<10{
+                        let comment = FacebookComment(message: "a", commentId: "\(i)", createTime: "2018-09-02T11:44:39+0000", fromId: "\(i)\(i)", fromName: "name\(i)")
+                        dummyComments.append(comment)
+                    }
+                    view.reloadData(data: dummyComments)
+                    APIClient.shared().comments = dummyComments
+
+                }else{
+                    view.reloadData(data: comments)
+                    APIClient.shared().comments = comments
+
+                }
+                if WarterMarkServices.shared().hasFilterCommentView(){
+                    self.updateWatermarkView(nil)
+                }
             }
         }
     }

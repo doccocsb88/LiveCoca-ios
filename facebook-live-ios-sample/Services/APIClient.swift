@@ -14,6 +14,7 @@ class APIClient {
     var id:String?
     var user:User?
     var accounts:[BaseInfo] = []
+    var comments:[FacebookComment] = []
     static let sharedInstance : APIClient = {
         let instance = APIClient()
         return instance

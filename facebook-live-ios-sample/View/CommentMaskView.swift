@@ -76,6 +76,7 @@ class CommentMaskView: UIView {
         createDateLabel?.text = comment?.createdTime
         createDateLabel?.textColor = UIColor.black
         createDateLabel?.font = UIFont.systemFont(ofSize: 13 * scale)
+        createDateLabel?.textAlignment = .right
         self.addSubview(createDateLabel!)
         
         //

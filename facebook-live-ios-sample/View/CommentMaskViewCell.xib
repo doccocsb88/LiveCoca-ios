@@ -72,6 +72,13 @@
                 <constraint firstItem="i9L-49-0CX" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="3:20" id="SKm-Sa-9Rh"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="indexLabel" destination="c9E-La-62d" id="mRf-RW-6mw"/>
+                <outlet property="likeShareLabel" destination="i9L-49-0CX" id="0Tf-CY-JY1"/>
+                <outlet property="messageLabel" destination="3Ks-v0-PZX" id="Gui-QS-woi"/>
+                <outlet property="nameLabel" destination="giD-eQ-5yY" id="2ji-2k-xxE"/>
+                <outlet property="timeLabel" destination="cxy-Jh-URt" id="aR9-Oz-uLe"/>
+            </connections>
             <point key="canvasLocation" x="-212" y="35"/>
         </tableViewCell>
     </objects>

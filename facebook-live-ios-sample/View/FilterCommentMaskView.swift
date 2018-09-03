@@ -18,6 +18,7 @@ class FilterCommentMaskView: UIView, UITableViewDelegate, UITableViewDataSource 
     var likeShareLabel:UILabel?
     var timeLabel:UILabel?
     var tableView:UITableView?
+    var data:[FacebookComment] = []
     init(frame: CGRect, scale:CGFloat) {
         super.init(frame: frame)
         self.scale = scale
@@ -90,16 +91,33 @@ class FilterCommentMaskView: UIView, UITableViewDelegate, UITableViewDataSource 
         return 1;
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10;
+        return data.count;
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return cellHeight * scale;
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CommentMaskViewCell", for: indexPath)
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CommentMaskViewCell", for: indexPath) as! CommentMaskViewCell
+        let comment = data[indexPath.row]
+        cell.updateContent(comment: comment)
         return cell;
-        
+    }
+    
+    func updateContent(){
+        if let config = WarterMarkServices.shared().params[ConfigKey.filterComment.rawValue] as? [String:Any]{
+            let message = config["message"] as! String
+            let start = config["start"] as? String
+            let end = config["end"] as? String
+            data.removeAll()
+            for comment in APIClient.shared().comments{
+                if comment.message == message{
+                    data.append(comment)
+                }
+                
+            }
+            tableView?.reloadData()
+            
+        }
     }
     
 }

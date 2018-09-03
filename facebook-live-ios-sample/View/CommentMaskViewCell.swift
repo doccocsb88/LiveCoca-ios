@@ -10,6 +10,15 @@ import UIKit
 
 class CommentMaskViewCell: UITableViewCell {
 
+    @IBOutlet weak var indexLabel: UILabel!
+    
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var messageLabel: UILabel!
+    
+    @IBOutlet weak var likeShareLabel: UILabel!
+    
+    @IBOutlet weak var timeLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -20,5 +29,9 @@ class CommentMaskViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+    func updateContent(comment:FacebookComment){
+        messageLabel.text = comment.message
+        timeLabel.text = comment.getTimerText()
+        nameLabel.text = comment.fromName
+    }
 }

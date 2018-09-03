@@ -53,6 +53,7 @@ class CountCommentMaskView: UIView {
             countLabel.contentMode = .scaleAspectFit
             countLabel.text = "9"
             countLabel.font = UIFont.systemFont(ofSize: 20 * scale)
+            countLabel.textAlignment = .center
             view.addSubview(countLabel)
             
             //

@@ -17,17 +17,12 @@ class StreamCommentView: UIView, UITableViewDelegate, UITableViewDataSource {
     var didPinComment:() ->() = {}
     override init(frame: CGRect) {
         super.init(frame: frame)
-        initData()
         initView()
     }
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     private func initData(){
-        for i in 0..<10{
-            let comment = FacebookComment(message: "a", commentId: "\(i)", createTime: "2018-09-02T11:44:39+0000", fromId: "\(i)\(i)", fromName: "name\(i)")
-            data.append(comment)
-        }
     }
     private func initView(){
         tableView = UITableView(frame: self.bounds)
