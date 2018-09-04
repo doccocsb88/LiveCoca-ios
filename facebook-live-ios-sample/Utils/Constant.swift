@@ -24,6 +24,8 @@ struct K {
         static let access_token = "access_token"
         static let id_social = "id_social"
         static let id_target = "id_target"
+        static let id_account = "id_account"
+
         static let caption = "caption"
         static let id_room = "id_room"
         static let rtmps = "rtmps"

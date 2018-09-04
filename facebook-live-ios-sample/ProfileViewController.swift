@@ -40,7 +40,7 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
 
         // Do any additional setup after loading the view.
         setup()
-        
+        initNavigatorBar()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -173,7 +173,17 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
         
     }
     @objc func tappedLogoutButton(_ button:UIButton){
-        
+        APIClient.shared().logout { (success, message) in
+            if success{
+                APIClient.shared().clearData()
+                Defaults.removeToken()
+                if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
+                    appDelegate.setLoginViewAsRoot()
+                }
+            }else{
+                self.showMessageDialog(nil, message ?? "")
+            }
+        }
     }
     func openSelectImage(){
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
@@ -224,7 +234,7 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
         default:
             break
         }
-        if button.isSelected{
+        if !button.isSelected{
             updateUserInfo()
         }
     }
@@ -278,6 +288,22 @@ extension ProfileViewController{
         cell.selectionStyle = .none
         let account = APIClient.shared().accounts[indexPath.row]
         cell.bindData(account)
+        cell.tappedRemoveButtonHandle = {
+            if let _id = account.id{
+                
+                APIClient.shared().deleteFacebookAccount(id_account: _id, completion: { (success, message) in
+                    if success{
+                        APIClient.shared().removeAccount(_id)
+                        self.tableView.reloadData()
+                        self.showMessageDialog(nil, "Xóa thành công.")
+                    }else{
+                        if let _ = message{
+                            self.showMessageDialog(nil, message!)
+                        }
+                    }
+                })
+            }
+        }
         return cell
     }
     

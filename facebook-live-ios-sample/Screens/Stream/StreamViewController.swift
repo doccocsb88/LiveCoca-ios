@@ -9,7 +9,7 @@
 import UIKit
 import Lottie
 //import CommonCrypto
-class StreamViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class StreamViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     enum PickType:Int{
         case account
         case target
@@ -46,6 +46,22 @@ class StreamViewController: UIViewController, UITableViewDelegate, UITableViewDa
         FacebookServices.shared().fetchData {
             let pages = FacebookServices.shared().accountList;
             print("pages : \(pages.count)")
+        }
+        APIClient.shared().getUser(completion: {
+            
+        })
+        showLoadingView()
+        APIClient.shared().getListAccount {[unowned self] (success, message) in
+            self.hideLoadingView()
+            if success{
+                if APIClient.shared().accounts.count > 0{
+                    self.selectedAccount = APIClient.shared().accounts[0];
+                    self.tableView.reloadData()
+                    self.getTarget()
+                }
+            }else{
+                self.showMessageDialog(nil, message ?? "")
+            }
         }
 
     }
@@ -147,8 +163,8 @@ class StreamViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func openLoginScreen(){
-        let loginViewController = LoginViewController(nibName: "LoginViewController", bundle: nil)
-        self.present(loginViewController, animated: true, completion: nil)
+        //let loginViewController = LoginViewController(nibName: "LoginViewController", bundle: nil)
+        //self.present(loginViewController, animated: true, completion: nil)
     }
     func openAddCountView(){
         let vc = AddStreamAccountViewController(nibName: "AddStreamAccountViewController", bundle: nil)
@@ -329,6 +345,16 @@ extension StreamViewController{
         })
         self.tableView.reloadData()
         
+    }
+    func showLoadingView(){
+        self.loadingAnimation!.isHidden = false
+        self.loadingAnimation?.play()
+
+    }
+    func hideLoadingView(){
+        self.loadingAnimation?.isHidden = true
+        self.loadingAnimation?.stop()
+
     }
 }
 extension StreamViewController: UIPickerViewDelegate, UIPickerViewDataSource {

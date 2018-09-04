@@ -17,7 +17,7 @@ enum APIRouter: URLRequestConvertible {
     case logout()
     case getUser()
     case getListAccounts()
-    case deleteAccounts()
+    case deleteAccounts(id_account:String)
     //
     case createLive()
     case endLive()
@@ -60,16 +60,17 @@ enum APIRouter: URLRequestConvertible {
             return String(format: "%@&checksum=%@&token=%@", url,checksum,APIClient.shared().token ?? "")
         case .logout:
             let url =  "/users/logout?app=ios"
-            let params:[String:String] = [:]
-            let checksum = APIUtils.checksum(request_url: url, raw_data: JSON(params).stringValue)
-            return String(format: "%@&checksum=%@", url,checksum)
+            let checksum = APIUtils.checksum(request_url: url, raw_data: JSON(parameters ?? [:]).stringValue)
+            return String(format: "%@&checksum=%@&token=%@", url,checksum,APIClient.shared().token ?? "")
         case .getListAccounts:
             let url = "/users/accounts?app=ios"
             let params:[String:String] = [:]
             let checksum = APIUtils.checksum(request_url: url, raw_data: JSON(params).stringValue)
             return String(format: "%@&checksum=%@&token=%@", url,checksum,APIClient.shared().token ?? "")
         case .deleteAccounts:
-            return "/users/delete?app=ios"
+            let url =  "/users/delete?app=ios"
+            let checksum = APIUtils.checksum(request_url: url, raw_data: JSON(parameters ?? [:]).stringValue)
+            return String(format: "%@&checksum=%@", url,checksum)
 
         default:
             return ""
@@ -84,6 +85,8 @@ enum APIRouter: URLRequestConvertible {
             return [K.APIParameterKey.fullname:fullname, K.APIParameterKey.username: username, K.APIParameterKey.password: password, K.APIParameterKey.email: email]
         case .login(let username, let password):
             return [K.APIParameterKey.username: username, K.APIParameterKey.password: password]
+        case .logout:
+            return [:]
         case .update(let username, let password, let fullname, let email, let phone, let description):
             var params:[String:String] = [:]
             if let _username = username{
@@ -109,6 +112,14 @@ enum APIRouter: URLRequestConvertible {
 
             }
             return params
+        case .deleteAccounts(let id_account):
+            var params:[String:Any] = [:]
+            if let token = APIClient.shared().token{
+                params[K.APIParameterKey.token] = token
+                
+            }
+            params[K.APIParameterKey.id_account] = id_account
+            return params
         default:
             return nil
             
@@ -117,7 +128,7 @@ enum APIRouter: URLRequestConvertible {
     
     // MARK: - URLRequestConvertible
     func asURLRequest() throws -> URLRequest {
-        var fullURL = String(format: "%@%@", K.ProductionServer.baseAPIURL,path)
+        let fullURL = String(format: "%@%@", K.ProductionServer.baseAPIURL,path)
         let url = try fullURL.asURL()
 
         var urlRequest = URLRequest(url: url)

@@ -23,7 +23,24 @@ class APIClient {
         return sharedInstance
     }
 
-
+    func clearData(){
+        accounts = []
+        user = nil
+        id = nil
+        token = nil
+        comments = []
+    }
+    func removeAccount(_ id:String){
+        for index in 0..<accounts.count {
+            let account = accounts[index]
+            if let _id = account.id{
+                if _id == id{
+                    accounts.remove(at: index)
+                    break
+                }
+            }
+        }
+    }
     func login(username: String, password: String, completion:@escaping (_ result:Bool,_ message:String)->Void) {
         Alamofire.request(APIRouter.login(username: username, password: password)).responseJSON {[weak self] response in
             guard let strongSelf = self else{
@@ -50,10 +67,6 @@ class APIClient {
                 let token  = tags["token"].stringValue
                 APIClient.shared().id = id
                 APIClient.shared().token = token
-                strongSelf.getUser(completion: {
-                    
-                })
-                strongSelf.getListAccount()
                 completion(true,"")
 
             }
@@ -74,30 +87,46 @@ class APIClient {
         }
     }
     
-    func getListAccount(){
+    func getListAccount(completion:@escaping (_ success:Bool,_ message:String?)->Void){
 //        {"list": [{"fullname": "Sự Kiện Thái Bình", "id": "tuzrxk", "id_social": "100004511980315"}]}
         Alamofire.request(APIRouter.getListAccounts()).responseJSON{response in
             guard response.result.isSuccess,
                 let value = response.result.value else {
                     print("Error while fetching tags: \(String(describing: response.result.error))")
+                    completion(false,String(describing: response.result.error))
                     return
             }
             
             // 3
             let jsonResponse = JSON(value)
-            if let list = jsonResponse["list"].array{
-                for i in 0..<list.count{
-                    if let data = list[i].dictionaryObject{
-                        print("\(data["fullname"])")
-                        let account = BaseInfo()
-                        account.displayName = data["fullname"] as? String
-                        account.userId = data["id_social"] as? String
-                        self.accounts.append(account)
-                        
+            print("getListAccount \(jsonResponse.dictionaryValue)")
+            if let error = jsonResponse["error"].dictionaryObject{
+                print("error \(error)")
+                let errorCode = error["code"]
+                let explain = error["explain"] as? String
+                completion(false,explain)
+            }else{
+                if let list = jsonResponse["list"].array{
+                    for i in 0..<list.count{
+                        if let data = list[i].dictionaryObject{
+                            print("\(data["fullname"])")
+                            let account = BaseInfo()
+                            account.displayName = data["fullname"] as? String
+                            account.userId = data["id_social"] as? String
+                            account.id = data["id"] as? String
+                            self.accounts.append(account)
+                            
+                        }
                     }
+                    completion(true,nil)
+                    
+                }else{
+                    completion(false,nil)
+
                 }
-                
+
             }
+
         }
     }
     
@@ -114,7 +143,29 @@ class APIClient {
             print("\(jsonResponse.stringValue)")
         }
     }
-    
+    func logout(completion:@escaping (_ success:Bool,_ message:String?)->Void){
+        Alamofire.request(APIRouter.logout()).responseJSON{response in
+            guard response.result.isSuccess,
+                let value = response.result.value else {
+                    print("Error while fetching tags: \(String(describing: response.result.error))")
+                    return
+            }
+            
+            // 3
+            let jsonResponse = JSON(value)
+            print("logout \(jsonResponse.dictionaryValue)")
+            if let error = jsonResponse["error"].dictionaryObject{
+                print("error \(error)")
+                let errorCode = error["code"]
+                let explain = error["explain"] as? String
+                completion(false,explain)
+            }else{
+                completion(true,"")
+                
+            }
+
+        }
+    }
     func addFacebook(access_token:String,completion:@escaping (_ success:Bool,_ message:String?)->Void){
         Alamofire.request(FacebookEndpoint.addFacebook(access_token:access_token)).responseJSON{response in
             guard response.result.isSuccess,
@@ -139,6 +190,31 @@ class APIClient {
 
         }
     }
+    func deleteFacebookAccount(id_account:String,completion:@escaping (_ success:Bool,_ message:String?)->Void){
+        Alamofire.request(APIRouter.deleteAccounts(id_account: id_account)).responseJSON{response in
+            guard response.result.isSuccess,
+                let value = response.result.value else {
+                    print("Error while fetching tags: \(String(describing: response.result.error))")
+                    completion(false,String(describing: response.result.error))
+                    return
+            }
+            let jsonResponse = JSON(value)
+            print("createLive \(jsonResponse.dictionaryValue)")
+            if let error = jsonResponse["error"].dictionaryObject{
+                print("error \(error)")
+                let errorCode = error["code"] as? Int
+                let code = errorCode ?? 0
+                let explain = error["explain"] as? String
+                completion(false,explain)
+            }else{
+                let status = jsonResponse["status"].boolValue
+                let message = jsonResponse["message"].stringValue
+                completion(status,message)
+            }
+        
+        }
+    }
+    
     func getFacebookTargets(id_social:String,completion:@escaping (_ success:Bool,_ message:String?,_ targets:[SocialTarget]?)->Void){
         Alamofire.request(FacebookEndpoint.target(id_social:id_social)).responseJSON{response in
             guard response.result.isSuccess,
@@ -156,7 +232,16 @@ class APIClient {
                 let errorCode = error["code"]
                 let explain = error["explain"] as? String
                 completion(false,explain,nil)
-            }else{
+            }else if let fb_error = jsonResponse["fb_error"].dictionaryObject{
+                let message = fb_error["message"] as? String
+
+                if let errorCode = fb_error["code"] as?  Int, errorCode == APIError.Error_Fb_session_expired{
+                    completion(false,APIError.message(code: errorCode, message: message ?? ""),nil)
+                }else{
+                    completion(false,message,nil)
+                }
+                
+            } else{
 //                ["fanpages": [
 //                    {
 //                        "id" : "159903551328819",

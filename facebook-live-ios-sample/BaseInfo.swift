@@ -8,6 +8,7 @@
 
 import Foundation
 class BaseInfo{
+    var id:String?
     var tokenString: String!
     var userId: String!
     var displayName: String?

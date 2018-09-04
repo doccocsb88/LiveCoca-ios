@@ -89,12 +89,15 @@ class LoginViewController:BaseViewController{
         }
         loadingAnimation?.isHidden = false
         loadingAnimation?.play()
-        APIClient.shared().login(username: username, password: password) {[unowned self ] (result, message) in
+        APIClient.shared().login(username: username, password: password) {[unowned self ] (success, message) in
             self.loadingAnimation?.isHidden = false
             self.loadingAnimation?.play()
-            if result{
+            if success{
                 Defaults.remember(username: username, password: password)
-                self.dismiss(animated: true, completion: nil)
+                Defaults.saveToken(APIClient.shared().token ?? "")
+                if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
+                    appDelegate.setHomeViewAsRoot()
+                }
 
             }else{
                 self.showMessageDialog(nil, message)

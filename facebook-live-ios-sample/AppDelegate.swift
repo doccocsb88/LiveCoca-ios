@@ -18,7 +18,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
  
         setupNav()
         SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
-        
+        if let token = Defaults.getToken(){
+            APIClient.shared().token = token
+            setHomeViewAsRoot()
+        }else{
+            setLoginViewAsRoot()
+        }
         return true
     }
     
@@ -68,6 +73,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
         
         //
+
+    }
+    func setLoginViewAsRoot(){
+        let loginViewController = LoginViewController(nibName: "LoginViewController", bundle: nil)
+        if let window = self.window {
+            window.rootViewController = loginViewController
+        }
+    }
+    func setHomeViewAsRoot(){
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let homeViewController = storyboard.instantiateViewController(withIdentifier: "BaseTabbarController")
+        if let window = self.window {
+            window.rootViewController = homeViewController
+        }
 
     }
 }

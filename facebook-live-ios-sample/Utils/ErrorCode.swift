@@ -23,7 +23,7 @@ struct APIError {
     static let Error_DB:Int                     = 909//, "Database")
     static let Error_UserNotFound:Int           = 202//, )
     static let Error_ExistStream                = 403
-
+    static let Error_Fb_session_expired         = 190
     static func message(code:Int, message:String) ->String{
         switch code {
         case Error_Generic:
@@ -32,6 +32,8 @@ struct APIError {
             return "Tài khoản đăng nhập hoặc mật khẩu không đúng, vui lòng đăng nhập lại!"
         case Error_ExistStream:
             return "You are having streaming"
+        case Error_Fb_session_expired:
+            return "Access token đã hết hạn hoặc tài khoản này đang bị khóa livestream. Bạn hãy thêm lại tài khoản này hoặc thêm tài khoản khác."
         default:
             return message
         }

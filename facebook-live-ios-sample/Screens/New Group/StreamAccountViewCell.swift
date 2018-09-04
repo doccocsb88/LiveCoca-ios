@@ -19,7 +19,7 @@ class StreamAccountViewCell: UITableViewCell {
     
     @IBOutlet weak var statusImageView: UIImageView!
     @IBOutlet weak var removeButton: UIButton!
-    
+    var tappedRemoveButtonHandle:() ->() = {}
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -53,4 +53,8 @@ class StreamAccountViewCell: UITableViewCell {
     func bindData(_ account:BaseInfo){
         pageNameLabel.text = account.displayName
     }
+    @IBAction func tappedRemoveButton(_ sender: Any) {
+        tappedRemoveButtonHandle()
+    }
+    
 }
