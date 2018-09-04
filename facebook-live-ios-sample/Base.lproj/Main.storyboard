@@ -36,8 +36,9 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bXm-tp-ZuW">
-                                        <rect key="frame" x="60" y="7.5" width="52" height="35"/>
+                                        <rect key="frame" x="60" y="7.5" width="40" height="35"/>
                                         <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="9yk-Hg-NpH"/>
                                             <constraint firstAttribute="height" constant="35" id="ZOZ-VV-atJ"/>
                                         </constraints>
                                         <state key="normal" image="ic_switch_camera"/>
@@ -46,9 +47,10 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rey-sv-1Jg">
-                                        <rect key="frame" x="122" y="7.5" width="35" height="35"/>
+                                        <rect key="frame" x="110" y="7.5" width="40" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="EQO-tY-enn"/>
+                                            <constraint firstAttribute="width" constant="40" id="JGb-3s-kj6"/>
                                         </constraints>
                                         <state key="normal" image="ic_comment"/>
                                         <connections>
