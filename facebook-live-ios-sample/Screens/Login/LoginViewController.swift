@@ -22,13 +22,13 @@ class LoginViewController:BaseViewController{
     @IBOutlet weak var savePasswordButton: UIButton!
     
     @IBOutlet weak var loginButton: UIButton!
-    private var loadingAnimation: LOTAnimationView?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         setupView()
+        initLoadingView()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -43,17 +43,7 @@ class LoginViewController:BaseViewController{
         loginButton.addBorder(cornerRadius: loginButton.frame.height / 2, color: .clear)
         container.addBorder(cornerRadius: 5, color: .clear)
         container.dropShadow(color: .black, opacity: 0.5, offSet: CGSize(width: 5, height: 5), radius: 5, scale: true)
-        //
-        loadingAnimation = LOTAnimationView(name: "material_loader")
-        // Set view to full screen, aspectFill
-        loadingAnimation!.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-        loadingAnimation!.contentMode = .scaleAspectFill
-        loadingAnimation!.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
-        loadingAnimation!.center = self.view.center
-        loadingAnimation!.isHidden = true
-        // Add the Animation
-        view.addSubview(loadingAnimation!)
-        //
+        //        //
         
         let gesture = UITapGestureRecognizer(target: self, action:  #selector (self.tapAction (_:)))
         container.addGestureRecognizer(gesture)

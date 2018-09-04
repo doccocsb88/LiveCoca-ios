@@ -41,6 +41,7 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
         // Do any additional setup after loading the view.
         setup()
         initNavigatorBar()
+        initLoadingView()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -288,10 +289,11 @@ extension ProfileViewController{
         cell.selectionStyle = .none
         let account = APIClient.shared().accounts[indexPath.row]
         cell.bindData(account)
-        cell.tappedRemoveButtonHandle = {
+        cell.tappedRemoveButtonHandle = {[unowned self] in
             if let _id = account.id{
-                
+                self.showLoadingView()
                 APIClient.shared().deleteFacebookAccount(id_account: _id, completion: { (success, message) in
+                    self.hideLoadingView()
                     if success{
                         APIClient.shared().removeAccount(_id)
                         self.tableView.reloadData()

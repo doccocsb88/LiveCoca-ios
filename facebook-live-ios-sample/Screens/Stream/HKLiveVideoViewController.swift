@@ -331,7 +331,7 @@ extension HKLiveVideoViewController{
         expandButton.imageView?.contentMode = .scaleAspectFit
         expandButton.addTarget(self, action: #selector(didExpandTableCell(_:)), for: .touchUpInside)
         view.addSubview(expandButton)
-        view.backgroundColor = UIColor.darkGray
+        view.backgroundColor = UIColor(hexString: "#ebebeb")
         return view
     }
     func numberOfSections(in tableView: UITableView) -> Int {

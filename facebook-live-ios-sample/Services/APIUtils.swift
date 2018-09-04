@@ -7,10 +7,9 @@
 //
 
 import Foundation
-import Alamofire
 class APIUtils {
     static let APP_NAME = "ios"
-    static let APP_SECRET =  "SHeJK3fouW"
+    static let APP_SECRET =  "5GJ7ITJ(*"//"SHeJK3fouW"
     static let CLIENT_IP =  "::1"
 
 //    checksum = md5( “[APP_NAME] : [REQUEST_URI] | [RAW_DATA] | [APP_SECRET] | [CLIENT_IP]” )

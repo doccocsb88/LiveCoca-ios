@@ -24,7 +24,6 @@ class StreamViewController: BaseViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var addUrlStreamButton: UIButton!
     var picker:UIPickerView?
     var pickerView:UIView?
-    private var loadingAnimation: LOTAnimationView?
 
     let selectStreamInfoVC = SelectStreamAccountViewController()
 
@@ -43,6 +42,7 @@ class StreamViewController: BaseViewController, UITableViewDelegate, UITableView
         print("aaaa : \("".MD5(pw))")
         setup()
         setupUI()
+        initLoadingView()
         FacebookServices.shared().fetchData {
             let pages = FacebookServices.shared().accountList;
             print("pages : \(pages.count)")
@@ -143,15 +143,6 @@ class StreamViewController: BaseViewController, UITableViewDelegate, UITableView
         self.view.addSubview(pickerView!)
         //
         // Create Boat Animation
-        loadingAnimation = LOTAnimationView(name: "material_loader")
-        // Set view to full screen, aspectFill
-        loadingAnimation!.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-        loadingAnimation!.contentMode = .scaleAspectFill
-        loadingAnimation!.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
-        loadingAnimation!.center = self.view.center
-        loadingAnimation!.isHidden = true
-        // Add the Animation
-        view.addSubview(loadingAnimation!)
     }
     func setupUI(){
         let buttonSize = nextButton.frame.size;
@@ -345,16 +336,6 @@ extension StreamViewController{
         })
         self.tableView.reloadData()
         
-    }
-    func showLoadingView(){
-        self.loadingAnimation!.isHidden = false
-        self.loadingAnimation?.play()
-
-    }
-    func hideLoadingView(){
-        self.loadingAnimation?.isHidden = true
-        self.loadingAnimation?.stop()
-
     }
 }
 extension StreamViewController: UIPickerViewDelegate, UIPickerViewDataSource {
