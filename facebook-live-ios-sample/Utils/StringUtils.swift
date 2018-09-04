@@ -296,6 +296,7 @@ extension String {
         
         return false
     }
+    
 }
 extension Int
 {
@@ -303,6 +304,12 @@ extension Int
         let min = range.lowerBound
         let max = range.upperBound
         return Int(arc4random_uniform(UInt32(1 + max - min))) + min
+    }
+    static func converToNumberString(_ value:Int) ->String{
+        if value < 10 {
+            return "0\(value)"
+        }
+        return "\(value)"
     }
 }
 

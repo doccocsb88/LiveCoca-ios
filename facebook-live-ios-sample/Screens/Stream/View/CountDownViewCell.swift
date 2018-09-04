@@ -114,8 +114,19 @@ extension CountDownViewCell: UITextFieldDelegate{
             self.addSubview(pickerView!)
         }
     }
+    func hidePickerView(){
+        if let _ = pickerView{
+            pickerView!.removeFromSuperview()
+        }
+    }
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         showPickerView()
         return true
     }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {   //delegate method
+        textField.resignFirstResponder()
+        hidePickerView()
+        return true
+    }
+
 }

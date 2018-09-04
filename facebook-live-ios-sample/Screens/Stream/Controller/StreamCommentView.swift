@@ -32,6 +32,7 @@ class StreamCommentView: UIView, UITableViewDelegate, UITableViewDataSource {
         tableView?.estimatedRowHeight = 300
         tableView?.register(UINib(nibName: "StreamCommentViewCell", bundle: nil), forCellReuseIdentifier: "StreamCommentViewCell")
         tableView?.backgroundColor = UIColor.clear
+        tableView?.separatorStyle  = .none
         self.addSubview(tableView!)
         self.backgroundColor = UIColor.black.withAlphaComponent(0.2)
     }

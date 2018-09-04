@@ -360,5 +360,19 @@ class APIClient {
 
         }
     }
+    func getComments(id_strem:String,completion:@escaping (_ success:Bool,_ comments:[FacebookComment])->Void){
+        Alamofire.request(FacebookEndpoint.comments(id_stream: id_strem)).responseJSON{response in
+            guard response.result.isSuccess,
+                let value = response.result.value else {
+                    print("Error while fetching tags: \(String(describing: response.result.error))")
+                    completion(false,[])
+                    return
+            }
+            let jsonResponse = JSON(value)
+            print("getComments \(jsonResponse.dictionaryValue)")
+            completion(true,[])
 
+        }
+
+    }
 }

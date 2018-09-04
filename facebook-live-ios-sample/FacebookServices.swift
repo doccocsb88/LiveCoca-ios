@@ -184,20 +184,22 @@ class FacebookServices {
     
     
     func getStreamComment(streamId:String, onSuccess success: @escaping (_ info:[FacebookComment]) -> Void){
+       
         guard let page = curPage else {
             return
         }
         let accessToken  = AccessToken(authenticationToken: page.tokenString ?? "")
         let path = "\(streamId)/comments"
-        
+        var comments:[FacebookComment] = []
+
         print("authenToken \(accessToken.userId ?? "")")
         let params = ["fields": ""]
-        let req = GraphRequest(graphPath: path, parameters: [:], accessToken: accessToken, httpMethod: GraphRequestHTTPMethod(rawValue: "GET")!)
+        let req = GraphRequest(graphPath: path, parameters: params, accessToken: accessToken, httpMethod: GraphRequestHTTPMethod(rawValue: "GET")!)
         req.start({ (connection, result) in
             switch result {
             case .failed(let error):
                 print("failed \(error)")
-                
+
             case .success(let graphResponse):
                 print("success ")
                 if let responseDictionary = graphResponse.dictionaryValue {
@@ -206,7 +208,6 @@ class FacebookServices {
                     guard let datas = responseDictionary["data"] as? [Any] else{
                         return
                     }
-                    var comments:[FacebookComment] = []
                     for data  in datas{
                         //print("failed cc : \(data)")
                         if data is [String:Any]{

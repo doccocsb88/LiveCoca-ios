@@ -44,7 +44,7 @@ class WarterMarkServices{
 
         backgroundImage = UIImage(color: UIColor.clear, size: self.frame.size)
         backgroundImage = backgroundImage.resizeImage(self.frame.size)
-        if let countdown = params[ConfigKey.countdown.rawValue] as? [String:Any], let _ = countdown["countdown"] as? String{
+        if isCountdown(){
             if countdownView == nil{
                 countdownView = CountdownMaskView(frame: self.frame, scale: scale)
             }else{
@@ -267,6 +267,27 @@ class WarterMarkServices{
     func hasFilterCommentView() -> Bool{
         if let filterComment = params[ConfigKey.filterComment.rawValue] as? [String:Any], filterComment.keys.count > 0{
             return true
+        }
+        return false
+    }
+    func isCountdown() ->Bool{
+        if let config = params[ConfigKey.countdown.rawValue] as? [String:Any], let countdown = config["countdown"] as? String{
+            let info = countdown.components(separatedBy: ":")
+            let configHour = Int(info[0]) ?? 0
+            let configMins = Int(info[1]) ?? 0
+            
+            let date = Date()
+            let components = Calendar.current.dateComponents([.hour,.minute,.second], from: date)
+            let hour = components.hour ?? 0
+            let mins = components.minute ?? 0
+            let seconds = components.second ?? 0
+            let delHour = configHour - hour
+            let delMins = configMins - mins
+            let delSecs = 0 - seconds
+            let totalSecs = delHour * 60 * 60 + delMins * 60 + delSecs
+            if totalSecs > 0{
+                return true
+            }
         }
         return false
     }

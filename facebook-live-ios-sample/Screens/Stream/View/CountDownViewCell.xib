@@ -57,6 +57,7 @@
                         <constraints>
                             <constraint firstAttribute="width" secondItem="oGd-3I-5gm" secondAttribute="height" multiplier="9:16" id="7z7-l8-5de"/>
                             <constraint firstAttribute="height" constant="150" id="Elt-f0-3r8"/>
+                            <constraint firstAttribute="width" constant="93" id="iWd-9T-t63"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">

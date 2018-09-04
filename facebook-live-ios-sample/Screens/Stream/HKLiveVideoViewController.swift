@@ -134,7 +134,6 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
         //
 //        cameraButton.addTarget(self, action: #selector(didTappedCameraButton(_:)), for:.touchUpInside)
 //        closeButton.addTarget(self, action: #selector(didTappedWarterMarkButton(_:)), for:.touchUpInside)
-        toggleMenuView()
         WarterMarkServices.shared().setFrame(frame: CGRect(x: 0, y: 0, width: 720, height: 1280))
         
         
@@ -152,15 +151,20 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
         tableView.register(UINib(nibName: reuseCatchWord, bundle: nil), forCellReuseIdentifier: reuseCatchWord)
         tableView.register(UINib(nibName: reuseRandomNumber, bundle: nil), forCellReuseIdentifier: reuseRandomNumber)
         tableView.register(UINib(nibName: reuseCountComment, bundle: nil), forCellReuseIdentifier: reuseCountComment)
+        
+        
+        //
+        hideMenuView()
+        hideCommentView()
 
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        APIClient.shared().startLive(stremInfo: self.streamUrls[0], width: 720, height: 1280, id_category: "", time_countdown: 0) { (success, message, targets) in
-            
-        }
+//        APIClient.shared().startLive(stremInfo: self.streamUrls[0], width: 720, height: 1280, id_category: "", time_countdown: 0) { (success, message, targets) in
+//
+//        }
+                startLive()
 
-//        startLive()
         
 //        let height:CGFloat = 300
 //        let width:CGFloat = height / (720 / 1280)
@@ -237,13 +241,13 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
         UIView.animate(withDuration: 0.25) { [unowned self] in
             if let tag = self.commentContainerView?.tag, tag == 1{
 //                 self.commentContainerView?.isHidden = true
-                self.commentViewHeightConstraint.constant = 50
+                self.commentViewHeightConstraint.constant = 0
 
-                 self.commentContainerView?.tag = 0
+                self.commentContainerView?.tag = 0
                 self.commentView?.toggleTableView(isHidden:true)
             }else{
                 self.commentViewHeightConstraint.constant = 350
-                 self.commentContainerView?.tag = 1
+                self.commentContainerView?.tag = 1
                 self.commentView?.toggleTableView(isHidden:false)
             }
         }
@@ -263,6 +267,16 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
         //              footerButton.isHidden = !self.liveVideo.isStreaming
         //            hozirontalTextButton.isHidden = !self.liveVideo.isStreaming
         
+    }
+    func hideCommentView(){
+        self.commentViewHeightConstraint.constant = 0
+        self.commentContainerView?.tag = 0
+        self.commentView?.toggleTableView(isHidden:true)
+
+        UIView.animate(withDuration: 0.25) {
+            self.view.updateConstraintsIfNeeded()
+        }
+
     }
     func hideMenuView(){
         menuButton.isSelected = false;
@@ -302,37 +316,41 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
             self.menuBottomConstraint.constant = height
         }
     }
-    func hideCommentView(){
-        
-    }
 }
 
 
 
 extension HKLiveVideoViewController{
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 50
+        return 50 + 2
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let width  = self.view.frame.size.width - 100
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width - 100, height: 50))
-        let titleLabel = UILabel(frame: CGRect(x: 10, y: 0, width: width - 50, height: 50))
-        titleLabel.text = menuTitles[section]
-        titleLabel.textAlignment = .left
-        titleLabel.textColor = .white
+        let width  = sideMenuView.frame.width
+
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: width, height: 52))
+        headerView.backgroundColor = .white
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: width, height: 50))
+        let titleLabel = UIButton(frame: CGRect(x: 10, y: 0, width: width - 20, height: 50))
+        titleLabel.setTitle(menuTitles[section], for: .normal)
+//        titleLabel.sete = .left
+//        titleLabel.textColor =
+        titleLabel.tag = section
+        titleLabel.contentHorizontalAlignment = .left
+        titleLabel.setTitleColor(UIColor(hexString: "#444444"), for: .normal)
+        titleLabel.addTarget(self, action: #selector(didExpandTableCell(_:)), for: .touchUpInside)
         view.addSubview(titleLabel)
         
-        let expandButton = UIButton(frame: CGRect(x: width - 40, y: 10, width: 30, height: 30))
+        let expandButton = UIImageView(frame: CGRect(x: width - 40, y: 10, width: 30, height: 30))
         let origImage = section == curMenuIndex ? UIImage(named: "ic_angle_down") : UIImage(named: "ic_angle_up")
         let tintedImage = origImage?.withRenderingMode(.alwaysTemplate)
         expandButton.tag = section
-        expandButton.setImage(tintedImage, for: .normal)
+        expandButton.image  = tintedImage
         expandButton.tintColor = .white
-        expandButton.imageView?.contentMode = .scaleAspectFit
-        expandButton.addTarget(self, action: #selector(didExpandTableCell(_:)), for: .touchUpInside)
+        expandButton.contentMode = .scaleAspectFit
         view.addSubview(expandButton)
         view.backgroundColor = UIColor(hexString: "#ebebeb")
-        return view
+        headerView.addSubview(view)
+        return headerView
     }
     func numberOfSections(in tableView: UITableView) -> Int {
         return menuTitles.count
@@ -354,9 +372,10 @@ extension HKLiveVideoViewController{
             cell.completeHandle = {[unowned self] isShow in
 
                 self.updateWatermarkView(nil)
+                self.hideMenuView()
+
                 if let countdown = WarterMarkServices.shared().params[ConfigKey.countdown.rawValue] as? [String:Any], let _ = countdown["countdown"] as? String{
                     self.view.endEditing(true)
-                    self.hideMenuView()
                 }
                 if let countdown = WarterMarkServices.shared().params[ConfigKey.countdown.rawValue] as? [String:Any]{
                     if let mute = countdown["mute"] as? Bool{
@@ -572,7 +591,8 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
     
    
     @objc func updateWatermarkView(_ button: UIButton?) -> Void {
-        if let countdown = WarterMarkServices.shared().params[ConfigKey.countdown.rawValue] as? [String:Any], let _ = countdown["countdown"] as? String{
+        if WarterMarkServices.shared().isCountdown(){
+            
             self.updateTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateWatermarkView(_:)), userInfo: nil, repeats: false)
             
 
@@ -654,25 +674,42 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
     }
      @objc func fetchStreamComments(){
         print("fetchStreamComments")
-        FacebookServices.shared().getStreamComment(streamId: self.streamUrls[0].streamId) {[unowned self] (comments) in
-            if let view = self.commentView{
-                if comments.count == 0{
-                    var dummyComments:[FacebookComment] = []
-                    for i in 0..<10{
-                        let comment = FacebookComment(message: "a", commentId: "\(i)", createTime: "2018-09-02T11:44:39+0000", fromId: "\(i)\(i)", fromName: "name\(i)")
-                        dummyComments.append(comment)
+        if let view = self.commentView{
+            var dummyComments:[FacebookComment] = []
+            for i in 0..<10{
+                let comment = FacebookComment(message: "a", commentId: "\(i)", createTime: "2018-09-02T11:44:39+0000", fromId: "\(i)\(i)", fromName: "name\(i)")
+                dummyComments.append(comment)
+            }
+            view.reloadData(data: dummyComments)
+            APIClient.shared().comments = dummyComments
+            
+            if WarterMarkServices.shared().hasFilterCommentView(){
+                self.updateWatermarkView(nil)
+            }
+        }
+
+        APIClient.shared().getComments(id_strem: "abcdef") { (success, comments) in
+            if success{
+                if let view = self.commentView{
+                    if comments.count == 0{
+                        var dummyComments:[FacebookComment] = []
+                        for i in 0..<10{
+                            let comment = FacebookComment(message: "a", commentId: "\(i)", createTime: "2018-09-02T11:44:39+0000", fromId: "\(i)\(i)", fromName: "name\(i)")
+                            dummyComments.append(comment)
+                        }
+                        view.reloadData(data: dummyComments)
+                        APIClient.shared().comments = dummyComments
+                        
+                    }else{
+                        view.reloadData(data: comments)
+                        APIClient.shared().comments = comments
+                        
                     }
-                    view.reloadData(data: dummyComments)
-                    APIClient.shared().comments = dummyComments
-
-                }else{
-                    view.reloadData(data: comments)
-                    APIClient.shared().comments = comments
-
+                    if WarterMarkServices.shared().hasFilterCommentView(){
+                        self.updateWatermarkView(nil)
+                    }
                 }
-                if WarterMarkServices.shared().hasFilterCommentView(){
-                    self.updateWatermarkView(nil)
-                }
+
             }
         }
     }

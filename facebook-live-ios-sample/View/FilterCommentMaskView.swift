@@ -106,11 +106,13 @@ class FilterCommentMaskView: UIView, UITableViewDelegate, UITableViewDataSource 
     func updateContent(){
         if let config = WarterMarkServices.shared().params[ConfigKey.filterComment.rawValue] as? [String:Any]{
             let message = config["message"] as! String
-            let start = config["start"] as? String
-            let end = config["end"] as? String
+            let start = config["start"] as? String ?? "0:0"
+            let end = config["end"] as? String ?? "0:0"
             data.removeAll()
             for comment in APIClient.shared().comments{
-                if comment.message == message{
+                let commentTime = comment.getTimerText()
+                
+                if comment.message == message, APIUtils.compareHour(commentTime, start) == .after, APIUtils.compareHour(commentTime, end) == .before{
                     data.append(comment)
                 }
                 

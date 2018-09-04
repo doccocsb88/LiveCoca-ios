@@ -16,14 +16,13 @@ enum FacebookEndpoint: URLRequestConvertible {
     case createLive(id_social:String,id_target:String,caption:String)
     case liveStatus(id_stream:String)
     case login(email:String, password:String)
-    case profile(id: Int)
-    
+    case comments(id_stream:String)
     // MARK: - HTTPMethod
     var method: HTTPMethod {
         switch self {
         case .login , .addFacebook, .createLive:
             return .post
-        case .profile, .liveStatus , .target:
+        case .liveStatus , .target, .comments:
             return .get
         default:
             return .get
@@ -34,7 +33,10 @@ enum FacebookEndpoint: URLRequestConvertible {
     var path: String {
         switch self {
         case .liveStatus(let id_stream):
-            return "/facebook/live_status?app=ios&checksum=6c3de2526c041b3d0a129172564fca08&id_stream=\(id_stream)"
+            let url =  "/facebook/live_status?app=ios"
+            let checksum = APIUtils.checksum(request_url: url, raw_data: JSON(parameters ?? [:]).stringValue)
+            return String(format: "%@&checksum=%@&id_stream=%@", url,checksum,id_stream)
+
         case .createLive:
             let url =  "/facebook/create_live?app=ios"
             let checksum = APIUtils.checksum(request_url: url, raw_data: JSON(parameters ?? [:]).stringValue)
@@ -48,11 +50,13 @@ enum FacebookEndpoint: URLRequestConvertible {
             let url = "/facebook/targets?app=ios"
             let checksum = APIUtils.checksum(request_url: url, raw_data: JSON(parameters ?? [:]).stringValue)
             return String(format: "%@&checksum=%@&token=%@&id_social=%@", url,checksum,APIClient.shared().token ?? "",id_social)
+        case .comments(let id_stream):
+            let url = "/facebook/comments?app=ios"
+            let checksum = APIUtils.checksum(request_url: url, raw_data: JSON(parameters ?? [:]).stringValue)
+            return String(format: "%@&checksum=%@&since=1&id_stream=%@", url,checksum,id_stream)
 
         case .login:
             return "/login"
-        case .profile(let id):
-            return "/profile/\(id)"
         default:
             return ""
         }
@@ -75,8 +79,8 @@ enum FacebookEndpoint: URLRequestConvertible {
             return params
         case .login(let email, let password):
             return [K.APIParameterKey.email: email, K.APIParameterKey.password: password]
-        case .profile:
-            return nil
+        case .comments:
+            return [:]
         default:
             return nil
         }

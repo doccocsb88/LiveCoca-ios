@@ -147,9 +147,9 @@ class CountdownMaskView: UIView {
         let delMins = configMins - mins
         let delSecs = 0 - seconds
         let totalSecs = delHour * 60 * 60 + delMins * 60 + delSecs
-        hourLabel?.text = String(format: "%d", totalSecs / (60 * 60))
-        minsLabel?.text = String(format: "%d", (totalSecs / 60) % 60)
-        secsLabel?.text = String(format: "%d", totalSecs % 60)
+        hourLabel?.text = String(format: "%@", Int.converToNumberString(totalSecs / (60 * 60)))
+        minsLabel?.text = String(format: "%@", Int.converToNumberString((totalSecs / 60) % 60))
+        secsLabel?.text = String(format: "%@", Int.converToNumberString(totalSecs % 60))
 
     }
 
