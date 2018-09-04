@@ -7,7 +7,6 @@
 //
 
 import UIKit
-
 class ProfileViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
   
 
@@ -133,6 +132,17 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
         passwordLabel.rightView = editButton4
         passwordLabel.rightViewMode = .always
     }
+    func initNavigatorBar(){
+        let logoutButton = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        logoutButton.setImage(UIImage(named: "ic_sign_out"), for: .normal)
+        logoutButton.imageView?.contentMode = .scaleAspectFit
+        logoutButton.imageEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        
+        logoutButton.addTarget(self, action: #selector(tappedLogoutButton(_:)), for: .touchUpInside)
+        let add = UIBarButtonItem(customView: logoutButton)
+        navigationItem.rightBarButtonItems = [add]
+
+    }
     func bindData(){
         if let user = APIClient.shared().user{
             usernameLabel.text = user.username
@@ -160,6 +170,9 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
     }
     @IBAction func tappedEditAvatarButton(_ sender: Any) {
         openSelectImage()
+        
+    }
+    @objc func tappedLogoutButton(_ button:UIButton){
         
     }
     func openSelectImage(){

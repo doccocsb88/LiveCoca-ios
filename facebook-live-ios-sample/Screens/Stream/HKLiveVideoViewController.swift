@@ -156,11 +156,11 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        APIClient.shared().startLive(stremInfo: self.streamUrls[0], width: 720, height: 1280, id_category: "", time_countdown: 0) { (success, message, targets) in
-//            
-//        }
+        APIClient.shared().startLive(stremInfo: self.streamUrls[0], width: 720, height: 1280, id_category: "", time_countdown: 0) { (success, message, targets) in
+            
+        }
 
-        startLive()
+//        startLive()
         
 //        let height:CGFloat = 300
 //        let width:CGFloat = height / (720 / 1280)
