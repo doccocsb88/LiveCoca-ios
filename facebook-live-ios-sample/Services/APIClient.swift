@@ -130,17 +130,30 @@ class APIClient {
         }
     }
     
-    func updateAccount(username:String?,password:String?,fullname:String?, phone:String?, email:String?,description:String?){
+    func updateAccount(username:String?,password:String?,fullname:String?, phone:String?, email:String?,description:String?,completion:@escaping (_ success:Bool,_ message:String?)->Void){
         Alamofire.request(APIRouter.update(username: username, password: password, fullname: fullname, phone: phone, email: email, description: description)).responseJSON{response in
             guard response.result.isSuccess,
                 let value = response.result.value else {
                     print("Error while fetching tags: \(String(describing: response.result.error))")
+                    completion(false,String(describing: response.result.error))
                     return
             }
             
             // 3
             let jsonResponse = JSON(value)
-            print("\(jsonResponse.stringValue)")
+            print("updateAccount \(jsonResponse.dictionaryObject)")
+            if let error = jsonResponse["error"].dictionaryObject{
+                print("error \(error)")
+                let errorCode = error["code"]
+                let explain = error["explain"] as? String
+                completion(false,explain)
+            }else{
+                let status = jsonResponse["status"].boolValue
+                let message = jsonResponse["message"].stringValue
+                completion(status,message)
+                
+            }
+           
         }
     }
     func logout(completion:@escaping (_ success:Bool,_ message:String?)->Void){

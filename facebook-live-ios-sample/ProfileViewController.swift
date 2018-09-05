@@ -15,7 +15,8 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var changeAvatarButton: UIButton!
     
     @IBOutlet weak var usernameLabel: UILabel!
-    @IBOutlet weak var bioTextView: UITextView!
+    
+    @IBOutlet weak var descriptionTextField: UITextView!
     @IBOutlet weak var displayNameTitleLabel: UILabel!
     @IBOutlet weak var emailTitleLabel: UILabel!
     @IBOutlet weak var phoneTitleLabel: UILabel!
@@ -32,6 +33,7 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
     var editButton2:UIButton?
     var editButton3:UIButton?
     var editButton4:UIButton?
+    var editDescriptionButton:UIButton?
 
     let imagePicker = UIImagePickerController()
     var curFieldIndex:Int =  NSNotFound
@@ -74,13 +76,15 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
         changeAvatarButton.addBorder(cornerRadius: 15.0, color: .clear)
         
         let width = 60
+        let titleColor = UIColor(hexString: "#fc6076")
+        let titleFont = UIFont.systemFont(ofSize: 12)
         editButton1 = UIButton(frame: CGRect(x: 0, y: 0, width: 60, height: 25))
         editButton1?.setTitle("Cập nhật", for: .normal)
 //        editButton1?.setImage(UIImage(named: "ic_edit"), for: .normal)
 //        editButton1?.setImage(nil, for: .selected)
         editButton1?.setTitle("Lưu", for: .selected)
-        editButton1?.setTitleColor(.black, for: .normal)
-        editButton1?.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+        editButton1?.setTitleColor(titleColor, for: .normal)
+        editButton1?.titleLabel?.font = titleFont
         editButton1?.imageView?.contentMode = .scaleAspectFit
         editButton1?.contentEdgeInsets = UIEdgeInsetsMake(3, 3, 3, 3)
         editButton1?.addTarget(self, action: #selector(tappedEditButton(_:)), for: .touchUpInside)
@@ -94,8 +98,8 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
 //        editButton2?.setImage(UIImage(named: "ic_edit"), for: .normal)
 //        editButton2?.setImage(nil, for: .selected)
         editButton2?.setTitle("Lưu", for: .selected)
-        editButton2?.setTitleColor(.black, for: .normal)
-        editButton2?.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+        editButton2?.setTitleColor(titleColor, for: .normal)
+        editButton2?.titleLabel?.font = titleFont
         editButton2?.imageView?.contentMode = .scaleAspectFit
         editButton2?.contentEdgeInsets = UIEdgeInsetsMake(3, 3, 3, 3)
         editButton2?.addTarget(self, action: #selector(tappedEditButton(_:)), for: .touchUpInside)
@@ -109,7 +113,8 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
 //        editButton3?.setImage(nil, for: .selected)
         editButton3?.setTitle("Cập nhật", for: .normal)
         editButton3?.setTitle("Lưu", for: .selected)
-        editButton3?.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+        editButton3?.setTitleColor(titleColor, for: .normal)
+        editButton3?.titleLabel?.font = titleFont
 
         editButton3?.imageView?.contentMode = .scaleAspectFit
         editButton3?.contentEdgeInsets = UIEdgeInsetsMake(3, 3, 3, 3)
@@ -123,7 +128,8 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
 //        editButton4?.setImage(nil, for: .selected)
         editButton4?.setTitle("Cập nhật", for: .normal)
         editButton4?.setTitle("Lưu", for: .selected)
-        editButton4?.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+        editButton4?.setTitleColor(titleColor, for: .normal)
+        editButton4?.titleLabel?.font = titleFont
 
         editButton4?.imageView?.contentMode = .scaleAspectFit
         editButton4?.contentEdgeInsets = UIEdgeInsetsMake(3, 3, 3, 3)
@@ -132,6 +138,22 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
 
         passwordLabel.rightView = editButton4
         passwordLabel.rightViewMode = .always
+        
+        //
+        editDescriptionButton = UIButton(frame: CGRect(x: 0, y: 0, width: width, height: 25))
+        //        editButton4?.setImage(UIImage(named: "ic_edit"), for: .normal)
+        //        editButton4?.setImage(nil, for: .selected)
+        editDescriptionButton?.setTitle("Cập nhật", for: .normal)
+        editDescriptionButton?.setTitle("Lưu", for: .selected)
+        editDescriptionButton?.titleLabel?.font = titleFont
+        editDescriptionButton?.setTitleColor(.red, for: .normal)
+        editDescriptionButton?.imageView?.contentMode = .scaleAspectFit
+        editDescriptionButton?.contentEdgeInsets = UIEdgeInsetsMake(3, 3, 3, 3)
+        editDescriptionButton?.addTarget(self, action: #selector(tappedEditButton(_:)), for: .touchUpInside)
+        editDescriptionButton?.tag = 5
+//        descriptionTextField.rightView = editDescriptionButton
+//        descriptionTextField.rightViewMode = .whileEditing
+        self.descriptionTextField.delegate = self
     }
     func initNavigatorBar(){
         let logoutButton = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
@@ -140,8 +162,8 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
         logoutButton.imageEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         
         logoutButton.addTarget(self, action: #selector(tappedLogoutButton(_:)), for: .touchUpInside)
-        let add = UIBarButtonItem(customView: logoutButton)
-        navigationItem.rightBarButtonItems = [add]
+        let logoutItem = UIBarButtonItem(customView: logoutButton)
+        navigationItem.rightBarButtonItems = [logoutItem]
 
     }
     func bindData(){
@@ -151,7 +173,7 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
             emailLabel.text = user.email
             phoneLabel.text = user.phone
             passwordLabel.text = "******"
-            bioTextView.text = user.description
+            descriptionTextField.text = user.description
             //
             
             if let avatar = user.avatar{
@@ -232,6 +254,9 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
         case 4:
             passwordLabel.becomeFirstResponder()
             break
+        case 5:
+            descriptionTextField.becomeFirstResponder()
+            break
         default:
             break
         }
@@ -249,13 +274,57 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
             guard let fullname = displayLabel.text else{
                 return
             }
-            APIClient.shared().updateAccount(username: nil, password: nil, fullname: fullname, phone: nil, email: nil, description: nil)
+            APIClient.shared().updateAccount(username: nil, password: nil, fullname: fullname, phone: nil, email: nil, description: nil) { (success, message) in
+                self.displayLabel.resignFirstResponder()
+                if success{
+                    
+                }else{
+                    self.showMessageDialog(nil, message ?? APIError.Error_Message_Generic)
+                }
+            }
+            //updateAccount(username: nil, password: nil, fullname: fullname, phone: nil, email: nil, description: nil, completi)
             break
         case 2:
+            guard let email = emailLabel.text else{
+                return
+            }
+            APIClient.shared().updateAccount(username: nil, password: nil, fullname: nil, phone: nil, email: email, description: nil) { (success, message) in
+                self.emailLabel.resignFirstResponder()
+
+                if success{
+                    
+                }else{
+                    self.showMessageDialog(nil, message ?? APIError.Error_Message_Generic)
+                }
+            }
             break
         case 3:
+            guard let phone = phoneLabel.text else{
+                return
+            }
+            APIClient.shared().updateAccount(username: nil, password: nil, fullname: nil, phone: phone, email: nil, description: nil) { (success, message) in
+                self.phoneLabel.resignFirstResponder()
+
+                if success{
+                    
+                }else{
+                    self.showMessageDialog(nil, message ?? APIError.Error_Message_Generic)
+                }
+            }
             break
         case 4:
+            guard let password = passwordLabel.text else{
+                return
+            }
+            APIClient.shared().updateAccount(username: nil, password: password, fullname: nil, phone: nil, email: nil, description: nil) { (success, message) in
+                self.passwordLabel.resignFirstResponder()
+
+                if success{
+                    
+                }else{
+                    self.showMessageDialog(nil, message ?? APIError.Error_Message_Generic)
+                }
+            }
             break
         default:
             break
@@ -340,4 +409,39 @@ extension ProfileViewController: UITextFieldDelegate{
         let tag = textField.tag
         return tag == curFieldIndex
     }
+}
+extension ProfileViewController : UITextViewDelegate{
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+      
+        
+//        if([text isEqualToString:@"\n"]){
+//            [textView resignFirstResponder];
+//            return NO;
+//        }else{
+//            return YES;
+//        }
+        if text == "\n" {
+            descriptionTextField.resignFirstResponder()
+            return false
+        }else{
+            let newText = (textView.text as NSString).replacingCharacters(in: range, with: text)
+            return newText.count <= 200
+        }
+    }
+    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+        guard let description = descriptionTextField.text else{
+            return false
+        }
+        showLoadingView()
+        APIClient.shared().updateAccount(username: nil, password: nil, fullname: nil, phone: nil, email: nil, description: description) {[unowned self] (success, message) in
+            self.hideLoadingView()
+            if success{
+                
+            }else{
+                self.showMessageDialog(nil, message ?? APIError.Error_Message_Generic)
+            }
+        }
+        return true
+    }
+  
 }

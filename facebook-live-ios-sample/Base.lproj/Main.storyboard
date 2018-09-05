@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Jne-xT-kkV">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14306.4" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Jne-xT-kkV">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14278.2"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -960,7 +956,7 @@
                                                 </constraints>
                                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </string>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
                                                 <variation key="default">
                                                     <mask key="constraints">
                                                         <exclude reference="Rgr-vh-J1x"/>
@@ -1203,8 +1199,8 @@
                     <connections>
                         <outlet property="addLiveStreamButton" destination="Ggl-2e-3ZB" id="nl7-RL-UCc"/>
                         <outlet property="avatarImageView" destination="MMi-NM-lYo" id="gHV-g9-qdY"/>
-                        <outlet property="bioTextView" destination="BX9-PH-ZXk" id="5eu-kI-QhH"/>
                         <outlet property="changeAvatarButton" destination="EV6-ct-gJb" id="Uro-n2-naj"/>
+                        <outlet property="descriptionTextField" destination="BX9-PH-ZXk" id="Xt8-Zj-yzE"/>
                         <outlet property="displayLabel" destination="2Ds-n6-iYX" id="TBa-Dd-dxi"/>
                         <outlet property="displayNameTitleLabel" destination="Mom-05-GyB" id="FNr-ts-Or3"/>
                         <outlet property="emailLabel" destination="ptX-KP-tia" id="Mmc-ct-hqE"/>
