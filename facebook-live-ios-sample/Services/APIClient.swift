@@ -227,7 +227,41 @@ class APIClient {
         
         }
     }
-    
+    func hasStream(completion:@escaping (_ success:Bool,_ message:String?,_ id_room:String?)->Void){
+        Alamofire.request(StreamEmdpoint.hasStreaming()).responseJSON{response in
+            guard response.result.isSuccess,
+                let value = response.result.value else {
+                    print("Error while fetching tags: \(String(describing: response.result.error))")
+                    completion(false,String(describing: response.result.error),nil)
+                    return
+            }
+            
+            // 3
+            let jsonResponse = JSON(value)
+            print("hasStream \(jsonResponse.dictionaryValue)")
+            if let error = jsonResponse["error"].dictionaryObject{
+                print("error \(error)")
+                let errorCode = error["code"]
+                let explain = error["explain"] as? String
+//                completion(false,explain,nil)
+                completion(false,explain,nil)
+
+            }else{
+//                {"id_room": "tuzdin", "status": 0, "message": "You are having streaming"}
+                let status = jsonResponse["status"].boolValue
+                if status{
+                    let message = jsonResponse["message"].stringValue
+                    completion(true,message,nil)
+
+                }else{
+                    let message = jsonResponse["message"].stringValue
+                    let id_room = jsonResponse["id_room"].stringValue
+                    completion(false,message,id_room)
+
+                }
+            }
+        }
+    }
     func getFacebookTargets(id_social:String,completion:@escaping (_ success:Bool,_ message:String?,_ targets:[SocialTarget]?)->Void){
         Alamofire.request(FacebookEndpoint.target(id_social:id_social)).responseJSON{response in
             guard response.result.isSuccess,
@@ -371,6 +405,34 @@ class APIClient {
             let jsonResponse = JSON(value)
             print("startLive \(jsonResponse.dictionaryValue)")
 
+        }
+    }
+    
+    func endLive(id_room:String,completion:@escaping (_ success:Bool,_ message:String?)->Void){
+        Alamofire.request(StreamEmdpoint.endLive(id_room: id_room)).responseJSON{response in
+            guard response.result.isSuccess,
+                let value = response.result.value else {
+                    print("Error while fetching tags: \(String(describing: response.result.error))")
+                    completion(false,String(describing: response.result.error))
+                    return
+            }
+            
+            // 3
+            let jsonResponse = JSON(value)
+            print("endLive \(jsonResponse.dictionaryValue)")
+            if let error = jsonResponse["error"].dictionaryObject{
+                print("error \(error)")
+                let errorCode = error["code"] as? Int
+                let code = errorCode ?? 0
+                let explain = error["explain"] as? String
+                completion(false,explain ?? APIError.Error_Message_Generic)
+
+            }else{
+                let status = jsonResponse["status"].boolValue
+                let message = jsonResponse["message"].string
+                completion(status,message ?? APIError.Error_Message_Generic)
+
+            }
         }
     }
     func getComments(id_strem:String,completion:@escaping (_ success:Bool,_ comments:[FacebookComment])->Void){

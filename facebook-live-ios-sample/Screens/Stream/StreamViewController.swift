@@ -33,7 +33,6 @@ class StreamViewController: BaseViewController, UITableViewDelegate, UITableView
     var streamUrls:[StreamInfo] = []
     var openLogin:Bool = false
     var pickerType:PickType = .account
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -72,7 +71,14 @@ class StreamViewController: BaseViewController, UITableViewDelegate, UITableView
             openLogin = true
             openLoginScreen()
         }
+        APIClient.shared().hasStream {[unowned self] (success, message, id_room) in
+            print("hasStream : \(success)")
 
+            if success{
+            }else{
+
+            }
+        }
     }
     override var prefersStatusBarHidden: Bool{
         return false
@@ -163,10 +169,19 @@ class StreamViewController: BaseViewController, UITableViewDelegate, UITableView
         
         self.present(vc, animated: true, completion: nil)
     }
-    func openHasStreamView(){
+    func openHasStreamView(id_social:String,id_target:String){
         let vc = HasStreamPopupView(nibName: "HasStreamPopupView", bundle: nil)
+        vc.id_social = id_social
+        vc.id_target = id_target
         vc.modalPresentationStyle = .overFullScreen
-        
+        vc.didCreateLive = {info in
+            if let _info = info{
+                _info.id_social = self.selectedAccount?.userId
+                _info.id_target = self.selectedPages?.id
+                self.streamUrls.append(_info)
+                self.tableView.reloadData()
+            }
+        }
         self.present(vc, animated: true, completion: nil)
     }
 
@@ -205,7 +220,7 @@ class StreamViewController: BaseViewController, UITableViewDelegate, UITableView
 
             }else{
                 if let _code = code, _code == APIError.Error_ExistStream{
-                    self.openHasStreamView()
+                    self.openHasStreamView(id_social: account.userId, id_target: target.id)
                 }
             }
 

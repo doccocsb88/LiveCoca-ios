@@ -16,18 +16,31 @@ class HasStreamPopupView: UIViewController {
     
     @IBOutlet weak var gotoBackgroundView: UIImageView!
     @IBOutlet weak var gotoCurrentRoomButton: UIButton!
-    
+    var id_room:String?
+    var id_social:String?
+    var id_target:String?
+    var streamDescription: String?
+    var didCreateLive:(StreamInfo?) ->() = {info in}
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
         // Do any additional setup after loading the view.
+       
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        APIClient.shared().hasStream { (success, message, id_room) in
+            if let _ = id_room{
+                self.id_room = id_room!
+            }
+        }
+    }
     func setupUI(){
         cancelAndCreateLiveButton.addBorder(cornerRadius: 15, color: .clear)
         gotoBackgroundView.addBorder(cornerRadius: 15, color: .clear)
@@ -43,6 +56,27 @@ class HasStreamPopupView: UIViewController {
     }
     */
     @IBAction func tappedCreateNewButton(_ sender: Any) {
+        guard let id_room = self.id_room else{
+            return
+        }
+        guard let id_social = self.id_social else{
+            return
+        }
+        guard let id_target = self.id_target else {
+            return
+        }
+        APIClient.shared().endLive(id_room: id_room) { (success, message) in
+            if success{
+                APIClient.shared().createLive(id_social: id_social, id_target: id_target, caption: self.streamDescription ?? "Coca Live") {[unowned self]  (success,code , message, info) in
+                    if success{
+                        self.didCreateLive(info)
+                    }
+                    
+                }
+            }else{
+                
+            }
+        }
         
     }
     @IBAction func tappedGotoButton(_ sender: Any) {

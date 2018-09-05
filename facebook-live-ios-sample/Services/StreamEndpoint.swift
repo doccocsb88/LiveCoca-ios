@@ -38,7 +38,7 @@ enum StreamEmdpoint: URLRequestConvertible {
         case .hasStreaming:
             let url =  "/livestream/has_streaming?app=ios"
             let checksum = APIUtils.checksum(request_url: url, raw_data: JSON(parameters ?? [:]).stringValue)
-            return String(format: "%@&checksum=%@", url,checksum)
+            return String(format: "%@&checksum=%@&token=%@", url,checksum,APIClient.shared().token ?? "")
 
         case .statusStream(let id_room):
             let url =  "/livestream/status?app=ios"
@@ -67,7 +67,7 @@ enum StreamEmdpoint: URLRequestConvertible {
             params[K.APIParameterKey.id_room] = id_room
             return params
         case .hasStreaming:
-            return params
+            return nil
         case .statusStream:
             return params
         }
