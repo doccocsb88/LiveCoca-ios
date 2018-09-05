@@ -10,7 +10,7 @@ import Foundation
 import SwiftyJSON
 import Alamofire
 enum StreamEmdpoint: URLRequestConvertible {
-    case createLive(rtmps:StreamInfo,width:Int,height:Int, id_Category:String,time_countdown:Int)
+    case createLive(rtmps:StreamInfo,width:Int,height:Int, id_category:String,time_countdown:Int)
     case endLive(id_room:String)
     case hasStreaming()
     case statusStream(id_room:String)
@@ -50,14 +50,14 @@ enum StreamEmdpoint: URLRequestConvertible {
     var parameters: Parameters? {
         var params:[String:Any] = [:]
         switch self {
-        case .createLive(let rtmps, let width, let height, let id_Category, let time_countdown):
+        case .createLive(let rtmps, let width, let height, let id_category, let time_countdown):
             params[K.APIParameterKey.token] = APIClient.shared().token ?? ""
-            var info:[JSON] = []
-            info.append(JSON(rtmps.toJSONStrinng()))
-            params[K.APIParameterKey.rtmps] = [rtmps.toJSONStrinng()]
+//            var info:[JSON] = []
+//            info.append(JSON(rtmp.toJSON()))
+            params[K.APIParameterKey.rtmps] = [rtmps.toJSON()]
             params[K.APIParameterKey.width] = width
             params[K.APIParameterKey.height] = height
-            params[K.APIParameterKey.id_category] = id_Category
+            params[K.APIParameterKey.id_category] = id_category
             params[K.APIParameterKey.time_countdown] = time_countdown
             params[K.APIParameterKey.language] = "vi"
             print("createLive\(params)")

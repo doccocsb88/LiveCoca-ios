@@ -1,32 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14306.4" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14278.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="371" id="KGk-i7-Jjw" customClass="CatchWordViewCell" customModule="facebook_live_ios_sample" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="340"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="407" id="KGk-i7-Jjw" customClass="CatchWordViewCell" customModule="facebook_live_ios_sample" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="376"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="339.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="375.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Khung" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Mz-Qv-5nn">
-                        <rect key="frame" x="10" y="10" width="300" height="14"/>
+                        <rect key="frame" x="10" y="31" width="300" height="14"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Z1B-0j-ibF">
-                        <rect key="frame" x="89" y="29" width="142" height="80"/>
+                        <rect key="frame" x="89" y="50" width="142" height="80"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="Z1B-0j-ibF" secondAttribute="height" multiplier="16:9" id="dhE-1H-91D"/>
@@ -40,20 +42,20 @@
                         </variation>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oLN-8H-Sa5">
-                        <rect key="frame" x="149.5" y="58" width="21" height="22"/>
+                        <rect key="frame" x="149.5" y="79" width="21" height="22"/>
                         <state key="normal" image="ic_add_image"/>
                         <connections>
                             <action selector="tappedAddFrameButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="wIu-aE-Mdf"/>
                         </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Câu hỏi" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Jt-nI-UDP">
-                        <rect key="frame" x="10" y="119" width="300" height="14"/>
+                        <rect key="frame" x="10" y="140" width="300" height="14"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Nhập câu hỏi" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dNF-VV-Bam">
-                        <rect key="frame" x="10" y="223" width="300" height="30"/>
+                        <rect key="frame" x="10" y="244" width="300" height="30"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="30" id="RQk-57-Lej"/>
                         </constraints>
@@ -62,7 +64,7 @@
                         <textInputTraits key="textInputTraits"/>
                     </textField>
                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Nhập câu trả lời" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kG1-i3-smZ">
-                        <rect key="frame" x="10" y="258" width="300" height="30"/>
+                        <rect key="frame" x="10" y="279" width="300" height="30"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="30" id="k2P-wy-f3M"/>
                         </constraints>
@@ -71,7 +73,7 @@
                         <textInputTraits key="textInputTraits"/>
                     </textField>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8QZ-C9-WD0">
-                        <rect key="frame" x="120" y="299.5" width="80" height="30"/>
+                        <rect key="frame" x="120" y="335.5" width="80" height="30"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="80" id="TRY-Dg-ZDn"/>
                             <constraint firstAttribute="height" constant="30" id="Tc4-SV-KSS"/>
@@ -83,7 +85,7 @@
                         </connections>
                     </button>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1X2-zV-qEa">
-                        <rect key="frame" x="89" y="138" width="142" height="80"/>
+                        <rect key="frame" x="89" y="159" width="142" height="80"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="80" id="Bsg-LX-S8Z"/>
@@ -91,25 +93,36 @@
                         </constraints>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DCg-kG-ge3">
-                        <rect key="frame" x="149.5" y="167" width="21" height="22"/>
+                        <rect key="frame" x="149.5" y="188" width="21" height="22"/>
                         <state key="normal" image="ic_add_image"/>
                         <connections>
                             <action selector="tappedQuestionImageButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="TaJ-AH-z6p"/>
                         </connections>
                     </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GU5-wY-gyU">
+                        <rect key="frame" x="10" y="5" width="300" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="ayn-Ra-dh8"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="13"/>
+                        <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="1Mz-Qv-5nn" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="1Ey-hT-fvH"/>
                     <constraint firstItem="Z1B-0j-ibF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="1V0-gD-LIH"/>
                     <constraint firstAttribute="trailing" secondItem="1Mz-Qv-5nn" secondAttribute="trailing" constant="10" id="4kg-K0-31N"/>
                     <constraint firstItem="Z1B-0j-ibF" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="6S9-sD-gv3"/>
+                    <constraint firstItem="GU5-wY-gyU" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="6Vf-hZ-ept"/>
                     <constraint firstItem="1X2-zV-qEa" firstAttribute="top" secondItem="0Jt-nI-UDP" secondAttribute="bottom" constant="5" id="83r-RL-Lye"/>
                     <constraint firstItem="DCg-kG-ge3" firstAttribute="centerY" secondItem="1X2-zV-qEa" secondAttribute="centerY" id="86b-an-ctn"/>
-                    <constraint firstItem="8QZ-C9-WD0" firstAttribute="top" secondItem="kG1-i3-smZ" secondAttribute="bottom" constant="11.5" id="86d-6n-acF"/>
+                    <constraint firstItem="8QZ-C9-WD0" firstAttribute="top" relation="greaterThanOrEqual" secondItem="kG1-i3-smZ" secondAttribute="bottom" constant="11.5" id="86d-6n-acF"/>
                     <constraint firstItem="oLN-8H-Sa5" firstAttribute="centerX" secondItem="Z1B-0j-ibF" secondAttribute="centerX" id="Am6-HY-fwd"/>
                     <constraint firstItem="dNF-VV-Bam" firstAttribute="top" secondItem="1X2-zV-qEa" secondAttribute="bottom" constant="5" id="EEn-E3-qo1"/>
                     <constraint firstItem="kG1-i3-smZ" firstAttribute="top" secondItem="dNF-VV-Bam" secondAttribute="bottom" constant="5" id="Eu3-2L-YnI"/>
-                    <constraint firstItem="1Mz-Qv-5nn" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="Fdw-Hf-183"/>
+                    <constraint firstItem="GU5-wY-gyU" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="HbN-3a-ho3"/>
+                    <constraint firstAttribute="trailing" secondItem="GU5-wY-gyU" secondAttribute="trailing" constant="10" id="IeU-H6-8aR"/>
                     <constraint firstItem="dNF-VV-Bam" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="JAA-Zx-UeG"/>
                     <constraint firstItem="DCg-kG-ge3" firstAttribute="centerX" secondItem="1X2-zV-qEa" secondAttribute="centerX" id="MEI-rd-7CQ"/>
                     <constraint firstItem="0Jt-nI-UDP" firstAttribute="top" secondItem="Z1B-0j-ibF" secondAttribute="bottom" constant="10" id="NVa-EF-3tb"/>
@@ -124,6 +137,7 @@
                     <constraint firstItem="0Jt-nI-UDP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="kAt-QE-kB3"/>
                     <constraint firstItem="kG1-i3-smZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="pjC-ng-GCH"/>
                     <constraint firstItem="Z1B-0j-ibF" firstAttribute="top" secondItem="1Mz-Qv-5nn" secondAttribute="bottom" constant="5" id="tmn-X3-Vqc"/>
+                    <constraint firstItem="1Mz-Qv-5nn" firstAttribute="top" secondItem="GU5-wY-gyU" secondAttribute="bottom" constant="10" id="uDK-rA-dwX"/>
                     <constraint firstItem="dNF-VV-Bam" firstAttribute="top" secondItem="0Jt-nI-UDP" secondAttribute="bottom" constant="100" id="wB3-pD-ndu"/>
                 </constraints>
                 <variation key="default">
@@ -139,12 +153,13 @@
                 <outlet property="addFrameButton" destination="oLN-8H-Sa5" id="3xW-yJ-jwJ"/>
                 <outlet property="addQuestionImageView" destination="DCg-kG-ge3" id="uWj-bE-g7F"/>
                 <outlet property="answerTextField" destination="kG1-i3-smZ" id="ibo-iE-kLb"/>
+                <outlet property="errorLabel" destination="GU5-wY-gyU" id="sl6-6A-0aM"/>
                 <outlet property="frameImageView" destination="Z1B-0j-ibF" id="10s-aW-8fs"/>
                 <outlet property="questionImageView" destination="1X2-zV-qEa" id="Hcq-LB-AuR"/>
                 <outlet property="questionTextField" destination="dNF-VV-Bam" id="oJ1-Vt-dg9"/>
                 <outlet property="startButton" destination="8QZ-C9-WD0" id="uYz-kb-Ata"/>
             </connections>
-            <point key="canvasLocation" x="101" y="315"/>
+            <point key="canvasLocation" x="101" y="333"/>
         </tableViewCell>
     </objects>
     <resources>

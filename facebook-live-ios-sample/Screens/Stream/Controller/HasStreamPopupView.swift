@@ -59,20 +59,22 @@ class HasStreamPopupView: UIViewController {
         guard let id_room = self.id_room else{
             return
         }
-        guard let id_social = self.id_social else{
-            return
-        }
-        guard let id_target = self.id_target else {
-            return
-        }
-        APIClient.shared().endLive(id_room: id_room) { (success, message) in
+//        guard let id_social = self.id_social else{
+//            return
+//        }
+//        guard let id_target = self.id_target else {
+//            return
+//        }
+        APIClient.shared().endLive(id_room: id_room) {[unowned self] (success, message) in
             if success{
-                APIClient.shared().createLive(id_social: id_social, id_target: id_target, caption: self.streamDescription ?? "Coca Live") {[unowned self]  (success,code , message, info) in
-                    if success{
-                        self.didCreateLive(info)
-                    }
-                    
-                }
+//                APIClient.shared().createLive(id_social: id_social, id_target: id_target, caption: self.streamDescription ?? "Coca Live") {[unowned self]  (success,code , message, info) in
+//                    if success{
+//                        self.didCreateLive(info)
+//                    }
+//
+//                }
+                self.dismiss(animated: true, completion: nil)
+
             }else{
                 
             }

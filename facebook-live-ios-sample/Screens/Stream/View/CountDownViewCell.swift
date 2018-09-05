@@ -10,6 +10,7 @@ import UIKit
 
 class CountDownViewCell: UITableViewCell {
 
+    @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var timerTextfield: UITextField!
     @IBOutlet weak var muteButton: UIButton!
     @IBOutlet weak var cameraButton: UIButton!
@@ -65,13 +66,22 @@ class CountDownViewCell: UITableViewCell {
             muteButton.isSelected = mute
         }
     }
+    
+    func updateCountdownImage(_ image:UIImage){
+        selectImageButton.image = image
+    }
     @IBAction func tappedShowButton(_ sender: Any) {
         guard let timer = timerTextfield.text, timer.isValidTimer() else{
+            errorLabel.text = "Chưa nhập thời gian bắt đầu stream"
+            timerTextfield.becomeFirstResponder()
             return
         }
+        timerTextfield.resignFirstResponder()
+        errorLabel.text = nil
+        
         config["countdown"] = timer
         config["camera"] = nil
-        
+        config["image"] = selectImageButton.image
         WarterMarkServices.shared().configCountDown(config:config)
         completeHandle(true)
 

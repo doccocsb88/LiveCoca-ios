@@ -47,8 +47,6 @@ class WarterMarkServices{
         if isCountdown(){
             if countdownView == nil{
                 countdownView = CountdownMaskView(frame: self.frame, scale: scale)
-            }else{
-                countdownView?.removeFromSuperview()
             }
             countdownView?.updateView()
             watermarkView.addSubview(countdownView!)
@@ -71,15 +69,15 @@ class WarterMarkServices{
             }
         }
         if let questionConfig = params["question"] as? [String:Any], questionConfig.keys.count > 0{
-            let questionView: QuestionMaskView = QuestionMaskView()
+            let questionView  = QuestionMaskView(frame: self.frame, scale: scale, config:questionConfig)
             
-            questionView.frame = self.frame
             questionView.bindData(config: questionConfig)
             watermarkView.addSubview(questionView)
         }
         if let catchword = params["catchword"] as? [String: Any], catchword.keys.count > 0{
-            let height = 250 * scale
-            let catchwordView = CatchWordMaskView(frame: CGRect(x: 0, y: self.frame.size.height - height - bottomMargin, width: self.frame.size.width, height: height))
+            let width = self.frame.width
+            let height = width * 9 / 16 + 100 * scale
+            let catchwordView = CatchWordMaskView(frame: CGRect(x: 0, y: self.frame.size.height - height - bottomMargin, width: width, height: height),scale:scale)
             watermarkView.addSubview(catchwordView)
         }
         
@@ -92,15 +90,19 @@ class WarterMarkServices{
             
         }
         if let pinComment = params["pin"] as? [String:Any],pinComment.keys.count > 0,let comment =  pinComment["comment"] as? FacebookComment{
-            
+            if  let view = pinCommentView{
+                view.removeFromSuperview()
+                
+            }
+
             let font = pinComment["font"] as? CGFloat
             let labelHeight = comment.message .heightWithConstrainedWidth(width: self.frame.size.width - 60, font: UIFont.systemFont(ofSize: font ?? 20))
                 
             let height:CGFloat = (30 + labelHeight ) * scale
-            let width = self.frame.size.width
+            let width = self.frame.size.width - 40 * scale
             let top = self.frame.size.height - height - 50 * scale
             
-            let frame =  CGRect(x: 0, y: top , width: width, height: height)
+            let frame =  CGRect(x: 10 * scale, y: top , width: width, height: height)
             if pinCommentView == nil{
                 pinCommentView = CommentMaskView(frame:frame,scale: scale)
             }
@@ -133,9 +135,11 @@ class WarterMarkServices{
         
         if let countComment = params[ConfigKey.countComment.rawValue] as? [String:Any], countComment.keys.count > 0{
             let frame = CGRect(x: 0, y: self.frame.height / 2 - 50 * scale, width: self.frame.width, height: self.frame.height / 2)
-            countCommentView =  CountCommentMaskView(frame: frame, scale: self.scale)
+            if countCommentView == nil{
+                countCommentView =  CountCommentMaskView(frame: frame, scale: self.scale)
+            }
             countCommentView?.backgroundColor = .clear
-            //                countCommentView?.transform = CGAffineTransform(scaleX: scale, y: scale)
+            countCommentView?.updateData()
             watermarkView.addSubview(countCommentView!)
 
         }else{
@@ -270,6 +274,18 @@ class WarterMarkServices{
         }
         return false
     }
+    func hasPinCommentView() ->Bool{
+        if let pinComment = params["pin"] as? [String:Any],pinComment.keys.count > 0,let _ =  pinComment["comment"] as? FacebookComment{
+            return true
+        }
+        return false
+    }
+    func hasCountCommentView() ->Bool{
+        if let countComment = params[ConfigKey.countComment.rawValue] as? [String:Any], countComment.keys.count > 0{
+            return true
+        }
+        return false
+    }
     func isCountdown() ->Bool{
         if let config = params[ConfigKey.countdown.rawValue] as? [String:Any], let countdown = config["countdown"] as? String{
             let info = countdown.components(separatedBy: ":")
@@ -290,5 +306,18 @@ class WarterMarkServices{
             }
         }
         return false
+    }
+    func resetConfig(){
+        params = [:]
+        randomView?.removeFromSuperview()
+        randomView = nil
+        
+        countCommentView = nil
+        countCommentView?.removeFromSuperview()
+        countdownView = nil
+        countdownView?.removeFromSuperview()
+        pinCommentView = nil
+        pinCommentView?.removeFromSuperview()
+
     }
 }

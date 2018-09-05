@@ -18,6 +18,7 @@ class CatchWordViewCell: UITableViewCell {
     @IBOutlet weak var questionImageView: UIImageView!
     
     @IBOutlet weak var addQuestionImageView: UIButton!
+    @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var questionTextField: UITextField!
     @IBOutlet weak var answerTextField: UITextField!
     @IBOutlet weak var startButton: UIButton!
@@ -41,6 +42,7 @@ class CatchWordViewCell: UITableViewCell {
         questionTextField.addBorder(cornerRadius: 4, color: UIColor.lightGray)
         answerTextField.addBorder(cornerRadius: 4, color: UIColor.lightGray)
         //
+        errorLabel.text = nil
        
     }
     func updateImages(frame:UIImage?, questionImage:UIImage?){
@@ -61,14 +63,21 @@ class CatchWordViewCell: UITableViewCell {
             config["frame"] = frame
         }
         guard let image = questionImage else{
+            errorLabel.text = "Chưa chọn hình"
+
             return
         }
-        guard let question = questionTextField.text else{
+        guard let question = questionTextField.text, question.count > 0 else{
+            questionTextField.becomeFirstResponder()
+            errorLabel.text = "Chưa nhập câu hỏi"
             return
         }
-        guard let answer = questionTextField.text else{
+        guard let answer = answerTextField.text else{
             return
         }
+        errorLabel.textColor = nil
+        questionTextField.resignFirstResponder()
+        answerTextField.resignFirstResponder()
         config["image"] = image
         config["question"] = question
         config["answer"] = answer

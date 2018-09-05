@@ -49,7 +49,7 @@ class FilterCommentViewCell: UITableViewCell {
     @IBAction func tappedRandomButton(_ sender: Any) {
     }
     @IBAction func tappedFilterButton(_ sender: Any) {
-        guard let message = commentButton.text else {
+        guard let message = commentButton.text , message.count > 0 else {
             commentButton.becomeFirstResponder()
             errorLabel.text = "Chưa nhập nội dung bình luận"
             errorIndex = 0

@@ -41,6 +41,15 @@ class APIClient {
             }
         }
     }
+    func countComment(message:String) -> Int{
+        var count = 0
+        for comment in comments{
+            if message == comment.message{
+                count += 1
+            }
+        }
+        return count
+    }
     func login(username: String, password: String, completion:@escaping (_ result:Bool,_ message:String)->Void) {
         Alamofire.request(APIRouter.login(username: username, password: password)).responseJSON {[weak self] response in
             guard let strongSelf = self else{
@@ -212,7 +221,7 @@ class APIClient {
                     return
             }
             let jsonResponse = JSON(value)
-            print("createLive \(jsonResponse.dictionaryValue)")
+            print("deleteFacebookAccount \(jsonResponse.dictionaryValue)")
             if let error = jsonResponse["error"].dictionaryObject{
                 print("error \(error)")
                 let errorCode = error["code"] as? Int
@@ -395,16 +404,30 @@ class APIClient {
         }
         
     }
-    func startLive(stremInfo:StreamInfo, width:Int, height:Int, id_category:String, time_countdown:Int,completion:@escaping (_ success:Bool,_ message:String?,_ targets:[SocialTarget]?)->Void){
-        Alamofire.request(StreamEmdpoint.createLive(rtmps: stremInfo, width: width, height: height, id_Category: "", time_countdown: 0)).responseJSON{response in
+    func startLive(stremInfo:StreamInfo, width:Int, height:Int, id_category:String, time_countdown:Int,completion:@escaping (_ success:Bool,_ message:String?,_ id_room:String?)->Void){
+        Alamofire.request(StreamEmdpoint.createLive(rtmps: stremInfo, width: width, height: height, id_category: "", time_countdown: 0)).responseJSON{response in
             guard response.result.isSuccess,
                 let value = response.result.value else {
                     print("Error while fetching tags: \(String(describing: response.result.error))")
+                    completion(false,String(describing: response.result.error),nil)
+
                     return
             }
             let jsonResponse = JSON(value)
             print("startLive \(jsonResponse.dictionaryValue)")
+            if let error = jsonResponse["error"].dictionaryObject{
+                print("error \(error)")
+                let errorCode = error["code"] as? Int
+                let code = errorCode ?? 0
+                let explain = error["explain"] as? String
+                completion(false,explain ?? APIError.Error_Message_Generic,nil)
+            }else{
+                let status = jsonResponse["status"].boolValue
+                let message = jsonResponse["message"].string
+                let id_room = jsonResponse["id"].string
+                completion(status,message,id_room)
 
+            }
         }
     }
     

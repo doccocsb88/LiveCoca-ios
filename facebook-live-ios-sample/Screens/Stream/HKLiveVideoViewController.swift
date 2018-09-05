@@ -11,7 +11,7 @@ import UIKit
 //import FBSDKLoginKit
 import LFLiveKit
 //import GPUImage
-class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class HKLiveVideoViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     fileprivate let reuseCountDown = "CountDownViewCell"
     fileprivate let reuseSlogan = "SloganViewCell"
     fileprivate let reuseFrame = "FrameViewCellV2"
@@ -25,6 +25,7 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
     fileprivate let reuseCountComment  = "CountCommentViewCell"
 
     fileprivate let menuTitles:[String] = ["ĐẾM NGƯỢC","SLOGAN","KHUNG","PIN COMMENT","TẠO CÂU HỎI","LỌC BÌNH LUẬN","HIỂN THỊ VIDEO","ĐUỔI HÌNH BẮT CHỮ","SỐ NGẪU NHIÊN","THỐNG KÊ COMMENT"]
+    fileprivate let videoSize = CGSize(width: 720, height: 1280)
     var blurOverlay: UIVisualEffectView!
 
     var sessionURL: NSURL!
@@ -35,7 +36,7 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
 //    var liveVideo: FBSDKLiveVideo!
     var timer = Timer()
     var startX : CGFloat = 0.0
-    
+    var getCommentsTimer:Timer?
     @IBOutlet weak var commentContainerView: UIView!
     var commentView:StreamCommentView?
     let commentViewHeight:CGFloat = 300
@@ -61,6 +62,8 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var commentViewHeightConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var menuBottomConstraint: NSLayoutConstraint!
+    
+    var id_stream:String?
     @IBAction func recordButtonTapped() {
     }
     
@@ -92,7 +95,9 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
 //    var backgroundMovie:GPUImageMovie?
     
     var randomView:RandomMaskView?
+    var pinCommentView:CommentMaskView?
     var updateTimer:Timer?
+    var firstTime:Bool = true
     override func viewDidLoad() {
         super.viewDidLoad()
 //          1920x1080
@@ -129,6 +134,7 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
         commentContainerView.addSubview(commentView!)
         commentContainerView.bringSubview(toFront: self.chatContainerView)
         commentView?.didPinComment = {[unowned self] in
+            self.addStreamControlView()
             self.updateWatermarkView(nil)
         }
         //
@@ -160,10 +166,22 @@ class HKLiveVideoViewController: UIViewController, UITableViewDelegate, UITableV
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        APIClient.shared().startLive(stremInfo: self.streamUrls[0], width: 720, height: 1280, id_category: "", time_countdown: 0) { (success, message, targets) in
-//
-//        }
-                startLive()
+        if firstTime {
+            firstTime = false
+            APIClient.shared().startLive(stremInfo: self.streamUrls[0], width: 720, height: 1280, id_category: "", time_countdown: 0) {[unowned self] (success, message, id_room) in
+                if success{
+                    guard let _ = id_room else {
+                        return
+                    }
+                    self.startLive()
+                    
+                }else{
+                    self.showMessageDialog(nil, message ?? APIError.Error_Message_Generic)
+                }
+                
+            }
+
+        }
 
         
 //        let height:CGFloat = 300
@@ -388,6 +406,10 @@ extension HKLiveVideoViewController{
 
                 self.openPhotoLibrary()
             }
+            if let image = self.selectedImage[self.selectPhotoKey] as? UIImage{
+                cell.updateCountdownImage(image)
+
+            }
             cell.selectionStyle = .none
             return cell
         case 1:
@@ -408,6 +430,7 @@ extension HKLiveVideoViewController{
             let cell = tableView.dequeueReusableCell(withIdentifier:reusePin, for: indexPath) as! PinCommentViewCell
             cell.selectionStyle = .none
             cell.completeHandle = {[unowned self] in
+                self.addStreamControlView()
                 self.updateWatermarkView(nil)
             }
             return cell
@@ -553,7 +576,7 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
     }
     func stopLive(){
         session.stopLive()
-
+        
     }
     //MARK: - Callbacks
     
@@ -576,11 +599,16 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
         case LFLiveState.pending:
             break;
         case LFLiveState.start:
-            Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(fetchStreamComments), userInfo: nil, repeats: true)
+            getCommentsTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(fetchStreamComments), userInfo: nil, repeats: true)
             break;
         case LFLiveState.error:
+            removeTimer()
+
             break;
         case LFLiveState.stop:
+            removeTimer()
+            WarterMarkServices.shared().resetConfig()
+            removeStreamControlView()
             break;
         default:
             break;
@@ -644,17 +672,77 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
                 randomView = nil
             }
         }
+
         }
         let wartermarkFrame  = CGRect(x: 0, y: 0, width: 720, height: 1280 )
         WarterMarkServices.shared().setFrame(frame: wartermarkFrame)
         let view  = randomView?.copyView()  as? RandomMaskView
-        let scale = 720 / UIScreen.main.bounds.width
+        let scale = videoSize.width / UIScreen.main.bounds.width
         view?.transform = CGAffineTransform(scaleX: scale, y: scale)
         WarterMarkServices.shared().randomView = view
         view?.stopRandom()
         let waterMarkView = WarterMarkServices.shared().generateWarterMark()
         session.warterMarkView = waterMarkView
 
+    }
+    private func addStreamControlView(){
+        if let pinComment = WarterMarkServices.shared().params["pin"] as? [String:Any],pinComment.keys.count > 0,let comment =  pinComment["comment"] as? FacebookComment{
+            if let _ = pinCommentView {
+                pinCommentView?.updateContent()
+                pinCommentView?.showCloseButton()
+            }else{
+                
+                let font = pinComment["font"] as? CGFloat
+                let labelHeight = comment.message .heightWithConstrainedWidth(width: videoSize.width - 60, font: UIFont.systemFont(ofSize: font ?? 20))
+                
+                let height:CGFloat = (30 + labelHeight )
+                let width:CGFloat = self.view.bounds.width - 40
+                let top:CGFloat = self.view.bounds.height - height - 50
+                
+                let frame =  CGRect(x: 10 , y: top , width: width, height: height)
+                pinCommentView = CommentMaskView(frame:frame,scale: 1)
+                
+                pinCommentView?.updateContent()
+                pinCommentView?.showCloseButton()
+                
+                pinCommentView?.frame = frame
+                pinCommentView?.tappedCloseHandle = {
+                    WarterMarkServices.shared().removePinComment()
+                    self.pinCommentView?.removeFromSuperview()
+                    self.updateWatermarkView(nil)
+                }
+                self.view.addSubview(pinCommentView!)
+            }
+            let view  = pinCommentView?.copyView()  as? CommentMaskView
+            let scale = videoSize.width / UIScreen.main.bounds.width
+            view?.transform = CGAffineTransform(scaleX: scale, y: scale)
+            view?.hideCloseButton()
+            WarterMarkServices.shared().pinCommentView = view
+            
+        }else{
+            if let view = pinCommentView{
+                view.removeFromSuperview()
+                pinCommentView = nil
+            }
+            
+        }
+
+    }
+    private func removeStreamControlView(){
+        pinCommentView?.removeFromSuperview()
+        pinCommentView = nil
+        randomView?.removeFromSuperview()
+        randomView = nil
+    }
+    private func removeTimer(){
+        if let _ = updateTimer{
+            updateTimer?.invalidate()
+            updateTimer = nil
+        }
+        if let _ = getCommentsTimer{
+            updateTimer?.invalidate()
+            updateTimer = nil
+        }
     }
     @objc func didTappedBeautyButton(_ button: UIButton) -> Void {
         session.beautyFace = !session.beautyFace;
@@ -683,7 +771,7 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
             view.reloadData(data: dummyComments)
             APIClient.shared().comments = dummyComments
             
-            if WarterMarkServices.shared().hasFilterCommentView(){
+            if WarterMarkServices.shared().hasFilterCommentView() || WarterMarkServices.shared().hasCountCommentView(){
                 self.updateWatermarkView(nil)
             }
         }

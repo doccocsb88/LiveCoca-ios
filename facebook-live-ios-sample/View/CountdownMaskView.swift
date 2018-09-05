@@ -46,11 +46,15 @@ class CountdownMaskView: UIView {
     }
     
     func initView(){
+        var image = UIImage(named: "bg_countdown")
         if let config = WarterMarkServices.shared().params[ConfigKey.countdown.rawValue] as? [String:Any]{
             if let countdown = config["countdown"] as? String{
                 let info = countdown.components(separatedBy: ":")
                 configHour = Int(info[0]) ?? 0
                 configMins = Int(info[1]) ?? 0
+            }
+            if let _image = config["image"] as? UIImage{
+                image = _image
             }
         }
         
@@ -65,7 +69,7 @@ class CountdownMaskView: UIView {
         let totalSecs = delHour * 60 * 60 + delMins * 60 + delSecs
         
         backgroundImageView = UIImageView(frame: self.bounds)
-        backgroundImageView?.image = UIImage(named: "bg_countdown")
+        backgroundImageView?.image = image
         backgroundImageView?.contentMode = .scaleToFill
         self.addSubview(backgroundImageView!)
         //

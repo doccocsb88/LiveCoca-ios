@@ -19,10 +19,10 @@ enum APIRouter: URLRequestConvertible {
     case getListAccounts()
     case deleteAccounts(id_account:String)
     //
-    case createLive()
-    case endLive()
-    case hasStreaming(id_room:String)
-    case getStatusStream()
+//    case createLive()
+//    case endLive()
+//    case hasStreaming(id_room:String)
+//    case getStatusStream()
 
     
     // MARK: - HTTPMethod
@@ -31,8 +31,6 @@ enum APIRouter: URLRequestConvertible {
         case .login, .register, .update, .logout, .deleteAccounts:
             return .post
         case .getUser, .getListAccounts:
-            return .get
-        default:
             return .get
         }
     }
@@ -72,8 +70,6 @@ enum APIRouter: URLRequestConvertible {
             let checksum = APIUtils.checksum(request_url: url, raw_data: JSON(parameters ?? [:]).stringValue)
             return String(format: "%@&checksum=%@", url,checksum)
 
-        default:
-            return ""
             
         }
     }
