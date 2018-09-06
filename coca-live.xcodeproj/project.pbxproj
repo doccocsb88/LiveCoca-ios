@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E19119E2141513B0020ACF4 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E19119C2141513B0020ACF4 /* SignUpViewController.swift */; };
+		0E19119F2141513B0020ACF4 /* SignUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E19119D2141513B0020ACF4 /* SignUpViewController.xib */; };
 		0E4B69702131B00E0052A0C7 /* APIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B696F2131B00E0052A0C7 /* APIRouter.swift */; };
 		0E4B69722131B0620052A0C7 /* APIConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B69712131B0620052A0C7 /* APIConfiguration.swift */; };
 		0E4B69742131B08D0052A0C7 /* FacebookEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B69732131B08C0052A0C7 /* FacebookEndpoint.swift */; };
@@ -110,6 +112,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0E19119C2141513B0020ACF4 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SignUpViewController.swift; path = Login/SignUpViewController.swift; sourceTree = "<group>"; };
+		0E19119D2141513B0020ACF4 /* SignUpViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SignUpViewController.xib; path = Login/SignUpViewController.xib; sourceTree = "<group>"; };
 		0E4B696F2131B00E0052A0C7 /* APIRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = APIRouter.swift; path = Services/Route/APIRouter.swift; sourceTree = "<group>"; };
 		0E4B69712131B0620052A0C7 /* APIConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = APIConfiguration.swift; path = Services/APIConfiguration.swift; sourceTree = "<group>"; };
 		0E4B69732131B08C0052A0C7 /* FacebookEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FacebookEndpoint.swift; path = Services/FacebookEndpoint.swift; sourceTree = "<group>"; };
@@ -266,6 +270,8 @@
 			children = (
 				182C799C21173F55008D65CB /* LoginViewController.swift */,
 				182C799D21173F55008D65CB /* LoginViewController.xib */,
+				0E19119C2141513B0020ACF4 /* SignUpViewController.swift */,
+				0E19119D2141513B0020ACF4 /* SignUpViewController.xib */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -630,6 +636,7 @@
 				EC53B2C7210B09E2000A3866 /* UrlStreamViewCell.xib in Resources */,
 				DB9C40781E70527D00CCBD83 /* LaunchScreen.storyboard in Resources */,
 				ECA2666A2141130C00EF0D47 /* soda_loader.json in Resources */,
+				0E19119F2141513B0020ACF4 /* SignUpViewController.xib in Resources */,
 				EC752C22210F1944004A69C4 /* AddStreamAccountViewController.xib in Resources */,
 				0EC009DB213A314F0030BB29 /* HasStreamPopupView.xib in Resources */,
 				DB9C40751E70527D00CCBD83 /* Assets.xcassets in Resources */,
@@ -736,6 +743,7 @@
 				EC53B2BD210AED22000A3866 /* FrameViewCell.swift in Sources */,
 				0EC3FC63212DBC8600278E61 /* CommentMaskView.swift in Sources */,
 				1854DB2F210D4C9C009DF33D /* BaseInfo.swift in Sources */,
+				0E19119E2141513B0020ACF4 /* SignUpViewController.swift in Sources */,
 				186020462116D33200662714 /* VideoMaskView.swift in Sources */,
 				18DBC7EC2114ADEE00C34D3E /* User.swift in Sources */,
 				1860203A2115C0B300662714 /* StreamInfo.swift in Sources */,

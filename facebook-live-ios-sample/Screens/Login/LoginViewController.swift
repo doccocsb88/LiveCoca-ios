@@ -94,4 +94,10 @@ class LoginViewController:BaseViewController{
             }
         }
     }
+    @IBAction func tappedSignupButton(_ sender: Any) {
+        let signupViewcontroller = SignUpViewController(nibName: "SignUpViewController", bundle: nil)
+        
+        self.present(signupViewcontroller, animated: true, completion: nil)
+
+    }
 }

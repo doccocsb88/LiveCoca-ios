@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.3.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController" customModule="facebook_live_ios_sample" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController" customModule="coca_live" customModuleProvider="target">
             <connections>
                 <outlet property="container" destination="V4S-xg-1YG" id="Voo-Kq-RRg"/>
                 <outlet property="loginButton" destination="L1d-7E-rtz" id="lTA-pX-CTM"/>
@@ -194,19 +194,41 @@
                         <constraint firstItem="oYv-GW-q8w" firstAttribute="leading" secondItem="V4S-xg-1YG" secondAttribute="leading" constant="30" id="n8T-H0-tSN"/>
                     </constraints>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vLR-Qk-bhb">
+                    <rect key="frame" x="97.5" y="557" width="180" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="180" id="7Md-ag-uZA"/>
+                        <constraint firstAttribute="height" constant="30" id="87m-3P-Xww"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                    <state key="normal" title="Đăng kí tài khoản mới"/>
+                    <connections>
+                        <action selector="tappedSignupButton:" destination="-1" eventType="touchUpInside" id="Po8-qr-qWX"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bạn chưa có tài khoản?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="62p-Bq-Zis">
+                    <rect key="frame" x="107" y="539.5" width="161.5" height="17.5"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="62p-Bq-Zis" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="0pf-hT-3jj"/>
+                <constraint firstItem="vLR-Qk-bhb" firstAttribute="top" secondItem="62p-Bq-Zis" secondAttribute="bottom" id="BPx-PE-hMC"/>
                 <constraint firstItem="TXw-WH-SuK" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="HPa-RY-j6q"/>
                 <constraint firstItem="5Od-0G-8x5" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="HbP-7G-sTU"/>
                 <constraint firstItem="TXw-WH-SuK" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="IkO-Rz-EAR"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="TXw-WH-SuK" secondAttribute="trailing" id="IuR-Sm-Ec3"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="V4S-xg-1YG" secondAttribute="trailing" constant="20" id="L7p-oa-A7r"/>
                 <constraint firstItem="5Od-0G-8x5" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="NWf-qt-67G"/>
+                <constraint firstItem="vLR-Qk-bhb" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="R7W-wJ-jHh"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="5Od-0G-8x5" secondAttribute="bottom" id="SjK-xt-If0"/>
                 <constraint firstItem="V4S-xg-1YG" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="SnP-BS-YQi"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="5Od-0G-8x5" secondAttribute="trailing" id="cm9-cQ-efr"/>
                 <constraint firstItem="V4S-xg-1YG" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="80" id="f6C-5h-7tJ"/>
+                <constraint firstItem="TXw-WH-SuK" firstAttribute="top" secondItem="vLR-Qk-bhb" secondAttribute="bottom" constant="40" id="p9R-Ic-3OM"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
         </view>

@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/haivu/Documents/Hai/Source/facebook-live-ios-master/coca-live.xcodeproj">
+      location = "group:coca-live.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">

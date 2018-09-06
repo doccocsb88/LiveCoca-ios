@@ -42,6 +42,7 @@ class BaseViewController: UIViewController {
         loadingAnimation!.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
         loadingAnimation!.center = self.view.center
         loadingAnimation!.isHidden = true
+        loadingAnimation!.loopAnimation = true
         // Add the Animation
         view.addSubview(loadingAnimation!)
 

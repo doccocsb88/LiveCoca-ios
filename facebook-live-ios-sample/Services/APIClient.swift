@@ -51,6 +51,42 @@ class APIClient {
         }
         return count
     }
+    func register(username:String,password:String,fullname:String,email:String,completion:@escaping (_ success:Bool,_ message:String)->Void){
+        Alamofire.request(APIRouter.register(fullname: fullname, username: username, password: password, email: email)).responseJSON {response in
+            guard response.result.isSuccess,
+                let value = response.result.value else {
+                    print("Error while fetching tags: \(String(describing: response.result.error))")
+                    completion(false,String(describing: response.result.error))
+                    return
+            }
+            // 3
+            let jsonResponse = JSON(value)
+            print("register \(jsonResponse)")
+
+            if let error = jsonResponse["error"].dictionaryObject{
+                print("error \(error)")
+                let errorCode = error["code"] as? Int
+                let explain = error["explain"] as? String
+                let errorMessage = APIError.message(code: errorCode ?? 0, message: explain ?? "")
+                completion(false,errorMessage)
+            }else{
+//                "id" : "tuznzb",
+//                "token" : "SPCHU2MW1LA6VPB6F86J19C1W75LW7RT1536241141"
+                let id = jsonResponse["id"].stringValue
+                if let  token = jsonResponse["token"].string{
+                    self.token = token
+                    self.id = id
+                    completion(true,"")
+
+                }else{
+                    completion(false,APIError.Error_Message_Generic)
+
+                }
+                
+            }
+
+        }
+    }
     func login(username: String, password: String, completion:@escaping (_ result:Bool,_ message:String)->Void) {
         Alamofire.request(APIRouter.login(username: username, password: password)).responseJSON {[weak self] response in
             guard let strongSelf = self else{
