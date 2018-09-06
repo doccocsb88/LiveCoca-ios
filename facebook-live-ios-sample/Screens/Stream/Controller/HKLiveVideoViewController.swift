@@ -618,7 +618,7 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
         case LFLiveState.pending:
             break;
         case LFLiveState.start:
-            getCommentsTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(fetchStreamComments), userInfo: nil, repeats: true)
+            getCommentsTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(fetchStreamComments), userInfo: nil, repeats: false)
             break;
         case LFLiveState.error:
             removeTimer()

@@ -23,6 +23,7 @@ class StreamOptionViewCell: UITableViewCell {
     @IBOutlet weak var countDownButton: UIButton!
     var completionHandler:(Int)->() = {_ in }
     var didTapAddAccount:()->() = {}
+    var didCaptionChanged:(String) ->() = {caption in }
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -35,29 +36,34 @@ class StreamOptionViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     func setupUI(){
-        selectStreamAccountButton.layer.cornerRadius = 2.0
-        selectStreamAccountButton.layer.masksToBounds = true
-        selectStreamAccountButton.layer.borderWidth = 1.0
-        selectStreamAccountButton.layer.borderColor = UIColor.lightGray.cgColor
+//        selectStreamAccountButton.layer.cornerRadius = 2.0
+//        selectStreamAccountButton.layer.masksToBounds = true
+//        selectStreamAccountButton.layer.borderWidth = 1.0
+//        selectStreamAccountButton.layer.borderColor = UIColor.lightGray.cgColor
         selectStreamAccountButton.imageView?.contentMode = UIViewContentMode.scaleAspectFit
+        selectStreamAccountButton.addBorder(cornerRadius: 2, color: .lightGray)
         //
-        selectStreamPageButton.layer.cornerRadius = 2.0
-        selectStreamPageButton.layer.masksToBounds = true
-        selectStreamPageButton.layer.borderWidth = 1.0
-        selectStreamPageButton.layer.borderColor = UIColor.lightGray.cgColor
+//        selectStreamPageButton.layer.cornerRadius = 2.0
+//        selectStreamPageButton.layer.masksToBounds = true
+//        selectStreamPageButton.layer.borderWidth = 1.0
+//        selectStreamPageButton.layer.borderColor = UIColor.lightGray.cgColor
         selectStreamPageButton.imageView?.contentMode = UIViewContentMode.scaleAspectFit
-
+        selectStreamPageButton.addBorder(cornerRadius: 2, color: .lightGray)
         //
         
-        streamDescriptionTextView.layer.cornerRadius = 2.0
-        streamDescriptionTextView.layer.masksToBounds = true
-        streamDescriptionTextView.layer.borderWidth = 1.0
-        streamDescriptionTextView.layer.borderColor = UIColor.lightGray.cgColor
+//        streamDescriptionTextView.layer.cornerRadius = 2.0
+//        streamDescriptionTextView.layer.masksToBounds = true
+//        streamDescriptionTextView.layer.borderWidth = 1.0
+//        streamDescriptionTextView.layer.borderColor = UIColor.lightGray.cgColor
+        streamDescriptionTextView.delegate = self
+        streamDescriptionTextView.addBorder(cornerRadius: 2, color: .lightGray)
         //
         
         let buttonSize = addStreamAccountButton.frame.size
-        addStreamAccountButton.layer.cornerRadius = buttonSize.height / 2
-        addStreamAccountButton.layer.masksToBounds = true
+//        addStreamAccountButton.layer.cornerRadius = buttonSize.height / 2
+//        addStreamAccountButton.layer.masksToBounds = true
+        addStreamAccountButton.addBorder(cornerRadius: buttonSize.height / 2, color: .clear)
+        //
     }
   
     @IBAction func addAccountTapped(_ sender: Any) {
@@ -83,4 +89,9 @@ class StreamOptionViewCell: UITableViewCell {
         
     }
 
+}
+extension StreamOptionViewCell : UITextViewDelegate{
+    func textViewDidChange(_ textView: UITextView) {
+        didCaptionChanged(textView.text)
+    }
 }

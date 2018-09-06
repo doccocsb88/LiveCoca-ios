@@ -33,6 +33,7 @@ class StreamViewController: BaseViewController, UITableViewDelegate, UITableView
     var streamUrls:[StreamInfo] = []
     var openLogin:Bool = false
     var pickerType:PickType = .account
+    var caption:String?
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -207,7 +208,7 @@ class StreamViewController: BaseViewController, UITableViewDelegate, UITableView
         loadingAnimation?.isHidden = false
         loadingAnimation?.play()
 
-        APIClient.shared().createLive(id_social: account.userId, id_target: target.id, caption: "") {[unowned self]  (success,code , message, info) in
+        APIClient.shared().createLive(id_social: account.userId, id_target: target.id, caption: self.caption ?? APIClient.DEFAULT_CAPTION) {[unowned self]  (success,code , message, info) in
             self.loadingAnimation?.isHidden = true
             self.loadingAnimation?.stop()
             if success{
@@ -297,21 +298,18 @@ extension StreamViewController{
                 if let strongSelf = self{
                     //select account
                 if a == 0{
-//                    strongSelf.selectStreamInfoVC.accountList = APIClient.shared().accounts
-//                    strongSelf.selectStreamInfoVC.targetList = []
                     strongSelf.showPickerView(type: .account)
                 }else{
-//                    strongSelf.selectStreamInfoVC.accountList = []
                     strongSelf.showPickerView(type: .target)
                 }
-//                strongSelf.selectStreamInfoVC.refreshData()
-//                strongSelf.present(strongSelf.selectStreamInfoVC, animated: true, completion: nil)
-
                 }
                 
             }
             cell.didTapAddAccount = { [unowned self] in
                 self.openAddCountView()
+            }
+            cell.didCaptionChanged = {[unowned self] caption in
+                self.caption = caption
             }
             return cell;
         }

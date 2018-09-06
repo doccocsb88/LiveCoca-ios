@@ -10,6 +10,7 @@ import Alamofire
 import SwiftyJSON
 
 class APIClient {
+    static let DEFAULT_CAPTION = "Coca live"
     var token:String?
     var id:String?
     var user:User?
