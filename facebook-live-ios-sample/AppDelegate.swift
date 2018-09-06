@@ -13,7 +13,7 @@ import FacebookCore
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var navigationController:UINavigationController?
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
  
         setupNav()
@@ -24,6 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }else{
             setLoginViewAsRoot()
         }
+//        navigationController = application.windows[0].rootViewController as! UINavigationController
+
         return true
     }
     
@@ -88,6 +90,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window.rootViewController = homeViewController
         }
 
+    }
+    func popToRootView(){
+        if let window = self.window {
+            window.rootViewController?.dismiss(animated: true, completion: nil)
+            if let home = window.rootViewController as? BaseTabbarController{
+                home.resetHomeViewController()
+            }
+        }
+        
     }
 }
 

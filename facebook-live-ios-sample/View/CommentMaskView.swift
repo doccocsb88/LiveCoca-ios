@@ -41,10 +41,6 @@ class CommentMaskView: UIView {
         }
         
         let comment = config?["comment"] as? FacebookComment
-        let containerView = UIView(frame: CGRect(x: 0, y: 0, width: size.width - 30 * scale, height: size.height))
-        containerView.backgroundColor = .white
-        containerView.addBorder(cornerRadius: 5, color: .clear)
-        self.addSubview(containerView)
         //
         let topMargin = 5 * scale
         let avatarSize  = 40 * scale
@@ -52,42 +48,43 @@ class CommentMaskView: UIView {
         avatarImageView?.addBorder(cornerRadius: avatarSize / 2 , color: UIColor.lightGray)
         avatarImageView?.backgroundColor = UIColor.white
 
-        containerView.addSubview(avatarImageView!)
+        self.addSubview(avatarImageView!)
         
         displayLabel = UILabel(frame: CGRect(x: 50 * scale, y: topMargin, width: size.width / 2, height: 20 * scale))
         displayLabel?.text = comment?.fromName
         displayLabel?.textColor = UIColor.black
         displayLabel?.font = UIFont.systemFont(ofSize: 13 * scale)
-        containerView.addSubview(displayLabel!)
+        self.addSubview(displayLabel!)
         
         let createDateWidth = 100 * scale
-        createDateLabel = UILabel(frame: CGRect(x: containerView.frame.width - createDateWidth, y: topMargin, width: createDateWidth, height:    20 * scale))
+        createDateLabel = UILabel(frame: CGRect(x: self.frame.width - createDateWidth - 30 * scale, y: topMargin, width: createDateWidth, height:    20 * scale))
         createDateLabel?.text = comment?.createdTime
         createDateLabel?.textColor = UIColor.black
         createDateLabel?.font = UIFont.systemFont(ofSize: 13 * scale)
         createDateLabel?.textAlignment = .right
-        containerView.addSubview(createDateLabel!)
+        self.addSubview(createDateLabel!)
         
         //
-        let messageLabelHeight = size.height - 30
-        contentLabel = UILabel(frame: CGRect(x: 50 * scale, y: 30 * scale, width: containerView.frame.width - 60 * scale, height: messageLabelHeight * scale))
+        let messageLabelHeight = size.height - 20 * scale
+        contentLabel = UILabel(frame: CGRect(x: 50 * scale, y: 20 * scale, width: self.frame.width - 60 * scale, height: messageLabelHeight * scale))
         contentLabel?.text = comment?.message
         contentLabel?.textColor = UIColor.black
         contentLabel?.font = UIFont.systemFont(ofSize: font)
-        containerView.addSubview(contentLabel!)
+        self.addSubview(contentLabel!)
         
         /**/
         closeButton = UIButton(frame: CGRect(x: size.width - 30 * scale, y: 0, width: 30 * scale, height: 30 * scale))
         closeButton?.setImage(UIImage(named: "ic_close"), for: .normal)
         closeButton?.imageView?.contentMode = .scaleAspectFit
-        closeButton?.imageEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        closeButton?.imageEdgeInsets = UIEdgeInsets(top: 8, left:8, bottom: 8, right: 8)
         closeButton?.addTarget(self, action: #selector(tappedCloseButton(_:)), for: .touchUpInside)
-        closeButton?.addBorder(cornerRadius: 15 * scale, color: .clear)
         closeButton?.backgroundColor = UIColor(hexString: "#EB6B79")
         closeButton?.isHidden = true
+        closeButton?.addBorder(cornerRadius: 15 * scale, color: .clear)
+        
         self.addSubview(closeButton!)
-        self.backgroundColor = UIColor.clear
-//        self.addBorder(cornerRadius: 5, color: UIColor.clear)
+        self.backgroundColor = UIColor.white
+        self.addBorder(cornerRadius: 5, color: UIColor.clear)
     }
     func updateContent(){
         if let config = WarterMarkServices.shared().params["pin"] as? [String:Any]{

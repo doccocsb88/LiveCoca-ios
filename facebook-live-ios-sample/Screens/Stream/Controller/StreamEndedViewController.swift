@@ -10,7 +10,7 @@ import Lottie
 
 class StreamEndedViewController: UIViewController {
     var loadingAnimation: LOTAnimationView?
-    
+    var didLoadHandle:() ->() = {}
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -19,10 +19,18 @@ class StreamEndedViewController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        didLoadHandle()
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         loadingAnimation?.play(completion: { (finished) in
-            if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
-                appDelegate.setHomeViewAsRoot()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {[unowned self] in
+                if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
+                    appDelegate.popToRootView()
+                }
+//                self.dismiss(animated: true, completion: nil)
             }
+
         })
     }
     

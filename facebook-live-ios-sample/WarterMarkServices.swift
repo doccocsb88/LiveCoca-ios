@@ -96,10 +96,11 @@ class WarterMarkServices{
             }
 
             let font = pinComment["font"] as? CGFloat
-            let labelHeight = comment.message .heightWithConstrainedWidth(width: self.frame.size.width - 60, font: UIFont.systemFont(ofSize: font ?? 20))
+            let width = self.frame.size.width - 20 * scale
+
+            let labelHeight = comment.message .heightWithConstrainedWidth(width: width - 60 * scale, font: UIFont.systemFont(ofSize: font ?? 20))
                 
             let height:CGFloat = (30 + labelHeight ) * scale
-            let width = self.frame.size.width - 40 * scale
             let top = self.frame.size.height - height - 50 * scale
             
             let frame =  CGRect(x: 10 * scale, y: top , width: width, height: height)
@@ -109,6 +110,9 @@ class WarterMarkServices{
             pinCommentView?.updateContent()
             pinCommentView?.frame = frame
             watermarkView.addSubview(pinCommentView!)
+        }else{
+            pinCommentView?.removeFromSuperview()
+            pinCommentView = nil
         }
         if let filterComment = params[ConfigKey.filterComment.rawValue] as? [String:Any], filterComment.keys.count > 0{
             let height = 30 * 6 * scale;

@@ -88,7 +88,9 @@ class StreamOptionViewCell: UITableViewCell {
         pageNameLabel.text = target.name
         
     }
-
+    func updateCaption(_ caption:String?){
+        self.streamDescriptionTextView.text = caption
+    }
 }
 extension StreamOptionViewCell : UITextViewDelegate{
     func textViewDidChange(_ textView: UITextView) {

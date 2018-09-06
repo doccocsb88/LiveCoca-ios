@@ -152,8 +152,8 @@ class HKLiveVideoViewController: BaseViewController, UITableViewDelegate, UITabl
         tableView.register(UINib(nibName: reuseRandomNumber, bundle: nil), forCellReuseIdentifier: reuseRandomNumber)
         tableView.register(UINib(nibName: reuseCountComment, bundle: nil), forCellReuseIdentifier: reuseCountComment)
         
-//        let gesture = UIGestureRecognizer(target: self, action: #selector(tappedGesture(_:)))
-//        self.view.addGestureRecognizer(gesture)
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(tappedGesture(_:)))
+        self.view.addGestureRecognizer(gesture)
         //
         hideMenuView()
         hideCommentView()
@@ -163,19 +163,19 @@ class HKLiveVideoViewController: BaseViewController, UITableViewDelegate, UITabl
         super.viewDidAppear(animated)
         if firstTime {
             firstTime = false
-//            APIClient.shared().startLive(stremInfo: self.streamUrls[0], width: 720, height: 1280, id_category: "", time_countdown: 0) {[unowned self] (success, message, id_room) in
-//                if success{
-//                    guard let _ = id_room else {
-//                        return
-//                    }
-//                    self.startLive()
-//
-//                }else{
-//                    self.showMessageDialog(nil, message ?? APIError.Error_Message_Generic)
-//                }
-//
-//            }
-            self.startLive()
+            APIClient.shared().startLive(stremInfo: self.streamUrls[0], width: 720, height: 1280, id_category: "", time_countdown: 0) {[unowned self] (success, message, id_room) in
+                if success{
+                    guard let _ = id_room else {
+                        return
+                    }
+                    self.startLive()
+
+                }else{
+                    self.showMessageDialog(nil, message ?? APIError.Error_Message_Generic)
+                }
+
+            }
+//            self.startLive()
 
         }
 
@@ -270,13 +270,12 @@ class HKLiveVideoViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     @objc func autohideCommentView(){
         //        self.commentViewHeightConstraint.constant = 0
-        self.commentContainerView?.alpha = 0
-        self.commentContainerView?.tag = 0
-        self.commentView?.toggleTableView(isHidden:true)
         
         UIView.animate(withDuration: 0.5, animations: {
-            self.view.updateConstraintsIfNeeded()
-            
+            self.commentContainerView?.alpha = 0
+            self.commentContainerView?.tag = 0
+            self.commentView?.toggleTableView(isHidden:true)
+
         }) { finished in
             self.commentContainerView?.isHidden = true
         }
@@ -284,13 +283,12 @@ class HKLiveVideoViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     func hideCommentView(){
 //        self.commentViewHeightConstraint.constant = 0
-        self.commentContainerView?.alpha = 0
-        self.commentContainerView?.tag = 0
-        self.commentView?.toggleTableView(isHidden:true)
 
         UIView.animate(withDuration: 0.25, animations: {
-            self.view.updateConstraintsIfNeeded()
-            
+            self.commentContainerView?.alpha = 0
+            self.commentContainerView?.tag = 0
+            self.commentView?.toggleTableView(isHidden:true)
+
         }) { finished in
             self.commentContainerView?.isHidden = true
         }
@@ -298,15 +296,14 @@ class HKLiveVideoViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     func showCommentView(){
 //        self.commentViewHeightConstraint.constant = 350
-        self.commentContainerView.isHidden = false
-        self.commentContainerView.alpha = 1
-        self.commentContainerView?.tag = 1
-        self.commentView?.toggleTableView(isHidden:false)
 //        UIView.animate(withDuration: 0.25) {
 //            self.view.updateConstraintsIfNeeded()
 //        }
         UIView.animate(withDuration: 0.25, animations: {
-            self.view.updateConstraintsIfNeeded()
+            self.commentContainerView.isHidden = false
+            self.commentContainerView.alpha = 1
+            self.commentContainerView?.tag = 1
+            self.commentView?.toggleTableView(isHidden:false)
 
         }) { finished in
             self.commentViewTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.autohideCommentView), userInfo: nil, repeats: false)
@@ -331,7 +328,14 @@ class HKLiveVideoViewController: BaseViewController, UITableViewDelegate, UITabl
             self.view.endEditing(true)
         }
     }
-  
+    func showStreamEndedView(){
+        let endedViewController = StreamEndedViewController(nibName: "StreamEndedViewController", bundle: nil)
+//        endedViewController.didLoadHandle = {
+//            self.dismiss(animated: true, completion: nil)
+//        }
+        self.present(endedViewController, animated: true) {
+        }
+    }
     @objc func keyboardWillAppear(_ notification: Notification) {
         //Do something here
         adjustKeyboardShow(true, notification: notification)
@@ -628,9 +632,11 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
             removeTimer()
             WarterMarkServices.shared().resetConfig()
             removeStreamControlView()
-            self.dismiss(animated: true) {
-                self.didStreamEndedHandler()
-            }
+//            self.dismiss(animated: true) {
+//            }
+            didStreamEndedHandler()
+            showStreamEndedView()
+        
             break;
         default:
             break;
@@ -669,10 +675,11 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
             }else{
                 
                 let font = pinComment["font"] as? CGFloat
-                let labelHeight = comment.message .heightWithConstrainedWidth(width: videoSize.width - 60, font: UIFont.systemFont(ofSize: font ?? 20))
-                
+                let width:CGFloat = self.view.bounds.width - 20
+
+                let labelHeight = comment.message .heightWithConstrainedWidth(width: width - 60, font: UIFont.systemFont(ofSize: font ?? 20))
                 let height:CGFloat = (30 + labelHeight )
-                let width:CGFloat = self.view.bounds.width - 40
+
                 let top:CGFloat = self.view.bounds.height - height - 50
                 
                 let frame =  CGRect(x: 10 , y: top , width: width, height: height)

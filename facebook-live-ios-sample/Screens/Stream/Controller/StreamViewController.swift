@@ -43,10 +43,10 @@ class StreamViewController: BaseViewController, UITableViewDelegate, UITableView
         setup()
         setupUI()
         initLoadingView()
-        FacebookServices.shared().fetchData {
-            let pages = FacebookServices.shared().accountList;
-            print("pages : \(pages.count)")
-        }
+//        FacebookServices.shared().fetchData {
+//            let pages = FacebookServices.shared().accountList;
+//            print("pages : \(pages.count)")
+//        }
         APIClient.shared().getUser(completion: {
             
         })
@@ -241,7 +241,7 @@ class StreamViewController: BaseViewController, UITableViewDelegate, UITableView
             
             streamViewController?.streamUrls = self.streamUrls
             streamViewController?.didStreamEndedHandler = {
-                self.showStreamEndedScreen()
+                self.reset()
             }
             self.present(streamViewController!, animated: true, completion: nil)
             
@@ -291,6 +291,7 @@ extension StreamViewController{
         }else{
            let cell = tableView.dequeueReusableCell(withIdentifier: reuseOptionCell, for: indexPath) as! StreamOptionViewCell
             cell.selectionStyle = .none
+            cell.updateCaption(caption)
             if let account = selectedAccount{
                 cell.updateAccountInfo(account: account)
                 
@@ -342,6 +343,11 @@ extension StreamViewController{
                 }
             }
         }
+    }
+    func reset(){
+        self.streamUrls = []
+        self.caption = nil
+        self.tableView.reloadData()
     }
     func getTarget(){
         self.loadingAnimation!.isHidden = false

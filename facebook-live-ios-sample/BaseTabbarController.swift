@@ -46,7 +46,14 @@ class BaseTabbarController: UITabBarController {
         item.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0);
 
     }
+    func resetHomeViewController(){
 
+        if let views = self.viewControllers{
+            if let view  = views[0] as? StreamViewController{
+                view.reset()
+            }
+        }
+    }
     /*
     // MARK: - Navigation
 
