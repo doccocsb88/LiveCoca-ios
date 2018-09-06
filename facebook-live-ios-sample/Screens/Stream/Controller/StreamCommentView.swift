@@ -1,9 +1,9 @@
 //
 //  StreamCommentView.swift
-//  facebook-live-ios-sample
+//  coca-live
 //
 //  Created by Apple on 8/4/18.
-//  Copyright © 2018 Hans Knoechel. All rights reserved.
+//  Copyright © 2018 Coca Live. All rights reserved.
 //
 
 import UIKit
@@ -39,7 +39,6 @@ class StreamCommentView: UIView, UITableViewDelegate, UITableViewDataSource {
     
     func reloadData(data:[FacebookComment]){
         self.data = data
-     
         tableView?.reloadData()
     }
     

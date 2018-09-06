@@ -1,9 +1,9 @@
 //
 //  FilterCommentMaskView.swift
-//  facebook-live-ios-sample
+//  coca-live
 //
 //  Created by Macintosh HD on 8/26/18.
-//  Copyright © 2018 Hans Knoechel. All rights reserved.
+//  Copyright © 2018 Coca Live. All rights reserved.
 //
 
 import UIKit
@@ -39,37 +39,38 @@ class FilterCommentMaskView: UIView, UITableViewDelegate, UITableViewDataSource 
         headerVew?.backgroundColor = UIColor.lightGray
         self.addSubview(headerVew!)
         //
-        let indexWidth = size.width / 10;
+        let indexWidth = size.width / 20;
         let headerHeight = 30 * scale
-        indexLabel = UILabel(frame: CGRect(x: 0, y: 0, width:indexWidth , height: headerHeight))
+        indexLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 2 * indexWidth , height: headerHeight))
         indexLabel?.textAlignment  = .center
         indexLabel?.textColor = .white
         indexLabel?.text = "STT"
         headerVew?.addSubview(indexLabel!)
         //
-        displayNameLabel = UILabel(frame: CGRect(x: indexWidth, y: 0, width: indexWidth * 2, height: headerHeight))
+        displayNameLabel = UILabel(frame: CGRect(x: 2 * indexWidth, y: 0, width: indexWidth * 4, height: headerHeight))
         displayNameLabel?.textAlignment  = .center
         displayNameLabel?.textColor = .white
         displayNameLabel?.text = "Tên"
-
+//        displayNameLabel?.backgroundColor = .red
         headerVew?.addSubview(displayNameLabel!)
         //
         
-        messageLabel = UILabel(frame: CGRect(x: indexWidth * 3, y: 0, width: indexWidth * 4, height: headerHeight))
+        messageLabel = UILabel(frame: CGRect(x: indexWidth * 6, y: 0, width: indexWidth * 8, height: headerHeight))
         messageLabel?.textAlignment  = .center
         messageLabel?.textColor = .white
         messageLabel?.text = "Nội dung"
 
         headerVew?.addSubview(messageLabel!)
         //
-        likeShareLabel = UILabel(frame: CGRect(x: indexWidth * 7, y: 0, width:indexWidth , height: headerHeight))
+        likeShareLabel = UILabel(frame: CGRect(x: indexWidth * 14, y: 0, width: indexWidth * 3 , height: headerHeight))
         likeShareLabel?.textAlignment  = .center
         likeShareLabel?.textColor = .white
-        likeShareLabel?.text = "Thích/Chia sẻ"
+        likeShareLabel?.text = "Like/Share"
+//        likeShareLabel?.backgroundColor = .red
         headerVew?.addSubview(likeShareLabel!)
         
         //
-        timeLabel = UILabel(frame: CGRect(x: indexWidth * 8, y: 0, width:indexWidth * 2  , height: headerHeight))
+        timeLabel = UILabel(frame: CGRect(x: indexWidth * 17, y: 0, width:indexWidth * 3  , height: headerHeight))
         timeLabel?.textAlignment  = .center
         timeLabel?.textColor = .white
         timeLabel?.text = "Thời gian"
@@ -99,7 +100,8 @@ class FilterCommentMaskView: UIView, UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CommentMaskViewCell", for: indexPath) as! CommentMaskViewCell
         let comment = data[indexPath.row]
-        cell.updateContent(comment: comment)
+        let index = indexPath.row + 1
+        cell.updateContent(index:index,comment: comment)
         return cell;
     }
     

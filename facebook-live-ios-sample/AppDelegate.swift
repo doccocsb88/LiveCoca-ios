@@ -1,9 +1,9 @@
 //
 //  AppDelegate.swift
-//  facebook-live-ios-sample
+//  coca-live
 //
-//  Created by Hans Knoechel on 08.03.17.
-//  Copyright © 2017 Hans Knoechel. All rights reserved.
+//  Created by Coca Live on 08.03.17.
+//  Copyright © 2017 Coca Live. All rights reserved.
 //
 
 import UIKit

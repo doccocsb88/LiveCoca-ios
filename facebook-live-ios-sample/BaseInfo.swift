@@ -1,9 +1,9 @@
 //
 //  PageInfo.swift
-//  facebook-live-ios-sample
+//  coca-live
 //
 //  Created by Apple on 7/29/18.
-//  Copyright © 2018 Hans Knoechel. All rights reserved.
+//  Copyright © 2018 Coca Live. All rights reserved.
 //
 
 import Foundation

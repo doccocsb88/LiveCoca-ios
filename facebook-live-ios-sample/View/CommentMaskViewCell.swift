@@ -1,9 +1,9 @@
 //
 //  CommentMaskViewCell.swift
-//  facebook-live-ios-sample
+//  coca-live
 //
 //  Created by Macintosh HD on 8/26/18.
-//  Copyright © 2018 Hans Knoechel. All rights reserved.
+//  Copyright © 2018 Coca Live. All rights reserved.
 //
 
 import UIKit
@@ -29,9 +29,10 @@ class CommentMaskViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    func updateContent(comment:FacebookComment){
+    func updateContent(index:Int,comment:FacebookComment){
         messageLabel.text = comment.message
         timeLabel.text = comment.getTimerText()
         nameLabel.text = comment.fromName
+        indexLabel.text = "\(index)"
     }
 }

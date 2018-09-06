@@ -1,9 +1,9 @@
 //
 //  ErrorCode.swift
-//  facebook-live-ios-sample
+//  coca-live
 //
 //  Created by Macintosh HD on 8/19/18.
-//  Copyright © 2018 Hans Knoechel. All rights reserved.
+//  Copyright © 2018 Coca Live. All rights reserved.
 //
 
 import Foundation

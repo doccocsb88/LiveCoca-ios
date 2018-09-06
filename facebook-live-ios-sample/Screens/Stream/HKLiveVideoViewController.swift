@@ -1,9 +1,9 @@
 //
 //  ViewController.swift
-//  facebook-live-ios-sample
+//  coca-live
 //
-//  Created by Hans Knoechel on 08.03.17.
-//  Copyright © 2017 Hans Knoechel. All rights reserved.
+//  Created by Coca Live on 08.03.17.
+//  Copyright © 2017 Coca Live. All rights reserved.
 //
 
 import UIKit
@@ -62,7 +62,6 @@ class HKLiveVideoViewController: BaseViewController, UITableViewDelegate, UITabl
     
     @IBOutlet weak var menuBottomConstraint: NSLayoutConstraint!
     
-    var id_stream:String?
     @IBAction func recordButtonTapped() {
     }
     
@@ -85,7 +84,7 @@ class HKLiveVideoViewController: BaseViewController, UITableViewDelegate, UITabl
     
     var curMenuIndex:Int = -1;
     var streamUrls:[StreamInfo] = []
-    
+    var streamInfo = LFLiveStreamInfo()
     //
     let imagePicker = UIImagePickerController()
     var selectedImage:[String:UIImage] = [:]
@@ -580,11 +579,12 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
     }
     func startLive(){
         if streamUrls.count > 0 {
-            let stream = LFLiveStreamInfo()
-            stream.url = streamUrls[0].getLiveStreamUrl()
-            stream.streamId = streamUrls[0].streamId
-            print("stream : start \(stream.url!) + +\(stream.streamId!)")
-            session.startLive(stream)
+            streamInfo = LFLiveStreamInfo()
+            streamInfo.url = streamUrls[0].getLiveStreamUrl()
+            streamInfo.streamId = streamUrls[0].streamId
+            print("stream : start \(streamInfo.url!) + +\(streamInfo.streamId!)")
+            
+            session.startLive(streamInfo)
         }
        
         
@@ -614,7 +614,7 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
         case LFLiveState.pending:
             break;
         case LFLiveState.start:
-            getCommentsTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(fetchStreamComments), userInfo: nil, repeats: false)
+            getCommentsTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(fetchStreamComments), userInfo: nil, repeats: true)
             break;
         case LFLiveState.error:
             removeTimer()
@@ -790,23 +790,13 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
             }
         }
 
-        APIClient.shared().getComments(id_strem: "abcdef") { (success, comments) in
+        APIClient.shared().getComments(id_strem: streamInfo.streamId) { (success, comments) in
             if success{
-                if let view = self.commentView{
-                    if comments.count == 0{
-                        var dummyComments:[FacebookComment] = []
-                        for i in 0..<10{
-                            let comment = FacebookComment(message: "a", commentId: "\(i)", createTime: "2018-09-02T11:44:39+0000", fromId: "\(i)\(i)", fromName: "name\(i)")
-                            dummyComments.append(comment)
-                        }
-                        view.reloadData(data: dummyComments)
-                        APIClient.shared().comments = dummyComments
-                        
-                    }else{
-                        view.reloadData(data: comments)
-                        APIClient.shared().comments = comments
-                        
-                    }
+                if success{
+                 
+                    self.commentView?.reloadData(data: comments)
+                    APIClient.shared().comments = comments
+
                     if WarterMarkServices.shared().hasFilterCommentView(){
                         self.updateWatermarkView(nil)
                     }

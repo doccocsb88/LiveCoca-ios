@@ -23,7 +23,7 @@ def import_pods
 
 
 end
-target 'facebook-live-ios-sample'  do
+target 'coca-live'  do
     platform :ios, '8.0'
     import_pods
 end

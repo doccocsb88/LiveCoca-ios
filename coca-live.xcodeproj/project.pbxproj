@@ -185,7 +185,7 @@
 		623B35CB2F605030CBDC37BD /* Pods_facebook_live_ios_sample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_facebook_live_ios_sample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D3679D1F57FD4D405E2CCCF /* Pods-facebook-live-ios-sample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-facebook-live-ios-sample.release.xcconfig"; path = "Pods/Target Support Files/Pods-facebook-live-ios-sample/Pods-facebook-live-ios-sample.release.xcconfig"; sourceTree = "<group>"; };
 		DB40E22F1E71567E009E7C74 /* FBSDKLiveVideo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBSDKLiveVideo.swift; sourceTree = "<group>"; };
-		DB9C406A1E70527D00CCBD83 /* facebook-live-ios-sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "facebook-live-ios-sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB9C406A1E70527D00CCBD83 /* coca-live.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "coca-live.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB9C406D1E70527D00CCBD83 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DB9C406F1E70527D00CCBD83 /* HKLiveVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HKLiveVideoViewController.swift; sourceTree = "<group>"; };
 		DB9C40721E70527D00CCBD83 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -389,7 +389,7 @@
 		DB9C406B1E70527D00CCBD83 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DB9C406A1E70527D00CCBD83 /* facebook-live-ios-sample.app */,
+				DB9C406A1E70527D00CCBD83 /* coca-live.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -543,9 +543,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		DB9C40691E70527D00CCBD83 /* facebook-live-ios-sample */ = {
+		DB9C40691E70527D00CCBD83 /* coca-live */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DB9C407C1E70527D00CCBD83 /* Build configuration list for PBXNativeTarget "facebook-live-ios-sample" */;
+			buildConfigurationList = DB9C407C1E70527D00CCBD83 /* Build configuration list for PBXNativeTarget "coca-live" */;
 			buildPhases = (
 				48064EC9CB0E70A3295A454B /* [CP] Check Pods Manifest.lock */,
 				DB9C40661E70527D00CCBD83 /* Sources */,
@@ -557,9 +557,9 @@
 			);
 			dependencies = (
 			);
-			name = "facebook-live-ios-sample";
+			name = "coca-live";
 			productName = "facebook-live-ios-sample";
-			productReference = DB9C406A1E70527D00CCBD83 /* facebook-live-ios-sample.app */;
+			productReference = DB9C406A1E70527D00CCBD83 /* coca-live.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -570,7 +570,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0820;
 				LastUpgradeCheck = 0820;
-				ORGANIZATIONNAME = "Hans Knoechel";
+				ORGANIZATIONNAME = "Coca Live";
 				TargetAttributes = {
 					DB9C40691E70527D00CCBD83 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -585,7 +585,7 @@
 					};
 				};
 			};
-			buildConfigurationList = DB9C40651E70527D00CCBD83 /* Build configuration list for PBXProject "facebook-live-ios-sample" */;
+			buildConfigurationList = DB9C40651E70527D00CCBD83 /* Build configuration list for PBXProject "coca-live" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -598,7 +598,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				DB9C40691E70527D00CCBD83 /* facebook-live-ios-sample */,
+				DB9C40691E70527D00CCBD83 /* coca-live */,
 			);
 		};
 /* End PBXProject section */
@@ -937,7 +937,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		DB9C40651E70527D00CCBD83 /* Build configuration list for PBXProject "facebook-live-ios-sample" */ = {
+		DB9C40651E70527D00CCBD83 /* Build configuration list for PBXProject "coca-live" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DB9C407A1E70527D00CCBD83 /* Debug */,
@@ -946,7 +946,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DB9C407C1E70527D00CCBD83 /* Build configuration list for PBXNativeTarget "facebook-live-ios-sample" */ = {
+		DB9C407C1E70527D00CCBD83 /* Build configuration list for PBXNativeTarget "coca-live" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DB9C407D1E70527D00CCBD83 /* Debug */,

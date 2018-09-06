@@ -4,7 +4,7 @@
 <dict>
 	<key>keychain-access-groups</key>
 	<array>
-		<string>$(AppIdentifierPrefix)de.hansknoechel.facebook-live-ios-sample</string>
+		<string>$(AppIdentifierPrefix)de.hansknoechel.coca-live</string>
 	</array>
 </dict>
 </plist>
