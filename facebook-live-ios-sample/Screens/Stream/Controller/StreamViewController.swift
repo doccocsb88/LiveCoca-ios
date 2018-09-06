@@ -93,6 +93,11 @@ class StreamViewController: BaseViewController, UITableViewDelegate, UITableView
     }
     
     func setup(){
+       
+        self.navigationController?.navigationBar.topItem?.title = "ĐĂNG LIVESTREAM"
+
+        //
+        
         tableView.register(UINib(nibName: "StreamOptionViewCell", bundle: nil), forCellReuseIdentifier:reuseOptionCell)
         tableView.register(UINib(nibName: "UrlStreamViewCell", bundle: nil), forCellReuseIdentifier:reuseUrlCell)
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
@@ -243,8 +248,8 @@ class StreamViewController: BaseViewController, UITableViewDelegate, UITableView
         }
     }
     func showStreamEndedScreen(){
-        let endedViewController = StreamEndedViewController()
-        
+        let endedViewController = StreamEndedViewController(nibName: "StreamEndedViewController", bundle: nil)
+
         self.present(endedViewController, animated: true, completion: nil)
     }
 }

@@ -99,11 +99,12 @@
 		EC53B2CB210B2A14000A3866 /* SelectStreamAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC53B2C9210B2A14000A3866 /* SelectStreamAccountViewController.swift */; };
 		EC53B2CF210B2EA6000A3866 /* SelectStreamAccountViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC53B2CD210B2EA6000A3866 /* SelectStreamAccountViewCell.swift */; };
 		EC53B2D0210B2EA6000A3866 /* SelectStreamAccountViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC53B2CE210B2EA6000A3866 /* SelectStreamAccountViewCell.xib */; };
+		EC56AFAF21413DCE00F18D43 /* StreamEndedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC56AFAD21413DCE00F18D43 /* StreamEndedViewController.xib */; };
+		EC56AFB021413DCE00F18D43 /* StreamEndedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC56AFAE21413DCE00F18D43 /* StreamEndedViewController.swift */; };
 		EC6149A52139342200A43FE7 /* CountdownPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6149A42139342100A43FE7 /* CountdownPickerView.swift */; };
 		EC752C21210F1944004A69C4 /* AddStreamAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC752C1F210F1944004A69C4 /* AddStreamAccountViewController.swift */; };
 		EC752C22210F1944004A69C4 /* AddStreamAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC752C20210F1944004A69C4 /* AddStreamAccountViewController.xib */; };
 		ECA2666621410D6B00EF0D47 /* animation_done.json in Resources */ = {isa = PBXBuildFile; fileRef = ECA2666521410D6A00EF0D47 /* animation_done.json */; };
-		ECA2666821410DBF00EF0D47 /* StreamEndedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA2666721410DBF00EF0D47 /* StreamEndedViewController.swift */; };
 		ECA2666A2141130C00EF0D47 /* soda_loader.json in Resources */ = {isa = PBXBuildFile; fileRef = ECA266692141130C00EF0D47 /* soda_loader.json */; };
 		ECE9439121087901003EB965 /* ImageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE9439021087901003EB965 /* ImageUtils.swift */; };
 /* End PBXBuildFile section */
@@ -213,11 +214,12 @@
 		EC53B2C9210B2A14000A3866 /* SelectStreamAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectStreamAccountViewController.swift; sourceTree = "<group>"; };
 		EC53B2CD210B2EA6000A3866 /* SelectStreamAccountViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectStreamAccountViewCell.swift; sourceTree = "<group>"; };
 		EC53B2CE210B2EA6000A3866 /* SelectStreamAccountViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectStreamAccountViewCell.xib; sourceTree = "<group>"; };
+		EC56AFAD21413DCE00F18D43 /* StreamEndedViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StreamEndedViewController.xib; sourceTree = "<group>"; };
+		EC56AFAE21413DCE00F18D43 /* StreamEndedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamEndedViewController.swift; sourceTree = "<group>"; };
 		EC6149A42139342100A43FE7 /* CountdownPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownPickerView.swift; sourceTree = "<group>"; };
 		EC752C1F210F1944004A69C4 /* AddStreamAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddStreamAccountViewController.swift; path = Profile/AddStreamAccountViewController.swift; sourceTree = "<group>"; };
 		EC752C20210F1944004A69C4 /* AddStreamAccountViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = AddStreamAccountViewController.xib; path = Profile/AddStreamAccountViewController.xib; sourceTree = "<group>"; };
 		ECA2666521410D6A00EF0D47 /* animation_done.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = animation_done.json; sourceTree = "<group>"; };
-		ECA2666721410DBF00EF0D47 /* StreamEndedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamEndedViewController.swift; sourceTree = "<group>"; };
 		ECA266692141130C00EF0D47 /* soda_loader.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = soda_loader.json; sourceTree = "<group>"; };
 		ECE9439021087901003EB965 /* ImageUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -526,9 +528,10 @@
 		EC53B2C8210B29C1000A3866 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				EC56AFAE21413DCE00F18D43 /* StreamEndedViewController.swift */,
+				EC56AFAD21413DCE00F18D43 /* StreamEndedViewController.xib */,
 				DB9C406F1E70527D00CCBD83 /* HKLiveVideoViewController.swift */,
 				189C0EF3210A133A00ADF7FF /* StreamViewController.swift */,
-				ECA2666721410DBF00EF0D47 /* StreamEndedViewController.swift */,
 				EC53B2C9210B2A14000A3866 /* SelectStreamAccountViewController.swift */,
 				1860203D2115DE8C00662714 /* StreamCommentView.swift */,
 				0EC009D8213A314F0030BB29 /* HasStreamPopupView.swift */,
@@ -639,6 +642,7 @@
 				0E4B6988213576270052A0C7 /* CountCommentViewCell.xib in Resources */,
 				1860204A2116D5FD00662714 /* VideoViewCell.xib in Resources */,
 				18042BE0210D8B5F00F48229 /* CountDownViewCell.xib in Resources */,
+				EC56AFAF21413DCE00F18D43 /* StreamEndedViewController.xib in Resources */,
 				18042BE4210DA18900F48229 /* SloganViewCell.xib in Resources */,
 				18042BF4210DB68200F48229 /* QuestionViewCell.xib in Resources */,
 				18042BEC210DB0E400F48229 /* FrameViewCellV2.xib in Resources */,
@@ -727,6 +731,7 @@
 				18042BDF210D8B5F00F48229 /* CountDownViewCell.swift in Sources */,
 				0E4B698A21357F090052A0C7 /* CountCommentMaskView.swift in Sources */,
 				EC295AAF21185D03005AC814 /* Constant.swift in Sources */,
+				EC56AFB021413DCE00F18D43 /* StreamEndedViewController.swift in Sources */,
 				EC53B2CF210B2EA6000A3866 /* SelectStreamAccountViewCell.swift in Sources */,
 				EC53B2BD210AED22000A3866 /* FrameViewCell.swift in Sources */,
 				0EC3FC63212DBC8600278E61 /* CommentMaskView.swift in Sources */,
@@ -734,7 +739,6 @@
 				186020462116D33200662714 /* VideoMaskView.swift in Sources */,
 				18DBC7EC2114ADEE00C34D3E /* User.swift in Sources */,
 				1860203A2115C0B300662714 /* StreamInfo.swift in Sources */,
-				ECA2666821410DBF00EF0D47 /* StreamEndedViewController.swift in Sources */,
 				18042BF7210DBF1A00F48229 /* FilterCommentViewCell.swift in Sources */,
 				DB9C40701E70527D00CCBD83 /* HKLiveVideoViewController.swift in Sources */,
 				0EC009D521398EF30030BB29 /* CountdownMaskView.swift in Sources */,

@@ -1,9 +1,8 @@
 //
 //  StreamEndedViewController.swift
-//  coca-live
+//  
 //
 //  Created by Hai Vu on 9/6/18.
-//  Copyright © 2018 Coca Live. All rights reserved.
 //
 
 import UIKit
@@ -11,10 +10,10 @@ import Lottie
 
 class StreamEndedViewController: UIViewController {
     var loadingAnimation: LOTAnimationView?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         initView()
     }
@@ -26,7 +25,7 @@ class StreamEndedViewController: UIViewController {
             }
         })
     }
-
+    
     func initView(){
         loadingAnimation = LOTAnimationView(name: "animation_done")
         // Set view to full screen, aspectFill
@@ -41,3 +40,4 @@ class StreamEndedViewController: UIViewController {
     }
     
 }
+
