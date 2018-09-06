@@ -30,7 +30,6 @@ class HKLiveVideoViewController: BaseViewController, UITableViewDelegate, UITabl
 
     var sessionURL: NSURL!
     
-    var loader: UIActivityIndicatorView!
     
     
 //    var liveVideo: FBSDKLiveVideo!
@@ -84,7 +83,6 @@ class HKLiveVideoViewController: BaseViewController, UITableViewDelegate, UITabl
     }()
     
     
-    // 开始直播按钮
     var curMenuIndex:Int = -1;
     var streamUrls:[StreamInfo] = []
     
@@ -97,6 +95,7 @@ class HKLiveVideoViewController: BaseViewController, UITableViewDelegate, UITabl
     var randomView:RandomMaskView?
     var pinCommentView:CommentMaskView?
     var updateTimer:Timer?
+    var commentViewTimer:Timer?
     var firstTime:Bool = true
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -111,11 +110,7 @@ class HKLiveVideoViewController: BaseViewController, UITableViewDelegate, UITabl
         let myOverlay = UIView(frame: CGRect(x: 5, y: 5, width: self.view.bounds.size.width - 10, height: 30))
         myOverlay.backgroundColor =  UIColor(red: 0.0 , green:1.0, blue: 0.0, alpha: 0.5)
         
-//        self.liveVideo.privacy = .me
-//        self.liveVideo.audience = "me" // or your user-id, page-id, event-id, group-id, ...
-        
-        // Comment in to show a green overlay bar (configure with your own one)
-        // self.liveVideo.overlay = myOverlay
+
         
         initializeUserInterface()
         
@@ -126,8 +121,6 @@ class HKLiveVideoViewController: BaseViewController, UITableViewDelegate, UITabl
         self.requestAccessForVideo()
         self.requestAccessForAudio()
         self.view.backgroundColor = UIColor.clear
-//        self.view.addSubview(closeButton)
-//        self.view.addSubview(cameraButton)
         //
         commentView = StreamCommentView(frame: CGRect(x: 0, y:0, width: self.view.frame.size.width, height: commentViewHeight))
         commentView?.backgroundColor = UIColor.black.withAlphaComponent(0.2)
@@ -138,9 +131,8 @@ class HKLiveVideoViewController: BaseViewController, UITableViewDelegate, UITabl
             self.updateWatermarkView(nil)
         }
         //
-//        cameraButton.addTarget(self, action: #selector(didTappedCameraButton(_:)), for:.touchUpInside)
-//        closeButton.addTarget(self, action: #selector(didTappedWarterMarkButton(_:)), for:.touchUpInside)
-        WarterMarkServices.shared().setFrame(frame: CGRect(x: 0, y: 0, width: 720, height: 1280))
+
+        WarterMarkServices.shared().setFrame(frame: CGRect(x: 0, y: 0, width: videoSize.width, height: videoSize.height))
         
         
         ///
@@ -158,7 +150,8 @@ class HKLiveVideoViewController: BaseViewController, UITableViewDelegate, UITabl
         tableView.register(UINib(nibName: reuseRandomNumber, bundle: nil), forCellReuseIdentifier: reuseRandomNumber)
         tableView.register(UINib(nibName: reuseCountComment, bundle: nil), forCellReuseIdentifier: reuseCountComment)
         
-        
+//        let gesture = UIGestureRecognizer(target: self, action: #selector(tappedGesture(_:)))
+//        self.view.addGestureRecognizer(gesture)
         //
         hideMenuView()
         hideCommentView()
@@ -168,18 +161,19 @@ class HKLiveVideoViewController: BaseViewController, UITableViewDelegate, UITabl
         super.viewDidAppear(animated)
         if firstTime {
             firstTime = false
-            APIClient.shared().startLive(stremInfo: self.streamUrls[0], width: 720, height: 1280, id_category: "", time_countdown: 0) {[unowned self] (success, message, id_room) in
-                if success{
-                    guard let _ = id_room else {
-                        return
-                    }
-                    self.startLive()
-                    
-                }else{
-                    self.showMessageDialog(nil, message ?? APIError.Error_Message_Generic)
-                }
-                
-            }
+//            APIClient.shared().startLive(stremInfo: self.streamUrls[0], width: 720, height: 1280, id_category: "", time_countdown: 0) {[unowned self] (success, message, id_room) in
+//                if success{
+//                    guard let _ = id_room else {
+//                        return
+//                    }
+//                    self.startLive()
+//
+//                }else{
+//                    self.showMessageDialog(nil, message ?? APIError.Error_Message_Generic)
+//                }
+//
+//            }
+            self.startLive()
 
         }
 
@@ -203,18 +197,11 @@ class HKLiveVideoViewController: BaseViewController, UITableViewDelegate, UITabl
     }
 
     func initializeUserInterface() {
-        self.loader = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
-        self.loader.frame = CGRect(x: 15, y: 15, width: 40, height: 40)
         
         self.blurOverlay = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
         self.blurOverlay.frame = self.view.bounds
         
-//        self.view.insertSubview(self.liveVideo.preview, at: 0)
 
-
-        //hide functional button
-//        footerButton.isHidden = true
-//        hozirontalTextButton.isHidden = true
         switchCameraButton.imageView?.contentMode = UIViewContentMode.scaleAspectFit
          commentButton.imageView?.contentMode = UIViewContentMode.scaleAspectFit
          chatButton.imageView?.contentMode = UIViewContentMode.scaleAspectFit
@@ -225,15 +212,7 @@ class HKLiveVideoViewController: BaseViewController, UITableViewDelegate, UITabl
          stopStreamButton.layer.borderWidth = 1
     }
     
-    func startStreaming() {
-//        self.liveVideo.start()
 
-        self.loader.startAnimating()
-    }
-    
-    func stopStreaming() {
-//        self.liveVideo.stop()
-    }
     func scheduledTimerWithTimeInterval(){
         // Scheduling timer to Call the function "updateCounting" with the interval of 1 seconds
 //        startX = self.liveVideo.getVideoSize().width
@@ -256,19 +235,13 @@ class HKLiveVideoViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     @IBAction func commentTapped(_ sender: Any) {
-        UIView.animate(withDuration: 0.25) { [unowned self] in
-            if let tag = self.commentContainerView?.tag, tag == 1{
-//                 self.commentContainerView?.isHidden = true
-                self.commentViewHeightConstraint.constant = 0
-
-                self.commentContainerView?.tag = 0
-                self.commentView?.toggleTableView(isHidden:true)
-            }else{
-                self.commentViewHeightConstraint.constant = 350
-                self.commentContainerView?.tag = 1
-                self.commentView?.toggleTableView(isHidden:false)
-            }
+        self.commentButton.isSelected = !self.commentButton.isSelected
+        if self.commentButton.isSelected{
+            hideCommentView()
+        }else{
+            showCommentView()
         }
+        
         
     }
     @IBAction func chatTapped(_ sender: Any) {
@@ -281,20 +254,61 @@ class HKLiveVideoViewController: BaseViewController, UITableViewDelegate, UITabl
 //        dismiss(animated: true, completion: nil)
             stopLive()
     }
+    @objc func tappedGesture(_ gesture: UIGestureRecognizer){
+        self.commentViewTimer?.invalidate()
+        self.commentViewTimer = nil
+        if self.commentButton.isSelected == false {
+            showCommentView()
+        }
+    }
     func toggleFunctionalButtonView(){
         //              footerButton.isHidden = !self.liveVideo.isStreaming
         //            hozirontalTextButton.isHidden = !self.liveVideo.isStreaming
         
     }
+    @objc func autohideCommentView(){
+        //        self.commentViewHeightConstraint.constant = 0
+        self.commentContainerView?.alpha = 0
+        self.commentContainerView?.tag = 0
+        self.commentView?.toggleTableView(isHidden:true)
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            self.view.updateConstraintsIfNeeded()
+            
+        }) { finished in
+            self.commentContainerView?.isHidden = true
+        }
+        
+    }
     func hideCommentView(){
-        self.commentViewHeightConstraint.constant = 0
+//        self.commentViewHeightConstraint.constant = 0
+        self.commentContainerView?.alpha = 0
         self.commentContainerView?.tag = 0
         self.commentView?.toggleTableView(isHidden:true)
 
-        UIView.animate(withDuration: 0.25) {
+        UIView.animate(withDuration: 0.25, animations: {
             self.view.updateConstraintsIfNeeded()
+            
+        }) { finished in
+            self.commentContainerView?.isHidden = true
         }
 
+    }
+    func showCommentView(){
+//        self.commentViewHeightConstraint.constant = 350
+        self.commentContainerView.isHidden = false
+        self.commentContainerView.alpha = 1
+        self.commentContainerView?.tag = 1
+        self.commentView?.toggleTableView(isHidden:false)
+//        UIView.animate(withDuration: 0.25) {
+//            self.view.updateConstraintsIfNeeded()
+//        }
+        UIView.animate(withDuration: 0.25, animations: {
+            self.view.updateConstraintsIfNeeded()
+
+        }) { finished in
+            self.commentViewTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.autohideCommentView), userInfo: nil, repeats: false)
+        }
     }
     func hideMenuView(){
         menuButton.isSelected = false;
@@ -491,6 +505,7 @@ extension HKLiveVideoViewController{
             //random comment
             let cell = tableView.dequeueReusableCell(withIdentifier:reuseRandomNumber, for: indexPath) as! RandomNumberViewCell
             cell.completeHandle = {[unowned self ] in
+                self.addStreamControlView()
                 self.updateWatermarkView(nil)
             }
             cell.selectionStyle = .none
@@ -599,7 +614,7 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
         case LFLiveState.pending:
             break;
         case LFLiveState.start:
-            getCommentsTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(fetchStreamComments), userInfo: nil, repeats: true)
+            getCommentsTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(fetchStreamComments), userInfo: nil, repeats: false)
             break;
         case LFLiveState.error:
             removeTimer()
@@ -625,56 +640,10 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
             
 
         }else{
-            if self.updateTimer != nil{
-                self.updateTimer?.invalidate()
-                self.updateTimer = nil
-            }
-            if let random = WarterMarkServices.shared().params[ConfigKey.random.rawValue]as? [String:Any], random.keys.count >= 2{
-            
-            if let _ = randomView {
-            
-            }else{
-                let width:CGFloat = 720 / 2
-                let height =  (width / 1008 ) * (696 + 30 + 165)
-                let left = (self.view.bounds.width  - width ) / 2
-                let top = (self.view.bounds.height - height ) / 2
-                randomView = RandomMaskView(frame:CGRect(x: left, y: top, width: width, height: height), scale: 1)
-                randomView?.backgroundColor = .clear
-                randomView?.completeHandle = {[weak self]start in
-                    guard let strongSelf = self else{
-                        return
-                    }
-                    if start{
-                        WarterMarkServices.shared().startRandomNumber()
-                        if let _  = strongSelf.updateTimer{
-                            strongSelf.updateTimer?.invalidate()
-                            strongSelf.updateTimer = nil
-                        }
-                        strongSelf.updateTimer = Timer.scheduledTimer(timeInterval: 0.02, target: strongSelf, selector: #selector(strongSelf.updateWatermarkView(_:)), userInfo: nil, repeats: true)
-
-                    }else{
-                        WarterMarkServices.shared().stopRandomNumber()
-                        if let _  = strongSelf.updateTimer{
-                            strongSelf.updateTimer?.invalidate()
-                            strongSelf.updateTimer = nil
-                        }
-
-                    }
-                    
-                }
-                self.view.addSubview(randomView!)
-                self.updateTimer = Timer.scheduledTimer(timeInterval: 0.02, target: self, selector: #selector(self.updateWatermarkView(_:)), userInfo: nil, repeats: true)
-
-            }
-        }else{
-            if let view = randomView{
-                view.removeFromSuperview()
-                randomView = nil
-            }
-        }
+          
 
         }
-        let wartermarkFrame  = CGRect(x: 0, y: 0, width: 720, height: 1280 )
+        let wartermarkFrame  = CGRect(x: 0, y: 0, width: videoSize.width, height: videoSize.height )
         WarterMarkServices.shared().setFrame(frame: wartermarkFrame)
         let view  = randomView?.copyView()  as? RandomMaskView
         let scale = videoSize.width / UIScreen.main.bounds.width
@@ -724,6 +693,51 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
                 view.removeFromSuperview()
                 pinCommentView = nil
             }
+            
+        }
+
+        if let random = WarterMarkServices.shared().params[ConfigKey.random.rawValue]as? [String:Any], random.keys.count >= 2{
+            updateTimer?.invalidate()
+            updateTimer = nil
+     
+            if randomView == nil{
+                let width:CGFloat = 720 / 2
+                let height =  (width / 1008 ) * (696 + 30 + 165)
+                let left = (self.view.bounds.width  - width ) / 2
+                let top = (self.view.bounds.height - height ) / 2
+                randomView = RandomMaskView(frame:CGRect(x: left, y: top, width: width, height: height), scale: 1)
+                randomView?.backgroundColor = .clear
+                randomView?.completeHandle = {[weak self]start in
+                    guard let strongSelf = self else{
+                        return
+                    }
+                    if start{
+                        WarterMarkServices.shared().startRandomNumber()
+                        if let _  = strongSelf.updateTimer{
+                            strongSelf.updateTimer?.invalidate()
+                            strongSelf.updateTimer = nil
+                        }
+                        strongSelf.updateTimer = Timer.scheduledTimer(timeInterval: 0.02, target: strongSelf, selector: #selector(strongSelf.updateWatermarkView(_:)), userInfo: nil, repeats: true)
+                        
+                    }else{
+                        WarterMarkServices.shared().stopRandomNumber()
+                        if let _  = strongSelf.updateTimer{
+                            strongSelf.updateTimer?.invalidate()
+                            strongSelf.updateTimer = nil
+                        }
+                        
+                    }
+                    
+                }
+                self.view.addSubview(randomView!)
+//                self.updateTimer = Timer.scheduledTimer(timeInterval: 0.02, target: self, selector: #selector(self.updateWatermarkView(_:)), userInfo: nil, repeats: true)
+                
+            }
+        }else{
+            updateTimer?.invalidate()
+            updateTimer = nil
+            randomView?.removeFromSuperview()
+            randomView = nil
             
         }
 

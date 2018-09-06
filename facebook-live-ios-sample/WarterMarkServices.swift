@@ -122,12 +122,17 @@ class WarterMarkServices{
                 view.removeFromSuperview()
                 
             }
-            let width = self.frame.size.width / 2
-            let height =  (width / 1008 ) * (696 + 30 + 165)
+//            let width:CGFloat = 720 / 2
+//            let height =  (width / 1008 ) * (696 + 30 + 165)
+//            let left = (self.view.bounds.width  - width ) / 2
+//            let top = (self.view.bounds.height - height ) / 2
+            let width = randomView?.frame.width ?? self.frame.size.width / 2
+            let height = randomView?.frame.height ??  (width / 1008 ) * (696 + 30 + 165)
             let left = (self.frame.size.width - width) / 2
             let top = (self.frame.size.height - height ) / 2
             let frame = CGRect(x: left, y: top, width: width, height: height)
             randomView?.frame = frame
+//            randomView?.backgroundColor = .red
             watermarkView.addSubview(randomView!)
 
             

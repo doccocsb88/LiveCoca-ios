@@ -78,11 +78,11 @@ class RandomMaskView: UIView {
         let numberWidth = (178 / 1008 ) * randomWidth;
         let numberHeight = (311 / 696) * randomHeight;
         let numberMargin = (38 / 1008) * randomWidth;
-        
+        let numberFont =  UIFont.systemFont(ofSize: 25 * scale)
         number1Label = UILabel(frame: CGRect(x: numberLeft, y: numberTop, width: numberWidth, height: numberHeight))
         number1Label?.textAlignment = .center
         number1Label?.textColor = .black
-        number1Label?.font = UIFont.systemFont(ofSize: 25 * scale)
+        number1Label?.font = numberFont
         number1Label?.text = "1"
         randomView?.addSubview(number1Label!)
         ///
@@ -90,7 +90,7 @@ class RandomMaskView: UIView {
         number2Label = UILabel(frame: CGRect(x: numberLeft, y: numberTop, width: numberWidth, height: numberHeight))
         number2Label?.textAlignment = .center
         number2Label?.textColor = .black
-        number2Label?.font = UIFont.systemFont(ofSize: 25 * scale)
+        number2Label?.font = numberFont
         number2Label?.text = "2"
         randomView?.addSubview(number2Label!)
         ///
@@ -99,7 +99,7 @@ class RandomMaskView: UIView {
         number3Label = UILabel(frame: CGRect(x: numberLeft, y: numberTop, width: numberWidth, height: numberHeight))
         number3Label?.textAlignment = .center
         number3Label?.textColor = .black
-        number3Label?.font = UIFont.systemFont(ofSize: 25 * scale)
+        number3Label?.font = numberFont
         number3Label?.text = "3"
         randomView?.addSubview(number3Label!)
         ///
@@ -107,7 +107,7 @@ class RandomMaskView: UIView {
         number4Label = UILabel(frame: CGRect(x: numberLeft, y: numberTop, width: numberWidth, height: numberHeight))
         number4Label?.textAlignment = .center
         number4Label?.textColor = .black
-        number4Label?.font = UIFont.systemFont(ofSize: 25 * scale)
+        number4Label?.font = numberFont
         number4Label?.text = "4"
         randomView?.addSubview(number4Label!)
         ///
@@ -117,7 +117,7 @@ class RandomMaskView: UIView {
         randomButton = UIButton(frame: CGRect(x: left, y: topMargin + randomHeight + 10 * scale, width: randomWidth, height: buttonHeight))
         randomButton?.setBackgroundImage(UIImage(named: "background_random_button"), for: .normal)
         randomButton?.setTitle("START", for: .normal)
-        randomButton?.titleLabel?.font = UIFont.systemFont(ofSize: 25 * scale)
+        randomButton?.titleLabel?.font = UIFont.systemFont(ofSize: 22 * scale)
         randomButton?.addTarget(self, action: #selector(didTouchStart(_:)), for: .touchUpInside)
         self.addSubview(randomButton!)
         
@@ -148,7 +148,6 @@ class RandomMaskView: UIView {
     }
     func stopRandom(){
         self.isReady = false;
-        completeHandle(false)
         randomButton?.setTitle("START", for: .normal)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {[weak self] in
             guard let strongSelf = self else{
@@ -200,7 +199,15 @@ class RandomMaskView: UIView {
             strongSelf.number4Label?.text = "\((strongSelf.randomNumber /  1) % 10 )"
 
         }
-
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {[weak self] in
+            // your code here
+            guard let strongSelf = self else{
+                return
+            }
+            
+            strongSelf.completeHandle(false)
+            
+        }
 
 
     }

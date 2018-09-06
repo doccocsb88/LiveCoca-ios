@@ -60,6 +60,7 @@ class CountDownViewCell: UITableViewCell {
         uploadButton.tintColor = UIColor.lightGray
         uploadButton.imageView?.contentMode = UIViewContentMode.scaleAspectFit
 //
+        timerTextfield.addBorder(cornerRadius: 4, color: .lightGray)
         timerTextfield.delegate = self
         
         if let mute = config["mute"] as? Bool{
