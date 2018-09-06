@@ -24,9 +24,9 @@ class StreamViewController: BaseViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var addUrlStreamButton: UIButton!
     var picker:UIPickerView?
     var pickerView:UIView?
-
+    
     let selectStreamInfoVC = SelectStreamAccountViewController()
-
+    var streamViewController:HKLiveVideoViewController?
     var selectedAccount: BaseInfo?
     var selectedPages:SocialTarget?
     var curTargets:[SocialTarget] = []
@@ -231,11 +231,20 @@ class StreamViewController: BaseViewController, UITableViewDelegate, UITableView
     @IBAction func nextTapped(_ sender: Any) {
         if self.streamUrls.count > 0{
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            if let controller = storyboard.instantiateViewController(withIdentifier: "LiveVideoViewController") as? HKLiveVideoViewController{
-                controller.streamUrls = self.streamUrls
-                self.present(controller, animated: true, completion: nil)
+            streamViewController = storyboard.instantiateViewController(withIdentifier: "LiveVideoViewController") as? HKLiveVideoViewController
+            
+            streamViewController?.streamUrls = self.streamUrls
+            streamViewController?.didStreamEndedHandler = {
+                self.showStreamEndedScreen()
             }
+            self.present(streamViewController!, animated: true, completion: nil)
+            
         }
+    }
+    func showStreamEndedScreen(){
+        let endedViewController = StreamEndedViewController()
+        
+        self.present(endedViewController, animated: true, completion: nil)
     }
 }
 extension StreamViewController{

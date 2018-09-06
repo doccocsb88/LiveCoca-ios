@@ -102,6 +102,9 @@
 		EC6149A52139342200A43FE7 /* CountdownPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6149A42139342100A43FE7 /* CountdownPickerView.swift */; };
 		EC752C21210F1944004A69C4 /* AddStreamAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC752C1F210F1944004A69C4 /* AddStreamAccountViewController.swift */; };
 		EC752C22210F1944004A69C4 /* AddStreamAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC752C20210F1944004A69C4 /* AddStreamAccountViewController.xib */; };
+		ECA2666621410D6B00EF0D47 /* animation_done.json in Resources */ = {isa = PBXBuildFile; fileRef = ECA2666521410D6A00EF0D47 /* animation_done.json */; };
+		ECA2666821410DBF00EF0D47 /* StreamEndedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA2666721410DBF00EF0D47 /* StreamEndedViewController.swift */; };
+		ECA2666A2141130C00EF0D47 /* soda_loader.json in Resources */ = {isa = PBXBuildFile; fileRef = ECA266692141130C00EF0D47 /* soda_loader.json */; };
 		ECE9439121087901003EB965 /* ImageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE9439021087901003EB965 /* ImageUtils.swift */; };
 /* End PBXBuildFile section */
 
@@ -213,6 +216,9 @@
 		EC6149A42139342100A43FE7 /* CountdownPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownPickerView.swift; sourceTree = "<group>"; };
 		EC752C1F210F1944004A69C4 /* AddStreamAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddStreamAccountViewController.swift; path = Profile/AddStreamAccountViewController.swift; sourceTree = "<group>"; };
 		EC752C20210F1944004A69C4 /* AddStreamAccountViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = AddStreamAccountViewController.xib; path = Profile/AddStreamAccountViewController.xib; sourceTree = "<group>"; };
+		ECA2666521410D6A00EF0D47 /* animation_done.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = animation_done.json; sourceTree = "<group>"; };
+		ECA2666721410DBF00EF0D47 /* StreamEndedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamEndedViewController.swift; sourceTree = "<group>"; };
+		ECA266692141130C00EF0D47 /* soda_loader.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = soda_loader.json; sourceTree = "<group>"; };
 		ECE9439021087901003EB965 /* ImageUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -326,8 +332,6 @@
 			children = (
 				EC53B2C8210B29C1000A3866 /* Controller */,
 				EC53B2BF210B0372000A3866 /* View */,
-				189C0EF3210A133A00ADF7FF /* StreamViewController.swift */,
-				DB9C406F1E70527D00CCBD83 /* HKLiveVideoViewController.swift */,
 				187A1685210B8A3E00F418CF /* MenuViewCell.swift */,
 				18AF752E211B4E510087FDB3 /* Videos.swift */,
 			);
@@ -409,6 +413,8 @@
 		DB9C40801E7055AC00CCBD83 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				ECA266692141130C00EF0D47 /* soda_loader.json */,
+				ECA2666521410D6A00EF0D47 /* animation_done.json */,
 				18AF7530211B52D20087FDB3 /* galaxy.mp4 */,
 				EC5136E32112CA3900391C60 /* material_loader.json */,
 				DB9C40711E70527D00CCBD83 /* Main.storyboard */,
@@ -425,26 +431,19 @@
 			isa = PBXGroup;
 			children = (
 				EC295AB02118610D005AC814 /* Model */,
-				DBF6E1BF1E8BC1B800875443 /* FBSDKLiveVideo */,
+				DBF6E1BF1E8BC1B800875443 /* Controller */,
 				DB9C406D1E70527D00CCBD83 /* AppDelegate.swift */,
-				189C0EF9210A16CE00ADF7FF /* BaseTabbarController.swift */,
-				18DBC7EB2114ADEE00C34D3E /* User.swift */,
-				0E4B698F213836BA0052A0C7 /* BaseViewController.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
 		};
-		DBF6E1BF1E8BC1B800875443 /* FBSDKLiveVideo */ = {
+		DBF6E1BF1E8BC1B800875443 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				DB40E22F1E71567E009E7C74 /* FBSDKLiveVideo.swift */,
-				18DB2AB7210CC226005864E1 /* FacebookInfo.swift */,
-				1854DB2E210D4C9C009DF33D /* BaseInfo.swift */,
-				186020392115C0B300662714 /* StreamInfo.swift */,
-				1860203B2115CBFC00662714 /* FacebookComment.swift */,
-				0E4B699121383C8C0052A0C7 /* SocialTarget.swift */,
+				189C0EF9210A16CE00ADF7FF /* BaseTabbarController.swift */,
+				0E4B698F213836BA0052A0C7 /* BaseViewController.swift */,
 			);
-			name = FBSDKLiveVideo;
+			name = Controller;
 			sourceTree = "<group>";
 		};
 		EC295AA921185551005AC814 /* Model */ = {
@@ -458,6 +457,13 @@
 		EC295AB02118610D005AC814 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				DB40E22F1E71567E009E7C74 /* FBSDKLiveVideo.swift */,
+				18DB2AB7210CC226005864E1 /* FacebookInfo.swift */,
+				1854DB2E210D4C9C009DF33D /* BaseInfo.swift */,
+				186020392115C0B300662714 /* StreamInfo.swift */,
+				1860203B2115CBFC00662714 /* FacebookComment.swift */,
+				0E4B699121383C8C0052A0C7 /* SocialTarget.swift */,
+				18DBC7EB2114ADEE00C34D3E /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -520,6 +526,9 @@
 		EC53B2C8210B29C1000A3866 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				DB9C406F1E70527D00CCBD83 /* HKLiveVideoViewController.swift */,
+				189C0EF3210A133A00ADF7FF /* StreamViewController.swift */,
+				ECA2666721410DBF00EF0D47 /* StreamEndedViewController.swift */,
 				EC53B2C9210B2A14000A3866 /* SelectStreamAccountViewController.swift */,
 				1860203D2115DE8C00662714 /* StreamCommentView.swift */,
 				0EC009D8213A314F0030BB29 /* HasStreamPopupView.swift */,
@@ -611,11 +620,13 @@
 				18AF7531211B52FA0087FDB3 /* galaxy.mp4 in Resources */,
 				186020422115E26A00662714 /* StreamCommentViewCell.xib in Resources */,
 				0E4B697A213293C00052A0C7 /* CommentMaskViewCell.xib in Resources */,
+				ECA2666621410D6B00EF0D47 /* animation_done.json in Resources */,
 				18042BFC210DF77F00F48229 /* CatchWordViewCell.xib in Resources */,
 				182C799F21173F55008D65CB /* LoginViewController.xib in Resources */,
 				18042BF8210DBF1A00F48229 /* FilterCommentViewCell.xib in Resources */,
 				EC53B2C7210B09E2000A3866 /* UrlStreamViewCell.xib in Resources */,
 				DB9C40781E70527D00CCBD83 /* LaunchScreen.storyboard in Resources */,
+				ECA2666A2141130C00EF0D47 /* soda_loader.json in Resources */,
 				EC752C22210F1944004A69C4 /* AddStreamAccountViewController.xib in Resources */,
 				0EC009DB213A314F0030BB29 /* HasStreamPopupView.xib in Resources */,
 				DB9C40751E70527D00CCBD83 /* Assets.xcassets in Resources */,
@@ -723,6 +734,7 @@
 				186020462116D33200662714 /* VideoMaskView.swift in Sources */,
 				18DBC7EC2114ADEE00C34D3E /* User.swift in Sources */,
 				1860203A2115C0B300662714 /* StreamInfo.swift in Sources */,
+				ECA2666821410DBF00EF0D47 /* StreamEndedViewController.swift in Sources */,
 				18042BF7210DBF1A00F48229 /* FilterCommentViewCell.swift in Sources */,
 				DB9C40701E70527D00CCBD83 /* HKLiveVideoViewController.swift in Sources */,
 				0EC009D521398EF30030BB29 /* CountdownMaskView.swift in Sources */,

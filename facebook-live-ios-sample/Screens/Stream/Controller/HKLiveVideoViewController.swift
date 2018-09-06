@@ -33,9 +33,9 @@ class HKLiveVideoViewController: BaseViewController, UITableViewDelegate, UITabl
     
     
 //    var liveVideo: FBSDKLiveVideo!
-    var timer = Timer()
     var startX : CGFloat = 0.0
-    var getCommentsTimer:Timer?
+
+
     @IBOutlet weak var commentContainerView: UIView!
     var commentView:StreamCommentView?
     let commentViewHeight:CGFloat = 300
@@ -95,7 +95,10 @@ class HKLiveVideoViewController: BaseViewController, UITableViewDelegate, UITabl
     var pinCommentView:CommentMaskView?
     var updateTimer:Timer?
     var commentViewTimer:Timer?
+    var getCommentsTimer:Timer?
+    var timer:Timer?
     var firstTime:Bool = true
+    var didStreamEndedHandler:() ->() = {}
     override func viewDidLoad() {
         super.viewDidLoad()
 //          1920x1080
@@ -328,6 +331,7 @@ class HKLiveVideoViewController: BaseViewController, UITableViewDelegate, UITabl
             self.view.endEditing(true)
         }
     }
+  
     @objc func keyboardWillAppear(_ notification: Notification) {
         //Do something here
         adjustKeyboardShow(true, notification: notification)
@@ -624,6 +628,9 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
             removeTimer()
             WarterMarkServices.shared().resetConfig()
             removeStreamControlView()
+            self.dismiss(animated: true) {
+                self.didStreamEndedHandler()
+            }
             break;
         default:
             break;
@@ -749,14 +756,17 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
         randomView = nil
     }
     private func removeTimer(){
-        if let _ = updateTimer{
-            updateTimer?.invalidate()
-            updateTimer = nil
-        }
-        if let _ = getCommentsTimer{
-            updateTimer?.invalidate()
-            updateTimer = nil
-        }
+        updateTimer?.invalidate()
+        updateTimer = nil
+        
+        getCommentsTimer?.invalidate()
+        getCommentsTimer = nil
+        
+        timer?.invalidate()
+        timer = nil
+        
+        commentViewTimer?.invalidate()
+        commentViewTimer = nil
     }
     @objc func didTappedBeautyButton(_ button: UIButton) -> Void {
         session.beautyFace = !session.beautyFace;
@@ -766,7 +776,7 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
        switchCamera()
     }
     
-    // 关闭
+   
     func didTappedCloseButton(_ button: UIButton) -> Void  {
         
     }

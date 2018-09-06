@@ -35,7 +35,7 @@ class BaseViewController: UIViewController {
     */
     
     func initLoadingView(){
-        loadingAnimation = LOTAnimationView(name: "material_loader")
+        loadingAnimation = LOTAnimationView(name: "soda_loader")
         // Set view to full screen, aspectFill
         loadingAnimation!.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         loadingAnimation!.contentMode = .scaleAspectFill
