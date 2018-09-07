@@ -188,7 +188,7 @@ class WarterMarkServices{
         sloganLabel.textAlignment = .center
         sloganLabel.textColor = UIColor.white
         sloganLabel.font = UIFont.systemFont(ofSize: 25, weight: .bold)
-        sloganLabel.backgroundColor = .purple
+        sloganLabel.backgroundColor = UIColor.init(hexString: "#FC6076")
         sloganView.addSubview(sloganLabel)
         if value == 0{
             //hide

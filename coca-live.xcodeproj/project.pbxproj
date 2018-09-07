@@ -81,7 +81,7 @@
 		18DBC7EA211204A500C34D3E /* APIUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DBC7E9211204A500C34D3E /* APIUtils.swift */; };
 		18DBC7EC2114ADEE00C34D3E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DBC7EB2114ADEE00C34D3E /* User.swift */; };
 		18DBC7EE2114B33100C34D3E /* StringUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DBC7ED2114B33100C34D3E /* StringUtils.swift */; };
-		58C4864B08C09722985BAD0A /* Pods_facebook_live_ios_sample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 623B35CB2F605030CBDC37BD /* Pods_facebook_live_ios_sample.framework */; };
+		63E646558BB7C6A7BC5FB07D /* Pods_coca_live.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EC96A9CF4274A07651B7AE7 /* Pods_coca_live.framework */; };
 		DB40E2301E71567E009E7C74 /* FBSDKLiveVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB40E22F1E71567E009E7C74 /* FBSDKLiveVideo.swift */; };
 		DB9C406E1E70527D00CCBD83 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9C406D1E70527D00CCBD83 /* AppDelegate.swift */; };
 		DB9C40701E70527D00CCBD83 /* HKLiveVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9C406F1E70527D00CCBD83 /* HKLiveVideoViewController.swift */; };
@@ -189,9 +189,9 @@
 		18DBC7E9211204A500C34D3E /* APIUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = APIUtils.swift; path = Services/APIUtils.swift; sourceTree = "<group>"; };
 		18DBC7EB2114ADEE00C34D3E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		18DBC7ED2114B33100C34D3E /* StringUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringUtils.swift; sourceTree = "<group>"; };
-		1CBFEDED0E1D6138EA13B51D /* Pods-facebook-live-ios-sample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-facebook-live-ios-sample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-facebook-live-ios-sample/Pods-facebook-live-ios-sample.debug.xcconfig"; sourceTree = "<group>"; };
+		2EC96A9CF4274A07651B7AE7 /* Pods_coca_live.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_coca_live.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		623B35CB2F605030CBDC37BD /* Pods_facebook_live_ios_sample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_facebook_live_ios_sample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7D3679D1F57FD4D405E2CCCF /* Pods-facebook-live-ios-sample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-facebook-live-ios-sample.release.xcconfig"; path = "Pods/Target Support Files/Pods-facebook-live-ios-sample/Pods-facebook-live-ios-sample.release.xcconfig"; sourceTree = "<group>"; };
+		BA7FD2BD9B89D257C1357364 /* Pods-coca-live.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-coca-live.release.xcconfig"; path = "Pods/Target Support Files/Pods-coca-live/Pods-coca-live.release.xcconfig"; sourceTree = "<group>"; };
 		DB40E22F1E71567E009E7C74 /* FBSDKLiveVideo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBSDKLiveVideo.swift; sourceTree = "<group>"; };
 		DB9C406A1E70527D00CCBD83 /* coca-live.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "coca-live.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB9C406D1E70527D00CCBD83 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -204,6 +204,7 @@
 		DBA01A2D1E71CAD80005A439 /* facebook-live-ios-sample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "facebook-live-ios-sample-Bridging-Header.h"; sourceTree = "<group>"; };
 		DBBBFCFB1E7166E100CD90AC /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
 		DBBBFCFC1E7166E100CD90AC /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		DC88924AA17E6F6DC8494FDB /* Pods-coca-live.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-coca-live.debug.xcconfig"; path = "Pods/Target Support Files/Pods-coca-live/Pods-coca-live.debug.xcconfig"; sourceTree = "<group>"; };
 		EC295AAC21185A0F005AC814 /* APIRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = APIRouter.swift; path = Services/Route/APIRouter.swift; sourceTree = "<group>"; };
 		EC295AAE21185D03005AC814 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		EC5136E32112CA3900391C60 /* material_loader.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = material_loader.json; sourceTree = "<group>"; };
@@ -240,7 +241,7 @@
 				187A168C210C173C00F418CF /* VideoToolbox.framework in Frameworks */,
 				187A168A210C173500F418CF /* libz.tbd in Frameworks */,
 				187A1688210C172D00F418CF /* libstdc++.tbd in Frameworks */,
-				58C4864B08C09722985BAD0A /* Pods_facebook_live_ios_sample.framework in Frameworks */,
+				63E646558BB7C6A7BC5FB07D /* Pods_coca_live.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,6 +262,7 @@
 				187A1689210C173500F418CF /* libz.tbd */,
 				187A1687210C172D00F418CF /* libstdc++.tbd */,
 				623B35CB2F605030CBDC37BD /* Pods_facebook_live_ios_sample.framework */,
+				2EC96A9CF4274A07651B7AE7 /* Pods_coca_live.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -382,8 +384,8 @@
 		BB0C1DA3F220981890B0C580 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				1CBFEDED0E1D6138EA13B51D /* Pods-facebook-live-ios-sample.debug.xcconfig */,
-				7D3679D1F57FD4D405E2CCCF /* Pods-facebook-live-ios-sample.release.xcconfig */,
+				DC88924AA17E6F6DC8494FDB /* Pods-coca-live.debug.xcconfig */,
+				BA7FD2BD9B89D257C1357364 /* Pods-coca-live.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -391,7 +393,7 @@
 		DB9C40611E70527D00CCBD83 = {
 			isa = PBXGroup;
 			children = (
-				DB9C406C1E70527D00CCBD83 /* facebook-live-ios-sample */,
+				DB9C406C1E70527D00CCBD83 /* coca-live */,
 				DB9C406B1E70527D00CCBD83 /* Products */,
 				BB0C1DA3F220981890B0C580 /* Pods */,
 				05413CD1913C83EBD3C6B8D3 /* Frameworks */,
@@ -406,7 +408,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		DB9C406C1E70527D00CCBD83 /* facebook-live-ios-sample */ = {
+		DB9C406C1E70527D00CCBD83 /* coca-live */ = {
 			isa = PBXGroup;
 			children = (
 				18DB2AAA210CA3D0005864E1 /* Services */,
@@ -415,7 +417,7 @@
 				DB9C40811E7055BE00CCBD83 /* Classes */,
 				DB9C40801E7055AC00CCBD83 /* Resources */,
 			);
-			path = "facebook-live-ios-sample";
+			path = "coca-live";
 			sourceTree = "<group>";
 		};
 		DB9C40801E7055AC00CCBD83 /* Resources */ = {
@@ -673,7 +675,7 @@
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-facebook-live-ios-sample-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-coca-live-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -686,7 +688,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-facebook-live-ios-sample/Pods-facebook-live-ios-sample-frameworks.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-coca-live/Pods-coca-live-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireObjectMapper/AlamofireObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
@@ -723,7 +725,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-facebook-live-ios-sample/Pods-facebook-live-ios-sample-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-coca-live/Pods-coca-live-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -923,17 +925,17 @@
 		};
 		DB9C407D1E70527D00CCBD83 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1CBFEDED0E1D6138EA13B51D /* Pods-facebook-live-ios-sample.debug.xcconfig */;
+			baseConfigurationReference = DC88924AA17E6F6DC8494FDB /* Pods-coca-live.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = "facebook-live-ios-sample/facebook-live-ios-sample.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "coca-live/coca-live.entitlements";
 				DEVELOPMENT_TEAM = F59XSVKP6X;
-				INFOPLIST_FILE = "facebook-live-ios-sample/Info.plist";
+				INFOPLIST_FILE = "coca-live/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.coca.live;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "facebook-live-ios-sample/facebook-live-ios-sample-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "coca-live/coca-live-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -942,17 +944,17 @@
 		};
 		DB9C407E1E70527D00CCBD83 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7D3679D1F57FD4D405E2CCCF /* Pods-facebook-live-ios-sample.release.xcconfig */;
+			baseConfigurationReference = BA7FD2BD9B89D257C1357364 /* Pods-coca-live.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = "facebook-live-ios-sample/facebook-live-ios-sample.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "coca-live/coca-live.entitlements";
 				DEVELOPMENT_TEAM = F59XSVKP6X;
-				INFOPLIST_FILE = "facebook-live-ios-sample/Info.plist";
+				INFOPLIST_FILE = "coca-live/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.coca.live;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "facebook-live-ios-sample/facebook-live-ios-sample-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "coca-live/coca-live-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

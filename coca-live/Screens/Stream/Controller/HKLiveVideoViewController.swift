@@ -85,6 +85,7 @@ class HKLiveVideoViewController: BaseViewController, UITableViewDelegate, UITabl
     var curMenuIndex:Int = -1;
     var streamUrls:[StreamInfo] = []
     var streamInfo = LFLiveStreamInfo()
+    var id_room:String?
     //
     let imagePicker = UIImagePickerController()
     var selectedImage:[String:UIImage] = [:]
@@ -163,19 +164,20 @@ class HKLiveVideoViewController: BaseViewController, UITableViewDelegate, UITabl
         super.viewDidAppear(animated)
         if firstTime {
             firstTime = false
-            APIClient.shared().startLive(stremInfo: self.streamUrls[0], width: 720, height: 1280, id_category: "", time_countdown: 0) {[unowned self] (success, message, id_room) in
-                if success{
-                    guard let _ = id_room else {
-                        return
-                    }
-                    self.startLive()
-
-                }else{
-                    self.showMessageDialog(nil, message ?? APIError.Error_Message_Generic)
-                }
-
-            }
-//            self.startLive()
+//            APIClient.shared().startLive(stremInfo: self.streamUrls[0], width: 720, height: 1280, id_category: "", time_countdown: 0) {[unowned self] (success, message, id_room) in
+//                if success{
+//                    guard let _ = id_room else {
+//                        return
+//                    }
+//                    self.id_room = id_room!
+//                    self.startLive()
+//
+//                }else{
+//                    self.showMessageDialog(nil, message ?? APIError.Error_Message_Generic)
+//                }
+//
+//            }
+            self.startLive()
 
         }
 
@@ -254,7 +256,11 @@ class HKLiveVideoViewController: BaseViewController, UITableViewDelegate, UITabl
     
     @IBAction func stopStreamTapped(_ sender: Any) {
 //        dismiss(animated: true, completion: nil)
-            stopLive()
+        if let _ = self.id_room{
+            APIClient.shared().endLive(id_room: self.id_room!) { (success, message) in
+                self.stopLive()
+            }
+        }
     }
     @objc func tappedGesture(_ gesture: UIGestureRecognizer){
         self.commentViewTimer?.invalidate()

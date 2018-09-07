@@ -65,7 +65,7 @@ class HasStreamPopupView: UIViewController {
 //        guard let id_target = self.id_target else {
 //            return
 //        }
-        APIClient.shared().endLive(id_room: id_room) {[unowned self] (success, message) in
+        APIClient.shared().endLive(id_room: id_room) {[weak self] (success, message) in
             if success{
 //                APIClient.shared().createLive(id_social: id_social, id_target: id_target, caption: self.streamDescription ?? "Coca Live") {[unowned self]  (success,code , message, info) in
 //                    if success{
@@ -73,7 +73,10 @@ class HasStreamPopupView: UIViewController {
 //                    }
 //
 //                }
-                self.dismiss(animated: true, completion: nil)
+                guard let strongSelf = self else{
+                    return
+                }
+                strongSelf.dismiss(animated: true, completion: nil)
 
             }else{
                 
