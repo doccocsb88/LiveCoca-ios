@@ -200,8 +200,6 @@
 		DB9C40741E70527D00CCBD83 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DB9C40771E70527D00CCBD83 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DB9C40791E70527D00CCBD83 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DB9C407F1E70559F00CCBD83 /* facebook-live-ios-sample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "facebook-live-ios-sample.entitlements"; sourceTree = "<group>"; };
-		DBA01A2D1E71CAD80005A439 /* facebook-live-ios-sample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "facebook-live-ios-sample-Bridging-Header.h"; sourceTree = "<group>"; };
 		DBBBFCFB1E7166E100CD90AC /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
 		DBBBFCFC1E7166E100CD90AC /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		DC88924AA17E6F6DC8494FDB /* Pods-coca-live.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-coca-live.debug.xcconfig"; path = "Pods/Target Support Files/Pods-coca-live/Pods-coca-live.debug.xcconfig"; sourceTree = "<group>"; };
@@ -430,8 +428,6 @@
 				DB9C40711E70527D00CCBD83 /* Main.storyboard */,
 				DB9C40761E70527D00CCBD83 /* LaunchScreen.storyboard */,
 				DB9C40791E70527D00CCBD83 /* Info.plist */,
-				DBA01A2D1E71CAD80005A439 /* facebook-live-ios-sample-Bridging-Header.h */,
-				DB9C407F1E70559F00CCBD83 /* facebook-live-ios-sample.entitlements */,
 				DB9C40741E70527D00CCBD83 /* Assets.xcassets */,
 			);
 			name = Resources;

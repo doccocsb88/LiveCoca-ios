@@ -15,6 +15,7 @@ class AddStreamAccountViewController: BaseViewController {
     @IBOutlet weak var submitButton: UIButton!
     
     @IBOutlet weak var containerBottomConstraint: NSLayoutConstraint!
+    var bottomMargin:CGFloat = 0;
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -53,7 +54,7 @@ class AddStreamAccountViewController: BaseViewController {
         let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.checkAction))
         self.view.addGestureRecognizer(gesture)
         
-        
+        bottomMargin = containerBottomConstraint.constant;
     }
     
     
@@ -72,6 +73,11 @@ class AddStreamAccountViewController: BaseViewController {
             
         }
     }
+    
+    @IBAction func tappedClose(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     @objc func checkAction(sender : UITapGestureRecognizer) {
         // Do what you want
         self.view.endEditing(true)
@@ -91,8 +97,16 @@ class AddStreamAccountViewController: BaseViewController {
         let userInfo = notification.userInfo ?? [:]
         let keyboardFrame = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
 
-        let height = (keyboardFrame.height) * (open ? 1 : 0) / 2
+//        let height = (keyboardFrame.height) * (open ? 1 : 0) / 2
+        let height = (keyboardFrame.height)  / 2
+
 //        self.commentBoxMarginBottomConstraint.constant = height;
-        containerBottomConstraint.constant += height
+        if open {
+            containerBottomConstraint.constant += height
+
+        }else{
+            containerBottomConstraint.constant =  bottomMargin
+
+        }
     }
 }

@@ -799,10 +799,14 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
     }
      @objc func fetchStreamComments(){
         print("fetchStreamComments")
+        let dumMessage:[String] = ["comment a", "comment b", "comment c", "comment d","comemnt e","comment f"];
+        let dumCreatedTime:[String] = ["2018-09-02T11:44:39+0000", "2018-09-02T10:41:39+0000", "2018-09-02T19:12:39+0000", "2018-09-02T09:56:39+0000","2018-09-02T15:29:39+0000","2018-09-02T07:23:39+0000"];
+
         if let view = self.commentView{
             var dummyComments:[FacebookComment] = []
             for i in 0..<10{
-                let comment = FacebookComment(message: "a", commentId: "\(i)", createTime: "2018-09-02T11:44:39+0000", fromId: "\(i)\(i)", fromName: "name\(i)")
+                let index = i % dumMessage.count
+                let comment = FacebookComment(message:dumMessage[index] , commentId: "\(i)", createTime: dumCreatedTime[index], fromId: "\(i)\(i)", fromName: "name\(i)")
                 dummyComments.append(comment)
             }
             view.reloadData(data: dummyComments)

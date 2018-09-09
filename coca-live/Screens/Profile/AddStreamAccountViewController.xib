@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14306.4" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14278.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddStreamAccountViewController" customModule="facebook_live_ios_sample" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddStreamAccountViewController" customModule="coca_live" customModuleProvider="target">
             <connections>
                 <outlet property="accessTokenTextView" destination="uhZ-1v-FDL" id="aOL-46-YL6"/>
                 <outlet property="containerBottomConstraint" destination="j1y-P5-YVg" id="cUu-AW-MJh"/>
@@ -86,12 +86,26 @@
                         <constraint firstItem="JIF-aV-nFL" firstAttribute="leading" secondItem="2Lr-0X-bLA" secondAttribute="leading" constant="10" id="v5u-mR-Gj3"/>
                     </constraints>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KoQ-F8-GXo">
+                    <rect key="frame" x="20" y="30" width="30" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="30" id="RoF-D3-nsD"/>
+                        <constraint firstAttribute="height" constant="30" id="d4f-bK-4h2"/>
+                    </constraints>
+                    <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
+                    <state key="normal" image="ic_close"/>
+                    <connections>
+                        <action selector="tappedClose:" destination="-1" eventType="touchUpInside" id="KAj-U6-afo"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.29909567636986301" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstItem="KoQ-F8-GXo" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="0pQ-vK-gSY"/>
                 <constraint firstItem="2Lr-0X-bLA" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="34C-ks-iuM"/>
                 <constraint firstItem="2Lr-0X-bLA" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="iQX-97-jAV"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="2Lr-0X-bLA" secondAttribute="bottom" constant="187" id="j1y-P5-YVg"/>
+                <constraint firstItem="KoQ-F8-GXo" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="10" id="uVB-tO-mVT"/>
                 <constraint firstItem="2Lr-0X-bLA" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="v4t-yo-pXd"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
@@ -105,5 +119,6 @@
     </objects>
     <resources>
         <image name="bg_add_url" width="280" height="70"/>
+        <image name="ic_close" width="32" height="32"/>
     </resources>
 </document>
