@@ -2,14 +2,17 @@
 use_frameworks!
 
 def import_pods
-    pod 'FacebookCore', :git => 'https://github.com/facebook/facebook-sdk-swift', :branch => 'master'
-    pod 'FacebookLogin',  :git => 'https://github.com/facebook/facebook-sdk-swift', :branch => 'master'
-    pod 'FacebookShare',  :git => 'https://github.com/facebook/facebook-sdk-swift', :branch => 'master'
+#    pod 'FacebookCore', :git => 'https://github.com/facebook/facebook-sdk-swift', :branch => 'master'
+#    pod 'FacebookLogin',  :git => 'https://github.com/facebook/facebook-sdk-swift', :branch => 'master'
+#    pod 'FacebookShare',  :git => 'https://github.com/facebook/facebook-sdk-swift', :branch => 'master'
 #    pod 'VideoCore', '~>0.3'
     pod 'lottie-ios'
     pod 'Spring', '~> 1.0'
     pod 'LFLiveKit', '~> 2.6'
-#    pod 'FacebookCore', '~> 0.3'
+    pod 'FacebookCore', '~> 0.3'
+    pod 'FacebookLogin', '~> 0.3'
+    pod 'FacebookShare', '~> 0.3'
+
     pod 'Alamofire', '~> 4.7'
     pod 'Kingfisher', '~> 4.8'
     pod 'AlamofireObjectMapper', '~> 5.1'

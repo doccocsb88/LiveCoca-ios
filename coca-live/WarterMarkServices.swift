@@ -58,10 +58,7 @@ class WarterMarkServices{
                 countdownView = nil
             }
         }
-        if let frame = params["frame"] as? Bool , frame == true{
-            backgroundImage =  addFrame(sourceImage: backgroundImage)
-            
-        }
+        
 
         if let slogan = params["slogan"] as? [String:Any]{
             if let sloganView = handleSlogan(slogan: slogan){
@@ -160,6 +157,14 @@ class WarterMarkServices{
 //        let wartermarkImageView = UIImageView(frame: watermarkView.bounds)
 //        wartermarkImageView.image = backgroundImage.resizeImage(self.frame.size)
 //        watermarkView.addSubview(wartermarkImageView)
+        if let frame = params["frame"] as? [String:Any],let imageName =  frame["image"] as? String{
+            let frameView = UIImageView(frame: self.frame)
+            frameView.image = UIImage(named: imageName)
+            
+            watermarkView.addSubview(frameView)
+            
+        }
+
         return watermarkView
     }
     func addCountDown(){
@@ -173,6 +178,9 @@ class WarterMarkServices{
         
         return sourceImage.mergeImage(image: frameImage!,self.frame, at: self.frame)
         
+    }
+    func configFrame(config:[String:Any]){
+        params["frame"] = config
     }
     func handleSlogan(slogan:[String:Any]) -> UIView?{
         let sloganView = UIView(frame: CGRect(x: 0, y: self.frame.size.height - 100, width: self.frame.size.width, height: 100))

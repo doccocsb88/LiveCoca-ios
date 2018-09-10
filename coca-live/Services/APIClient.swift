@@ -368,7 +368,7 @@ class APIClient {
                             guard let name = data["name"] as? String else{
                                 return
                             }
-                            let target = SocialTarget(id:id,name:name)
+                            let target = SocialTarget(id:id,name:"Tường \(name)")
                             targets.append(target)
                             
                         }
@@ -383,7 +383,7 @@ class APIClient {
                             guard let name = data["name"] as? String else{
                                 return
                             }
-                            let target = SocialTarget(id:id,name:name)
+                            let target = SocialTarget(id:id,name:"Trang \(name)")
                             targets.append(target)
                         }
                         
@@ -398,7 +398,7 @@ class APIClient {
                             guard let name = data["name"] as? String else{
                                 return
                             }
-                            let target = SocialTarget(id:id,name:name)
+                            let target = SocialTarget(id:id,name:"Nhóm \(name)")
                             targets.append(target)
                         }
                         

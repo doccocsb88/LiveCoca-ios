@@ -164,20 +164,22 @@ class HKLiveVideoViewController: BaseViewController, UITableViewDelegate, UITabl
         super.viewDidAppear(animated)
         if firstTime {
             firstTime = false
-//            APIClient.shared().startLive(stremInfo: self.streamUrls[0], width: 720, height: 1280, id_category: "", time_countdown: 0) {[unowned self] (success, message, id_room) in
-//                if success{
-//                    guard let _ = id_room else {
-//                        return
-//                    }
-//                    self.id_room = id_room!
-//                    self.startLive()
-//
-//                }else{
-//                    self.showMessageDialog(nil, message ?? APIError.Error_Message_Generic)
-//                }
-//
-//            }
-            self.startLive()
+            APIClient.shared().startLive(stremInfo: self.streamUrls[0], width: 720, height: 1280, id_category: "", time_countdown: 0) {[unowned self] (success, message, id_room) in
+                if success{
+                    guard let _ = id_room else {
+                        self.showMessageDialog(nil, message ?? APIError.Error_Message_Generic)
+
+                        return
+                    }
+                    self.id_room = id_room!
+                    self.startLive()
+
+                }else{
+                    self.showMessageDialog(nil, message ?? APIError.Error_Message_Generic)
+                }
+
+            }
+//            self.startLive()
 
         }
 
@@ -449,8 +451,14 @@ extension HKLiveVideoViewController{
             return cell
         case 2:
             //list frame
-            let cell = tableView.dequeueReusableCell(withIdentifier:reuseFrame, for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier:reuseFrame, for: indexPath) as! FrameViewCellV2
             cell.selectionStyle = .none
+            cell.tag = indexPath.row
+
+            cell.didSelectFrame = {
+                self.updateWatermarkView(nil)
+
+            }
             return cell
         case 3:
             //pin comment
@@ -510,7 +518,7 @@ extension HKLiveVideoViewController{
                     self.updateWatermarkView(nil)
                 }
             }
-        cell.updateImages(frame:selectedImage["frameImage"],questionImage:selectedImage["questionImage"])
+            cell.updateImages(frame:selectedImage["frameImage"],questionImage:selectedImage["questionImage"])
             cell.selectionStyle = .none
             
             return cell
@@ -545,7 +553,20 @@ extension HKLiveVideoViewController{
             return cell
         }
     }
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 2{
+            var config:[String:Any] = [:]
+            if indexPath.row % 2 == 0{
+                config["image"] = "frame_01"
+            }else{
+                config["image"] = "frame_02"
+
+            }
+            WarterMarkServices.sharedInstance.configFrame(config: config)
+            updateWatermarkView(nil)
+        }
+    }
+
     @objc func didExpandTableCell(_ button: UIButton){
         curMenuIndex = button.tag
         tableView.scrollsToTop = true
@@ -574,6 +595,7 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
             break;
         }
     }
+    
     
     func requestAccessForAudio() -> Void {
         let status = AVCaptureDevice.authorizationStatus(for:AVMediaType.audio)
