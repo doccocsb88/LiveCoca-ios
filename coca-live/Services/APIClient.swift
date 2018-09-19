@@ -549,7 +549,7 @@ class APIClient {
         }
     }
     
-    func upload(type:String,title:String?, url:String?, image:UIImage?){
+    func upload(type:String,title:String?, url:String?, image:UIImage?,completion:@escaping(_  success:Bool, _ message:String?,_ frames:[StreamFrame]) ->Void){
         var parameters = [
             "type": type,
             "token": APIClient.shared().token ?? "",
@@ -577,20 +577,45 @@ class APIClient {
                 encodingCompletion: { encodingResult in
                     switch encodingResult {
                     case .success(let upload, _, _):
-                        upload.response { [weak self] response in
+                        upload.responseJSON { [weak self] response in
                             guard let strongSelf = self else {
                                 return
                             }
-                            print(response.data)
-                            let jsonResponse = JSON(response.response)
+                            guard let value = response.result.value else {
+                                return
+                            }
+                            let jsonResponse = JSON(value)
 
-                            print("strongSelf (\(response)")
-                            print("strongSelf (\(jsonResponse)")
-
+                            if let error = jsonResponse["error"].dictionaryObject{
+                                print("error \(error)")
+                                let errorCode = error["code"] as? Int
+                                let code = errorCode ?? 0
+                                let explain = error["explain"] as? String
+                                completion(false,explain,[])
+                                
+                            }else{
+                                var frames:[StreamFrame] = []
+                                if let list = jsonResponse["list"].array{
+                                    for i in 0..<list.count{
+                                        if let data = list[i].dictionaryObject{
+                                            let title = data["title"] as? String
+                                            if let thumbnail = data["thumbnail"] as? String{
+                                                let frame = StreamFrame(title: title ?? "title \(i)", thumbnail: thumbnail)
+                                                frames.append(frame)
+                                            }
+                                        }
+                                    }
+                                    
+                                }
+                                completion(true,nil,frames)
+                                
+                            }
                             
                         }
                     case .failure(let encodingError):
                         print("error:\(encodingError)")
+                        completion(false,encodingError.localizedDescription,[])
+
                     }
         })
         

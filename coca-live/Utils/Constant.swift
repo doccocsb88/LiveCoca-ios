@@ -37,6 +37,7 @@ struct K {
 
     }
     struct APIUploadType{
+        static let unknow = "unknow"
         static let frame = "frame"
         static let avatar = "avatar"
         static let screen_wait  = "screen_wait"

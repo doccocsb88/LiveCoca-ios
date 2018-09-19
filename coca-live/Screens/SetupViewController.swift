@@ -222,7 +222,7 @@ extension SetupViewController:UIImagePickerControllerDelegate, UINavigationContr
         }
         
         self.previewImageView.image = image
-        APIClient.shared().upload(type: type, title: "abcdef", url: nil, image: image)
+        self.selectedImage = image
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -297,16 +297,31 @@ extension SetupViewController:UIImagePickerControllerDelegate, UINavigationContr
             guard let _ = titleFrame else {
                 self.showAlertMessage(nil, "Nhập tên khung trước khi upload hình ảnh")
                 return}
-            APIClient.shared().upload(type: type, title: titleFrame, url: selectedUrl, image: selectedImage)
+            APIClient.shared().upload(type: type, title: titleFrame, url: selectedUrl, image: selectedImage){[unowned self] (success, message,frames) in
+                if success{
+                    self.resetParams()
+
+                    self.listFrame = frames
+                    self.frameCollectionView.reloadData()
+                }
+            }
 
         }else{
             if self.selectedImage == nil && self.selectedImage == nil{
                 self.showAlertMessage(nil, "Vui lòng chọn ảnh từ thư việc hoặc nhập đường dẫn hình ảnh")
 
             }else{
-                APIClient.shared().upload(type: type, title: titleFrame, url: selectedUrl, image: selectedImage)
+                APIClient.shared().upload(type: type, title: titleFrame, url: selectedUrl, image: selectedImage){[unowned self] (success, message,frames) in
+                    self.resetParams()
+                }
 
             }
         }
+    }
+    func resetParams(){
+        type = K.APIUploadType.unknow
+        titleFrame = nil
+        selectedUrl = nil
+        selectedImage = nil
     }
 }
