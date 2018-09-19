@@ -18,6 +18,7 @@ enum APIRouter: URLRequestConvertible {
     case getUser()
     case getListAccounts()
     case deleteAccounts(id_account:String)
+    case upload(type:String, title:String?, url:String? ,image:UIImage?)
     //
 //    case createLive()
 //    case endLive()
@@ -28,7 +29,7 @@ enum APIRouter: URLRequestConvertible {
     // MARK: - HTTPMethod
     private var method: HTTPMethod {
         switch self {
-        case .login, .register, .update, .logout, .deleteAccounts:
+        case .login, .register, .update, .logout, .deleteAccounts, .upload:
             return .post
         case .getUser, .getListAccounts:
             return .get
@@ -69,7 +70,11 @@ enum APIRouter: URLRequestConvertible {
             let url =  "/users/delete?app=ios"
             let checksum = APIUtils.checksum(request_url: url, raw_data: JSON(parameters ?? [:]).stringValue)
             return String(format: "%@&checksum=%@", url,checksum)
-
+        case .upload:
+            
+            let url =  "/uploads?app=ios"
+            let checksum = APIUtils.checksum(request_url: url, raw_data: JSON(parameters ?? [:]).stringValue)
+            return String(format: "%@&checksum=%@", url,checksum)
             
         }
     }
@@ -116,6 +121,22 @@ enum APIRouter: URLRequestConvertible {
             }
             params[K.APIParameterKey.id_account] = id_account
             return params
+        case .upload(let type, let title, let url, _):
+            var params:[String:Any] = [:]
+            if let token = APIClient.shared().token{
+                params[K.APIParameterKey.token] = token
+                
+            }
+            params["type"] = type
+            if let title = title{
+                params["title"] = title
+            }
+            
+            if let url = url{
+                params["url"] = url
+            }
+            return params
+            
         default:
             return nil
             

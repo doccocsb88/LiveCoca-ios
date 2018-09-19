@@ -103,16 +103,24 @@ class SignUpViewController: BaseViewController {
             errorLabel.text = "Vui lòng nhập mật khẩu"
             return
         }
-        guard let email = emailTextField.text, email.count > 0 else{
-            emailTextField.becomeFirstResponder()
-            errorLabel.text = "Vui lòng nhập email"
-            return
-        }
+        
         guard let fullname = fullnameTextfield.text, fullname.count > 0 else{
             fullnameTextfield.becomeFirstResponder()
             errorLabel.text = "Vui lòng nhập họ và tên"
             return
         }
+        
+        guard let email = emailTextField.text, email.count > 0 else{
+            emailTextField.becomeFirstResponder()
+            errorLabel.text = "Vui lòng nhập email"
+            return
+        }
+        if  email.isValidEmail() == false {
+            errorLabel.text = "Email không lợp lệ "
+
+            return
+        }
+       
         errorLabel.text = nil
         self.view.endEditing(true)
         self.showLoadingView()

@@ -69,5 +69,13 @@ class BaseViewController: UIViewController {
         }
         
     }
+    
+    func showAlertMessage(_ title:String?, _ message:String?){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "Đồng ý", style: .default, handler: nil)
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
+    }
 
 }

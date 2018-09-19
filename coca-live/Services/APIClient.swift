@@ -510,4 +510,89 @@ class APIClient {
         }
 
     }
+    
+    func getListFrame(completion:@escaping(_  success:Bool, _ message:String?, _ frames:[StreamFrame]) ->Void){
+        
+        Alamofire.request(StreamEmdpoint.getListFrame()).responseJSON{response in
+            guard response.result.isSuccess,
+                let value = response.result.value else {
+                    print("Error while fetching frame: \(String(describing: response.result.error))")
+                    completion(false,String(describing: response.result.error),[])
+                    return
+            }
+            let jsonResponse = JSON(value)
+            print("getListFrame \(jsonResponse.dictionaryValue)")
+            if let error = jsonResponse["error"].dictionaryObject{
+                print("error \(error)")
+                let errorCode = error["code"] as? Int
+                let code = errorCode ?? 0
+                let explain = error["explain"] as? String
+                completion(false,explain,[])
+                
+            }else{
+                var frames:[StreamFrame] = []
+                if let list = jsonResponse["list"].array{
+                    for i in 0..<list.count{
+                        if let data = list[i].dictionaryObject{
+                            let title = data["title"] as? String
+                            if let thumbnail = data["thumbnail"] as? String{
+                                let frame = StreamFrame(title: title ?? "title \(i)", thumbnail: thumbnail)
+                                frames.append(frame)
+                            }
+                        }
+                    }
+
+                }
+                completion(true,nil,frames)
+
+            }
+        }
+    }
+    
+    func upload(type:String,title:String?, url:String?, image:UIImage?){
+        var parameters = [
+            "type": type,
+            "token": APIClient.shared().token ?? "",
+        ]
+        if let title = title{
+            parameters["title"] = title
+        }
+        if let url = url{
+            parameters["url"] = url
+        }
+        
+        let uploadUrl  = String(format: "%@/uploads?app=ios&checksum=%@", K.ProductionServer.baseAPIURL,APIUtils.checksum(request_url: "/uploads?app=ios", raw_data: JSON(parameters).stringValue))
+        
+        Alamofire.upload(multipartFormData: { multipartFormData in
+            if let image = image{
+                if let imageData = UIImagePNGRepresentation(image) {
+                    multipartFormData.append(imageData, withName: "file", fileName: "file.jpg", mimeType: "image/jpeg")
+                }
+            }
+          
+            for p in parameters {
+                let value = p.value
+                multipartFormData.append((value.data(using: .utf8))!, withName: p.key)
+            }}, to: uploadUrl, method: .post, headers: nil,
+                encodingCompletion: { encodingResult in
+                    switch encodingResult {
+                    case .success(let upload, _, _):
+                        upload.response { [weak self] response in
+                            guard let strongSelf = self else {
+                                return
+                            }
+                            print(response.data)
+                            let jsonResponse = JSON(response.response)
+
+                            print("strongSelf (\(response)")
+                            print("strongSelf (\(jsonResponse)")
+
+                            
+                        }
+                    case .failure(let encodingError):
+                        print("error:\(encodingError)")
+                    }
+        })
+        
+    }
 }

@@ -36,6 +36,12 @@ struct K {
         static let language = "language"
 
     }
+    struct APIUploadType{
+        static let frame = "frame"
+        static let avatar = "avatar"
+        static let screen_wait  = "screen_wait"
+        static let screen_bye   = "screen_bye"
+    }
 }
 
 enum HTTPHeaderField: String {

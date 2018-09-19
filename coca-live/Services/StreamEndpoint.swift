@@ -14,9 +14,10 @@ enum StreamEmdpoint: URLRequestConvertible {
     case endLive(id_room:String)
     case hasStreaming()
     case statusStream(id_room:String)
+    case getListFrame()
     var method: HTTPMethod {
         switch self {
-        case .createLive, .endLive:
+        case .createLive, .endLive, .getListFrame:
             return .post
         
         case .hasStreaming, .statusStream:
@@ -44,6 +45,11 @@ enum StreamEmdpoint: URLRequestConvertible {
             let url =  "/livestream/status?app=ios"
             let checksum = APIUtils.checksum(request_url: url, raw_data: JSON(parameters ?? [:]).stringValue)
             return String(format: "%@&checksum=%@&id_room=%@", url,checksum,id_room)
+        case .getListFrame:
+            let url = "/livestream/frame?app=ios"//&checksum=dd00f09cf7ddc3dfd6d798426036beb2&token=RQ55NQ45RDJAN04YO1MHEDKSSY820ZJV1537233167
+            let checksum = APIUtils.checksum(request_url: url, raw_data: JSON(parameters ?? [:]).stringValue)
+
+            return String(format: "%@&checksum=%@&token=%@", url,checksum,APIClient.shared().token ?? "")
 
         }
     }
@@ -70,6 +76,8 @@ enum StreamEmdpoint: URLRequestConvertible {
             return nil
         case .statusStream:
             return params
+        default:
+            return params
         }
     }
     func asURLRequest() throws -> URLRequest {
@@ -78,7 +86,7 @@ enum StreamEmdpoint: URLRequestConvertible {
         let url = try fullURL.asURL()
         
         var urlRequest = URLRequest(url: url)
-        
+        print("StreamEndpoint \(fullURL)")
         // HTTP Method
         urlRequest.httpMethod = method.rawValue
         

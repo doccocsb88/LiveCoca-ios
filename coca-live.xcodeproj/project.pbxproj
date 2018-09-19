@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E14F3EF21528396004139E8 /* StreamFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E14F3EE21528396004139E8 /* StreamFrame.swift */; };
+		0E14F3FA21529C9E004139E8 /* InputPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E14F3F821529C9E004139E8 /* InputPopupViewController.swift */; };
+		0E14F3FB21529C9E004139E8 /* InputPopupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E14F3F921529C9E004139E8 /* InputPopupViewController.xib */; };
 		0E19119E2141513B0020ACF4 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E19119C2141513B0020ACF4 /* SignUpViewController.swift */; };
 		0E19119F2141513B0020ACF4 /* SignUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E19119D2141513B0020ACF4 /* SignUpViewController.xib */; };
 		0E4B69702131B00E0052A0C7 /* APIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B696F2131B00E0052A0C7 /* APIRouter.swift */; };
@@ -112,6 +115,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0E14F3EE21528396004139E8 /* StreamFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamFrame.swift; sourceTree = "<group>"; };
+		0E14F3F821529C9E004139E8 /* InputPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = InputPopupViewController.swift; path = History/InputPopupViewController.swift; sourceTree = "<group>"; };
+		0E14F3F921529C9E004139E8 /* InputPopupViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = InputPopupViewController.xib; path = History/InputPopupViewController.xib; sourceTree = "<group>"; };
 		0E19119C2141513B0020ACF4 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SignUpViewController.swift; path = Login/SignUpViewController.swift; sourceTree = "<group>"; };
 		0E19119D2141513B0020ACF4 /* SignUpViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SignUpViewController.xib; path = Login/SignUpViewController.xib; sourceTree = "<group>"; };
 		0E4B696F2131B00E0052A0C7 /* APIRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = APIRouter.swift; path = Services/Route/APIRouter.swift; sourceTree = "<group>"; };
@@ -265,6 +271,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		0E14F3F021529C3D004139E8 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				0E14F3F821529C9E004139E8 /* InputPopupViewController.swift */,
+				0E14F3F921529C9E004139E8 /* InputPopupViewController.xib */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
 		182C799B21173F19008D65CB /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -329,6 +344,7 @@
 		189C0EF1210A130500ADF7FF /* Setup */ = {
 			isa = PBXGroup;
 			children = (
+				0E14F3F021529C3D004139E8 /* Controller */,
 				EC53B2BA210AECE1000A3866 /* View */,
 				189C0EF7210A136400ADF7FF /* SetupViewController.swift */,
 			);
@@ -470,6 +486,7 @@
 				1860203B2115CBFC00662714 /* FacebookComment.swift */,
 				0E4B699121383C8C0052A0C7 /* SocialTarget.swift */,
 				18DBC7EB2114ADEE00C34D3E /* User.swift */,
+				0E14F3EE21528396004139E8 /* StreamFrame.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -642,6 +659,7 @@
 				DB9C40731E70527D00CCBD83 /* Main.storyboard in Resources */,
 				189C0F00210A22B800ADF7FF /* StreamHistoryViewCell.xib in Resources */,
 				EC5136E42112CA3900391C60 /* material_loader.json in Resources */,
+				0E14F3FB21529C9E004139E8 /* InputPopupViewController.xib in Resources */,
 				EC53B2BE210AED22000A3866 /* FrameViewCell.xib in Resources */,
 				EC53B2B9210AD07A000A3866 /* StreamAccountViewCell.xib in Resources */,
 				0E4B6988213576270052A0C7 /* CountCommentViewCell.xib in Resources */,
@@ -747,6 +765,7 @@
 				1860203A2115C0B300662714 /* StreamInfo.swift in Sources */,
 				18042BF7210DBF1A00F48229 /* FilterCommentViewCell.swift in Sources */,
 				DB9C40701E70527D00CCBD83 /* HKLiveVideoViewController.swift in Sources */,
+				0E14F3EF21528396004139E8 /* StreamFrame.swift in Sources */,
 				0EC009D521398EF30030BB29 /* CountdownMaskView.swift in Sources */,
 				186020492116D5FD00662714 /* VideoViewCell.swift in Sources */,
 				DB40E2301E71567E009E7C74 /* FBSDKLiveVideo.swift in Sources */,
@@ -788,6 +807,7 @@
 				18DBC7EA211204A500C34D3E /* APIUtils.swift in Sources */,
 				18042BDC210D52C500F48229 /* WarterMarkServices.swift in Sources */,
 				0E4B69742131B08D0052A0C7 /* FacebookEndpoint.swift in Sources */,
+				0E14F3FA21529C9E004139E8 /* InputPopupViewController.swift in Sources */,
 				0E4B699221383C8C0052A0C7 /* SocialTarget.swift in Sources */,
 				18042BEB210DB0E400F48229 /* FrameViewCellV2.swift in Sources */,
 				18DBC7EE2114B33100C34D3E /* StringUtils.swift in Sources */,
