@@ -8,24 +8,46 @@
 
 import UIKit
 
-class HistoryViewController: UIViewController , UITableViewDataSource, UITableViewDelegate {
+class HistoryViewController:BaseViewController, UITableViewDataSource, UITableViewDelegate {
     fileprivate let pickerHeight:CGFloat = 240
-
+    fileprivate let page_size:Int = 10
+    
     @IBOutlet weak var statusButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var searchTextField: UITextField!
     var picker:UIPickerView?
     var pickerView:UIView?
-    var statusStream:[String] = ["Tất cả","Đang phát","Đã kết thúc"]
-    var currentStatus:Int = 0
+//    0 - Đang chờ
+//    1 - Đang xử lý
+//    2 - Đang phát
+//    3 - Đang kết thúc
+//    4 - Đã kết thúc
+
+    var statusStream:[String] = ["Tất cả","Đang chờ","Đang xử lý","Đang phát","Đang kết thúc","Đã kết thúc"]
+    var indexStatus:Int = 0
+    var data:[CocaStream] = []
+    var totalStream:Int = 0
+    var page:Int = 0
+    var filterTitle:String?
+    var filterStatus:Int?
+    var searchTimer:Timer?
+    var isLoading:Bool = false
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        initLoadingView("material_loader")
         setup()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if firstTime{
+            firstTime = false
+            fetchStreams()
 
+        }
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -45,10 +67,10 @@ class HistoryViewController: UIViewController , UITableViewDataSource, UITableVi
         
         self.searchTextField.leftView = searchImageView
         self.searchTextField.leftViewMode = .always
-        
+        self.searchTextField .addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged);
         //
         self.statusButton.imageView?.contentMode = .scaleAspectFit
-        self.statusButton.setTitle(statusStream[currentStatus], for: .normal)
+        self.statusButton.setTitle(statusStream[indexStatus], for: .normal)
         //
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tappedGesture(_:)))
         self.view.addGestureRecognizer(tapGesture)
@@ -69,7 +91,7 @@ class HistoryViewController: UIViewController , UITableViewDataSource, UITableVi
         updateButton.setTitle("Cập nhật", for: .normal)
         updateButton.titleLabel?.font = UIFont.systemFont(ofSize: 13)
         updateButton.setTitleColor(.black, for: .normal)
-        updateButton.addTarget(self, action: #selector(tappedUpdateAcountTarget(_:)), for: .touchUpInside)
+        updateButton.addTarget(self, action: #selector(tappedUpdateStreamStatus(_:)), for: .touchUpInside)
         updateButton.addBorder(cornerRadius: 4, color: UIColor(hexString: "#FC6076"))
         pickerView?.addSubview(updateButton)
         //
@@ -84,63 +106,97 @@ class HistoryViewController: UIViewController , UITableViewDataSource, UITableVi
         self.view.addSubview(pickerView!)
         
     }
-    /*
-    // MARK: - Navigation
+    @objc func fetchStreams(){
+        if isLoading == true{
+            return
+        }
+        isLoading = true
+        self.showLoadingView()
+        page += 1
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        APIClient.shared().getListStream(page: page, page_size, filterTitle, filterStatus) {[weak self] (success, message, streams, total) in
+            guard let strongSelf = self else{return}
+            strongSelf.hideLoadingView()
+            strongSelf.isLoading = false
+            if success{
+                strongSelf.totalStream = total
+                strongSelf.data.append(contentsOf: streams)
+                strongSelf.tableView.reloadData()
+            }else{
+                self?.showMessageDialog(nil, message ?? APIError.Error_Message_Generic)
+            }
+        }
     }
-    */
     @IBAction func tappedStatusButton(_ sender: Any) {
-//      let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-//        let cancelActionButton = UIAlertAction(title: "Bỏ qua", style: .cancel) { _ in
-//            print("Cancel")
-//        }
-//        alert.addAction(cancelActionButton)
-//
-//        let saveActionButton = UIAlertAction(title: "Tất cả", style: .default)
-//        { _ in
-//            print("Save")
-//        }
-//        alert.addAction(saveActionButton)
-//
-//        let deleteActionButton = UIAlertAction(title: "Đang phát", style: .default)
-//        { _ in
-//            print("Delete")
-//        }
-//        alert.addAction(deleteActionButton)
-//
-//        //
-//        let finishedButton = UIAlertAction(title: "Đã kết thúc", style: .default)
-//        { _ in
-//            print("Delete")
-//        }
-//        alert.addAction(finishedButton)
-//        self.present(alert, animated: true, completion: nil)
+
         showPickerView()
     }
     @objc func tappedGesture(_ gesture:UITapGestureRecognizer){
         self.view.endEditing(true)
     }
-    @objc func tappedUpdateAcountTarget(_ button:UIButton){
-        self.statusButton.setTitle(statusStream[currentStatus], for: .normal)
+    @objc func tappedUpdateStreamStatus(_ button:UIButton){
+        self.statusButton.setTitle(statusStream[indexStatus], for: .normal)
         hidePickerView()
+        if indexStatus == 0{
+            filterStatus = nil
+        }else{
+            filterStatus = indexStatus - 1;
+        }
+        resetParams()
+        fetchStreams()
     }
+    func resetParams(){
+        page = 0
+        data.removeAll()
+    }
+}
+extension HistoryViewController{
+    @objc func textFieldDidChange(_ textfield:UITextField){
+        self.filterTitle = textfield.text
+        self.searchTimer?.invalidate()
+        self.searchTimer = nil
+        self.searchTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(autoFetchStream), userInfo: nil, repeats: false)
+    }
+    @objc func autoFetchStream(){
+        resetParams()
+        fetchStreams()
+    }
+    
 }
 extension HistoryViewController{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80.0
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10;
+        return data.count;
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "historyCell", for: indexPath)
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "historyCell", for: indexPath) as! StreamHistoryViewCell
+        let stream = data[indexPath.row]
+        cell.updateContent(stream)
+        if indexPath.row == data.count - 1 && data.count < totalStream{
+            fetchStreams()
+        }
+        cell.didOpenVideoAtIndex = {index in
+            let urls = stream.getFacebookUrls(index)
+            UIApplication.tryURL(urls: urls)
+            
+        }
         return cell
+    }
+    
+
+    
+    func openUrl(_ path:String){
+        let url = URL(string: path)!
+        if UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            //If you want handle the completion block than
+            UIApplication.shared.open(url, options: [:], completionHandler: { (success) in
+                print("Open url : \(success)")
+            })
+        }
     }
     
 }
@@ -173,6 +229,6 @@ extension HistoryViewController: UIPickerViewDelegate , UIPickerViewDataSource{
         return status
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-       currentStatus = row
+       indexStatus = row
     }
 }

@@ -26,7 +26,7 @@ class CountDownViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        if let _config = WarterMarkServices.shared().params[ConfigKey.countdown.rawValue] as? [String:Any]{
+        if let _config = WarterMarkServices.shared().params[ConfigKey.countdown] as? [String:Any]{
             config = _config
         }
         setup()

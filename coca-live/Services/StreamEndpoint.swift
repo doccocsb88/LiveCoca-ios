@@ -15,9 +15,11 @@ enum StreamEmdpoint: URLRequestConvertible {
     case hasStreaming()
     case statusStream(id_room:String)
     case getListFrame()
+    case getListStream(page:Int?, pageSize:Int?,title:String?, status:Int?)
+    case getConfig()
     var method: HTTPMethod {
         switch self {
-        case .createLive, .endLive, .getListFrame:
+        case .createLive, .endLive, .getListFrame, .getListStream, .getConfig:
             return .post
         
         case .hasStreaming, .statusStream:
@@ -50,7 +52,16 @@ enum StreamEmdpoint: URLRequestConvertible {
             let checksum = APIUtils.checksum(request_url: url, raw_data: JSON(parameters ?? [:]).stringValue)
 
             return String(format: "%@&checksum=%@&token=%@", url,checksum,APIClient.shared().token ?? "")
-
+        case .getListStream:
+            
+            let url = "/livestream/streams?app=ios"
+            let checksum = APIUtils.checksum(request_url: url, raw_data: JSON(parameters ?? [:]).stringValue)
+            
+            return String(format: "%@&checksum=%@", url,checksum)
+        case .getConfig:
+            let url = "/livestream/config_stream?app=ios"
+            let checksum = APIUtils.checksum(request_url: url, raw_data: JSON(parameters ?? [:]).stringValue)
+            return String(format: "%@&checksum=%@", url,checksum)
         }
     }
     var parameters: Parameters? {
@@ -75,6 +86,26 @@ enum StreamEmdpoint: URLRequestConvertible {
         case .hasStreaming:
             return nil
         case .statusStream:
+            return params
+        case .getListStream(let page, let pageSize ,let title, let status):
+            params[K.APIParameterKey.token] = APIClient.shared().token ?? ""
+            if let page = page{
+                params[K.APIParameterKey.page] = page
+            }
+            if let pageSize = pageSize{
+                params[K.APIParameterKey.page_size] = pageSize
+            }
+            if let title = title{
+                params[K.APIParameterKey.filter_title] = title
+            }
+            if let status = status{
+                params[K.APIParameterKey.filter_status] = status
+            }
+            return params
+        case .getConfig:
+            if let token  = APIClient.shared().token{
+                params[K.APIParameterKey.token] = token
+            }
             return params
         default:
             return params

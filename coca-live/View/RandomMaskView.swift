@@ -49,7 +49,7 @@ class RandomMaskView: UIView {
     }
 
     private func initView(){
-        if let config = WarterMarkServices.shared().params[ConfigKey.random.rawValue] as? [String : Any]{
+        if let config = WarterMarkServices.shared().params[ConfigKey.random] as? [String : Any]{
             from = config["from"] as! Int
             to = config["to"] as! Int
         }

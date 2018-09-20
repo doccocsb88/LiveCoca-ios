@@ -40,7 +40,7 @@ class WarterMarkServices{
     func generateWarterMark() -> UIView{
         let watermarkView = UIView(frame: self.frame)
         scale = self.frame.size.width /  UIScreen.main.bounds.width
-        let bottomMargin = 50 * scale
+        var bottomMargin = 0 * scale
 
         backgroundImage = UIImage(color: UIColor.clear, size: self.frame.size)
         backgroundImage = backgroundImage.resizeImage(self.frame.size)
@@ -64,6 +64,8 @@ class WarterMarkServices{
             if let sloganView = handleSlogan(slogan: slogan){
                 watermarkView.addSubview(sloganView)
             }
+            bottomMargin = 50 * scale
+
         }
         if let questionConfig = params["question"] as? [String:Any], questionConfig.keys.count > 0{
             let questionView  = QuestionMaskView(frame: self.frame, scale: scale, config:questionConfig)
@@ -78,11 +80,9 @@ class WarterMarkServices{
             watermarkView.addSubview(catchwordView)
         }
         
-        if let video = params["video"] as? [String:Any], video.keys.count > 0, let url = video["url"] as? String{
-            let height:CGFloat = 300 * scale
-            let width:CGFloat = height / (720 / 1280)
-            let videoView = VideoMaskView(frame: CGRect(x: self.frame.size.width - width, y: self.frame.size.height - height - bottomMargin , width: width, height: height))
-            videoView.playVideo(from: url)
+        if let video = params[ConfigKey.childImage] as? [String:Any], let _ = video["image"] as? UIImage{
+            let height:CGFloat = self.frame.height - bottomMargin
+            let videoView = VideoMaskView(frame: CGRect(x: 0, y: 0 , width: self.frame.width, height: height), scale:scale)
             watermarkView.addSubview(videoView)
             
         }
@@ -111,13 +111,13 @@ class WarterMarkServices{
             pinCommentView?.removeFromSuperview()
             pinCommentView = nil
         }
-        if let filterComment = params[ConfigKey.filterComment.rawValue] as? [String:Any], filterComment.keys.count > 0{
+        if let filterComment = params[ConfigKey.filterComment] as? [String:Any], filterComment.keys.count > 0{
             let height = 30 * 6 * scale;
             let filterCommentView = FilterCommentMaskView(frame: CGRect(x: 0, y: self.frame.size.height / 10, width: self.frame.size.width, height: height), scale: scale)
             filterCommentView.updateContent()
             watermarkView.addSubview(filterCommentView)
         }
-        if let random = params[ConfigKey.random.rawValue] as? [String:Any], random.keys.count >= 2{
+        if let random = params[ConfigKey.random] as? [String:Any], random.keys.count >= 2{
             if  let view = randomView{
                 print("randomView : \(view.number1Label?.text ?? "ahahaha")")
                 view.removeFromSuperview()
@@ -139,7 +139,7 @@ class WarterMarkServices{
             
         }
         
-        if let countComment = params[ConfigKey.countComment.rawValue] as? [String:Any], countComment.keys.count > 0{
+        if let countComment = params[ConfigKey.countComment] as? [String:Any], countComment.keys.count > 0{
             let frame = CGRect(x: 0, y: self.frame.height / 2 - 50 * scale, width: self.frame.width, height: self.frame.height / 2)
             if countCommentView == nil{
                 countCommentView =  CountCommentMaskView(frame: frame, scale: self.scale)
@@ -233,7 +233,7 @@ class WarterMarkServices{
         params["catchword"] = config
     }
     func configVideo(config:[String:Any]){
-        params["video"] = config
+        params[ConfigKey.childImage] = config
     }
     func configPinComment(font:CGFloat){
         if var config = params["pin"] as? [String:Any]{
@@ -250,14 +250,14 @@ class WarterMarkServices{
     }
     
     func configFilterComment(_ config:[String:Any]){
-        params[ConfigKey.filterComment.rawValue] = config
+        params[ConfigKey.filterComment] = config
     }
     func configRandom(_ config:[String:Any]){
-        params[ConfigKey.random.rawValue] = config
+        params[ConfigKey.random] = config
         
     }
     func configCountComment(_ config:[String:Any]){
-        params[ConfigKey.countComment.rawValue] = config
+        params[ConfigKey.countComment] = config
 
     }
     func startRandomNumber(){
@@ -282,11 +282,11 @@ class WarterMarkServices{
     }
     
     func configCountDown(config:[String:Any]){
-        params[ConfigKey.countdown.rawValue] = config
+        params[ConfigKey.countdown] = config
     }
     
     func hasFilterCommentView() -> Bool{
-        if let filterComment = params[ConfigKey.filterComment.rawValue] as? [String:Any], filterComment.keys.count > 0{
+        if let filterComment = params[ConfigKey.filterComment] as? [String:Any], filterComment.keys.count > 0{
             return true
         }
         return false
@@ -298,13 +298,13 @@ class WarterMarkServices{
         return false
     }
     func hasCountCommentView() ->Bool{
-        if let countComment = params[ConfigKey.countComment.rawValue] as? [String:Any], countComment.keys.count > 0{
+        if let countComment = params[ConfigKey.countComment] as? [String:Any], countComment.keys.count > 0{
             return true
         }
         return false
     }
     func isCountdown() ->Bool{
-        if let config = params[ConfigKey.countdown.rawValue] as? [String:Any], let countdown = config["countdown"] as? String{
+        if let config = params[ConfigKey.countdown] as? [String:Any], let countdown = config["countdown"] as? String{
             let info = countdown.components(separatedBy: ":")
             let configHour = Int(info[0]) ?? 0
             let configMins = Int(info[1]) ?? 0

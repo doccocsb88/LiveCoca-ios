@@ -11,7 +11,7 @@ import Lottie
 
 class BaseViewController: UIViewController {
     var loadingAnimation: LOTAnimationView?
-
+    var firstTime:Bool = true
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -34,8 +34,8 @@ class BaseViewController: UIViewController {
     }
     */
     
-    func initLoadingView(){
-        loadingAnimation = LOTAnimationView(name: "soda_loader")
+    func initLoadingView(_ name:String?){
+        loadingAnimation = LOTAnimationView(name: name ?? "soda_loader")
         // Set view to full screen, aspectFill
         loadingAnimation!.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         loadingAnimation!.contentMode = .scaleAspectFill

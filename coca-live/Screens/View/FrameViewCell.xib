@@ -49,7 +49,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="16" id="roE-AR-jgF"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -60,12 +60,16 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0MN-uH-6Xr">
-                                <rect key="frame" x="181" y="224.5" width="20" height="20"/>
+                                <rect key="frame" x="186" y="224.5" width="20" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="Lxx-P6-LpK"/>
                                     <constraint firstAttribute="width" constant="20" id="mVS-ad-qLe"/>
                                 </constraints>
                                 <state key="normal" image="ic_checkbox_normal"/>
+                                <state key="selected" image="ic_check"/>
+                                <connections>
+                                    <action selector="tappedSelectButton:" destination="gTV-IL-0wX" eventType="touchUpInside" id="Dld-Cy-1HJ"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -74,7 +78,7 @@
                             <constraint firstItem="JGV-H7-TB2" firstAttribute="top" secondItem="2RN-Gy-dJB" secondAttribute="bottom" constant="5" id="UFt-6X-2No"/>
                             <constraint firstItem="JGV-H7-TB2" firstAttribute="leading" secondItem="XRT-CW-8Rm" secondAttribute="leading" constant="10" id="av4-zb-b3Y"/>
                             <constraint firstItem="H6o-tR-xWN" firstAttribute="leading" secondItem="XRT-CW-8Rm" secondAttribute="leading" id="dtF-aB-lA5"/>
-                            <constraint firstAttribute="trailing" secondItem="0MN-uH-6Xr" secondAttribute="trailing" constant="10" id="maZ-lu-7dA"/>
+                            <constraint firstAttribute="trailing" secondItem="0MN-uH-6Xr" secondAttribute="trailing" constant="5" id="maZ-lu-7dA"/>
                             <constraint firstAttribute="bottom" secondItem="H6o-tR-xWN" secondAttribute="bottom" constant="60" id="qLS-iN-INt"/>
                             <constraint firstItem="2RN-Gy-dJB" firstAttribute="leading" secondItem="XRT-CW-8Rm" secondAttribute="leading" constant="10" id="qs3-Mt-ACI"/>
                             <constraint firstAttribute="trailing" secondItem="2RN-Gy-dJB" secondAttribute="trailing" constant="10" id="rsS-27-Xgz"/>
@@ -94,6 +98,8 @@
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="211" height="255"/>
             <connections>
+                <outlet property="priceLabel" destination="JGV-H7-TB2" id="D4H-1q-w9d"/>
+                <outlet property="selectButton" destination="0MN-uH-6Xr" id="sw7-Ib-X4V"/>
                 <outlet property="thumbnailView" destination="Xoa-4H-Yqp" id="bDN-oo-Ui6"/>
                 <outlet property="titleLabel" destination="2RN-Gy-dJB" id="sU1-Ef-mxb"/>
             </connections>
@@ -101,6 +107,7 @@
         </collectionViewCell>
     </objects>
     <resources>
+        <image name="ic_check" width="40" height="40"/>
         <image name="ic_checkbox_normal" width="16" height="16"/>
         <image name="ic_gift_kiss" width="50" height="50"/>
     </resources>

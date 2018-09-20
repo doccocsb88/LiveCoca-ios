@@ -1,15 +1,16 @@
 //
-//  StreamHistoryViewCell.swift
+//  ImagePositionTableViewCell.swift
 //  coca-live
 //
-//  Created by Apple on 7/26/18.
+//  Created by Hai Vu on 9/20/18.
 //  Copyright © 2018 Coca Live. All rights reserved.
 //
 
 import UIKit
 
-class StreamHistoryViewCell: UITableViewCell {
+class ImagePositionTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var positionLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -19,6 +20,10 @@ class StreamHistoryViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    func updateContent(_ positionTitle:String){
+        positionLabel.text = positionTitle
     }
     
 }

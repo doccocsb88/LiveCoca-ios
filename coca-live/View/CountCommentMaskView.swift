@@ -37,7 +37,7 @@ class CountCommentMaskView: UIView {
     }
 
     private func initView(){
-        guard let config = WarterMarkServices.shared().params[ConfigKey.countComment.rawValue] as? [String:Any] else{
+        guard let config = WarterMarkServices.shared().params[ConfigKey.countComment] as? [String:Any] else{
             return
         }
         
@@ -96,7 +96,7 @@ class CountCommentMaskView: UIView {
         
     }
     func updateData(){
-        guard let config = WarterMarkServices.shared().params[ConfigKey.countComment.rawValue] as? [String:Any] else{
+        guard let config = WarterMarkServices.shared().params[ConfigKey.countComment] as? [String:Any] else{
             return
         }
         count1Label?.text = config["comment1"] as? String

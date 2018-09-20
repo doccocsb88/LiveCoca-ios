@@ -302,7 +302,14 @@ extension String {
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailTest.evaluate(with: self)
     }
-    
+    func isValidUrl() -> Bool {
+   
+        if let url = URL(string: self) {
+            // check if your application can open the NSURL instance
+            return UIApplication.shared.canOpenURL(url)
+        }
+        return false
+    }
 }
 extension Int
 {
@@ -319,4 +326,15 @@ extension Int
     }
 }
 
-
+extension UIApplication {
+    class func tryURL(urls: [String]) {
+        let application = UIApplication.shared
+        for url in urls {
+            if application.canOpenURL(URL(string: url)!) {
+//                application.openURL(URL(string: url)!)
+                application.open(URL(string: url)!, options: [:], completionHandler: nil)
+                return
+            }
+        }
+    }
+}

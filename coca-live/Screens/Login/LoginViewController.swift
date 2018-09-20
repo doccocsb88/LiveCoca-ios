@@ -22,13 +22,14 @@ class LoginViewController:BaseViewController{
     @IBOutlet weak var savePasswordButton: UIButton!
     
     @IBOutlet weak var loginButton: UIButton!
-
+    @IBOutlet weak var errorLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         setupView()
-        initLoadingView()
+        initLoadingView(nil)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -71,17 +72,23 @@ class LoginViewController:BaseViewController{
     }
     
     @IBAction func tappedLoginButton(_ sender: Any){
-        guard let username = usernameTextfield.text else{
+        guard let username = usernameTextfield.text , username.count > 0 else{
+            usernameTextfield.becomeFirstResponder()
+            errorLabel.text = "Bạn chưa nhập username / email."
             return
         }
-        guard let password = passwordTextfield.text else{
+        guard let password = passwordTextfield.text, password.count > 0 else{
+            passwordTextfield.becomeFirstResponder()
+            errorLabel.text = "Bạn chưa nhập mật khẩu."
+
             return
         }
-        loadingAnimation?.isHidden = false
-        loadingAnimation?.play()
+        errorLabel.text = nil
+        passwordTextfield.resignFirstResponder()
+        usernameTextfield.resignFirstResponder()
+        self.showLoadingView()
         APIClient.shared().login(username: username, password: password) {[unowned self ] (success, message) in
-            self.loadingAnimation?.isHidden = false
-            self.loadingAnimation?.play()
+          self.hideLoadingView()
             if success{
                 Defaults.remember(username: username, password: password)
                 Defaults.saveToken(APIClient.shared().token ?? "")

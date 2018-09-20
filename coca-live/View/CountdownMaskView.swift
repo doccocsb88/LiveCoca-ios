@@ -47,7 +47,7 @@ class CountdownMaskView: UIView {
     
     func initView(){
         var image = UIImage(named: "bg_countdown")
-        if let config = WarterMarkServices.shared().params[ConfigKey.countdown.rawValue] as? [String:Any]{
+        if let config = WarterMarkServices.shared().params[ConfigKey.countdown] as? [String:Any]{
             if let countdown = config["countdown"] as? String{
                 let info = countdown.components(separatedBy: ":")
                 configHour = Int(info[0]) ?? 0
@@ -134,7 +134,7 @@ class CountdownMaskView: UIView {
         
     }
     func updateView(){
-        if let config = WarterMarkServices.shared().params[ConfigKey.countdown.rawValue] as? [String:Any]{
+        if let config = WarterMarkServices.shared().params[ConfigKey.countdown] as? [String:Any]{
             if let countdown = config["countdown"] as? String{
                 let info = countdown.components(separatedBy: ":")
                 configHour = Int(info[0]) ?? 0

@@ -26,7 +26,7 @@ class SignUpViewController: BaseViewController {
 
         // Do any additional setup after loading the view.
         setupUI()
-        initLoadingView()
+        initLoadingView(nil)
 
     }
     func setupUI(){

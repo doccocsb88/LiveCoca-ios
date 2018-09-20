@@ -8,6 +8,7 @@
 
 import UIKit
 import Lottie
+import AVFoundation
 //import CommonCrypto
 class StreamViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     enum PickType:Int{
@@ -42,7 +43,7 @@ class StreamViewController: BaseViewController, UITableViewDelegate, UITableView
         print("aaaa : \("".MD5(pw))")
         setup()
         setupUI()
-        initLoadingView()
+        initLoadingView(nil)
 //        FacebookServices.shared().fetchData {
 //            let pages = FacebookServices.shared().accountList;
 //            print("pages : \(pages.count)")
@@ -50,19 +51,7 @@ class StreamViewController: BaseViewController, UITableViewDelegate, UITableView
         APIClient.shared().getUser(completion: {
             
         })
-        showLoadingView()
-        APIClient.shared().getListAccount {[unowned self] (success, message) in
-            self.hideLoadingView()
-            if success{
-                if APIClient.shared().accounts.count > 0{
-                    self.selectedAccount = APIClient.shared().accounts[0];
-                    self.tableView.reloadData()
-                    self.getTarget()
-                }
-            }else{
-                self.showMessageDialog(nil, message ?? "")
-            }
-        }
+        fetchSocialAccounts()
 
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -70,7 +59,6 @@ class StreamViewController: BaseViewController, UITableViewDelegate, UITableView
         UIApplication.shared.statusBarStyle = .lightContent
         if !openLogin {
             openLogin = true
-            openLoginScreen()
         }
         APIClient.shared().hasStream {[unowned self] (success, message, id_room) in
             print("hasStream : \(success)")
@@ -165,14 +153,28 @@ class StreamViewController: BaseViewController, UITableViewDelegate, UITableView
         addUrlStreamButton.layer.masksToBounds = true
     }
     
-    func openLoginScreen(){
-        //let loginViewController = LoginViewController(nibName: "LoginViewController", bundle: nil)
-        //self.present(loginViewController, animated: true, completion: nil)
+
+    func fetchSocialAccounts(){
+        showLoadingView()
+        APIClient.shared().getListAccount {[unowned self] (success, message) in
+            self.hideLoadingView()
+            if success{
+                if APIClient.shared().accounts.count > 0{
+                    self.selectedAccount = APIClient.shared().accounts[0];
+                    self.tableView.reloadData()
+                    self.getTarget()
+                }
+            }else{
+                self.showMessageDialog(nil, message ?? "")
+            }
+        }
     }
-    func openAddCountView(){
+    func openAddFbAccessTokenScreen(){
         let vc = AddStreamAccountViewController(nibName: "AddStreamAccountViewController", bundle: nil)
         vc.modalPresentationStyle = .overFullScreen
-        
+        vc.didAddFacebookToken = {
+            self.fetchSocialAccounts()
+        }
         self.present(vc, animated: true, completion: nil)
     }
     func openHasStreamView(id_social:String,id_target:String){
@@ -236,21 +238,53 @@ class StreamViewController: BaseViewController, UITableViewDelegate, UITableView
     
     @IBAction func nextTapped(_ sender: Any) {
         if self.streamUrls.count > 0{
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            streamViewController = storyboard.instantiateViewController(withIdentifier: "LiveVideoViewController") as? HKLiveVideoViewController
-            
-            streamViewController?.streamUrls = self.streamUrls
-            streamViewController?.didStreamEndedHandler = {
-                self.reset()
+            let canStream = checkPermissions()
+            if canStream{
+                showLiveStreamScreen()
+            }else{
+                showRequestPermissionsSceen()
             }
-            self.present(streamViewController!, animated: true, completion: nil)
-            
+        }else{
+            showMessageDialog(nil, "Bạn chưa thêm nơi đăng")
         }
+    }
+    func showLiveStreamScreen(){
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        streamViewController = storyboard.instantiateViewController(withIdentifier: "LiveVideoViewController") as? HKLiveVideoViewController
+        
+        streamViewController?.streamUrls = self.streamUrls
+        streamViewController?.didStreamEndedHandler = {
+            self.reset()
+        }
+        self.present(streamViewController!, animated: true, completion: nil)
     }
     func showStreamEndedScreen(){
         let endedViewController = StreamEndedViewController(nibName: "StreamEndedViewController", bundle: nil)
 
         self.present(endedViewController, animated: true, completion: nil)
+    }
+    func showRequestPermissionsSceen(){
+        let vc = StreamPermissionViewController(nibName: "StreamPermissionViewController", bundle: nil)
+        vc.modalPresentationStyle = .overFullScreen
+        vc.didRequestPermission = {[unowned self] status in
+            if status {
+                self.showLiveStreamScreen()
+            }
+        }
+        present(vc, animated: true, completion: nil)
+    }
+    func checkPermissions() ->Bool{
+        let cameraStatus = AVCaptureDevice.authorizationStatus(for: .video)
+        let status = AVCaptureDevice.authorizationStatus(for:AVMediaType.audio)
+        
+        if cameraStatus ==  .authorized  && status  ==  .authorized {
+            //already authorized
+           return true
+        }
+        
+        return false
+        
+        
     }
 }
 extension StreamViewController{
@@ -312,7 +346,7 @@ extension StreamViewController{
                 
             }
             cell.didTapAddAccount = { [unowned self] in
-                self.openAddCountView()
+                self.openAddFbAccessTokenScreen()
             }
             cell.didCaptionChanged = {[unowned self] caption in
                 self.caption = caption

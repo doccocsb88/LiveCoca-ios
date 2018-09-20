@@ -24,7 +24,7 @@ class HKLiveVideoViewController: BaseViewController, UITableViewDelegate, UITabl
     fileprivate let reuseRandomNumber  = "RandomNumberViewCell"
     fileprivate let reuseCountComment  = "CountCommentViewCell"
 
-    fileprivate let menuTitles:[String] = ["ĐẾM NGƯỢC","SLOGAN","KHUNG","PIN COMMENT","TẠO CÂU HỎI","LỌC BÌNH LUẬN","HIỂN THỊ VIDEO","ĐUỔI HÌNH BẮT CHỮ","SỐ NGẪU NHIÊN","THỐNG KÊ COMMENT"]
+    fileprivate let menuTitles:[String] = ["ĐẾM NGƯỢC","SLOGAN","KHUNG","PIN COMMENT","TẠO CÂU HỎI","LỌC BÌNH LUẬN","HIỂN THỊ HÌNH ẢNH","ĐUỔI HÌNH BẮT CHỮ","SỐ NGẪU NHIÊN","THỐNG KÊ COMMENT"]
     fileprivate let videoSize = CGSize(width: 720, height: 1280)
     var blurOverlay: UIVisualEffectView!
 
@@ -98,7 +98,6 @@ class HKLiveVideoViewController: BaseViewController, UITableViewDelegate, UITabl
     var commentViewTimer:Timer?
     var getCommentsTimer:Timer?
     var timer:Timer?
-    var firstTime:Bool = true
     var didStreamEndedHandler:() ->() = {}
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -164,22 +163,22 @@ class HKLiveVideoViewController: BaseViewController, UITableViewDelegate, UITabl
         super.viewDidAppear(animated)
         if firstTime {
             firstTime = false
-            APIClient.shared().startLive(stremInfo: self.streamUrls[0], width: 720, height: 1280, id_category: "", time_countdown: 0) {[unowned self] (success, message, id_room) in
-                if success{
-                    guard let _ = id_room else {
-                        self.showMessageDialog(nil, message ?? APIError.Error_Message_Generic)
-
-                        return
-                    }
-                    self.id_room = id_room!
-                    self.startLive()
-
-                }else{
-                    self.showMessageDialog(nil, message ?? APIError.Error_Message_Generic)
-                }
-
-            }
-//            self.startLive()
+//            APIClient.shared().startLive(stremInfo: self.streamUrls[0], width: 720, height: 1280, id_category: "", time_countdown: 0) {[unowned self] (success, message, id_room) in
+//                if success{
+//                    guard let _ = id_room else {
+//                        self.showMessageDialog(nil, message ?? APIError.Error_Message_Generic)
+//
+//                        return
+//                    }
+//                    self.id_room = id_room!
+//                    self.startLive()
+//
+//                }else{
+//                    self.showMessageDialog(nil, message ?? APIError.Error_Message_Generic)
+//                }
+//
+//            }
+            self.startLive()
 
         }
 
@@ -421,10 +420,10 @@ extension HKLiveVideoViewController{
                 self.updateWatermarkView(nil)
                 self.hideMenuView()
 
-                if let countdown = WarterMarkServices.shared().params[ConfigKey.countdown.rawValue] as? [String:Any], let _ = countdown["countdown"] as? String{
+                if let countdown = WarterMarkServices.shared().params[ConfigKey.countdown] as? [String:Any], let _ = countdown["countdown"] as? String{
                     self.view.endEditing(true)
                 }
-                if let countdown = WarterMarkServices.shared().params[ConfigKey.countdown.rawValue] as? [String:Any]{
+                if let countdown = WarterMarkServices.shared().params[ConfigKey.countdown] as? [String:Any]{
                     if let mute = countdown["mute"] as? Bool{
                         self.session.muted = mute
                     }
@@ -435,7 +434,7 @@ extension HKLiveVideoViewController{
 
                 self.openPhotoLibrary()
             }
-            if let image = self.selectedImage[self.selectPhotoKey] as? UIImage{
+            if let image = self.selectedImage[self.selectPhotoKey]{
                 cell.updateCountdownImage(image)
 
             }
@@ -491,10 +490,17 @@ extension HKLiveVideoViewController{
             cell.selectionStyle = .none
             return cell
         case 6:
-            
+            //add child image
             let cell = tableView.dequeueReusableCell(withIdentifier: reuseVideo, for: indexPath) as! VideoViewCell
             cell.completeHandle = {[unowned self] in
                 self.updateWatermarkView(nil)
+            }
+            cell.tappedSelectImage = {[unowned self] in
+                self.selectPhotoKey = ConfigKey.childImage
+                self.openPhotoLibrary()
+            }
+            if let image = self.selectedImage[ConfigKey.childImage]{
+                cell.updateContent(image)
             }
             cell.selectionStyle = .none
             return cell
@@ -541,7 +547,7 @@ extension HKLiveVideoViewController{
                 self.openPhotoLibrary()
 
             }
-            if let image = self.selectedImage[ConfigKey.countComment.rawValue]{
+            if let image = self.selectedImage[ConfigKey.countComment]{
                 cell.updateCountCommentImage(image)
             }
             cell.selectionStyle = .none
@@ -738,7 +744,7 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
             
         }
 
-        if let random = WarterMarkServices.shared().params[ConfigKey.random.rawValue]as? [String:Any], random.keys.count >= 2{
+        if let random = WarterMarkServices.shared().params[ConfigKey.random]as? [String:Any], random.keys.count >= 2{
             updateTimer?.invalidate()
             updateTimer = nil
      

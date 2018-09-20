@@ -16,6 +16,7 @@ class AddStreamAccountViewController: BaseViewController {
     
     @IBOutlet weak var containerBottomConstraint: NSLayoutConstraint!
     var bottomMargin:CGFloat = 0;
+    var didAddFacebookToken:()->() = {}
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -27,7 +28,7 @@ class AddStreamAccountViewController: BaseViewController {
         super.viewWillAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear(_:)), name: Notification.Name.UIKeyboardWillHide, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear(_:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
-        accessTokenTextView.text = "EAAHA0tZANRYgBAJcFp9NtWM907cDXJmotZCeYqHKcKNXpZBgf7z24e7UxBnpSbWEoiWFbTrNIXZBjcphs5XSRdcEiVVaboCVSzvmeHf18tRZCxBpPW0NFeyAOXiuv7FKRKwpBEFrC6I4p4WyJO13ua0qUNWMQn2ZAiygdFoCJTh16ny7aPpZBQURo61J83JmJN6KLa986K1dgZDZD"
+        accessTokenTextView.text = "EAAAAUaZA8jlABAGI9QBGltwlZAEBqa0QJFeCMw6ypYyT9tcBOqZBrqrEgpLhz1s33pChijXPhZBfVZBFuExrFKWvdCZCiekrNrkNDek7ZA0IIZAmbKpZBgXXFTdthoZBsJKDhZC4sjTXKd5mxarLxXORpXkskpJ6qXMjaAZD"
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
@@ -66,6 +67,7 @@ class AddStreamAccountViewController: BaseViewController {
             
             print("add access_token\(success) --- \(message ?? "")")
             if success{
+                self.didAddFacebookToken()
                 self.dismiss(animated: true, completion: nil)
             }else{
                 self.showMessageDialog(nil,message ?? "")

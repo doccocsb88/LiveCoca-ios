@@ -34,6 +34,11 @@ struct K {
         static let id_category = "id_category"
         static let time_countdown = "time_countdown"
         static let language = "language"
+        //
+        static let filter_title = "filter_title"
+        static let filter_status = "filter_status"
+        static let page = "page"
+        static let page_size = "page_size"
 
     }
     struct APIUploadType{
@@ -43,6 +48,7 @@ struct K {
         static let screen_wait  = "screen_wait"
         static let screen_bye   = "screen_bye"
     }
+
 }
 
 enum HTTPHeaderField: String {
@@ -55,9 +61,16 @@ enum HTTPHeaderField: String {
 enum ContentType: String {
     case json = "application/json"
 }
-enum ConfigKey:String{
-    case countdown = "config_countdown"
-    case random = "config_random"
-    case countComment = "config_count_comment"
-    case filterComment = "config_filter_comment"
+//enum ConfigKey:String{
+//    case countdown = "config_countdown"
+//    case random = "config_random"
+//    case countComment = "config_count_comment"
+//    case filterComment = "config_filter_comment"
+//}
+struct ConfigKey{
+    static let countdown = "config_countdown"
+    static let random = "config_random"
+    static let countComment = "config_count_comment"
+    static let filterComment = "config_filter_comment"
+    static let childImage = "config_child_image"
 }

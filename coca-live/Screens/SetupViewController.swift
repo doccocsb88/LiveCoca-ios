@@ -9,12 +9,12 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
-
+import Kingfisher
 class SetupViewController: BaseViewController, UICollectionViewDelegate, UICollectionViewDataSource ,UICollectionViewDelegateFlowLayout{
     fileprivate let itemsPerRow: CGFloat = 2
     fileprivate let sectionInsets = UIEdgeInsets(top: 10.0, left: 20.0, bottom: 10.0, right: 20.0)
     fileprivate let reuseIdentifier = "frameCell"
-    fileprivate let giftViewHeight : CGFloat = 400;
+    fileprivate let streamViewHeight : CGFloat = 240;
     fileprivate let frameViewHeight : CGFloat = 360;
     fileprivate let uploadViewHeight : CGFloat = 250;
 
@@ -23,21 +23,33 @@ class SetupViewController: BaseViewController, UICollectionViewDelegate, UIColle
     @IBOutlet weak var previewImageView: UIImageView!
     @IBOutlet weak var uploadButton: UIButton!
     @IBOutlet weak var selectImageButton: UIButton!
-    @IBOutlet weak var toggleGiftButton: UIButton!
     
     @IBOutlet weak var toggleUploadButton: UIButton!
     @IBOutlet weak var toggleFrameButton: UIButton!
     
     
     @IBOutlet weak var frameCollectionView: UICollectionView!
-    @IBOutlet weak var giftCollectionView: UICollectionView!
     @IBOutlet weak var uploadContainerView: UIView!
+    @IBOutlet weak var streamScreenContainerView: UIView!
     
+    
+    @IBOutlet weak var streamScreenView: UIView!
+    @IBOutlet weak var waitImageView: UIImageView!
+    @IBOutlet weak var byeImageView: UIImageView!
+    
+    
+    @IBOutlet weak var streamScreenHeightConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var uploadViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var giftViewHeightConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var frameViewHeightConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var openScreenButton: UIButton!
+    @IBOutlet weak var openFrameButton: UIButton!
+    @IBOutlet weak var openUploadButton: UIButton!
+    
+    
+    var frameIndex:Int = NSNotFound
     private var viewIndex = 0;
     var listFrame:[StreamFrame] = []
     let imagePicker = UIImagePickerController()
@@ -56,13 +68,29 @@ class SetupViewController: BaseViewController, UICollectionViewDelegate, UIColle
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        APIClient.shared().getListFrame { (success, message, frames) in
-            print("\(success) --- \(message ?? "abc")")
-            if success{
-                self.listFrame = frames
-                self.frameCollectionView.reloadData()
+        if self.firstTime {
+            firstTime = false
+            APIClient.shared().getListFrame { (success, message, frames) in
+                print("\(success) --- \(message ?? "abc")")
+                if success{
+                    self.listFrame = frames
+                    self.frameCollectionView.reloadData()
+                }
+            }
+            APIClient.shared().getStreamConfig {[unowned self] (success, message, screen_wait, screen_bye) in
+                if success{
+                    if let waitPath = screen_wait{
+                        let url = URL(string: String(format: "%@%@", K.ProductionServer.baseURL, waitPath))
+                        self.waitImageView.kf.setImage(with: url)
+                    }
+                    if let byePath = screen_bye{
+                        let url = URL(string: String(format: "%@%@", K.ProductionServer.baseURL, byePath))
+                        self.byeImageView.kf.setImage(with: url)
+                    }
+                }
             }
         }
+       
     }
 
     override func didReceiveMemoryWarning() {
@@ -74,11 +102,23 @@ class SetupViewController: BaseViewController, UICollectionViewDelegate, UIColle
         self.navigationController?.navigationBar.topItem?.title = "CẤU HÌNH"
 
         frameCollectionView.register(UINib(nibName: "FrameViewCell", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier)
-        giftCollectionView.register(UINib(nibName: "FrameViewCell", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier)
         
+        waitImageView.addBorder(cornerRadius: 2, color: .lightGray)
+        byeImageView.addBorder(cornerRadius: 2, color: .lightGray)
+        
+        //
+        openScreenButton.imageView?.contentMode = .scaleAspectFit
+        openFrameButton.imageView?.contentMode = .scaleAspectFit
+        openUploadButton.imageView?.contentMode = .scaleAspectFit
+
     }
     func setupUI(){
         viewIndex = 1;
+        previewImageView.addBorder(cornerRadius: 2, color: .lightGray)
+        let radius = inputUrlButton.frame.height / 2
+        inputUrlButton.addBorder(cornerRadius: radius, color: .clear)
+        selectImageButton.addBorder(cornerRadius: radius, color: .clear)
+        uploadButton.addBorder(cornerRadius: radius, color: .clear)
         toggleCurrentView()
     }
     /*
@@ -91,53 +131,68 @@ class SetupViewController: BaseViewController, UICollectionViewDelegate, UIColle
     }
     */
     func toggleCurrentView(){
+        uploadContainerView.isHidden = true
         switch viewIndex {
         case 0:
-            giftViewHeightConstraint.constant = 0;
+            streamScreenHeightConstraint.constant = 0
             frameViewHeightConstraint.constant = 0;
             uploadViewHeightConstraint.constant = 0;
         case 1:
-            giftViewHeightConstraint.constant = giftViewHeight;
+            streamScreenHeightConstraint.constant = streamViewHeight
             frameViewHeightConstraint.constant = 0;
             uploadViewHeightConstraint.constant = 0;
             break
         case 2:
-            giftViewHeightConstraint.constant = 0;
+            streamScreenHeightConstraint.constant = 0
             frameViewHeightConstraint.constant = frameViewHeight;
             uploadViewHeightConstraint.constant = 0;
             break
         case 3:
-            giftViewHeightConstraint.constant = 0;
+            streamScreenHeightConstraint.constant = 0
             frameViewHeightConstraint.constant = 0.0;
             uploadViewHeightConstraint.constant = uploadViewHeight;
+            uploadContainerView.isHidden = false
+
             break
         default:
-            giftViewHeightConstraint.constant = 0;
+            streamScreenHeightConstraint.constant = 0
             frameViewHeightConstraint.constant = 0;
             uploadViewHeightConstraint.constant = 0;
         }
+        openScreenButton.isSelected = viewIndex == 1
+        openFrameButton.isSelected = viewIndex == 2
+        openUploadButton.isSelected = viewIndex == 3
+
         UIView.animate(withDuration: 1.0, animations: {
             
         }) { (finished) in
             self.view.updateConstraintsIfNeeded()
         }
     }
-    @IBAction func openUploadViewTapped(_ sender: Any) {
-        if viewIndex == 3{
-            viewIndex = 0
-        }else{
-            viewIndex = 3
-        }
-        toggleCurrentView()
-    }
-    @IBAction func openGiftViewTapped(_ sender: Any) {
+    @IBAction func openStreamScreenTapped(_ sender: Any) {
         if viewIndex == 1{
             viewIndex = 0
         }else{
             viewIndex = 1
         }
         toggleCurrentView()
+  
     }
+    
+    @IBAction func openUploadViewTapped(_ sender: Any) {
+        if viewIndex == 3{
+            viewIndex = 0
+            uploadContainerView.isHidden = true
+            
+        }else{
+            viewIndex = 3
+            uploadContainerView.isHidden = false
+
+        }
+        toggleCurrentView()
+     
+    }
+
     
     @IBAction func openFrameViewTapped(_ sender: Any) {
         if viewIndex == 2{
@@ -146,6 +201,7 @@ class SetupViewController: BaseViewController, UICollectionViewDelegate, UIColle
             viewIndex = 2
         }
         toggleCurrentView()
+    
     }
     @IBAction func tappedInputUrlButton(_ sender: Any) {
         self.showInputView(2)
@@ -155,8 +211,24 @@ class SetupViewController: BaseViewController, UICollectionViewDelegate, UIColle
         openPhotoLibrary()
     }
     @IBAction func tappedUploadButton(_ sender: Any) {
+        if self.selectedImage == nil && self.selectedImage == nil{
+            self.showAlertMessage(nil, "Vui lòng chọn ảnh từ thư việc hoặc nhập đường dẫn hình ảnh")
+            return
+            
+        }
         showListUpload()
 
+    }
+    
+    func loadStreamScreenImage(){
+        if let waitPath = StreamConfig.shared().waitImagePath{
+            let url = URL(string: String(format: "%@%@", K.ProductionServer.baseURL, waitPath))
+            self.waitImageView.kf.setImage(with: url)
+        }
+        if let byePath = StreamConfig.shared().byeImagePath{
+            let url = URL(string: String(format: "%@%@", K.ProductionServer.baseURL, byePath))
+            self.byeImageView.kf.setImage(with: url)
+        }
     }
     
 }
@@ -168,13 +240,10 @@ extension SetupViewController{
         let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
         let availableWidth = (view.frame.width - 40) - paddingSpace
         var availableHeight: CGFloat = 0;
-        if collectionView == giftCollectionView{
-            availableHeight = giftViewHeight - sectionInsets.top * (itemsPerRow + 1);
+     
+        availableHeight = frameViewHeight - sectionInsets.top * (itemsPerRow + 1);
 
-        }else{
-            availableHeight = frameViewHeight - sectionInsets.top * (itemsPerRow + 1);
-
-        }
+        
         let widthPerItem = availableWidth / itemsPerRow
         let heightPerItem = availableHeight / itemsPerRow
 
@@ -194,17 +263,18 @@ extension SetupViewController{
         return sectionInsets.left
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == frameCollectionView {
-            return listFrame.count
-        }
-        return 20;
+        return listFrame.count
+  
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! FrameViewCell
-        if collectionView == frameCollectionView {
-            let frame = listFrame[indexPath.row]
-            cell.updateContent(frame)
+        let frame = listFrame[indexPath.row]
+        cell.updateContent(frame, frameIndex == indexPath.row)
+        cell.didSelectFrame = {
+            self.frameIndex = indexPath.row
+            self.frameCollectionView.reloadData()
+            StreamConfig.shared().frameImage = cell.getFrameImage()
         }
         return cell;
     }
@@ -293,10 +363,17 @@ extension SetupViewController:UIImagePickerControllerDelegate, UINavigationContr
         
     }
     func uploadImage(){
+      
         if type == K.APIUploadType.frame{
+            if self.selectedImage == nil{
+                self.showAlertMessage(nil, "Vui lòng chọn ảnh muốn upload từ thư viện.")
+                return
+            }
             guard let _ = titleFrame else {
                 self.showAlertMessage(nil, "Nhập tên khung trước khi upload hình ảnh")
-                return}
+                return
+                
+            }
             APIClient.shared().upload(type: type, title: titleFrame, url: selectedUrl, image: selectedImage){[unowned self] (success, message,frames) in
                 if success{
                     self.resetParams()
@@ -308,14 +385,23 @@ extension SetupViewController:UIImagePickerControllerDelegate, UINavigationContr
 
         }else{
             if self.selectedImage == nil && self.selectedImage == nil{
-                self.showAlertMessage(nil, "Vui lòng chọn ảnh từ thư việc hoặc nhập đường dẫn hình ảnh")
-
-            }else{
-                APIClient.shared().upload(type: type, title: titleFrame, url: selectedUrl, image: selectedImage){[unowned self] (success, message,frames) in
-                    self.resetParams()
-                }
-
+                self.showAlertMessage(nil, "Vui lòng chọn ảnh từ thư viện hoặc nhập đường dẫn hình ảnh")
+                return
+                
             }
+            self.showLoadingView()
+            
+            APIClient.shared().uploadStreamCover(type: type, url: selectedUrl, image: selectedImage){[unowned self] (success, message) in
+                self.hideLoadingView()
+                self.resetParams()
+                if success{
+                    self.loadStreamScreenImage()
+                }else{
+                    self.showAlertMessage(nil, message ?? APIError.Error_Message_Upload)
+                }
+            }
+
+            
         }
     }
     func resetParams(){

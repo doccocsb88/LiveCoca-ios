@@ -10,10 +10,12 @@ import UIKit
 
 class InputPopupViewController: UIViewController {
 
+    @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var inputTextfield: UITextField!
     @IBOutlet weak var okButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var errorLabel: UILabel!
     
     var inputType:Int = 1
     //1 title
@@ -21,7 +23,11 @@ class InputPopupViewController: UIViewController {
     var didInputValue:(String?)->() = {value in}
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        let radius = okButton.frame.height / 2
+        okButton.addBorder(cornerRadius: radius, color: .clear)
+        cancelButton.addBorder(cornerRadius: radius, color: .clear)
+        containerView.addBorder(cornerRadius: 4, color: .clear)
+        self.errorLabel.text = nil
         // Do any additional setup after loading the view.
         let tapped = UITapGestureRecognizer(target: self, action: #selector(tapped(_:)))
         
@@ -50,8 +56,20 @@ class InputPopupViewController: UIViewController {
 
     @IBAction func tappedOkButton(_ sender: Any) {
         guard let value = inputTextfield.text else{
+            if inputType == 1 {
+                errorLabel.text = "Vui lòng nhập tên khung"
+            }else if inputType == 2{
+                errorLabel.text = "Vui lòng nhập đường dẫn đến hình ảnh"
+            }
             return
         }
+        if inputType == 2 && value.isValidUrl() == false{
+            errorLabel.text = "Đường dẫn hình ảnh không hợp lệ"
+
+            return
+        }
+        errorLabel.text = nil
+        inputTextfield.resignFirstResponder()
         didInputValue(value)
         self.dismiss(animated: true, completion: nil)
     }

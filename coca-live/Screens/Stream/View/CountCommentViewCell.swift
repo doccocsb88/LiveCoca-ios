@@ -86,6 +86,6 @@ class CountCommentViewCell: UITableViewCell {
     }
     
     @IBAction func tappedSelectImage(_ sender: Any) {
-        didTapSelectImage(ConfigKey.countComment.rawValue)
+        didTapSelectImage(ConfigKey.countComment)
     }
 }

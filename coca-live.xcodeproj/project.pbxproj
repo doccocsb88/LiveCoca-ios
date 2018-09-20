@@ -92,6 +92,11 @@
 		DB9C40751E70527D00CCBD83 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB9C40741E70527D00CCBD83 /* Assets.xcassets */; };
 		DB9C40781E70527D00CCBD83 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB9C40761E70527D00CCBD83 /* LaunchScreen.storyboard */; };
 		EC295AAF21185D03005AC814 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC295AAE21185D03005AC814 /* Constant.swift */; };
+		EC2CB9D8215349B80054C8DB /* CocaStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2CB9D7215349B80054C8DB /* CocaStream.swift */; };
+		EC2CB9DB21536C830054C8DB /* StreamPermissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2CB9D921536C830054C8DB /* StreamPermissionViewController.swift */; };
+		EC2CB9DC21536C830054C8DB /* StreamPermissionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC2CB9DA21536C830054C8DB /* StreamPermissionViewController.xib */; };
+		EC2CB9DF215384A50054C8DB /* ImagePositionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2CB9DD215384A50054C8DB /* ImagePositionTableViewCell.swift */; };
+		EC2CB9E0215384A50054C8DB /* ImagePositionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC2CB9DE215384A50054C8DB /* ImagePositionTableViewCell.xib */; };
 		EC5136E42112CA3900391C60 /* material_loader.json in Resources */ = {isa = PBXBuildFile; fileRef = EC5136E32112CA3900391C60 /* material_loader.json */; };
 		EC53B2B8210AD07A000A3866 /* StreamAccountViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC53B2B6210AD07A000A3866 /* StreamAccountViewCell.swift */; };
 		EC53B2B9210AD07A000A3866 /* StreamAccountViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC53B2B7210AD07A000A3866 /* StreamAccountViewCell.xib */; };
@@ -109,6 +114,7 @@
 		EC6149A52139342200A43FE7 /* CountdownPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6149A42139342100A43FE7 /* CountdownPickerView.swift */; };
 		EC752C21210F1944004A69C4 /* AddStreamAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC752C1F210F1944004A69C4 /* AddStreamAccountViewController.swift */; };
 		EC752C22210F1944004A69C4 /* AddStreamAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC752C20210F1944004A69C4 /* AddStreamAccountViewController.xib */; };
+		EC79779F2153A35300AC5B27 /* StreamConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC79779E2153A35300AC5B27 /* StreamConfig.swift */; };
 		ECA2666621410D6B00EF0D47 /* animation_done.json in Resources */ = {isa = PBXBuildFile; fileRef = ECA2666521410D6A00EF0D47 /* animation_done.json */; };
 		ECA2666A2141130C00EF0D47 /* soda_loader.json in Resources */ = {isa = PBXBuildFile; fileRef = ECA266692141130C00EF0D47 /* soda_loader.json */; };
 		ECE9439121087901003EB965 /* ImageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE9439021087901003EB965 /* ImageUtils.swift */; };
@@ -211,6 +217,11 @@
 		DC88924AA17E6F6DC8494FDB /* Pods-coca-live.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-coca-live.debug.xcconfig"; path = "Pods/Target Support Files/Pods-coca-live/Pods-coca-live.debug.xcconfig"; sourceTree = "<group>"; };
 		EC295AAC21185A0F005AC814 /* APIRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = APIRouter.swift; path = Services/Route/APIRouter.swift; sourceTree = "<group>"; };
 		EC295AAE21185D03005AC814 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		EC2CB9D7215349B80054C8DB /* CocaStream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocaStream.swift; sourceTree = "<group>"; };
+		EC2CB9D921536C830054C8DB /* StreamPermissionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamPermissionViewController.swift; sourceTree = "<group>"; };
+		EC2CB9DA21536C830054C8DB /* StreamPermissionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StreamPermissionViewController.xib; sourceTree = "<group>"; };
+		EC2CB9DD215384A50054C8DB /* ImagePositionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImagePositionTableViewCell.swift; path = View/ImagePositionTableViewCell.swift; sourceTree = "<group>"; };
+		EC2CB9DE215384A50054C8DB /* ImagePositionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ImagePositionTableViewCell.xib; path = View/ImagePositionTableViewCell.xib; sourceTree = "<group>"; };
 		EC5136E32112CA3900391C60 /* material_loader.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = material_loader.json; sourceTree = "<group>"; };
 		EC53B2B6210AD07A000A3866 /* StreamAccountViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamAccountViewCell.swift; sourceTree = "<group>"; };
 		EC53B2B7210AD07A000A3866 /* StreamAccountViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StreamAccountViewCell.xib; sourceTree = "<group>"; };
@@ -228,6 +239,7 @@
 		EC6149A42139342100A43FE7 /* CountdownPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownPickerView.swift; sourceTree = "<group>"; };
 		EC752C1F210F1944004A69C4 /* AddStreamAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddStreamAccountViewController.swift; path = Profile/AddStreamAccountViewController.swift; sourceTree = "<group>"; };
 		EC752C20210F1944004A69C4 /* AddStreamAccountViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = AddStreamAccountViewController.xib; path = Profile/AddStreamAccountViewController.xib; sourceTree = "<group>"; };
+		EC79779E2153A35300AC5B27 /* StreamConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamConfig.swift; sourceTree = "<group>"; };
 		ECA2666521410D6A00EF0D47 /* animation_done.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = animation_done.json; sourceTree = "<group>"; };
 		ECA266692141130C00EF0D47 /* soda_loader.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = soda_loader.json; sourceTree = "<group>"; };
 		ECE9439021087901003EB965 /* ImageUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUtils.swift; sourceTree = "<group>"; };
@@ -365,6 +377,7 @@
 		189C0EFB210A228300ADF7FF /* View */ = {
 			isa = PBXGroup;
 			children = (
+				189C0EFD210A22B800ADF7FF /* StreamHistoryViewCell.swift */,
 				189C0EFE210A22B800ADF7FF /* StreamHistoryViewCell.xib */,
 			);
 			name = View;
@@ -373,7 +386,7 @@
 		189C0EFC210A228C00ADF7FF /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				189C0EFD210A22B800ADF7FF /* StreamHistoryViewCell.swift */,
+				EC2CB9D7215349B80054C8DB /* CocaStream.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -391,6 +404,7 @@
 				0E4B69732131B08C0052A0C7 /* FacebookEndpoint.swift */,
 				0E4B698B2135A2A80052A0C7 /* APIClient.swift */,
 				0EC009DC213A85130030BB29 /* StreamEndpoint.swift */,
+				EC79779E2153A35300AC5B27 /* StreamConfig.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -542,6 +556,8 @@
 				0E4B6985213576270052A0C7 /* CountCommentViewCell.swift */,
 				0E4B6986213576270052A0C7 /* CountCommentViewCell.xib */,
 				EC6149A42139342100A43FE7 /* CountdownPickerView.swift */,
+				EC2CB9DD215384A50054C8DB /* ImagePositionTableViewCell.swift */,
+				EC2CB9DE215384A50054C8DB /* ImagePositionTableViewCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -557,6 +573,8 @@
 				1860203D2115DE8C00662714 /* StreamCommentView.swift */,
 				0EC009D8213A314F0030BB29 /* HasStreamPopupView.swift */,
 				0EC009D9213A314F0030BB29 /* HasStreamPopupView.xib */,
+				EC2CB9D921536C830054C8DB /* StreamPermissionViewController.swift */,
+				EC2CB9DA21536C830054C8DB /* StreamPermissionViewController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -644,6 +662,8 @@
 				18AF7531211B52FA0087FDB3 /* galaxy.mp4 in Resources */,
 				186020422115E26A00662714 /* StreamCommentViewCell.xib in Resources */,
 				0E4B697A213293C00052A0C7 /* CommentMaskViewCell.xib in Resources */,
+				EC2CB9E0215384A50054C8DB /* ImagePositionTableViewCell.xib in Resources */,
+				EC2CB9DC21536C830054C8DB /* StreamPermissionViewController.xib in Resources */,
 				ECA2666621410D6B00EF0D47 /* animation_done.json in Resources */,
 				18042BFC210DF77F00F48229 /* CatchWordViewCell.xib in Resources */,
 				182C799F21173F55008D65CB /* LoginViewController.xib in Resources */,
@@ -758,6 +778,7 @@
 				EC53B2CF210B2EA6000A3866 /* SelectStreamAccountViewCell.swift in Sources */,
 				EC53B2BD210AED22000A3866 /* FrameViewCell.swift in Sources */,
 				0EC3FC63212DBC8600278E61 /* CommentMaskView.swift in Sources */,
+				EC2CB9DF215384A50054C8DB /* ImagePositionTableViewCell.swift in Sources */,
 				1854DB2F210D4C9C009DF33D /* BaseInfo.swift in Sources */,
 				0E19119E2141513B0020ACF4 /* SignUpViewController.swift in Sources */,
 				186020462116D33200662714 /* VideoMaskView.swift in Sources */,
@@ -799,8 +820,11 @@
 				0E4B698C2135A2A80052A0C7 /* APIClient.swift in Sources */,
 				DB9C406E1E70527D00CCBD83 /* AppDelegate.swift in Sources */,
 				18DB2AAC210CA3F9005864E1 /* FacebookServices.swift in Sources */,
+				EC2CB9D8215349B80054C8DB /* CocaStream.swift in Sources */,
+				EC2CB9DB21536C830054C8DB /* StreamPermissionViewController.swift in Sources */,
 				18DB2AB8210CC226005864E1 /* FacebookInfo.swift in Sources */,
 				1860203E2115DE8C00662714 /* StreamCommentView.swift in Sources */,
+				EC79779F2153A35300AC5B27 /* StreamConfig.swift in Sources */,
 				189C0EF6210A134B00ADF7FF /* HistoryViewController.swift in Sources */,
 				0E4B6979213293C00052A0C7 /* CommentMaskViewCell.swift in Sources */,
 				0E4B69802134218C0052A0C7 /* RandomMaskView.swift in Sources */,

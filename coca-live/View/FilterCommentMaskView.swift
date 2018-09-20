@@ -106,7 +106,7 @@ class FilterCommentMaskView: UIView, UITableViewDelegate, UITableViewDataSource 
     }
     
     func updateContent(){
-        if let config = WarterMarkServices.shared().params[ConfigKey.filterComment.rawValue] as? [String:Any]{
+        if let config = WarterMarkServices.shared().params[ConfigKey.filterComment] as? [String:Any]{
             let message = config["message"] as! String
             let start = config["start"] as? String ?? "0:0"
             let end = config["end"] as? String ?? "0:0"

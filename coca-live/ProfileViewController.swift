@@ -37,17 +37,22 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
 
     let imagePicker = UIImagePickerController()
     var curFieldIndex:Int =  NSNotFound
+    var avatarImage:UIImage?
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         setup()
         initNavigatorBar()
-        initLoadingView()
+        initLoadingView(nil)
+        bindData()
+
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        bindData()
+        if firstTime{
+            
+        }
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -172,7 +177,7 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
             displayLabel.text = user.fullname
             emailLabel.text = user.email
             phoneLabel.text = user.phone
-            passwordLabel.text = "******"
+            passwordLabel.text = "password"
             descriptionTextField.text = user.description
             //
             
@@ -393,6 +398,8 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
         
         // do something with it
         avatarImageView.image = image
+        avatarImage = image
+        uploadAvatar()
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -401,6 +408,22 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
         }
         
         print("did cancel")
+    }
+    func uploadAvatar(){
+        guard let image = avatarImage else{
+            return
+        }
+        showLoadingView()
+        APIClient.shared().uploadAvatar(image: image, completion: { [weak self](success, message) in
+            guard let strongSelf = self else{return}
+            strongSelf.hideLoadingView()
+            if success{
+                
+            }else{
+                self?.showAlertMessage(nil, message)
+            }
+        })
+        
     }
 }
 
