@@ -13,6 +13,7 @@ enum HourCompare:Int{
     case after
 }
 class APIUtils {
+    static let NUMBER_ANSWER:Int = 10
     static let APP_NAME = "ios"
 //    static let APP_SECRET =  "5GJ7ITJ(*"//"SHeJK3fouW"
     static let APP_SECRET = "SHeJK3fouW"
@@ -49,6 +50,29 @@ class APIUtils {
             return .after
         }
         return .equal
+    }
+    
+    static func filterComment(_ filterText:String) ->[FacebookComment]{
+        var filtedComments:[FacebookComment] = []
+        for comment in APIClient.shared().comments{
+            if comment.message.contains(filterText){
+                filtedComments.append(comment)
+            }
+            if filtedComments.count == NUMBER_ANSWER{
+                break
+            }
+        }
+        return filtedComments
+    }
+    
+    static func countComment(_ message:String) -> Int{
+        var count = 0
+        for comment in APIClient.shared().comments{
+            if comment.message == message{
+                count += 1
+            }
+        }
+        return count
     }
     
 }

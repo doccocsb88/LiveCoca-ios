@@ -28,7 +28,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>5</string>
+	<string>6</string>
 	<key>FacebookAppID</key>
 	<string>493486747764104</string>
 	<key>FacebookDisplayName</key>
@@ -39,8 +39,7 @@
 		<string>fb-messenger-share-api</string>
 		<string>fbauth2</string>
 		<string>fbshareextension</string>
-        <string>fb</string>
-
+		<string>fb</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
@@ -50,6 +49,16 @@
 		<true/>
 		<key>NSExceptionAllowsInsecureHTTPLoads</key>
 		<true/>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>http://graph.facebook.com</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
+		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Live coca muốn truy suất camera của bạn để thực hiện livestream?</string>

@@ -14,19 +14,16 @@ class FrameViewCellV2: UITableViewCell {
     
     @IBOutlet weak var nameLabel: UILabel!
     var didSelectFrame:()->() = {}
+    var index:Int = 0
+    var streamFrame:StreamFrame?
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         let gesture = UITapGestureRecognizer(target: self, action: #selector(tappedGesture(_:)))
         self.addGestureRecognizer(gesture)
-        if self.tag == 0{
-            nameLabel.text = "Ẩn khung"
-            frameImageView.image = nil;
-            frameImageView.backgroundColor = .lightGray
-        }else{
-            frameImageView.backgroundColor = .white
-
-        }
+       
+        frameImageView.addBorder(cornerRadius: 2, color: .lightGray)
+        frameImageView.backgroundColor = .lightGray
 
     }
 
@@ -35,20 +32,44 @@ class FrameViewCellV2: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    @objc func tappedGesture(_ gesture:UIGestureRecognizer){
-        let tag  = self.tag
-        var config:[String:Any] = [:]
-        if tag > 0{
-            if tag % 2 == 0{
-                config["image"] = "frame_01"
-            }else{
-                config["image"] = "frame_02"
-                
-            }
+    
+    func updateContent(frame: StreamFrame?, index:Int){
+        self.index = index
+        self.streamFrame = frame
+        if index == 0{
+            nameLabel.text = "Ẩn khung"
+            frameImageView.image = nil;
+        }else{
+            guard let frame = frame else {return}
+            nameLabel.text = frame.title
+            let url = URL(string: frame.getThumbnailUrl())
+            frameImageView.kf.setImage(with: url)
         }
-        WarterMarkServices.sharedInstance.configFrame(config: config)
-        didSelectFrame()
     }
+    @objc func tappedGesture(_ gesture:UIGestureRecognizer){
+        var config:[String:Any] = [:]
+        if let frame = self.streamFrame {
+            DispatchQueue.global().async { [weak self] in
+                if let url = URL(string: frame.getThumbnailUrl()){
+                    if let data = try? Data(contentsOf: url) {
+                        if let image = UIImage(data: data) {
+                            DispatchQueue.main.async { [weak self] in
+                                guard let strongSelf = self else{return}
+                                config["image"] = image
+                                WarterMarkServices.sharedInstance.configFrame(config: config)
+                                strongSelf.didSelectFrame()
+                            }
+                        }
+                    }
+                }
+            }
+        }else{
+            WarterMarkServices.sharedInstance.configFrame(config: config)
+            self.didSelectFrame()
+        }
+       
+    }
+   
     
     
 }

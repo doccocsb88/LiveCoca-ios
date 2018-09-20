@@ -52,6 +52,12 @@ class StreamAccountViewCell: UITableViewCell {
     }
     func bindData(_ account:BaseInfo){
         pageNameLabel.text = account.displayName
+        if let userId = account.userId{
+            let facebookProfileUrl = "http://graph.facebook.com/\(userId)/picture?type=large"
+            let url = URL(string: facebookProfileUrl)
+            avatarImageView.kf.setImage(with: url)
+        }
+        
     }
     @IBAction func tappedRemoveButton(_ sender: Any) {
         tappedRemoveButtonHandle()

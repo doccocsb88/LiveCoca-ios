@@ -88,7 +88,7 @@ enum APIRouter: URLRequestConvertible {
             return [K.APIParameterKey.username: username, K.APIParameterKey.password: password]
         case .logout:
             return [:]
-        case .update(let username, let password, let fullname, let email, let phone, let description):
+        case .update(let username, let password, let fullname, let phone, let email, let description):
             var params:[String:String] = [:]
             if let _username = username{
                 params[K.APIParameterKey.username] = _username

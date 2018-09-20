@@ -11,7 +11,7 @@ import UIKit
 //import FBSDKLoginKit
 import LFLiveKit
 //import GPUImage
-class HKLiveVideoViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+class HKLiveVideoViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate {
     fileprivate let reuseCountDown = "CountDownViewCell"
     fileprivate let reuseSlogan = "SloganViewCell"
     fileprivate let reuseFrame = "FrameViewCellV2"
@@ -129,7 +129,7 @@ class HKLiveVideoViewController: BaseViewController, UITableViewDelegate, UITabl
         commentContainerView.addSubview(commentView!)
         commentContainerView.bringSubview(toFront: self.chatContainerView)
         commentView?.didPinComment = {[unowned self] in
-            self.addStreamControlView()
+            self.updateStreamControlView()
             self.updateWatermarkView(nil)
         }
         //
@@ -153,32 +153,40 @@ class HKLiveVideoViewController: BaseViewController, UITableViewDelegate, UITabl
         tableView.register(UINib(nibName: reuseCountComment, bundle: nil), forCellReuseIdentifier: reuseCountComment)
         
         let gesture = UITapGestureRecognizer(target: self, action: #selector(tappedGesture(_:)))
+        gesture.delegate = self
         self.view.addGestureRecognizer(gesture)
         //
         hideMenuView()
         hideCommentView()
-
+        //
+        APIClient.shared().getListFrame {[unowned self]  (success, messages, frames) in
+            
+            self.tableView.reloadData()
+        }
+        APIClient.shared().getStreamConfig {(success, message) in
+           
+        }
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if firstTime {
             firstTime = false
-//            APIClient.shared().startLive(stremInfo: self.streamUrls[0], width: 720, height: 1280, id_category: "", time_countdown: 0) {[unowned self] (success, message, id_room) in
-//                if success{
-//                    guard let _ = id_room else {
-//                        self.showMessageDialog(nil, message ?? APIError.Error_Message_Generic)
-//
-//                        return
-//                    }
-//                    self.id_room = id_room!
-//                    self.startLive()
-//
-//                }else{
-//                    self.showMessageDialog(nil, message ?? APIError.Error_Message_Generic)
-//                }
-//
-//            }
-            self.startLive()
+            APIClient.shared().startLive(stremInfo: self.streamUrls[0], width: 720, height: 1280, id_category: "", time_countdown: 0) {[unowned self] (success, message, id_room) in
+                if success{
+                    guard let _ = id_room else {
+                        self.showMessageDialog(nil, message ?? APIError.Error_Message_Generic)
+
+                        return
+                    }
+                    self.id_room = id_room!
+                    self.startLive()
+
+                }else{
+                    self.showMessageDialog(nil, message ?? APIError.Error_Message_Generic)
+                }
+
+            }
+//            self.startLive()
 
         }
 
@@ -362,11 +370,18 @@ class HKLiveVideoViewController: BaseViewController, UITableViewDelegate, UITabl
             self.menuBottomConstraint.constant = height
         }
     }
+    
+    
 }
 
 
 
 extension HKLiveVideoViewController{
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        //disable gesture when side menu is open
+        return !self.menuButton.isSelected
+    }
+
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50 + 2
     }
@@ -404,7 +419,7 @@ extension HKLiveVideoViewController{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == curMenuIndex{
             if section == 2{
-                return 10
+                return StreamConfig.shared().listFrame.count + 1
             }
             return 1
         }
@@ -453,7 +468,15 @@ extension HKLiveVideoViewController{
             let cell = tableView.dequeueReusableCell(withIdentifier:reuseFrame, for: indexPath) as! FrameViewCellV2
             cell.selectionStyle = .none
             cell.tag = indexPath.row
+            if indexPath.row > 0{
+                
+                let frame = StreamConfig.shared().listFrame[indexPath.row - 1]
+                cell.updateContent(frame: frame, index: indexPath.row)
 
+            }else{
+                cell.updateContent(frame: nil, index: indexPath.row)
+
+            }
             cell.didSelectFrame = {
                 self.updateWatermarkView(nil)
 
@@ -464,7 +487,7 @@ extension HKLiveVideoViewController{
             let cell = tableView.dequeueReusableCell(withIdentifier:reusePin, for: indexPath) as! PinCommentViewCell
             cell.selectionStyle = .none
             cell.completeHandle = {[unowned self] in
-                self.addStreamControlView()
+                self.updateStreamControlView()
                 self.updateWatermarkView(nil)
             }
             return cell
@@ -532,7 +555,7 @@ extension HKLiveVideoViewController{
             //random comment
             let cell = tableView.dequeueReusableCell(withIdentifier:reuseRandomNumber, for: indexPath) as! RandomNumberViewCell
             cell.completeHandle = {[unowned self ] in
-                self.addStreamControlView()
+                self.updateStreamControlView()
                 self.updateWatermarkView(nil)
             }
             cell.selectionStyle = .none
@@ -588,6 +611,7 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
                 if(granted){
                     DispatchQueue.main.async {
                         self.session.running = true
+                        self.updateWatermarkView(nil)
                     }
                 }
             })
@@ -692,16 +716,20 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
         }
         let wartermarkFrame  = CGRect(x: 0, y: 0, width: videoSize.width, height: videoSize.height )
         WarterMarkServices.shared().setFrame(frame: wartermarkFrame)
-        let view  = randomView?.copyView()  as? RandomMaskView
-        let scale = videoSize.width / UIScreen.main.bounds.width
-        view?.transform = CGAffineTransform(scaleX: scale, y: scale)
-        WarterMarkServices.shared().randomView = view
-        view?.stopRandom()
+        if WarterMarkServices.shared().hasRandomView(){
+            let view  = randomView?.copyView()  as? RandomMaskView
+            let scale = videoSize.width / UIScreen.main.bounds.width
+            view?.transform = CGAffineTransform(scaleX: scale, y: scale)
+            WarterMarkServices.shared().randomView = view
+            view?.stopRandom()
+            view?.cancelTimer()
+            view?.hideCloseButton()
+        }
         let waterMarkView = WarterMarkServices.shared().generateWarterMark()
         session.warterMarkView = waterMarkView
 
     }
-    private func addStreamControlView(){
+    private func updateStreamControlView(){
         if let pinComment = WarterMarkServices.shared().params["pin"] as? [String:Any],pinComment.keys.count > 0,let comment =  pinComment["comment"] as? FacebookComment{
             if let _ = pinCommentView {
                 pinCommentView?.updateContent()
@@ -725,7 +753,7 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
                 pinCommentView?.frame = frame
                 pinCommentView?.tappedCloseHandle = {
                     WarterMarkServices.shared().removePinComment()
-                    self.pinCommentView?.removeFromSuperview()
+                    self.updateStreamControlView()
                     self.updateWatermarkView(nil)
                 }
                 self.view.addSubview(pinCommentView!)
@@ -737,14 +765,13 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
             WarterMarkServices.shared().pinCommentView = view
             
         }else{
-            if let view = pinCommentView{
-                view.removeFromSuperview()
-                pinCommentView = nil
-            }
-            
+            pinCommentView?.removeFromSuperview()
+            pinCommentView = nil
+            WarterMarkServices.shared().pinCommentView = nil
+
         }
 
-        if let random = WarterMarkServices.shared().params[ConfigKey.random]as? [String:Any], random.keys.count >= 2{
+        if WarterMarkServices.shared().hasRandomView(){
             updateTimer?.invalidate()
             updateTimer = nil
      
@@ -776,6 +803,18 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
                         
                     }
                     
+                }
+                randomView?.didTappedClose = { [weak self] in
+                    guard let strongSelf = self else{return}
+
+                    if let _  = strongSelf.updateTimer{
+                        strongSelf.updateTimer?.invalidate()
+                        strongSelf.updateTimer = nil
+                    }
+                    WarterMarkServices.shared().configRandom([:])
+                    
+                    strongSelf.updateWatermarkView(nil)
+                    strongSelf.updateStreamControlView()
                 }
                 self.view.addSubview(randomView!)
 //                self.updateTimer = Timer.scheduledTimer(timeInterval: 0.02, target: self, selector: #selector(self.updateWatermarkView(_:)), userInfo: nil, repeats: true)

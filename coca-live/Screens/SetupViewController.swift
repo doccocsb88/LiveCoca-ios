@@ -61,6 +61,7 @@ class SetupViewController: BaseViewController, UICollectionViewDelegate, UIColle
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        initLoadingView(nil)
         setup()
         setupUI()
         
@@ -77,13 +78,13 @@ class SetupViewController: BaseViewController, UICollectionViewDelegate, UIColle
                     self.frameCollectionView.reloadData()
                 }
             }
-            APIClient.shared().getStreamConfig {[unowned self] (success, message, screen_wait, screen_bye) in
+            APIClient.shared().getStreamConfig {[unowned self] (success, message) in
                 if success{
-                    if let waitPath = screen_wait{
+                    if let waitPath = StreamConfig.shared().waitImagePath{
                         let url = URL(string: String(format: "%@%@", K.ProductionServer.baseURL, waitPath))
                         self.waitImageView.kf.setImage(with: url)
                     }
-                    if let byePath = screen_bye{
+                    if let byePath = StreamConfig.shared().byeImagePath{
                         let url = URL(string: String(format: "%@%@", K.ProductionServer.baseURL, byePath))
                         self.byeImageView.kf.setImage(with: url)
                     }
@@ -275,6 +276,11 @@ extension SetupViewController{
             self.frameIndex = indexPath.row
             self.frameCollectionView.reloadData()
             StreamConfig.shared().frameImage = cell.getFrameImage()
+            StreamConfig.shared().setFrameImage(frame.getThumbnailUrl())
+            if let image = cell.getFrameImage(){
+                WarterMarkServices.shared().configFrame(config: ["image":image])
+
+            }
         }
         return cell;
     }

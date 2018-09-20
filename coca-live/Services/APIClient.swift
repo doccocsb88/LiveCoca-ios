@@ -557,12 +557,12 @@ class APIClient {
             }
         }
     }
-    func getStreamConfig(completion:@escaping(_ success:Bool, _ message: String? , _ screen_wait:String?, _ screen_bye: String?) ->Void){
+    func getStreamConfig(completion:@escaping(_ success:Bool, _ message: String?) ->Void){
         Alamofire.request(StreamEmdpoint.getConfig()).responseJSON{response in
             guard response.result.isSuccess,
                 let value = response.result.value else {
                     print("Error while fetching stream config: \(String(describing: response.result.error))")
-                    completion(false,String(describing: response.result.error),nil,nil)
+                    completion(false,String(describing: response.result.error))
                     return
             }
             let jsonResponse = JSON(value)
@@ -572,21 +572,21 @@ class APIClient {
                 let errorCode = error["code"] as? Int
                 let code = errorCode ?? 0
                 let explain = error["explain"] as? String
-                completion(false,explain,nil,nil)
+                completion(false,explain)
                 
             }else if let config = jsonResponse["config"].dictionary{
-                let urlWait  = config["screen_wait"]?.stringValue
-                let urlBye   = config["screen_bye"]?.stringValue
-                StreamConfig.shared().waitImagePath = urlWait
-                StreamConfig.shared().byeImagePath = urlBye
+                if let urlWait  = config["screen_wait"]?.stringValue{
+                    StreamConfig.shared().setWaitImage(urlWait)
 
-                print("getStreamConfig screen_wait \(urlWait ?? "1")")
-                print("getStreamConfig screen_bye \(urlBye ?? "1")")
-
-                completion(true,nil,urlWait,urlBye)
+                }
+                if let urlBye   = config["screen_bye"]?.stringValue{
+                    StreamConfig.shared().setByeImage(urlBye)
+                }
+                
+                completion(true,nil)
                 
             }else{
-                completion(false,APIError.Error_Message_Generic,nil,nil)
+                completion(false,APIError.Error_Message_Generic)
 
             }
         }
@@ -727,10 +727,15 @@ class APIClient {
                                     //screen_wait and screen_bye
                                     //                                    - screen_wait (string): Link ảnh màn hình chờ
                                     //                                    - screen_bye (string): Link ảnh màn hình tạm biệt
-                                    let urlWait  = config["screen_wait"] as? String
-                                    let urlBye   = config["screen_bye"] as? String
-                                    StreamConfig.shared().waitImagePath = urlWait
-                                    StreamConfig.shared().byeImagePath = urlBye
+                                    
+                                    if let urlWait  = config["screen_wait"] as? String{
+                                        StreamConfig.shared().setWaitImage(urlWait)
+                                        
+                                    }
+                                    if let urlBye   = config["screen_bye"] as? String {
+                                        StreamConfig.shared().setByeImage(urlBye)
+                                    }
+                                    
                                     completion(true,nil)
                                     
                                     

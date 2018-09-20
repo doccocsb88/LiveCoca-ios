@@ -53,7 +53,7 @@ enum FacebookEndpoint: URLRequestConvertible {
         case .comments(let id_stream):
             let url = "/facebook/comments?app=ios"
             let checksum = APIUtils.checksum(request_url: url, raw_data: JSON(parameters ?? [:]).stringValue)
-            return String(format: "%@&checksum=%@&since=1&id_stream=%@", url,checksum,id_stream)
+            return String(format: "%@&checksum=%@&id_stream=%@", url,checksum,id_stream)
 
         case .login:
             return "/login"

@@ -26,6 +26,7 @@ class CatchWordViewCell: UITableViewCell {
     var frameImage:UIImage?
     var questionImage:UIImage?
     var completeHandle:(Int) ->() = {type  in }
+    var gameState:Int = 0
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -75,12 +76,23 @@ class CatchWordViewCell: UITableViewCell {
         guard let answer = answerTextField.text else{
             return
         }
+        config["state"] = gameState
+        gameState += 1
         errorLabel.textColor = nil
         questionTextField.resignFirstResponder()
         answerTextField.resignFirstResponder()
         config["image"] = image
         config["question"] = question
         config["answer"] = answer
+        if gameState == 1{
+            startButton.setTitle("Kết thúc", for: .normal)
+        }else if gameState == 2 {
+            startButton.setTitle("Ẩn", for: .normal)
+        }else{
+            config = [:]
+            startButton.setTitle("Bắt đầu", for: .normal)
+            gameState = 0 
+        }
         WarterMarkServices.shared().configCatchWord(config: config)
         completeHandle(0)
     }

@@ -66,6 +66,9 @@ class CountDownViewCell: UITableViewCell {
         if let mute = config["mute"] as? Bool{
             muteButton.isSelected = mute
         }
+        if let waitImage = StreamConfig.shared().waitImage{
+            selectImageButton.image = waitImage
+        }
     }
     
     func updateCountdownImage(_ image:UIImage){
@@ -114,7 +117,8 @@ extension CountDownViewCell: UITextFieldDelegate{
             self.addSubview(pickerView!)
             
         }else{
-            pickerView = CountdownPickerView(frame: CGRect(x: margin, y: 60, width: self.bounds.width - 2*margin, height: self.bounds.height - (60 + margin)))
+            let marginTop:CGFloat = 100
+            pickerView = CountdownPickerView(frame: CGRect(x: margin, y: marginTop, width: self.bounds.width - 2*margin, height: self.bounds.height - (marginTop + margin)))
             pickerView?.didSelectTimer = {[weak self] timer in
                 guard let strongSelf = self else{
                     return

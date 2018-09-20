@@ -48,7 +48,7 @@ class CountCommentMaskView: UIView {
         let margin = 10 * scale
         var top = self.frame.size.height
         for i in 0..<count{
-            let index = i + 1
+            //let index = i + 1
             let key = Array(config.keys)[i]
             top = top - height - margin
             let view = UIView(frame: CGRect(x: margin, y: top, width: width, height: height))
@@ -69,20 +69,21 @@ class CountCommentMaskView: UIView {
             let titleLabel = UILabel(frame: CGRect(x: height + 5, y: 5 * scale, width: width - height - 10, height: 30 * scale))
             titleLabel.text = config[key] as? String
             titleLabel.textColor = .white
+            titleLabel.numberOfLines = 2
             titleLabel.font = UIFont.systemFont(ofSize: 15 * scale)
             view.addSubview(titleLabel)
             switch key{
             case "comment1":
-                count1Label = countLabel
+                count1Label = titleLabel
                 break
             case "comment2":
-                count2Label = countLabel
+                count2Label = titleLabel
                 break
             case "comment3":
-                count3Label = countLabel
+                count3Label = titleLabel
                 break
             case "comment4":
-                count4Label = countLabel
+                count4Label = titleLabel
                 break
 
             default:

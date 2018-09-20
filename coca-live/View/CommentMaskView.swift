@@ -97,8 +97,10 @@ class CommentMaskView: UIView {
             contentLabel?.text = comment?.message
             createDateLabel?.text = comment?.getTimerText()
             displayLabel?.text = comment?.fromName
-            let url = URL(string: "http://graph.facebook.com/\(comment?.fromId)/picture?type=square&access_token=\(FacebookServices.shared().curPage?.tokenString ?? "")")
-    
+            let facebookProfileUrl = "http://graph.facebook.com/\(comment?.fromId ?? "0")/picture?type=large"
+            let url = URL(string: facebookProfileUrl)
+
+
             avatarImageView?.kf.setImage(with: url,
                                              placeholder: nil,
                                              options: [.transition(ImageTransition.fade(1))],

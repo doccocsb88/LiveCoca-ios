@@ -79,7 +79,7 @@ class CountdownMaskView: UIView {
         let height = 30 * scale
         let margin = 10 * scale
         var left = 10 * scale
-        
+        let font = UIFont.systemFont(ofSize: 25)
         let top = self.bounds.height - 10 * scale - height
         
         hourView = UIView(frame: CGRect(x: left, y: top, width: width, height: height))
@@ -87,6 +87,7 @@ class CountdownMaskView: UIView {
         hourView?.addBorder(cornerRadius: 4, color: .clear)
         self.addSubview(hourView!)
         hourLabel = UILabel(frame: hourView!.bounds)
+        hourLabel?.font = font
         hourLabel?.textAlignment = .center
         hourLabel?.textColor = .black
         hourLabel?.text = String(format: "%d", totalSecs / (60 * 60))
@@ -94,6 +95,7 @@ class CountdownMaskView: UIView {
         //
         left = left + width
         separate1View = UILabel(frame: CGRect(x: left, y: top, width: margin, height: height))
+        separate1View?.font = font
         separate1View?.text = ":"
         separate1View?.textAlignment = .center
         separate1View?.textColor = .black
@@ -106,6 +108,7 @@ class CountdownMaskView: UIView {
         minsView?.addBorder(cornerRadius: 4, color: .clear)
         self.addSubview(minsView!)
         minsLabel = UILabel(frame: minsView!.bounds)
+        minsLabel?.font = font
         minsLabel?.textAlignment = .center
         minsLabel?.textColor = .black
         minsLabel?.text = String(format: "%d", (totalSecs / 60) % 60)
@@ -115,6 +118,7 @@ class CountdownMaskView: UIView {
         //
         left = left + width
         separate2View = UILabel(frame: CGRect(x: left, y: top, width: margin, height: height))
+        separate2View?.font = font
         separate2View?.text = ":"
         separate2View?.textAlignment = .center
         separate2View?.textColor = .black
@@ -127,6 +131,7 @@ class CountdownMaskView: UIView {
         secsView?.addBorder(cornerRadius: 4, color: .clear)
         self.addSubview(secsView!)
         secsLabel = UILabel(frame: secsView!.bounds)
+        secsLabel?.font = font
         secsLabel?.textAlignment = .center
         secsLabel?.textColor = .black
         secsLabel?.text = String(format: "%d", totalSecs % 60)

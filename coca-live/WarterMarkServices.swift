@@ -60,10 +60,8 @@ class WarterMarkServices{
         }
         
 
-        if let slogan = params["slogan"] as? [String:Any]{
-            if let sloganView = handleSlogan(slogan: slogan){
-                watermarkView.addSubview(sloganView)
-            }
+        if let _ = params["slogan"] as? [String:Any]{
+            
             bottomMargin = 50 * scale
 
         }
@@ -106,6 +104,7 @@ class WarterMarkServices{
             }
             pinCommentView?.updateContent()
             pinCommentView?.frame = frame
+            pinCommentView?.hideCloseButton()
             watermarkView.addSubview(pinCommentView!)
         }else{
             pinCommentView?.removeFromSuperview()
@@ -137,6 +136,9 @@ class WarterMarkServices{
             watermarkView.addSubview(randomView!)
 
             
+        }else{
+            randomView?.removeFromSuperview()
+            randomView = nil
         }
         
         if let countComment = params[ConfigKey.countComment] as? [String:Any], countComment.keys.count > 0{
@@ -157,14 +159,19 @@ class WarterMarkServices{
 //        let wartermarkImageView = UIImageView(frame: watermarkView.bounds)
 //        wartermarkImageView.image = backgroundImage.resizeImage(self.frame.size)
 //        watermarkView.addSubview(wartermarkImageView)
-        if let frame = params["frame"] as? [String:Any],let imageName =  frame["image"] as? String{
-            let frameView = UIImageView(frame: self.frame)
-            frameView.image = UIImage(named: imageName)
+        if let frameConfig = params["frame"] as? [String:Any],let image =  frameConfig["image"] as? Image{
+            
+            let frameView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height))
+            frameView.image = image
             
             watermarkView.addSubview(frameView)
             
         }
-
+        if let slogan = params["slogan"] as? [String:Any]{
+            if let sloganView = handleSlogan(slogan: slogan){
+                watermarkView.addSubview(sloganView)
+            }            
+        }
         return watermarkView
     }
     func addCountDown(){
@@ -299,6 +306,12 @@ class WarterMarkServices{
     }
     func hasCountCommentView() ->Bool{
         if let countComment = params[ConfigKey.countComment] as? [String:Any], countComment.keys.count > 0{
+            return true
+        }
+        return false
+    }
+    func hasRandomView() ->Bool{
+        if let random = params[ConfigKey.random] as? [String:Any], random.keys.count >= 2{
             return true
         }
         return false

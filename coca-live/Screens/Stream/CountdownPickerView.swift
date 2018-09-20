@@ -74,8 +74,35 @@ class CountdownPickerView: UIView {
         collectionView?.backgroundColor = .white
         collectionView?.register(TimerViewCell.self, forCellWithReuseIdentifier: "TimerViewCell")
         self.addSubview(collectionView!)
+       
+        let tapped = UITapGestureRecognizer(target: self, action: #selector(tapped(_:)))
+        collectionView?.addGestureRecognizer(tapped)
+        //
         self.addBorder(cornerRadius: 4, color: .lightGray)
         self.backgroundColor = .white
+        
+        
+    }
+    @objc func tapped(_ gesture:UIGestureRecognizer){
+        if gesture.state == UIGestureRecognizerState.ended {
+            if let indexPath = self.collectionView?.indexPathForItem(at: gesture.location(in: self.collectionView)) {
+                let curHour = Date().getHour()
+                if curHour < indexPath.row{
+                    if indexPath.row < 10{
+                        didSelectTimer("0\(indexPath.row):00")
+                        
+                    }else{
+                        didSelectTimer("\(indexPath.row):00")
+                        
+                    }
+                    
+                    self.removeFromSuperview()
+                }
+                
+            } else {
+                print("collection view was tapped")
+            }
+        }
     }
 }
 extension CountdownPickerView: UICollectionViewDelegate, UICollectionViewDataSource{

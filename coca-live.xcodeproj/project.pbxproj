@@ -26,6 +26,8 @@
 		0E4B698E2136E64D0052A0C7 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B698D2136E64D0052A0C7 /* Preferences.swift */; };
 		0E4B6990213836BA0052A0C7 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B698F213836BA0052A0C7 /* BaseViewController.swift */; };
 		0E4B699221383C8C0052A0C7 /* SocialTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B699121383C8C0052A0C7 /* SocialTarget.swift */; };
+		0EA47E222153F26B001523A0 /* AnswerCatchWordViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA47E202153F26B001523A0 /* AnswerCatchWordViewCell.swift */; };
+		0EA47E232153F26B001523A0 /* AnswerCatchWordViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EA47E212153F26B001523A0 /* AnswerCatchWordViewCell.xib */; };
 		0EBDF21421290B0500A1A4C9 /* ErrorCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBDF21321290B0500A1A4C9 /* ErrorCode.swift */; };
 		0EC009D521398EF30030BB29 /* CountdownMaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC009D421398EF30030BB29 /* CountdownMaskView.swift */; };
 		0EC009DA213A314F0030BB29 /* HasStreamPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC009D8213A314F0030BB29 /* HasStreamPopupView.swift */; };
@@ -140,6 +142,8 @@
 		0E4B698D2136E64D0052A0C7 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		0E4B698F213836BA0052A0C7 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		0E4B699121383C8C0052A0C7 /* SocialTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialTarget.swift; sourceTree = "<group>"; };
+		0EA47E202153F26B001523A0 /* AnswerCatchWordViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerCatchWordViewCell.swift; sourceTree = "<group>"; };
+		0EA47E212153F26B001523A0 /* AnswerCatchWordViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnswerCatchWordViewCell.xib; sourceTree = "<group>"; };
 		0EBDF21321290B0500A1A4C9 /* ErrorCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorCode.swift; sourceTree = "<group>"; };
 		0EC009D421398EF30030BB29 /* CountdownMaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownMaskView.swift; sourceTree = "<group>"; };
 		0EC009D8213A314F0030BB29 /* HasStreamPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasStreamPopupView.swift; sourceTree = "<group>"; };
@@ -316,6 +320,8 @@
 				0E4B697F2134218C0052A0C7 /* RandomMaskView.swift */,
 				0E4B698921357F090052A0C7 /* CountCommentMaskView.swift */,
 				0EC009D421398EF30030BB29 /* CountdownMaskView.swift */,
+				0EA47E202153F26B001523A0 /* AnswerCatchWordViewCell.swift */,
+				0EA47E212153F26B001523A0 /* AnswerCatchWordViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -673,6 +679,7 @@
 				ECA2666A2141130C00EF0D47 /* soda_loader.json in Resources */,
 				0E19119F2141513B0020ACF4 /* SignUpViewController.xib in Resources */,
 				EC752C22210F1944004A69C4 /* AddStreamAccountViewController.xib in Resources */,
+				0EA47E232153F26B001523A0 /* AnswerCatchWordViewCell.xib in Resources */,
 				0EC009DB213A314F0030BB29 /* HasStreamPopupView.xib in Resources */,
 				DB9C40751E70527D00CCBD83 /* Assets.xcassets in Resources */,
 				EC53B2D0210B2EA6000A3866 /* SelectStreamAccountViewCell.xib in Resources */,
@@ -814,6 +821,7 @@
 				189C0EFA210A16CF00ADF7FF /* BaseTabbarController.swift in Sources */,
 				187A1686210B8A3E00F418CF /* MenuViewCell.swift in Sources */,
 				18042BFB210DF77F00F48229 /* CatchWordViewCell.swift in Sources */,
+				0EA47E222153F26B001523A0 /* AnswerCatchWordViewCell.swift in Sources */,
 				0E4B6976213271220052A0C7 /* FilterCommentMaskView.swift in Sources */,
 				1860203C2115CBFC00662714 /* FacebookComment.swift in Sources */,
 				18AF752F211B4E510087FDB3 /* Videos.swift in Sources */,

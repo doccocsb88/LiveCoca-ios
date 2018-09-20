@@ -19,6 +19,7 @@ class RandomMaskView: UIView {
     */
     var scale:CGFloat = 1
     var randomView:UIView?
+    var closeButton:UIButton?
     var randomBackgroundImageView:UIImageView?
     var number1Label:UILabel?
     var number2Label:UILabel?
@@ -34,7 +35,7 @@ class RandomMaskView: UIView {
     var to:Int = 0
     var randomNumber:Int = 0
     var completeHandle:(Bool) ->() = { start in }
-
+    var didTappedClose:() ->() = {}
     override init(frame:CGRect){
         super.init(frame: frame)
         initView()
@@ -67,6 +68,13 @@ class RandomMaskView: UIView {
         randomBackgroundImageView?.image = UIImage(named: "background_random")
         randomBackgroundImageView?.contentMode = .scaleAspectFit
         randomView?.addSubview(randomBackgroundImageView!)
+        let buttonSize = 30 * scale
+        closeButton = UIButton(frame: CGRect(x: left + randomWidth, y: topMargin - buttonSize, width: buttonSize , height: buttonSize))
+        closeButton?.setImage(UIImage(named: "ic_close"), for: .normal)
+        closeButton?.imageEdgeInsets = UIEdgeInsetsMake(8 * scale, 8 * scale, 8 * scale, 8 * scale)
+        closeButton?.addBorder(cornerRadius: buttonSize / 2, color: .red)
+        closeButton?.addTarget(self, action: #selector(tappedCloseButton(_:)), for: .touchUpInside)
+        self.addSubview(closeButton!)
         //
         //height  : 311 / 696
         //start : 94
@@ -208,8 +216,16 @@ class RandomMaskView: UIView {
             strongSelf.completeHandle(false)
             
         }
-
-
+    }
+    func cancelTimer(){
+        self.timer1?.invalidate()
+        self.timer1 = nil
+        self.timer2?.invalidate()
+        self.timer2 = nil
+        self.timer3?.invalidate()
+        self.timer3 = nil
+        self.timer4?.invalidate()
+        self.timer4 = nil
     }
     @objc func randomNumber1(){
         let number = Int.randomNumber(range: (0...9))
@@ -229,6 +245,13 @@ class RandomMaskView: UIView {
         let number = Int.randomNumber(range: (0...9))
         number4Label?.text = "\(number)"
 
+    }
+    
+    @objc func tappedCloseButton(_ button: UIButton){
+        self.didTappedClose()
+    }
+    func hideCloseButton(){
+        closeButton?.isHidden = true
     }
 
 }

@@ -51,6 +51,10 @@ class StreamViewController: BaseViewController, UITableViewDelegate, UITableView
         APIClient.shared().getUser(completion: {
             
         })
+        
+        //get list frame
+        
+        
         fetchSocialAccounts()
 
     }
