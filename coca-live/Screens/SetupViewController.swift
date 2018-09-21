@@ -390,7 +390,7 @@ extension SetupViewController:UIImagePickerControllerDelegate, UINavigationContr
             }
 
         }else{
-            if self.selectedImage == nil && self.selectedImage == nil{
+            if self.selectedUrl == nil && self.selectedImage == nil{
                 self.showAlertMessage(nil, "Vui lòng chọn ảnh từ thư viện hoặc nhập đường dẫn hình ảnh")
                 return
                 

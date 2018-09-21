@@ -7,10 +7,7 @@
 //
 
 import UIKit
-//import FBSDKCoreKit
-//import FBSDKLoginKit
-import LFLiveKit
-//import GPUImage
+
 class HKLiveVideoViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate {
     fileprivate let reuseCountDown = "CountDownViewCell"
     fileprivate let reuseSlogan = "SloganViewCell"
@@ -171,22 +168,22 @@ class HKLiveVideoViewController: BaseViewController, UITableViewDelegate, UITabl
         super.viewDidAppear(animated)
         if firstTime {
             firstTime = false
-            APIClient.shared().startLive(stremInfo: self.streamUrls[0], width: 720, height: 1280, id_category: "", time_countdown: 0) {[unowned self] (success, message, id_room) in
-                if success{
-                    guard let _ = id_room else {
-                        self.showMessageDialog(nil, message ?? APIError.Error_Message_Generic)
-
-                        return
-                    }
-                    self.id_room = id_room!
-                    self.startLive()
-
-                }else{
-                    self.showMessageDialog(nil, message ?? APIError.Error_Message_Generic)
-                }
-
-            }
-//            self.startLive()
+//            APIClient.shared().startLive(stremInfo: self.streamUrls[0], width: 720, height: 1280, id_category: "", time_countdown: 0) {[unowned self] (success, message, id_room) in
+//                if success{
+//                    guard let _ = id_room else {
+//                        self.showMessageDialog(nil, message ?? APIError.Error_Message_Generic)
+//
+//                        return
+//                    }
+//                    self.id_room = id_room!
+//                    self.startLive()
+//
+//                }else{
+//                    self.showMessageDialog(nil, message ?? APIError.Error_Message_Generic)
+//                }
+//
+//            }
+            self.startLive()
 
         }
 
@@ -501,6 +498,10 @@ extension HKLiveVideoViewController{
             cell.didUpdateQuestionConfig = {[unowned self] in
                 self.updateWatermarkView(nil)
             }
+            cell.didUpdateFilterConfig = {[unowned self] in
+                self.session.trans = WarterMarkServices.shared().hasFilterCommentView()
+                self.updateWatermarkView(nil)
+            }
             cell.updateQuestionImage(selectedImage["questionImage"])
             cell.selectionStyle = .none
             return cell
@@ -508,6 +509,7 @@ extension HKLiveVideoViewController{
             //filter comment
             let cell = tableView.dequeueReusableCell(withIdentifier:reuseFilterComment, for: indexPath) as! FilterCommentViewCell
             cell.didUpdateFilterConfig = {[unowned self] in
+                self.session.trans = WarterMarkServices.shared().hasFilterCommentView()
                 self.updateWatermarkView(nil)
             }
             cell.selectionStyle = .none
@@ -883,8 +885,10 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
                 self.updateWatermarkView(nil)
             }
         }
+        
+        guard let id_room = self.id_room else{return}
 
-        APIClient.shared().getComments(id_strem: streamInfo.streamId) { (success, comments) in
+        APIClient.shared().getComments(id_strem: id_room) { (success, comments) in
             if success{
                 if success{
                  

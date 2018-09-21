@@ -28,6 +28,9 @@ class QuestionViewCell: UITableViewCell {
     
     
     @IBOutlet weak var errorLabel: UILabel!
+    
+    @IBOutlet weak var errorFilterLabel: UILabel!
+    
     @IBOutlet weak var questionTextfield: UITextField!
     
     @IBOutlet weak var answer1Textfield: UITextField!
@@ -37,14 +40,27 @@ class QuestionViewCell: UITableViewCell {
     @IBOutlet weak var answer3Textfield: UITextField!
     
     @IBOutlet weak var answer4Textfield: UITextField!
+    //
+    
+    @IBOutlet weak var answerTextfield: UITextField!
+    
+    @IBOutlet weak var startTimeTextfield: UITextField!
+    @IBOutlet weak var endTimeTextfield: UITextField!
+    @IBOutlet weak var filterButton: UIButton!
+    @IBOutlet weak var hideButton: UIButton!
+    
     var questionImage:UIImage?
     var didTapSelectImage:()->() = {}
     var didUpdateQuestionConfig:() ->() = {}
+    var didUpdateFilterConfig:() ->() = {}
     var config:[String:Any] = [:]
+    var hasQuestion:Bool = false
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         setup()
+        errorLabel.text = nil
+        errorFilterLabel.text = nil
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -61,6 +77,9 @@ class QuestionViewCell: UITableViewCell {
         addButton.addBorder(cornerRadius: 15, color: UIColor.clear)
         cancelButton.addBorder(cornerRadius: 15, color: UIColor.clear)
         uploadButton.imageView?.contentMode = .scaleAspectFit
+        //
+        filterButton.addBorder(cornerRadius: 15, color: .clear)
+        hideButton.addBorder(cornerRadius: 15, color: .clear)
 
     }
     func updateQuestionImage(_ image:UIImage?){
@@ -71,9 +90,11 @@ class QuestionViewCell: UITableViewCell {
         }
     }
     @IBAction func tappedUploadButton(_ sender: Any) {
+        
         didTapSelectImage()
     }
     @IBAction func tappedCreateQuesstionButton(_ sender: Any) {
+        hasQuestion = false
         guard let question = questionTextfield.text, question.count > 0 else{
             errorLabel.text = "Chưa nhập câu hỏi"
             questionTextfield.becomeFirstResponder()
@@ -109,14 +130,62 @@ class QuestionViewCell: UITableViewCell {
         config["answer2"] = answer2
         config["answer3"] = answer3
         config["answer4"] = answer4
+        hasQuestion = true
         WarterMarkServices.shared().configQuestion(config: config)
         didUpdateQuestionConfig()
     }
     
     @IBAction func tappedCancelButton(_ sender: Any) {
+        hasQuestion = false
         config = [:]
         WarterMarkServices.shared().configQuestion(config: config)
         didUpdateQuestionConfig()
 
     }
+    @IBAction func tappedHideButton(_ sender: Any) {
+        WarterMarkServices.shared().configFilterComment([:])
+        didUpdateFilterConfig()
+    }
+    @IBAction func tappedFilterButton(_ sender: Any) {
+        if hasQuestion == false {
+            errorFilterLabel.text = "Chưa hoàn thành thông tin phần câu hỏi."
+
+            return
+        }
+        guard let answer = answerTextfield.text , answer.count > 0 else{
+            errorFilterLabel.text = "Chưa nhập câu trả lời."
+            answerTextfield.becomeFirstResponder()
+            return
+        }
+        guard let startTime = startTimeTextfield.text , startTime.count > 0 else {
+            errorFilterLabel.text = "Chưa nhập thời gian bắt đầu."
+
+            startTimeTextfield.becomeFirstResponder()
+            return
+        }
+        if startTime.isValidTimer() == false{
+            errorFilterLabel.text = "Thời gian bắt đầu không hợp lệ."
+
+            return
+        }
+        guard let endTime = endTimeTextfield.text , endTime.count > 0 else {
+            errorFilterLabel.text = "Chưa nhập thời gian kết thúc."
+
+            endTimeTextfield.becomeFirstResponder()
+            return
+        }
+        if endTime.isValidTimer() == false{
+            errorFilterLabel.text = "Thời gian kết thúc không hợp lệ."
+            return
+        }
+        errorFilterLabel.text = nil
+        var config:[String:Any] = [:]
+        config["message"] = answer
+        config["start"] = startTime
+        config["end"] = endTime
+        WarterMarkServices.shared().configFilterComment(config)
+        didUpdateFilterConfig()
+
+    }
+    
 }

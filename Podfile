@@ -8,7 +8,7 @@ def import_pods
 #    pod 'VideoCore', '~>0.3'
     pod 'lottie-ios'
     pod 'Spring', '~> 1.0'
-    pod 'LFLiveKit', '~> 2.6'
+#    pod 'LFLiveKit', '~> 2.6'
     pod 'FacebookCore', '~> 0.3'
     pod 'FacebookLogin', '~> 0.3'
     pod 'FacebookShare', '~> 0.3'
