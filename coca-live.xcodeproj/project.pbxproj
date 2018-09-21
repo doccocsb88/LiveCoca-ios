@@ -406,7 +406,6 @@
 		18DBC7EB2114ADEE00C34D3E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		18DBC7ED2114B33100C34D3E /* StringUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringUtils.swift; sourceTree = "<group>"; };
 		2EC96A9CF4274A07651B7AE7 /* Pods_coca_live.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_coca_live.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		623B35CB2F605030CBDC37BD /* Pods_facebook_live_ios_sample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_facebook_live_ios_sample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA7FD2BD9B89D257C1357364 /* Pods-coca-live.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-coca-live.release.xcconfig"; path = "Pods/Target Support Files/Pods-coca-live/Pods-coca-live.release.xcconfig"; sourceTree = "<group>"; };
 		DB40E22F1E71567E009E7C74 /* FBSDKLiveVideo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBSDKLiveVideo.swift; sourceTree = "<group>"; };
 		DB9C406A1E70527D00CCBD83 /* coca-live.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "coca-live.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -892,7 +891,6 @@
 				187A168B210C173B00F418CF /* VideoToolbox.framework */,
 				187A1689210C173500F418CF /* libz.tbd */,
 				187A1687210C172D00F418CF /* libstdc++.tbd */,
-				623B35CB2F605030CBDC37BD /* Pods_facebook_live_ios_sample.framework */,
 				2EC96A9CF4274A07651B7AE7 /* Pods_coca_live.framework */,
 			);
 			name = Frameworks;

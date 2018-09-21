@@ -30,11 +30,11 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PPt-Mu-EKe">
                         <rect key="frame" x="10" y="50" width="300" height="100"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="f4f-cH-azH">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="no_thumbnail_hor" translatesAutoresizingMaskIntoConstraints="NO" id="f4f-cH-azH">
                                 <rect key="frame" x="61" y="0.0" width="178" height="100"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="f4f-cH-azH" secondAttribute="height" multiplier="16:9" id="d1S-5B-3UT"/>
+                                    <constraint firstAttribute="width" secondItem="f4f-cH-azH" secondAttribute="height" multiplier="667:375" id="d1S-5B-3UT"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Syl-wc-z5P">
@@ -434,5 +434,6 @@
         <image name="bg_add_url" width="280" height="70"/>
         <image name="ic_add_image" width="21" height="18"/>
         <image name="ic_checkbox_normal" width="16" height="16"/>
+        <image name="no_thumbnail_hor" width="333" height="187"/>
     </resources>
 </document>

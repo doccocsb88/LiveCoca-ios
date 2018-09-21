@@ -21,43 +21,67 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1Qb-zx-w0L">
-                        <rect key="frame" x="10" y="10" width="50" height="50"/>
+                        <rect key="frame" x="30" y="10" width="50" height="50"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="50" id="TLi-sb-aNt"/>
                             <constraint firstAttribute="width" constant="50" id="fTJ-XO-QKQ"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2cy-t3-UZr">
-                        <rect key="frame" x="70" y="10" width="240" height="16.5"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trần văn tèo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2cy-t3-UZr">
+                        <rect key="frame" x="90" y="10" width="72" height="16.5"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="16" id="mtZ-76-rdE"/>
                         </constraints>
-                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ztp-ia-sBG">
-                        <rect key="frame" x="70" y="36.5" width="224" height="15.5"/>
-                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Câu trả lời không biết" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ztp-ia-sBG">
+                        <rect key="frame" x="90" y="36.5" width="204" height="14"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:10" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EtB-sl-Lwp">
+                        <rect key="frame" x="287" y="10" width="28" height="13"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="11"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kTD-FP-Efk">
+                        <rect key="frame" x="8" y="28.5" width="9.5" height="20"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailing" secondItem="EtB-sl-Lwp" secondAttribute="trailing" constant="5" id="0fp-Hn-gHy"/>
                     <constraint firstItem="2cy-t3-UZr" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="5QD-RX-Mvg"/>
-                    <constraint firstItem="1Qb-zx-w0L" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="Cau-5N-TLv"/>
+                    <constraint firstItem="1Qb-zx-w0L" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="Cau-5N-TLv"/>
+                    <constraint firstItem="kTD-FP-Efk" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="ItY-7M-E0L"/>
                     <constraint firstAttribute="trailing" secondItem="2cy-t3-UZr" secondAttribute="trailing" constant="10" id="SWA-3A-03t"/>
                     <constraint firstAttribute="trailingMargin" secondItem="Ztp-ia-sBG" secondAttribute="trailing" constant="10" id="Tzd-7P-pqm"/>
                     <constraint firstItem="2cy-t3-UZr" firstAttribute="leading" secondItem="1Qb-zx-w0L" secondAttribute="trailing" constant="10" id="XdK-hF-Vx8"/>
+                    <constraint firstItem="kTD-FP-Efk" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="a5S-8W-xJu"/>
+                    <constraint firstItem="EtB-sl-Lwp" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2cy-t3-UZr" secondAttribute="trailing" constant="5" id="e39-bW-ahx"/>
                     <constraint firstItem="Ztp-ia-sBG" firstAttribute="leading" secondItem="1Qb-zx-w0L" secondAttribute="trailing" constant="10" id="fVb-cf-Bwa"/>
+                    <constraint firstItem="EtB-sl-Lwp" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="gbE-0x-3UK"/>
                     <constraint firstItem="1Qb-zx-w0L" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="jdZ-ts-1Ha"/>
                     <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="Ztp-ia-sBG" secondAttribute="bottom" constant="10" id="kYz-JM-cPV"/>
                     <constraint firstItem="Ztp-ia-sBG" firstAttribute="top" secondItem="2cy-t3-UZr" secondAttribute="bottom" constant="10" id="u2i-ZN-2FF"/>
                 </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="SWA-3A-03t"/>
+                    </mask>
+                </variation>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="avatarImageView" destination="1Qb-zx-w0L" id="pTU-d4-1s7"/>
+                <outlet property="createdLabel" destination="EtB-sl-Lwp" id="pWN-Bu-fdY"/>
+                <outlet property="indexLabel" destination="kTD-FP-Efk" id="WYq-az-OAa"/>
                 <outlet property="messageLabel" destination="Ztp-ia-sBG" id="uVW-zJ-lDH"/>
                 <outlet property="usernameLabel" destination="2cy-t3-UZr" id="dfM-qE-7e5"/>
             </connections>

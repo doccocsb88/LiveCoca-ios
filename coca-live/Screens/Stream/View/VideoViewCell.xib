@@ -38,7 +38,7 @@
                             <action selector="tappedHideButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="meX-UE-aUP"/>
                         </connections>
                     </button>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oSb-oU-Z0u">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="no_thumbnail_ver" translatesAutoresizingMaskIntoConstraints="NO" id="oSb-oU-Z0u">
                         <rect key="frame" x="10" y="10" width="120" height="160"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="oSb-oU-Z0u" secondAttribute="height" multiplier="3:4" id="cLz-fS-rrR"/>
@@ -116,5 +116,6 @@
     </objects>
     <resources>
         <image name="bg_add_url" width="280" height="70"/>
+        <image name="no_thumbnail_ver" width="187" height="333"/>
     </resources>
 </document>

@@ -38,7 +38,8 @@ class FrameViewCellV2: UITableViewCell {
         self.streamFrame = frame
         if index == 0{
             nameLabel.text = "Ẩn khung"
-            frameImageView.image = nil;
+            frameImageView.image = UIImage(named: "no_thumbnail_ver");
+            
         }else{
             guard let frame = frame else {return}
             nameLabel.text = frame.title

@@ -19,7 +19,8 @@ enum ErrorCode: Int {
 //}
 
 struct APIError {
-    static let Error_Message_Upload:String     = "Lỗi khi upload hình ảnh."
+    static let Error_Message_Upload:String          = "Lỗi khi upload hình ảnh."
+    static let Error_Message_Time_Out:String        = "Hết thời gian xử lý"
 
     static let Error_Message_Generic:String     = "Lỗi hệ thống"
     static let Error_Generic:Int                = 0//, "Unknown")

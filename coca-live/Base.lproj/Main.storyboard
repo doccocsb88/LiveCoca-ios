@@ -482,7 +482,7 @@
                                             <action selector="tappedUploadButton:" destination="Xcr-1w-YMn" eventType="touchUpInside" id="ij1-z2-Ri8"/>
                                         </connections>
                                     </button>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sKs-eI-nNM">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="no_thumbnail_ver" translatesAutoresizingMaskIntoConstraints="NO" id="sKs-eI-nNM">
                                         <rect key="frame" x="10" y="10" width="123.5" height="220"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="100" id="iTT-Ff-wck"/>
@@ -578,8 +578,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AJJ-I6-K2h">
                                 <rect key="frame" x="20" y="101.5" width="335" height="245"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="U0s-jP-dwL">
-                                        <rect key="frame" x="10" y="0.0" width="123" height="218"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="no_thumbnail_ver" translatesAutoresizingMaskIntoConstraints="NO" id="U0s-jP-dwL">
+                                        <rect key="frame" x="10" y="0.0" width="131.5" height="233.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="U0s-jP-dwL" secondAttribute="height" multiplier="375:667" id="I31-lA-leu"/>
                                             <constraint firstAttribute="width" constant="120" id="T24-rm-wRS"/>
@@ -590,8 +590,8 @@
                                             </mask>
                                         </variation>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Rn1-nJ-1LZ">
-                                        <rect key="frame" x="202" y="0.0" width="123" height="218"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="no_thumbnail_ver" translatesAutoresizingMaskIntoConstraints="NO" id="Rn1-nJ-1LZ">
+                                        <rect key="frame" x="193.5" y="0.0" width="131.5" height="233.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="120" id="DWr-ma-dNQ"/>
                                             <constraint firstAttribute="width" secondItem="Rn1-nJ-1LZ" secondAttribute="height" multiplier="375:667" id="IN4-jd-qtR"/>
@@ -603,13 +603,13 @@
                                         </variation>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Màn hình chờ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yjz-m3-xS3">
-                                        <rect key="frame" x="31.5" y="223" width="80.5" height="15.5"/>
+                                        <rect key="frame" x="36" y="238.5" width="80.5" height="0.0"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Màn hình tạm biệt" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rYf-Fg-OVO">
-                                        <rect key="frame" x="211" y="223" width="105.5" height="15.5"/>
+                                        <rect key="frame" x="206.5" y="238.5" width="105.5" height="0.0"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -1245,5 +1245,6 @@
         <image name="ic_sort" width="24" height="32"/>
         <image name="ic_switch_camera" width="64" height="50"/>
         <image name="ic_three_dot" width="29" height="9"/>
+        <image name="no_thumbnail_ver" width="187" height="333"/>
     </resources>
 </document>

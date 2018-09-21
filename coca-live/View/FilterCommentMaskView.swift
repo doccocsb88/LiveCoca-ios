@@ -36,7 +36,7 @@ class FilterCommentMaskView: UIView, UITableViewDelegate, UITableViewDataSource 
     func initView(){
         let size = self.bounds.size
         headerVew = UIView(frame: CGRect(x: 0, y: 0, width: size.width, height: 30 * scale));
-        headerVew?.backgroundColor = UIColor.lightGray
+        headerVew?.backgroundColor = UIColor(hexString: "#fc6076")
         self.addSubview(headerVew!)
         //
         let indexWidth = size.width / 20;

@@ -23,7 +23,7 @@ class APIClient {
     class func shared() -> APIClient {
         return sharedInstance
     }
-
+  
     func clearData(){
         accounts = []
         user = nil
@@ -55,8 +55,13 @@ class APIClient {
         Alamofire.request(APIRouter.register(fullname: fullname, username: username, password: password, email: email)).responseJSON {response in
             guard response.result.isSuccess,
                 let value = response.result.value else {
-                    print("Error while fetching tags: \(String(describing: response.result.error))")
-                    completion(false,String(describing: response.result.error))
+                    if let error  = response.result.error, error._code == NSURLErrorTimedOut{
+                        print("Error while fetching tags: \(String(describing: response.result.error?.localizedDescription))")
+                        completion(false,APIError.Error_Message_Time_Out)
+                    }else{
+                        print("Error while fetching tags: \(String(describing: response.result.error?.localizedDescription))")
+                        completion(false,String(describing: response.result.error))
+                    }
                     return
             }
             // 3
@@ -94,8 +99,11 @@ class APIClient {
             }
             guard response.result.isSuccess,
                 let value = response.result.value else {
-                    print("Error while fetching tags: \(String(describing: response.result.error))")
-                    completion(false,String(describing: response.result.error))
+                    if let error  = response.result.error, error._code == NSURLErrorTimedOut{
+                        completion(false,APIError.Error_Message_Time_Out)
+                    }else{
+                        completion(false,String(describing: response.result.error))
+                    }
                     return
             }
             
@@ -138,8 +146,11 @@ class APIClient {
         Alamofire.request(APIRouter.getListAccounts()).responseJSON{response in
             guard response.result.isSuccess,
                 let value = response.result.value else {
-                    print("Error while fetching tags: \(String(describing: response.result.error))")
-                    completion(false,String(describing: response.result.error))
+                    if let error  = response.result.error, error._code == NSURLErrorTimedOut{
+                        completion(false,APIError.Error_Message_Time_Out)
+                    }else{
+                        completion(false,String(describing: response.result.error))
+                    }
                     return
             }
             
@@ -180,8 +191,11 @@ class APIClient {
         Alamofire.request(APIRouter.update(username: username, password: password, fullname: fullname, phone: phone, email: email, description: description)).responseJSON{response in
             guard response.result.isSuccess,
                 let value = response.result.value else {
-                    print("Error while fetching tags: \(String(describing: response.result.error))")
-                    completion(false,String(describing: response.result.error))
+                    if let error  = response.result.error, error._code == NSURLErrorTimedOut{
+                        completion(false,APIError.Error_Message_Time_Out)
+                    }else{
+                        completion(false,String(describing: response.result.error))
+                    }
                     return
             }
             
@@ -206,7 +220,13 @@ class APIClient {
         Alamofire.request(APIRouter.logout()).responseJSON{response in
             guard response.result.isSuccess,
                 let value = response.result.value else {
-                    print("Error while fetching tags: \(String(describing: response.result.error))")
+                    if let error  = response.result.error, error._code == NSURLErrorTimedOut{
+                        completion(false,APIError.Error_Message_Time_Out)
+                    }else{
+                        print("Error while fetching tags: \(String(describing: response.result.error))")
+                        completion(false,String(describing: response.result.error))
+
+                    }
                     return
             }
             
@@ -230,7 +250,11 @@ class APIClient {
             guard response.result.isSuccess,
                 let value = response.result.value else {
                     print("Error while fetching tags: \(String(describing: response.result.error))")
-                    completion(false,String(describing: response.result.error))
+                    if let error  = response.result.error, error._code == NSURLErrorTimedOut{
+                        completion(false,APIError.Error_Message_Time_Out)
+                    }else{
+                        completion(false,String(describing: response.result.error))
+                    }
                     return
             }
             
@@ -261,8 +285,11 @@ class APIClient {
         Alamofire.request(APIRouter.deleteAccounts(id_account: id_account)).responseJSON{response in
             guard response.result.isSuccess,
                 let value = response.result.value else {
-                    print("Error while fetching tags: \(String(describing: response.result.error))")
-                    completion(false,String(describing: response.result.error))
+                    if let error  = response.result.error, error._code == NSURLErrorTimedOut{
+                        completion(false,APIError.Error_Message_Time_Out)
+                    }else{
+                        completion(false,String(describing: response.result.error))
+                    }
                     return
             }
             let jsonResponse = JSON(value)
@@ -285,8 +312,11 @@ class APIClient {
         Alamofire.request(StreamEmdpoint.hasStreaming()).responseJSON{response in
             guard response.result.isSuccess,
                 let value = response.result.value else {
-                    print("Error while fetching tags: \(String(describing: response.result.error))")
-                    completion(false,String(describing: response.result.error),nil)
+                    if let error  = response.result.error, error._code == NSURLErrorTimedOut{
+                        completion(false,APIError.Error_Message_Time_Out,nil)
+                    }else{
+                        completion(false,String(describing: response.result.error),nil)
+                    }
                     return
             }
             
@@ -320,8 +350,11 @@ class APIClient {
         Alamofire.request(FacebookEndpoint.target(id_social:id_social)).responseJSON{response in
             guard response.result.isSuccess,
                 let value = response.result.value else {
-                    print("Error while fetching tags: \(String(describing: response.result.error))")
-                    completion(false,String(describing: response.result.error),nil)
+                    if let error  = response.result.error, error._code == NSURLErrorTimedOut{
+                        completion(false,APIError.Error_Message_Time_Out,nil)
+                    }else{
+                        completion(false,String(describing: response.result.error),nil)
+                    }
                     return
             }
             
@@ -424,8 +457,11 @@ class APIClient {
         Alamofire.request(FacebookEndpoint.createLive(id_social:id_social,id_target: id_target, caption: caption)).responseJSON{response in
             guard response.result.isSuccess,
                 let value = response.result.value else {
-                    print("Error while fetching tags: \(String(describing: response.result.error))")
-                    completion(false,nil,String(describing: response.result.error),nil)
+                    if let error  = response.result.error, error._code == NSURLErrorTimedOut{
+                        completion(false,nil,APIError.Error_Message_Time_Out,nil)
+                    }else{
+                        completion(false,nil,String(describing: response.result.error),nil)
+                    }
                     return
             }
             
@@ -453,8 +489,11 @@ class APIClient {
         Alamofire.request(StreamEmdpoint.createLive(rtmps: stremInfo, width: width, height: height, id_category: "", time_countdown: 0)).responseJSON{response in
             guard response.result.isSuccess,
                 let value = response.result.value else {
-                    print("Error while fetching tags: \(String(describing: response.result.error))")
-                    completion(false,String(describing: response.result.error),nil)
+                    if let error  = response.result.error, error._code == NSURLErrorTimedOut{
+                        completion(false,APIError.Error_Message_Time_Out,nil)
+                    }else{
+                        completion(false,String(describing: response.result.error),nil)
+                    }
 
                     return
             }
@@ -480,8 +519,11 @@ class APIClient {
         Alamofire.request(StreamEmdpoint.endLive(id_room: id_room)).responseJSON{response in
             guard response.result.isSuccess,
                 let value = response.result.value else {
-                    print("Error while fetching tags: \(String(describing: response.result.error))")
-                    completion(false,String(describing: response.result.error))
+                    if let error  = response.result.error, error._code == NSURLErrorTimedOut{
+                        completion(false,APIError.Error_Message_Time_Out)
+                    }else{
+                        completion(false,String(describing: response.result.error))
+                    }
                     return
             }
             
@@ -524,8 +566,11 @@ class APIClient {
         Alamofire.request(StreamEmdpoint.getListFrame()).responseJSON{response in
             guard response.result.isSuccess,
                 let value = response.result.value else {
-                    print("Error while fetching frame: \(String(describing: response.result.error))")
-                    completion(false,String(describing: response.result.error),[])
+                    if let error  = response.result.error, error._code == NSURLErrorTimedOut{
+                        completion(false,APIError.Error_Message_Time_Out,[])
+                    }else{
+                        completion(false,String(describing: response.result.error),[])
+                    }
                     return
             }
             let jsonResponse = JSON(value)
