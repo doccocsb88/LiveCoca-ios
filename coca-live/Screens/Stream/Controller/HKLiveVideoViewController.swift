@@ -647,23 +647,16 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
     }
     func startLive(){
         if streamUrls.count > 0 {
+            var streamInfos:[LFLiveStreamInfo] = []
             for i in 0..<streamUrls.count{
-                if i == 0{
                 let streamInfo = LFLiveStreamInfo()
                 streamInfo.url = streamUrls[i].getLiveStreamUrl()
                 streamInfo.streamId = streamUrls[i].streamId
                 print("stream : start \(streamInfo.url!) + +\(streamInfo.streamId!)")
+                streamInfos.append(streamInfo)
                 
-                session.startLive(streamInfo)
-                }else if i == 1{
-                    let streamInfo = LFLiveStreamInfo()
-                    streamInfo.url = streamUrls[i].getLiveStreamUrl()
-                    streamInfo.streamId = streamUrls[i].streamId
-                    print("stream : start \(streamInfo.url!) + +\(streamInfo.streamId!)")
-                    
-                    session.startSecondLive(streamInfo)
-                }
             }
+            session.startLives(streamInfos)
         }
        
         

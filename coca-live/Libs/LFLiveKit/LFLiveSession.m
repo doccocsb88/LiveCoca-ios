@@ -98,6 +98,26 @@
 }
 
 #pragma mark -- CustomMethod
+-(void)startLives:(NSArray *)streamInfos{
+    if (!streamInfos || streamInfos.count == 0) return;
+    for (int i = 0; i < streamInfos.count; i++) {
+        LFLiveStreamInfo *info = streamInfos[i];
+        if (i == 0) {
+            if (!info) return;
+            _streamInfo = info;
+            _streamInfo.videoConfiguration = _videoConfiguration;
+            _streamInfo.audioConfiguration = _audioConfiguration;
+            [self.socket start];
+        }else if (i == 1){
+            if (!info) return;
+            _streamInfo2 = info;
+            _streamInfo2.videoConfiguration = _videoConfiguration;
+            _streamInfo2.audioConfiguration = _audioConfiguration;
+            [self.socket2 start];
+        }
+    }
+    
+}
 - (void)startLive:(LFLiveStreamInfo *)streamInfo {
     if (!streamInfo) return;
     _streamInfo = streamInfo;

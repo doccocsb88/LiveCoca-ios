@@ -152,6 +152,7 @@ typedef NS_ENUM(NSInteger,LFLiveCaptureTypeMask) {
 /** The start stream .*/
 - (void)startLive:(nonnull LFLiveStreamInfo *)streamInfo;
 - (void)startSecondLive:(nonnull LFLiveStreamInfo *)streamInfo;
+- (void)startLives:(nonnull NSArray *)streamInfos;
 
 /** The stop stream .*/
 - (void)stopLive;
