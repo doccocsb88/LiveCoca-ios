@@ -34,6 +34,7 @@
 @property (nonatomic, strong) id<LFVideoEncoding> videoEncoder;
 /// 上传
 @property (nonatomic, strong) id<LFStreamSocket> socket;
+@property (nonatomic, strong) id<LFStreamSocket> socket2;
 
 
 #pragma mark -- 内部标识
@@ -41,6 +42,8 @@
 @property (nonatomic, strong) LFLiveDebug *debugInfo;
 /// 流信息
 @property (nonatomic, strong) LFLiveStreamInfo *streamInfo;
+@property (nonatomic, strong) LFLiveStreamInfo *streamInfo2;
+
 /// 是否开始上传
 @property (nonatomic, assign) BOOL uploading;
 /// 当前状态
@@ -101,12 +104,24 @@
     _streamInfo.videoConfiguration = _videoConfiguration;
     _streamInfo.audioConfiguration = _audioConfiguration;
     [self.socket start];
+    
 }
-
+- (void)startSecondLive:(LFLiveStreamInfo *)streamInfo{
+    if (!streamInfo) return;
+    _streamInfo2 = streamInfo;
+    _streamInfo2.videoConfiguration = _videoConfiguration;
+    _streamInfo2.audioConfiguration = _audioConfiguration;
+    [self.socket2 start];
+    
+}
 - (void)stopLive {
     self.uploading = NO;
     [self.socket stop];
     self.socket = nil;
+    if (self.socket2 != nil) {
+        [self.socket2 stop];
+        self.socket2 = nil;
+    }
 }
 
 - (void)pushVideo:(nullable CVPixelBufferRef)pixelBuffer{
@@ -128,6 +143,9 @@
     }
     frame.timestamp = [self uploadTimestamp:frame.timestamp];
     [self.socket sendFrame:frame];
+    if (self.socket2 != nil) {
+        [self.socket2 sendFrame:frame];
+    }
 }
 
 #pragma mark -- CaptureDelegate
@@ -397,6 +415,13 @@
     }
     return _socket;
 }
+- (id<LFStreamSocket>)socket2 {
+    if (!_socket2) {
+        _socket2 = [[LFStreamRTMPSocket alloc] initWithStream:self.streamInfo2 reconnectInterval:self.reconnectInterval reconnectCount:self.reconnectCount];
+        [_socket2 setDelegate:self];
+    }
+    return _socket2;
+}
 
 - (LFLiveStreamInfo *)streamInfo {
     if (!_streamInfo) {
@@ -404,7 +429,12 @@
     }
     return _streamInfo;
 }
-
+- (LFLiveStreamInfo *)streamInfo2 {
+    if (!_streamInfo2) {
+        _streamInfo2 = [[LFLiveStreamInfo alloc] init];
+    }
+    return _streamInfo2;
+}
 - (dispatch_semaphore_t)lock{
     if(!_lock){
         _lock = dispatch_semaphore_create(1);

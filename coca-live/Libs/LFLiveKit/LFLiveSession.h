@@ -99,6 +99,7 @@ typedef NS_ENUM(NSInteger,LFLiveCaptureTypeMask) {
 
 /** The stream control upload and package*/
 @property (nullable, nonatomic, strong, readonly) LFLiveStreamInfo *streamInfo;
+@property (nullable, nonatomic, strong, readonly) LFLiveStreamInfo *streamInfo2;
 
 /** The status of the stream .*/
 @property (nonatomic, assign, readonly) LFLiveState state;
@@ -150,6 +151,7 @@ typedef NS_ENUM(NSInteger,LFLiveCaptureTypeMask) {
 
 /** The start stream .*/
 - (void)startLive:(nonnull LFLiveStreamInfo *)streamInfo;
+- (void)startSecondLive:(nonnull LFLiveStreamInfo *)streamInfo;
 
 /** The stop stream .*/
 - (void)stopLive;

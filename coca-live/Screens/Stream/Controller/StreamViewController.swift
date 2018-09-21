@@ -216,9 +216,13 @@ class StreamViewController: BaseViewController, UITableViewDelegate, UITableView
         guard let account = selectedAccount else{
             return
         }
-        loadingAnimation?.isHidden = false
-        loadingAnimation?.play()
+        if self.streamUrls.count >= 2{
+            self.showAlertMessage(nil, "Bạn chỉ có thể live stream tối đa trên hai trang cùng một thời điểm")
+            return
+        }
 
+        self .showLoadingView()
+        
         APIClient.shared().createLive(id_social: account.userId, id_target: target.id, caption: self.caption ?? APIClient.DEFAULT_CAPTION) {[unowned self]  (success,code , message, info) in
             self.loadingAnimation?.isHidden = true
             self.loadingAnimation?.stop()

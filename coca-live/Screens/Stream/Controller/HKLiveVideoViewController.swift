@@ -81,7 +81,7 @@ class HKLiveVideoViewController: BaseViewController, UITableViewDelegate, UITabl
     
     var curMenuIndex:Int = -1;
     var streamUrls:[StreamInfo] = []
-    var streamInfo = LFLiveStreamInfo()
+//    var streamInfo = LFLiveStreamInfo()
     var id_room:String?
     //
     let imagePicker = UIImagePickerController()
@@ -647,12 +647,23 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
     }
     func startLive(){
         if streamUrls.count > 0 {
-            streamInfo = LFLiveStreamInfo()
-            streamInfo.url = streamUrls[0].getLiveStreamUrl()
-            streamInfo.streamId = streamUrls[0].streamId
-            print("stream : start \(streamInfo.url!) + +\(streamInfo.streamId!)")
-            
-            session.startLive(streamInfo)
+            for i in 0..<streamUrls.count{
+                if i == 0{
+                let streamInfo = LFLiveStreamInfo()
+                streamInfo.url = streamUrls[i].getLiveStreamUrl()
+                streamInfo.streamId = streamUrls[i].streamId
+                print("stream : start \(streamInfo.url!) + +\(streamInfo.streamId!)")
+                
+                session.startLive(streamInfo)
+                }else if i == 1{
+                    let streamInfo = LFLiveStreamInfo()
+                    streamInfo.url = streamUrls[i].getLiveStreamUrl()
+                    streamInfo.streamId = streamUrls[i].streamId
+                    print("stream : start \(streamInfo.url!) + +\(streamInfo.streamId!)")
+                    
+                    session.startSecondLive(streamInfo)
+                }
+            }
         }
        
         
