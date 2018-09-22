@@ -220,12 +220,17 @@ class StreamViewController: BaseViewController, UITableViewDelegate, UITableView
             self.showAlertMessage(nil, "Bạn chỉ có thể live stream tối đa trên hai trang cùng một thời điểm")
             return
         }
+        for streamInfo in self.streamUrls {
+            if streamInfo.id_social == account.userId && streamInfo.id_target == target.id{
+                self.showAlertMessage(nil, "Bạn chỉ có thể đăng 1 live stream trên một trang. Vui lòng chọn nơi đăng khác.")
 
+                return;
+            }
+        }
         self .showLoadingView()
         
         APIClient.shared().createLive(id_social: account.userId, id_target: target.id, caption: self.caption ?? APIClient.DEFAULT_CAPTION) {[unowned self]  (success,code , message, info) in
-            self.loadingAnimation?.isHidden = true
-            self.loadingAnimation?.stop()
+            self.hideLoadingView()
             if success{
                 if let _info = info{
                     _info.id_social = account.userId

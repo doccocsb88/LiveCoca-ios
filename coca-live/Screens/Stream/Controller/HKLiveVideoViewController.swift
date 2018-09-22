@@ -58,7 +58,6 @@ class HKLiveVideoViewController: BaseViewController, UITableViewDelegate, UITabl
     @IBOutlet weak var commentViewHeightConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var menuBottomConstraint: NSLayoutConstraint!
-    
     @IBAction func recordButtonTapped() {
     }
     
@@ -96,6 +95,8 @@ class HKLiveVideoViewController: BaseViewController, UITableViewDelegate, UITabl
     var getCommentsTimer:Timer?
     var timer:Timer?
     var didStreamEndedHandler:() ->() = {}
+    var streamState:StreamState = .Init
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 //          1920x1080
@@ -106,8 +107,8 @@ class HKLiveVideoViewController: BaseViewController, UITableViewDelegate, UITabl
 //            videoSize: CGSize(width: 720, height: 1280)
 //        )
         
-        let myOverlay = UIView(frame: CGRect(x: 5, y: 5, width: self.view.bounds.size.width - 10, height: 30))
-        myOverlay.backgroundColor =  UIColor(red: 0.0 , green:1.0, blue: 0.0, alpha: 0.5)
+//        let myOverlay = UIView(frame: CGRect(x: 5, y: 5, width: self.view.bounds.size.width - 10, height: 30))
+//        myOverlay.backgroundColor =  UIColor(red: 0.0 , green:1.0, blue: 0.0, alpha: 0.5)
         
 
         
@@ -175,6 +176,8 @@ class HKLiveVideoViewController: BaseViewController, UITableViewDelegate, UITabl
 //
 //                        return
 //                    }
+//                    streamState = .Created
+//                    stopStreamButton.setTitle("Bắt đầu", for: .normal)
 //                    self.id_room = id_room!
 //                    self.startLive()
 //
@@ -183,7 +186,8 @@ class HKLiveVideoViewController: BaseViewController, UITableViewDelegate, UITabl
 //                }
 //
 //            }
-            self.startLive()
+            streamState = .Created
+            stopStreamButton.setTitle("Bắt đầu", for: .normal)
 
         }
 
@@ -262,9 +266,13 @@ class HKLiveVideoViewController: BaseViewController, UITableViewDelegate, UITabl
     
     @IBAction func stopStreamTapped(_ sender: Any) {
 //        dismiss(animated: true, completion: nil)
-        if let _ = self.id_room{
-            APIClient.shared().endLive(id_room: self.id_room!) { (success, message) in
-                self.stopLive()
+        if streamState == .Created {
+            startLive()
+        }else if streamState == .Streaming{
+            if let _ = self.id_room{
+                APIClient.shared().endLive(id_room: self.id_room!) { (success, message) in
+                    self.stopLive()
+                }
             }
         }
     }
@@ -686,6 +694,8 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
         case LFLiveState.pending:
             break;
         case LFLiveState.start:
+            streamState = .Streaming
+            stopStreamButton.setTitle("Kết thúc", for: .normal)
             getCommentsTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(fetchStreamComments), userInfo: nil, repeats: false)
             break;
         case LFLiveState.error:
@@ -693,6 +703,8 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
 
             break;
         case LFLiveState.stop:
+            streamState = .Ended
+
             removeTimer()
             WarterMarkServices.shared().resetConfig()
             removeStreamControlView()

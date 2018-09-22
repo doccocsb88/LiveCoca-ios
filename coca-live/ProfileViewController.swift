@@ -94,6 +94,8 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
         editButton1?.contentEdgeInsets = UIEdgeInsetsMake(3, 3, 3, 3)
         editButton1?.addTarget(self, action: #selector(tappedEditButton(_:)), for: .touchUpInside)
         editButton1?.tag = 1
+        editButton1?.contentHorizontalAlignment = .right
+
         displayLabel.rightView = editButton1
         displayLabel.rightViewMode = .always
         
@@ -109,6 +111,8 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
         editButton2?.contentEdgeInsets = UIEdgeInsetsMake(3, 3, 3, 3)
         editButton2?.addTarget(self, action: #selector(tappedEditButton(_:)), for: .touchUpInside)
         editButton2?.tag = 2
+        editButton2?.contentHorizontalAlignment = .right
+
         emailLabel.rightView = editButton2;
         emailLabel.rightViewMode = .always
         
@@ -125,6 +129,8 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
         editButton3?.contentEdgeInsets = UIEdgeInsetsMake(3, 3, 3, 3)
         editButton3?.addTarget(self, action: #selector(tappedEditButton(_:)), for: .touchUpInside)
         editButton3?.tag = 3
+        editButton3?.contentHorizontalAlignment = .right
+
         phoneLabel.rightView = editButton3
         phoneLabel.rightViewMode = .always
         //
@@ -140,6 +146,7 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
         editButton4?.contentEdgeInsets = UIEdgeInsetsMake(3, 3, 3, 3)
         editButton4?.addTarget(self, action: #selector(tappedEditButton(_:)), for: .touchUpInside)
         editButton4?.tag = 4
+        editButton4?.contentHorizontalAlignment = .right
 
         passwordLabel.rightView = editButton4
         passwordLabel.rightViewMode = .always

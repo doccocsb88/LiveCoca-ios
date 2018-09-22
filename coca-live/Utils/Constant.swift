@@ -61,6 +61,12 @@ enum HTTPHeaderField: String {
 enum ContentType: String {
     case json = "application/json"
 }
+enum StreamState:Int{
+    case Init = 1
+    case Created = 2
+    case Streaming = 3
+    case Ended = 4
+}
 //enum ConfigKey:String{
 //    case countdown = "config_countdown"
 //    case random = "config_random"
