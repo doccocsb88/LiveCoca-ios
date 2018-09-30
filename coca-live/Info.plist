@@ -28,7 +28,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>6</string>
+	<string>9</string>
 	<key>FacebookAppID</key>
 	<string>493486747764104</string>
 	<key>FacebookDisplayName</key>
@@ -64,7 +64,9 @@
 	<string>Live coca muốn truy suất camera của bạn để thực hiện livestream?</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Live coca muốn truy suất microphone của bạn để thực hiện livestream?</string>
-	<key>Privacy - Photo Library Usage Description </key>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Coca live muốn truy xuất thư viện hình ảnh của bạn?</string>
+	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Coca live muốn truy xuất thư viện hình ảnh của bạn?</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

@@ -169,25 +169,25 @@ class HKLiveVideoViewController: BaseViewController, UITableViewDelegate, UITabl
         super.viewDidAppear(animated)
         if firstTime {
             firstTime = false
-//            APIClient.shared().startLive(stremInfo: self.streamUrls[0], width: 720, height: 1280, id_category: "", time_countdown: 0) {[unowned self] (success, message, id_room) in
-//                if success{
-//                    guard let _ = id_room else {
-//                        self.showMessageDialog(nil, message ?? APIError.Error_Message_Generic)
-//
-//                        return
-//                    }
-//                    streamState = .Created
-//                    stopStreamButton.setTitle("Bắt đầu", for: .normal)
-//                    self.id_room = id_room!
+            APIClient.shared().startLive(stremInfo: self.streamUrls[0], width: 720, height: 1280, id_category: "", time_countdown: 0) {[unowned self] (success, message, id_room) in
+                if success{
+                    guard let _ = id_room else {
+                        self.showMessageDialog(nil, message ?? APIError.Error_Message_Generic)
+
+                        return
+                    }
+                    self.streamState = .Created
+                    self.stopStreamButton.setTitle("Bắt đầu", for: .normal)
+                    self.id_room = id_room!
 //                    self.startLive()
-//
-//                }else{
-//                    self.showMessageDialog(nil, message ?? APIError.Error_Message_Generic)
-//                }
-//
-//            }
-            streamState = .Created
-            stopStreamButton.setTitle("Bắt đầu", for: .normal)
+
+                }else{
+                    self.showMessageDialog(nil, message ?? APIError.Error_Message_Generic)
+                }
+
+            }
+//            streamState = .Created
+//            stopStreamButton.setTitle("Bắt đầu", for: .normal)
 
         }
 

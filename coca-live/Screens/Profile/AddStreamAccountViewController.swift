@@ -28,7 +28,8 @@ class AddStreamAccountViewController: BaseViewController {
         super.viewWillAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear(_:)), name: Notification.Name.UIKeyboardWillHide, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear(_:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
-        accessTokenTextView.text = "EAAAAUaZA8jlABAGI9QBGltwlZAEBqa0QJFeCMw6ypYyT9tcBOqZBrqrEgpLhz1s33pChijXPhZBfVZBFuExrFKWvdCZCiekrNrkNDek7ZA0IIZAmbKpZBgXXFTdthoZBsJKDhZC4sjTXKd5mxarLxXORpXkskpJ6qXMjaAZD"
+        accessTokenTextView.text = "";
+//        "EAAAAUaZA8jlABAGI9QBGltwlZAEBqa0QJFeCMw6ypYyT9tcBOqZBrqrEgpLhz1s33pChijXPhZBfVZBFuExrFKWvdCZCiekrNrkNDek7ZA0IIZAmbKpZBgXXFTdthoZBsJKDhZC4sjTXKd5mxarLxXORpXkskpJ6qXMjaAZD"
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)

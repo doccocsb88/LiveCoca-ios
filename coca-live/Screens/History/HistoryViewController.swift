@@ -202,6 +202,7 @@ extension HistoryViewController{
 }
 extension HistoryViewController: UIPickerViewDelegate , UIPickerViewDataSource{
     func showPickerView(){
+        self.searchTextField.resignFirstResponder()
         self.picker?.reloadAllComponents()
         UIView.animate(withDuration: 0.25, animations: {
             self.pickerView?.frame = CGRect(x: 0, y: self.view.frame.size.height - self.pickerHeight, width: self.view.frame.size.width, height: self.pickerHeight)
