@@ -327,11 +327,11 @@ extension Int
 }
 extension Date {
     var millisecondsSince1970:Int64 {
-        return Int64((self.timeIntervalSince1970 * 1000.0).rounded())
+        return Int64((self.timeIntervalSince1970).rounded())
     }
     
     init(milliseconds:Int64) {
-        self = Date(timeIntervalSinceNow: TimeInterval(milliseconds))
+        self = Date(timeIntervalSince1970: TimeInterval(milliseconds))
     }
     func years(from date: Date) -> Int {
         return Calendar.current.dateComponents([.year], from: date, to: self).year ?? 0
@@ -380,7 +380,7 @@ extension Date {
     func converToString() ->String{
         let dateFormatter = DateFormatter()
 //        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
-        dateFormatter.dateFormat = "HH:mm"
+        dateFormatter.dateFormat = "HH:mm:ss"
 
         return dateFormatter.string(from: self)
     }
@@ -388,6 +388,7 @@ extension Date {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
+        NSLog("caculateTimeToNow %@", dateFormatter.string(from: self))
         //        let stdate : String = "2018-06-02 10:11:12"
         //        let startDate = dateFormatter.date(from: stdate)!
         

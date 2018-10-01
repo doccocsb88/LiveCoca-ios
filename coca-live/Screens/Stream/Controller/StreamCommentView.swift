@@ -13,7 +13,7 @@ class StreamCommentView: UIView, UITableViewDelegate, UITableViewDataSource {
   
     var tableView:UITableView?
     var data:[FacebookComment] = []
-    var pinIndex:Int = NSNotFound
+    var pinCommentId:String? = nil
     var didPinComment:() ->() = {}
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -66,16 +66,19 @@ extension StreamCommentView{
         let comment = data[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "StreamCommentViewCell", for: indexPath) as! StreamCommentViewCell
         cell.backgroundColor = .clear
-        cell.bindData(comment: comment, index:indexPath.row, isPinted:indexPath.row == pinIndex)
-        cell.didPinComment = {[unowned self]index in
-            if index != self.pinIndex {
-                if index >= 0, index < self.data.count{
-                    let pinComment = self.data[index]
-                    self.pinIndex = index
-                    WarterMarkServices.shared().configPin(comment: pinComment)
-                }
+        var isPinted = false
+        if let pin = pinCommentId{
+            isPinted = comment.commentId == pin
+        }
+        cell.bindData(comment: comment, index:indexPath.row, isPinted:isPinted)
+        cell.didPinComment = {[unowned self] commentId in
+            if commentId != self.pinCommentId {
+               
+                self.pinCommentId = commentId
+                WarterMarkServices.shared().configPin(comment: comment)
+                
             }else{
-                self.pinIndex = NSNotFound
+                self.pinCommentId = nil
                 WarterMarkServices.shared().removePinComment()
             }
             self.didPinComment()

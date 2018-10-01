@@ -54,7 +54,10 @@ class StreamViewController: BaseViewController, UITableViewDelegate, UITableView
         
         //get list frame
         
+        let date = Date(milliseconds: 1538397789)
+        let txt = date.caculateTimeToNow()
         
+        NSLog("fromnow %@ --- %@", txt, date.converToString())
         fetchSocialAccounts()
 
     }

@@ -19,7 +19,7 @@ class StreamCommentViewCell: UITableViewCell {
     @IBOutlet weak var messageLabel: UILabel!
 
     @IBOutlet weak var pinButton: UIButton!
-    var didPinComment:(Int)->() = {index in}
+    var didPinComment:(String?)->() = {commentId in}
     var comment:FacebookComment?
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -52,6 +52,6 @@ class StreamCommentViewCell: UITableViewCell {
 //            WarterMarkServices.shared().configPin(comment: comment)
 //        }
         
-        didPinComment(index)
+        didPinComment(comment?.commentId)
     }
 }
