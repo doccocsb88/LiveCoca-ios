@@ -17,10 +17,12 @@ class FacebookComment {
 //    message = aaaaa;
     var message:String
     var commentId:String
-    var createdTime:String
+    var createdTime:Int64
     var fromId:String
     var fromName:String
-    init(message:String, commentId:String, createTime:String, fromId:String, fromName:String){
+    var thumbnail:String?
+    
+    init(message:String, commentId:String, createTime:Int64, fromId:String, fromName:String){
         self.message = message
         self.commentId = commentId
         self.createdTime = createTime
@@ -28,20 +30,18 @@ class FacebookComment {
         self.fromName = fromName
     }
     init(dataJson:[String:Any]){
-        message = dataJson["message"] as! String
-        createdTime = dataJson["created_time"] as! String
+        message = dataJson["content"] as! String
+        createdTime = dataJson["created_at"] as! Int64
         commentId = dataJson["id"] as! String
-        let from = dataJson["from"] as! [String:Any]
-        fromId = from["id"] as! String
-        fromName = from["name"] as! String
-//        http://graph.facebook.com/fromid/picture?type=square
+        fromId = dataJson["id_user"] as! String
+        fromName = dataJson["name"] as! String
+        thumbnail = dataJson["thumbnail"] as? String
     }
     
     func getTimerText() ->String{
-        let times = self.createdTime.components(separatedBy: "T")
-        var timeText = times[1];
-        timeText = timeText.components(separatedBy: "+")[0]
-        return timeText
+        let date = Date(milliseconds:self.createdTime)
+       
+        return date.converToString()
     }
 //}
 }

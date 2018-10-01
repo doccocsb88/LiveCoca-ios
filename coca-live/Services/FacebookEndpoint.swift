@@ -16,13 +16,13 @@ enum FacebookEndpoint: URLRequestConvertible {
     case createLive(id_social:String,id_target:String,caption:String)
     case liveStatus(id_stream:String)
     case login(email:String, password:String)
-    case comments(id_stream:String)
+    case comments(id_stream:String, page:Int)
     // MARK: - HTTPMethod
     var method: HTTPMethod {
         switch self {
-        case .login , .addFacebook, .createLive:
+        case .login , .addFacebook, .createLive, .comments:
             return .post
-        case .liveStatus , .target, .comments:
+        case .liveStatus , .target:
             return .get
         default:
             return .get
@@ -50,10 +50,10 @@ enum FacebookEndpoint: URLRequestConvertible {
             let url = "/facebook/targets?app=ios"
             let checksum = APIUtils.checksum(request_url: url, raw_data: JSON(parameters ?? [:]).stringValue)
             return String(format: "%@&checksum=%@&token=%@&id_social=%@", url,checksum,APIClient.shared().token ?? "",id_social)
-        case .comments(let id_stream):
-            let url = "/facebook/comments?app=ios"
+        case .comments:
+            let url = "/livestream/comments?app=ios"
             let checksum = APIUtils.checksum(request_url: url, raw_data: JSON(parameters ?? [:]).stringValue)
-            return String(format: "%@&checksum=%@&id_stream=%@", url,checksum,id_stream)
+            return String(format: "%@&checksum=%@", url,checksum)
 
         case .login:
             return "/login"
@@ -79,8 +79,17 @@ enum FacebookEndpoint: URLRequestConvertible {
             return params
         case .login(let email, let password):
             return [K.APIParameterKey.email: email, K.APIParameterKey.password: password]
-        case .comments:
-            return [:]
+        case .comments(let id_stream, let page):
+            var params:[String:Any] = [:]
+            
+            params[K.APIParameterKey.page] = page
+            params[K.APIParameterKey.page_size] = 10
+            params[K.APIParameterKey.id_room] = id_stream
+            params[K.APIParameterKey.token] = APIClient.shared().token ?? ""
+            params[K.APIParameterKey.order_by] = "recent"
+            
+            return params
+
         default:
             return nil
         }

@@ -477,7 +477,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E4a-og-UZg">
                                         <rect key="frame" x="205" y="167.5" width="120" height="35"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
-                                        <state key="normal" title="TẢI LÊN" backgroundImage="bg_add_url"/>
+                                        <state key="normal" title="Tải lên" backgroundImage="bg_add_url"/>
                                         <connections>
                                             <action selector="tappedUploadButton:" destination="Xcr-1w-YMn" eventType="touchUpInside" id="ij1-z2-Ri8"/>
                                         </connections>
@@ -892,7 +892,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qf4-Qe-Pnk">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="831"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="692.5"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default_avatar" translatesAutoresizingMaskIntoConstraints="NO" id="MMi-NM-lYo">
                                                 <rect key="frame" x="147.5" y="20" width="80" height="80"/>
@@ -1024,7 +1024,7 @@
                                                 </connections>
                                             </button>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xNT-Pd-Dq9">
-                                                <rect key="frame" x="0.0" y="503" width="375" height="328"/>
+                                                <rect key="frame" x="0.0" y="503" width="375" height="189.5"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <connections>
                                                     <outlet property="dataSource" destination="fgR-I6-dwV" id="aZ8-KB-TWF"/>
@@ -1146,7 +1146,7 @@
                                     <constraint firstItem="qf4-Qe-Pnk" firstAttribute="leading" secondItem="C1A-LS-yLa" secondAttribute="leading" id="UNK-W0-YJD"/>
                                     <constraint firstItem="qf4-Qe-Pnk" firstAttribute="width" secondItem="C1A-LS-yLa" secondAttribute="width" id="ffs-fA-2R3"/>
                                     <constraint firstAttribute="trailing" secondItem="qf4-Qe-Pnk" secondAttribute="trailing" id="mDf-rf-z0P"/>
-                                    <constraint firstItem="qf4-Qe-Pnk" firstAttribute="height" secondItem="C1A-LS-yLa" secondAttribute="height" multiplier="3:2" id="paI-xV-IYu"/>
+                                    <constraint firstItem="qf4-Qe-Pnk" firstAttribute="height" secondItem="C1A-LS-yLa" secondAttribute="height" multiplier="5:4" id="paI-xV-IYu"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">

@@ -61,17 +61,8 @@ class StreamViewController: BaseViewController, UITableViewDelegate, UITableView
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         UIApplication.shared.statusBarStyle = .lightContent
-        if !openLogin {
-            openLogin = true
-        }
-        APIClient.shared().hasStream {[unowned self] (success, message, id_room) in
-            print("hasStream : \(success)")
-
-            if success{
-            }else{
-
-            }
-        }
+        
+       
     }
     override var prefersStatusBarHidden: Bool{
         return false

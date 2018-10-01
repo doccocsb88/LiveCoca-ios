@@ -49,6 +49,8 @@ class StreamAccountViewCell: UITableViewCell {
         accountTypeImageView.layer.masksToBounds = true
         accountTypeImageView.clipsToBounds = true
         
+        emailLabel.isHidden = true
+        
     }
     func bindData(_ account:BaseInfo){
         pageNameLabel.text = account.displayName

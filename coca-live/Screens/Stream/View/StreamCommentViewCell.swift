@@ -39,10 +39,8 @@ class StreamCommentViewCell: UITableViewCell {
     func bindData(comment:FacebookComment, index:Int, isPinted:Bool){
         self.comment = comment;
         displayNameLabel.text = comment.fromName
-        let times = comment.createdTime.components(separatedBy: "T")
-        var timeText = times[1];
-        timeText = timeText.components(separatedBy: "+")[0]
-        createDateLabel.text = timeText
+        let date = Date(milliseconds: comment.createdTime)
+        createDateLabel.text = date.converToString()
         messageLabel.text = comment.message
         self.tag = index + 1
         pinButton.isSelected = isPinted

@@ -42,6 +42,31 @@ class APIClient {
             }
         }
     }
+    func addComments(_ comments:[FacebookComment]){
+        if comments.count > 0{
+            var existComment:[FacebookComment] = []
+
+            for i in 0..<comments.count{
+                let comment = comments[i]
+                var has = false
+                for j in 0..<comments.count{
+                    if j < self.comments.count{
+                        let existComment = self.comments[j]
+                        if comment.commentId == existComment.commentId{
+                            has = true
+                        }
+                    }
+                }
+                if has == false{
+                    existComment.append(comment)
+                }
+            }
+            if existComment.count > 0{
+                self.comments.insert(contentsOf: existComment, at: 0)
+            }
+            
+        }
+    }
     func countComment(message:String) -> Int{
         var count = 0
         for comment in comments{
@@ -159,9 +184,18 @@ class APIClient {
             print("getListAccount \(jsonResponse.dictionaryValue)")
             if let error = jsonResponse["error"].dictionaryObject{
                 print("error \(error)")
-                let errorCode = error["code"]
                 let explain = error["explain"] as? String
                 completion(false,explain)
+                if let errorCode = error["code"] as? Int{
+                    if errorCode == 207{
+                        APIClient.shared().clearData()
+                        Defaults.removeToken()
+                        if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
+                            appDelegate.setLoginViewAsRoot()
+                        }
+                    }
+                }
+
             }else{
                 if let list = jsonResponse["list"].array{
                     for i in 0..<list.count{
@@ -474,6 +508,18 @@ class APIClient {
                 let code = errorCode ?? 0
                 let explain = error["explain"] as? String
                 completion(false,code,explain,nil)
+                
+            }else if let error = jsonResponse["fb_error"].dictionaryObject{
+                if let  code = error["code"] as? Int{
+                    let message = error["message"] as? String
+
+                    completion(false,code,message,nil)
+
+                }else{
+                    completion(false,APIError.Error_Generic,APIError.Error_Message_Generic,nil)
+
+                }
+
             }else{
 //?                ["status": 1, "id_video": 1045144052312651, "id_stream": 1045144055645984, "stream_url": rtmp://live-api-s.facebook.com:80/rtmp/1045144055645984?ds=1&s_sw=0&s_vt=api-s&a=AThlQecF2A1OuhKc]
 
@@ -545,18 +591,41 @@ class APIClient {
             }
         }
     }
-    func getComments(id_strem:String,completion:@escaping (_ success:Bool,_ comments:[FacebookComment])->Void){
-        Alamofire.request(FacebookEndpoint.comments(id_stream: id_strem)).responseJSON{response in
+    func getComments(_ id_strem:String, _ page:Int,completion:@escaping (_ success:Bool,_ comments:[FacebookComment])->Void){
+        Alamofire.request(FacebookEndpoint.comments(id_stream: id_strem,page: page)).responseJSON{response in
             guard response.result.isSuccess,
                 let value = response.result.value else {
-                    print("Error while fetching tags: \(String(describing: response.result.error))")
+                    print("Error while fetching getComments: \(String(describing: response.result.error))")
                     completion(false,[])
                     return
             }
             let jsonResponse = JSON(value)
             print("getComments \(jsonResponse.dictionaryValue)")
-            completion(true,[])
-
+            if let error = jsonResponse["error"].dictionaryObject{
+                print("error \(error)")
+                let errorCode = error["code"] as? Int
+                let code = errorCode ?? 0
+                let explain = error["explain"] as? String
+                completion(false,[])
+                
+            }else{
+//                "content" : "Show people what you've been up to.",
+//                "name" : "Sự Kiện Thái Bình",
+//                "id" : "1064773360349720_1064773833683006",
+//                "id_user" : "729242013902858",
+//                "thumbnail" : "https:\/\/graph.facebook.com\/729242013902858\/picture?height=300&width=300",
+//                "created_at" : 1538397789
+                var comments:[FacebookComment] = []
+                if let list = jsonResponse["list"].array{
+                    for i in 0..<list.count{
+                        if let data = list[i].dictionaryObject{
+                            let comment = FacebookComment(dataJson: data)
+                            comments.append(comment)
+                        }
+                    }
+                }
+                completion(true,comments)
+            }
         }
 
     }

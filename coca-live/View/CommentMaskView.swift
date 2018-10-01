@@ -35,41 +35,51 @@ class CommentMaskView: UIView {
         let size = self.bounds.size
         
         let config = WarterMarkServices.shared().params["pin"] as? [String:Any];
-        var font:CGFloat =  20
+        var fontSize:CGFloat =  20
         if let _font  = config?["font"] as? CGFloat{
-            font = _font
+            fontSize = _font
         }
-        
-        let comment = config?["comment"] as? FacebookComment
+        let font = UIFont.systemFont(ofSize: fontSize)
+        guard let comment = config?["comment"] as? FacebookComment else {return}
         //
         let topMargin = 5 * scale
         let avatarSize  = 40 * scale
-        avatarImageView = UIImageView(frame: CGRect(x: 0, y: topMargin, width: avatarSize, height: avatarSize))
+        avatarImageView = UIImageView(frame: CGRect(x: 5 * scale, y: topMargin, width: avatarSize, height: avatarSize))
         avatarImageView?.addBorder(cornerRadius: avatarSize / 2 , color: UIColor.lightGray)
         avatarImageView?.backgroundColor = UIColor.white
 
         self.addSubview(avatarImageView!)
         
         displayLabel = UILabel(frame: CGRect(x: 50 * scale, y: topMargin, width: size.width / 2, height: 20 * scale))
-        displayLabel?.text = comment?.fromName
+        displayLabel?.text = comment.fromName
         displayLabel?.textColor = UIColor.black
-        displayLabel?.font = UIFont.systemFont(ofSize: 13 * scale)
+        displayLabel?.font = font
         self.addSubview(displayLabel!)
         
-        let createDateWidth = 100 * scale
-        createDateLabel = UILabel(frame: CGRect(x: self.frame.width - createDateWidth - 30 * scale, y: topMargin, width: createDateWidth, height:    20 * scale))
-        createDateLabel?.text = comment?.createdTime
+        let createDateWidth = 60 * scale
+        createDateLabel = UILabel(frame: CGRect(x: self.frame.width - createDateWidth - 10 * scale, y: topMargin, width: createDateWidth, height:    20 * scale))
+        let date = Date(milliseconds: comment.createdTime)
+        createDateLabel?.text = date.converToString()
         createDateLabel?.textColor = UIColor.black
-        createDateLabel?.font = UIFont.systemFont(ofSize: 13 * scale)
+        createDateLabel?.font = font
         createDateLabel?.textAlignment = .right
+        
         self.addSubview(createDateLabel!)
         
         //
-        let messageLabelHeight = size.height - 20 * scale
-        contentLabel = UILabel(frame: CGRect(x: 50 * scale, y: 20 * scale, width: self.frame.width - 60 * scale, height: messageLabelHeight * scale))
-        contentLabel?.text = comment?.message
+        var contentHeight = comment.message.heightWithConstrainedWidth(width: self.frame.width - 60 * scale, font: UIFont.systemFont(ofSize: fontSize * scale))
+        if contentHeight < 25 * scale{
+            contentHeight = 25 * scale
+        }else if contentHeight > 50 * scale{
+            contentHeight = 50 * scale
+        }
+
+//        let messageLabelHeight = size.height - 20 * scale
+        contentLabel = UILabel(frame: CGRect(x: 50 * scale, y: 22 * scale, width: self.frame.width - 60 * scale, height: contentHeight))
+        contentLabel?.text = comment.message
         contentLabel?.textColor = UIColor.black
-        contentLabel?.font = UIFont.systemFont(ofSize: font)
+        contentLabel?.font = font
+        contentLabel?.numberOfLines = 0
         self.addSubview(contentLabel!)
         
         /**/
@@ -84,21 +94,21 @@ class CommentMaskView: UIView {
         
         self.addSubview(closeButton!)
         self.backgroundColor = UIColor.white
-        self.addBorder(cornerRadius: 5, color: UIColor.clear)
+        self.addBorder(cornerRadius: 5 * scale, color: UIColor.clear)
     }
     func updateContent(){
         if let config = WarterMarkServices.shared().params["pin"] as? [String:Any]{
-            var font:CGFloat = 20
-            if let _font = config["font"] as? CGFloat{
-                font = _font
-            }
-            let comment = config["comment"] as? FacebookComment
-            contentLabel?.font = UIFont.systemFont(ofSize: font)
-            contentLabel?.text = comment?.message
-            createDateLabel?.text = comment?.getTimerText()
-            displayLabel?.text = comment?.fromName
-            let facebookProfileUrl = "http://graph.facebook.com/\(comment?.fromId ?? "0")/picture?type=large"
-            let url = URL(string: facebookProfileUrl)
+//            var fontSize:CGFloat =  20
+//            if let _font  = config["font"] as? CGFloat{
+//                fontSize = _font
+//            }
+//            let font = UIFont.systemFont(ofSize: fontSize)
+            guard let comment = config["comment"] as? FacebookComment else{return}
+            contentLabel?.text = comment.message
+            createDateLabel?.text = comment.getTimerText()
+            displayLabel?.text = comment.fromName
+            let facebookProfileUrl = "http://graph.facebook.com/\(comment.fromId)/picture?type=large"
+            let url = URL(string: comment.thumbnail ?? facebookProfileUrl)
 
 
             avatarImageView?.kf.setImage(with: url,

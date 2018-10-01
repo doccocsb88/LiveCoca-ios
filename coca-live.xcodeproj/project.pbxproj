@@ -81,7 +81,6 @@
 		189C0F00210A22B800ADF7FF /* StreamHistoryViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 189C0EFE210A22B800ADF7FF /* StreamHistoryViewCell.xib */; };
 		18AF752F211B4E510087FDB3 /* Videos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AF752E211B4E510087FDB3 /* Videos.swift */; };
 		18AF7531211B52FA0087FDB3 /* galaxy.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 18AF7530211B52D20087FDB3 /* galaxy.mp4 */; };
-		18DB2AAC210CA3F9005864E1 /* FacebookServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DB2AAB210CA3F9005864E1 /* FacebookServices.swift */; };
 		18DB2AB8210CC226005864E1 /* FacebookInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DB2AB7210CC226005864E1 /* FacebookInfo.swift */; };
 		18DBC7EA211204A500C34D3E /* APIUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DBC7E9211204A500C34D3E /* APIUtils.swift */; };
 		18DBC7EC2114ADEE00C34D3E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DBC7EB2114ADEE00C34D3E /* User.swift */; };
@@ -397,7 +396,6 @@
 		189C0EFE210A22B800ADF7FF /* StreamHistoryViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StreamHistoryViewCell.xib; sourceTree = "<group>"; };
 		18AF752E211B4E510087FDB3 /* Videos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Videos.swift; sourceTree = "<group>"; };
 		18AF7530211B52D20087FDB3 /* galaxy.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = galaxy.mp4; sourceTree = "<group>"; };
-		18DB2AAB210CA3F9005864E1 /* FacebookServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookServices.swift; sourceTree = "<group>"; };
 		18DB2AAD210CA915005864E1 /* FacebookCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FacebookCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		18DB2AAF210CA929005864E1 /* FacebookLogin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FacebookLogin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		18DB2AB1210CA92D005864E1 /* FacebookShare.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FacebookShare.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1011,7 +1009,6 @@
 			children = (
 				EC295AA921185551005AC814 /* Model */,
 				186020362115B4FB00662714 /* View */,
-				18DB2AAB210CA3F9005864E1 /* FacebookServices.swift */,
 				18042BDB210D52C500F48229 /* WarterMarkServices.swift */,
 				18DBC7E9211204A500C34D3E /* APIUtils.swift */,
 				0E4B696F2131B00E0052A0C7 /* APIRouter.swift */,
@@ -2127,7 +2124,6 @@
 				EC7979D72154A1EB00AC5B27 /* GPUImageRGBFilter.m in Sources */,
 				0E4B698C2135A2A80052A0C7 /* APIClient.swift in Sources */,
 				DB9C406E1E70527D00CCBD83 /* AppDelegate.swift in Sources */,
-				18DB2AAC210CA3F9005864E1 /* FacebookServices.swift in Sources */,
 				EC79795E2154A1EB00AC5B27 /* GLProgram.m in Sources */,
 				EC7979632154A1EB00AC5B27 /* GPUImageAlphaBlendFilter.m in Sources */,
 				EC2CB9D8215349B80054C8DB /* CocaStream.swift in Sources */,

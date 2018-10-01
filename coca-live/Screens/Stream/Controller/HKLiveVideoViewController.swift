@@ -9,6 +9,7 @@
 import UIKit
 
 class HKLiveVideoViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate {
+    fileprivate let FETCH_COMMENT_TIME:TimeInterval = 60
     fileprivate let reuseCountDown = "CountDownViewCell"
     fileprivate let reuseSlogan = "SloganViewCell"
     fileprivate let reuseFrame = "FrameViewCellV2"
@@ -96,7 +97,7 @@ class HKLiveVideoViewController: BaseViewController, UITableViewDelegate, UITabl
     var timer:Timer?
     var didStreamEndedHandler:() ->() = {}
     var streamState:StreamState = .Init
-    
+    var commentPage:Int = 1
     override func viewDidLoad() {
         super.viewDidLoad()
 //          1920x1080
@@ -212,18 +213,21 @@ class HKLiveVideoViewController: BaseViewController, UITableViewDelegate, UITabl
 
     func initializeUserInterface() {
         
-        self.blurOverlay = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
-        self.blurOverlay.frame = self.view.bounds
+        DispatchQueue.main.async {[unowned self] in
+            self.blurOverlay = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
+            self.blurOverlay.frame = self.view.bounds
+            
+            
+            self.switchCameraButton.imageView?.contentMode = UIViewContentMode.scaleAspectFit
+            self.commentButton.imageView?.contentMode = UIViewContentMode.scaleAspectFit
+            self.chatButton.imageView?.contentMode = UIViewContentMode.scaleAspectFit
+            self.stopStreamButton.layer.cornerRadius = 2
+            self.stopStreamButton.layer.masksToBounds = true
+            self.stopStreamButton.layer.borderColor = UIColor.white
+                .cgColor
+            self.stopStreamButton.layer.borderWidth = 1
+        }
         
-
-        switchCameraButton.imageView?.contentMode = UIViewContentMode.scaleAspectFit
-         commentButton.imageView?.contentMode = UIViewContentMode.scaleAspectFit
-         chatButton.imageView?.contentMode = UIViewContentMode.scaleAspectFit
-         stopStreamButton.layer.cornerRadius = 2
-         stopStreamButton.layer.masksToBounds = true
-         stopStreamButton.layer.borderColor = UIColor.white
-        .cgColor
-         stopStreamButton.layer.borderWidth = 1
     }
     
 
@@ -260,7 +264,6 @@ class HKLiveVideoViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     @IBAction func chatTapped(_ sender: Any) {
         chatTextView.text = ""
-        FacebookServices.shared().postComment(message: "", streamId: "", tokenString: "");
         self.view.endEditing(true)
     }
     
@@ -696,7 +699,9 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
         case LFLiveState.start:
             streamState = .Streaming
             stopStreamButton.setTitle("Kết thúc", for: .normal)
-            getCommentsTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(fetchStreamComments), userInfo: nil, repeats: false)
+            if getCommentsTimer == nil{
+                getCommentsTimer = Timer.scheduledTimer(timeInterval: FETCH_COMMENT_TIME, target: self, selector: #selector(fetchStreamComments), userInfo: nil, repeats: true)
+            }
             break;
         case LFLiveState.error:
             removeTimer()
@@ -708,6 +713,7 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
             removeTimer()
             WarterMarkServices.shared().resetConfig()
             removeStreamControlView()
+            APIClient.shared().comments.removeAll()
 //            self.dismiss(animated: true) {
 //            }
             didStreamEndedHandler()
@@ -748,46 +754,46 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
 
     }
     private func updateStreamControlView(){
-        if let pinComment = WarterMarkServices.shared().params["pin"] as? [String:Any],pinComment.keys.count > 0,let comment =  pinComment["comment"] as? FacebookComment{
-            if let _ = pinCommentView {
-                pinCommentView?.updateContent()
-                pinCommentView?.showCloseButton()
-            }else{
-                
-                let font = pinComment["font"] as? CGFloat
-                let width:CGFloat = self.view.bounds.width - 20
-
-                let labelHeight = comment.message .heightWithConstrainedWidth(width: width - 60, font: UIFont.systemFont(ofSize: font ?? 20))
-                let height:CGFloat = (30 + labelHeight )
-
-                let top:CGFloat = self.view.bounds.height - height - 50
-                
-                let frame =  CGRect(x: 10 , y: top , width: width, height: height)
-                pinCommentView = CommentMaskView(frame:frame,scale: 1)
-                
-                pinCommentView?.updateContent()
-                pinCommentView?.showCloseButton()
-                
-                pinCommentView?.frame = frame
-                pinCommentView?.tappedCloseHandle = {
-                    WarterMarkServices.shared().removePinComment()
-                    self.updateStreamControlView()
-                    self.updateWatermarkView(nil)
-                }
-                self.view.addSubview(pinCommentView!)
-            }
-            let view  = pinCommentView?.copyView()  as? CommentMaskView
-            let scale = videoSize.width / UIScreen.main.bounds.width
-            view?.transform = CGAffineTransform(scaleX: scale, y: scale)
-            view?.hideCloseButton()
-            WarterMarkServices.shared().pinCommentView = view
-            
-        }else{
-            pinCommentView?.removeFromSuperview()
-            pinCommentView = nil
-            WarterMarkServices.shared().pinCommentView = nil
-
-        }
+//        if let pinComment = WarterMarkServices.shared().params["pin"] as? [String:Any],pinComment.keys.count > 0,let comment =  pinComment["comment"] as? FacebookComment{
+//            if let _ = pinCommentView {
+//                pinCommentView?.updateContent()
+//                pinCommentView?.showCloseButton()
+//            }else{
+//                
+//                let font = pinComment["font"] as? CGFloat
+//                let width:CGFloat = self.view.bounds.width - 20
+//
+//                let labelHeight = comment.message .heightWithConstrainedWidth(width: width - 60, font: UIFont.systemFont(ofSize: font ?? 20))
+//                let height:CGFloat = (30 + labelHeight )
+//
+//                let top:CGFloat = self.view.bounds.height - height - 50
+//                
+//                let frame =  CGRect(x: 10 , y: top , width: width, height: height)
+//                pinCommentView = CommentMaskView(frame:frame,scale: 1)
+//                
+//                pinCommentView?.updateContent()
+//                pinCommentView?.showCloseButton()
+//                
+//                pinCommentView?.frame = frame
+//                pinCommentView?.tappedCloseHandle = {
+//                    WarterMarkServices.shared().removePinComment()
+//                    self.updateStreamControlView()
+//                    self.updateWatermarkView(nil)
+//                }
+//                self.view.addSubview(pinCommentView!)
+//            }
+//            let view  = pinCommentView?.copyView()  as? CommentMaskView
+//            let scale = videoSize.width / UIScreen.main.bounds.width
+//            view?.transform = CGAffineTransform(scaleX: scale, y: scale)
+//            view?.hideCloseButton()
+//            WarterMarkServices.shared().pinCommentView = view
+//            
+//        }else{
+//            pinCommentView?.removeFromSuperview()
+//            pinCommentView = nil
+//            WarterMarkServices.shared().pinCommentView = nil
+//
+//        }
 
         if WarterMarkServices.shared().hasRandomView(){
             updateTimer?.invalidate()
@@ -884,39 +890,41 @@ extension HKLiveVideoViewController : LFLiveSessionDelegate {
     }
      @objc func fetchStreamComments(){
         print("fetchStreamComments")
-        let dumMessage:[String] = ["comment a", "comment b", "comment c", "comment d","comemnt e","comment f"];
-        let dumCreatedTime:[String] = ["2018-09-02T11:44:39+0000", "2018-09-02T10:41:39+0000", "2018-09-02T19:12:39+0000", "2018-09-02T09:56:39+0000","2018-09-02T15:29:39+0000","2018-09-02T07:23:39+0000"];
+//        let dumMessage:[String] = ["comment a", "comment b", "comment c", "comment d","comemnt e","comment f"];
+//        let dumCreatedTime:[String] = ["2018-09-02T11:44:39+0000", "2018-09-02T10:41:39+0000", "2018-09-02T19:12:39+0000", "2018-09-02T09:56:39+0000","2018-09-02T15:29:39+0000","2018-09-02T07:23:39+0000"];
 
-        if let view = self.commentView{
-            var dummyComments:[FacebookComment] = []
-            for i in 0..<10{
-                let index = i % dumMessage.count
-                let comment = FacebookComment(message:dumMessage[index] , commentId: "\(i)", createTime: dumCreatedTime[index], fromId: "\(i)\(i)", fromName: "name\(i)")
-                dummyComments.append(comment)
-            }
-            view.reloadData(data: dummyComments)
-            APIClient.shared().comments = dummyComments
-            
-            if WarterMarkServices.shared().hasFilterCommentView() || WarterMarkServices.shared().hasCountCommentView(){
-                self.updateWatermarkView(nil)
-            }
-        }
+//        if let view = self.commentView{
+//            var dummyComments:[FacebookComment] = []
+//            for i in 0..<10{
+//                let index = i % dumMessage.count
+//                let comment = FacebookComment(message:dumMessage[index] , commentId: "\(i)", createTime: dumCreatedTime[index], fromId: "\(i)\(i)", fromName: "name\(i)")
+//                dummyComments.append(comment)
+//            }
+//            view.reloadData(data: dummyComments)
+//            APIClient.shared().comments = dummyComments
+//            
+//            if WarterMarkServices.shared().hasFilterCommentView() || WarterMarkServices.shared().hasCountCommentView(){
+//                self.updateWatermarkView(nil)
+//            }
+//        }
         
         guard let id_room = self.id_room else{return}
 
-        APIClient.shared().getComments(id_strem: id_room) { (success, comments) in
-            if success{
+        APIClient.shared().getComments(id_room,commentPage) {[unowned self] (success, comments) in
                 if success{
-                 
-                    self.commentView?.reloadData(data: comments)
-                    APIClient.shared().comments = comments
-
-                    if WarterMarkServices.shared().hasFilterCommentView(){
-                        self.updateWatermarkView(nil)
+                    if  comments.count > 0{
+                        APIClient.shared().addComments(comments)
+                        self.commentView?.reloadData(data: APIClient.shared().comments)                        
+                        if WarterMarkServices.shared().hasFilterCommentView() || WarterMarkServices.shared().hasCountCommentView(){
+                            self.updateWatermarkView(nil)
+                        }
+                        if comments.count == 10{
+                            self.commentPage = self.commentPage + 1
+                        }
                     }
                 }
 
-            }
+            
         }
     }
     //MARK: - Getters and Setters

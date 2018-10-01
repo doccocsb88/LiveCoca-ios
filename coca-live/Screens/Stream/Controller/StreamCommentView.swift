@@ -73,31 +73,19 @@ extension StreamCommentView{
                     let pinComment = self.data[index]
                     self.pinIndex = index
                     WarterMarkServices.shared().configPin(comment: pinComment)
-                    self.didPinComment()
                 }
             }else{
                 self.pinIndex = NSNotFound
                 WarterMarkServices.shared().removePinComment()
             }
+            self.didPinComment()
+
             self.tableView?.reloadData()
             
         }
-        let url = URL(string: "http://graph.facebook.com/\(comment.fromId)/picture?type=square&access_token=\(FacebookServices.shared().curPage?.tokenString ?? "")")
+        let url = URL(string: comment.thumbnail ?? "")
         
-        cell.avatarImageView.kf.setImage(with: url,
-                                    placeholder: nil,
-                                    options: [.transition(ImageTransition.fade(1))],
-                                    progressBlock: { receivedSize, totalSize in
-                                        print("\(indexPath.row + 1): \(receivedSize)/\(totalSize)")
-        },
-                                    completionHandler: { image, error, cacheType, imageURL in
-                                        if let error  =  error{
-                                            print("\(indexPath.row + 1): \(error.description)")
-                                        }else{
-                                            print("\(indexPath.row + 1): Finished")
-
-                                        }
-        })
+        cell.avatarImageView.kf.setImage(with: url)
         cell.backgroundColor = UIColor.clear
         cell.selectionStyle = .none
         

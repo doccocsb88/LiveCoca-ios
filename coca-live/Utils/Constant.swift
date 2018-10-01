@@ -39,7 +39,10 @@ struct K {
         static let filter_status = "filter_status"
         static let page = "page"
         static let page_size = "page_size"
+        static let order_by = "order_by"
 
+        //
+        
     }
     struct APIUploadType{
         static let unknow = "unknow"

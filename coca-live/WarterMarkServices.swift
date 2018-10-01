@@ -13,7 +13,7 @@ class WarterMarkServices{
     var randomView:RandomMaskView?
     var countCommentView:CountCommentMaskView?
     var countdownView:CountdownMaskView?
-    var pinCommentView:CommentMaskView?
+//    var pinCommentView:CommentMaskView?
     static let sharedInstance : WarterMarkServices = {
         let instance = WarterMarkServices()
         return instance
@@ -85,30 +85,31 @@ class WarterMarkServices{
             
         }
         if let pinComment = params["pin"] as? [String:Any],pinComment.keys.count > 0,let comment =  pinComment["comment"] as? FacebookComment{
-            if  let view = pinCommentView{
-                view.removeFromSuperview()
-                
-            }
+            
 
-            let font = pinComment["font"] as? CGFloat
+            let fontSize = pinComment["font"] as? CGFloat ?? 20
+            let font = UIFont.systemFont(ofSize: fontSize)
             let width = self.frame.size.width - 20 * scale
 
-            let labelHeight = comment.message .heightWithConstrainedWidth(width: width - 60 * scale, font: UIFont.systemFont(ofSize: font ?? 20))
-                
+            var labelHeight = comment.message.heightWithConstrainedWidth(width: width - 60 * scale, font: font)
+            if labelHeight < 25{
+                labelHeight = 25
+            }else if labelHeight > 50{
+                labelHeight = 50
+            }
             let height:CGFloat = (30 + labelHeight ) * scale
             let top = self.frame.size.height - height - 50 * scale
             
             let frame =  CGRect(x: 10 * scale, y: top , width: width, height: height)
-            if pinCommentView == nil{
-                pinCommentView = CommentMaskView(frame:frame,scale: scale)
-            }
-            pinCommentView?.updateContent()
-            pinCommentView?.frame = frame
-            pinCommentView?.hideCloseButton()
-            watermarkView.addSubview(pinCommentView!)
+            let pinCommentView = CommentMaskView(frame:frame,scale: scale)
+            
+            pinCommentView.updateContent()
+            pinCommentView.frame = frame
+            pinCommentView.hideCloseButton()
+            watermarkView.addSubview(pinCommentView)
         }else{
-            pinCommentView?.removeFromSuperview()
-            pinCommentView = nil
+//            pinCommentView?.removeFromSuperview()
+//            pinCommentView = nil
         }
         if let filterComment = params[ConfigKey.filterComment] as? [String:Any], filterComment.keys.count > 0{
             let height = 30 * 6 * scale;
@@ -346,8 +347,8 @@ class WarterMarkServices{
         countCommentView?.removeFromSuperview()
         countdownView = nil
         countdownView?.removeFromSuperview()
-        pinCommentView = nil
-        pinCommentView?.removeFromSuperview()
+//        pinCommentView = nil
+//        pinCommentView?.removeFromSuperview()
 
     }
 }
