@@ -111,9 +111,11 @@ class FilterCommentMaskView: UIView, UITableViewDelegate, UITableViewDataSource 
             let start = config["start"] as? String ?? "0:0"
             let end = config["end"] as? String ?? "0:0"
             data.removeAll()
+            NSLog("filtercomment %ld", APIClient.shared().comments.count)
             for comment in APIClient.shared().comments{
                 let commentTime = comment.getTimerText()
-                
+                NSLog("filtercomment %@", commentTime)
+
                 if comment.message == message, APIUtils.compareHour(commentTime, start) == .after, APIUtils.compareHour(commentTime, end) == .before{
                     data.append(comment)
                 }
