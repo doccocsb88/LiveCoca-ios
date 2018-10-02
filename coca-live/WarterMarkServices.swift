@@ -53,6 +53,18 @@ class WarterMarkServices{
 
             return watermarkView
         }else{
+            if let config = params[ConfigKey.stopStream] as? [String:Any],config.keys.count > 0{
+                if let image = config["image"] as? UIImage{
+                    let imageView = UIImageView(frame: self.frame)
+                    imageView.contentMode = .scaleAspectFill
+                    imageView.clipsToBounds = true
+                    imageView.image = image
+                    watermarkView.addSubview(imageView)
+                    return watermarkView
+                    
+                }
+                
+            }
             if let _  = countdownView{
                 countdownView!.removeFromSuperview()
                 countdownView = nil
@@ -88,16 +100,12 @@ class WarterMarkServices{
             
 
             let fontSize = pinComment["font"] as? CGFloat ?? 20
-            let font = UIFont.systemFont(ofSize: fontSize)
+            let font = UIFont.systemFont(ofSize: fontSize * scale)
             let width = self.frame.size.width - 20 * scale
 
             var labelHeight = comment.message.heightWithConstrainedWidth(width: width - 60 * scale, font: font)
-            if labelHeight < 25{
-                labelHeight = 25
-            }else if labelHeight > 50{
-                labelHeight = 50
-            }
-            let height:CGFloat = (30 + labelHeight ) * scale
+
+            let height:CGFloat = 30 * scale + labelHeight
             let top = self.frame.size.height - height - 50 * scale
             
             let frame =  CGRect(x: 10 * scale, y: top , width: width, height: height)
@@ -112,7 +120,7 @@ class WarterMarkServices{
 //            pinCommentView = nil
         }
         if let filterComment = params[ConfigKey.filterComment] as? [String:Any], filterComment.keys.count > 0{
-            let height = 30 * 6 * scale;
+            let height = 30 * 6 * scale + 40 * scale;
             let filterCommentView = FilterCommentMaskView(frame: CGRect(x: 0, y: self.frame.size.height / 10, width: self.frame.size.width, height: height), scale: scale)
             filterCommentView.updateContent()
             watermarkView.addSubview(filterCommentView)
@@ -337,6 +345,15 @@ class WarterMarkServices{
             }
         }
         return false
+    }
+    func isStopStream() -> Bool{
+        if let config = params[ConfigKey.stopStream] as? [String:Any],config.keys.count > 0{
+            return true
+        }
+        return false
+    }
+    func configStopStream(_ config:[String:Any]){
+        params[ConfigKey.stopStream] = config
     }
     func resetConfig(){
         params = [:]

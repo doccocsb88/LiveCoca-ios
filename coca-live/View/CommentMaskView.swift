@@ -67,18 +67,18 @@ class CommentMaskView: UIView {
         self.addSubview(createDateLabel!)
         
         //
-        var contentHeight = comment.message.heightWithConstrainedWidth(width: self.frame.width - 60 * scale, font: UIFont.systemFont(ofSize: fontSize + 3))
-        if contentHeight < 25 * scale{
-            contentHeight = 25 * scale
-        }else if contentHeight > 50 * scale{
-            contentHeight = 50 * scale
-        }
+        var contentHeight = comment.message.heightWithConstrainedWidth(width: self.frame.width - 60 * scale, font: UIFont.systemFont(ofSize: fontSize * scale))
+//        if contentHeight < 25 * scale{
+//            contentHeight = 25 * scale
+//        }else if contentHeight > 50 * scale{
+//            contentHeight = 50 * scale
+//        }
 
 //        let messageLabelHeight = size.height - 20 * scale
         contentLabel = UILabel(frame: CGRect(x: 50 * scale, y: 22 * scale, width: self.frame.width - 60 * scale, height: contentHeight))
         contentLabel?.text = comment.message
         contentLabel?.textColor = UIColor.black
-        contentLabel?.font = UIFont.systemFont(ofSize: fontSize + 3)
+        contentLabel?.font = UIFont.systemFont(ofSize: fontSize * scale)
         contentLabel?.numberOfLines = 0
         self.addSubview(contentLabel!)
         

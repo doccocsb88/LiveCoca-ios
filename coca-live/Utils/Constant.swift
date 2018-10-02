@@ -82,4 +82,6 @@ struct ConfigKey{
     static let countComment = "config_count_comment"
     static let filterComment = "config_filter_comment"
     static let childImage = "config_child_image"
+    static let stopStream = "config_stop_stream"
+
 }

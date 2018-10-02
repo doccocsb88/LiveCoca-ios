@@ -273,6 +273,11 @@ class HKLiveVideoViewController: BaseViewController, UITableViewDelegate, UITabl
             startLive()
         }else if streamState == .Streaming{
             if let _ = self.id_room{
+                if let byeImage = StreamConfig.shared().byeImage{
+                    let config:[String:Any] = ["image":byeImage]
+                    WarterMarkServices.shared().configStopStream(config)
+                    updateWatermarkView(nil)
+                }
                 APIClient.shared().endLive(id_room: self.id_room!) { (success, message) in
                     self.stopLive()
                 }

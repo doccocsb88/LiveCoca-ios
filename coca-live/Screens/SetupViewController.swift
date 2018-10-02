@@ -36,6 +36,8 @@ class SetupViewController: BaseViewController, UICollectionViewDelegate, UIColle
     @IBOutlet weak var streamScreenView: UIView!
     @IBOutlet weak var waitImageView: UIImageView!
     @IBOutlet weak var byeImageView: UIImageView!
+    @IBOutlet weak var waitScreenLabel: UILabel!
+    @IBOutlet weak var byeScreenLabel: UILabel!
     
     
     @IBOutlet weak var streamScreenHeightConstraint: NSLayoutConstraint!
@@ -163,7 +165,11 @@ class SetupViewController: BaseViewController, UICollectionViewDelegate, UIColle
         openScreenButton.isSelected = viewIndex == 1
         openFrameButton.isSelected = viewIndex == 2
         openUploadButton.isSelected = viewIndex == 3
-
+        //
+    
+        waitScreenLabel.isHidden = viewIndex != 1
+        byeScreenLabel.isHidden = viewIndex != 1
+        //
         UIView.animate(withDuration: 1.0, animations: {
             
         }) { (finished) in
@@ -173,9 +179,11 @@ class SetupViewController: BaseViewController, UICollectionViewDelegate, UIColle
     @IBAction func openStreamScreenTapped(_ sender: Any) {
         if viewIndex == 1{
             viewIndex = 0
+            
         }else{
             viewIndex = 1
         }
+       
         toggleCurrentView()
   
     }

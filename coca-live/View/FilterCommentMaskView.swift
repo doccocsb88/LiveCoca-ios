@@ -19,6 +19,8 @@ class FilterCommentMaskView: UIView, UITableViewDelegate, UITableViewDataSource 
     var timeLabel:UILabel?
     var tableView:UITableView?
     var data:[FacebookComment] = []
+    var titleLabel:UILabel?;
+    var logoImageView:UIImageView?
     init(frame: CGRect, scale:CGFloat) {
         super.init(frame: frame)
         self.scale = scale
@@ -35,7 +37,27 @@ class FilterCommentMaskView: UIView, UITableViewDelegate, UITableViewDataSource 
     
     func initView(){
         let size = self.bounds.size
-        headerVew = UIView(frame: CGRect(x: 0, y: 0, width: size.width, height: 30 * scale));
+        //
+        var marginTop:CGFloat = 5 * scale
+        titleLabel = UILabel(frame: CGRect(x: size.width / 4, y: marginTop, width: size.width / 2, height: 30 * scale))
+        titleLabel?.textAlignment = .center
+        titleLabel?.font = UIFont.systemFont(ofSize: 20)
+        titleLabel?.text = "Danh sách người tham gia"
+        titleLabel?.textColor = .black
+        self.addSubview(titleLabel!)
+        
+        //
+        let logoHeight = 20 * scale
+        let logoWidth = logoHeight * 3.75
+        let logoTopMargin = 10 * scale
+        logoImageView = UIImageView(frame: CGRect(x: size.width - logoWidth - 10 * scale, y: logoTopMargin, width: logoWidth, height: logoHeight))
+        logoImageView?.contentMode = .scaleAspectFit
+        logoImageView?.image = UIImage(named: "ic_logo_color")
+        
+        self.addSubview(logoImageView!)
+        //
+        marginTop = 40 * scale
+        headerVew = UIView(frame: CGRect(x: 0, y: marginTop, width: size.width, height: 30 * scale));
         headerVew?.backgroundColor = UIColor(hexString: "#fc6076")
         self.addSubview(headerVew!)
         //
@@ -77,7 +99,8 @@ class FilterCommentMaskView: UIView, UITableViewDelegate, UITableViewDataSource 
         headerVew?.addSubview(timeLabel!)
         
         //
-        tableView = UITableView(frame: CGRect(x: 0, y: headerHeight, width: size.width, height: headerHeight * 10));
+        marginTop = marginTop + headerHeight
+        tableView = UITableView(frame: CGRect(x: 0, y: marginTop, width: size.width, height: headerHeight * 10));
         tableView?.delegate = self;
         tableView?.dataSource = self;
         tableView?.backgroundColor = .clear;
