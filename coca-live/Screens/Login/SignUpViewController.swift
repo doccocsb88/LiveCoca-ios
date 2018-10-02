@@ -66,7 +66,8 @@ class SignUpViewController: BaseViewController {
         nameView.imageEdgeInsets = UIEdgeInsets(top: 8, left: 5, bottom: 8, right: 5)
         fullnameTextfield.leftView = nameView
         fullnameTextfield.leftViewMode = .always
-        
+        //
+        closeButton.imageView?.contentMode = .scaleAspectFit
         
         //
         registerButton.addBorder(cornerRadius: registerButton.frame.height / 2, color: .clear)
